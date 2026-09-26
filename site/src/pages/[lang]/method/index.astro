@@ -1,0 +1,56 @@
+---
+// The learning method: what Swiss Passport does (retrieval, spacing, feedback, mixing) and the research behind it.
+import Base from "../../../layouts/Base.astro";
+import { UI } from "../../../ui.js";
+import { METHOD, SOURCES } from "../../../method.js";
+import { SITE } from "../../../site.js";
+import { LANG_IDS, methodPath, questionsPath } from "../../../data.js";
+
+export function getStaticPaths() {
+  return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
+}
+
+const { lang } = Astro.props;
+const m = METHOD[lang];
+const ui = UI[lang];
+const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, methodPath(id)]));
+const doi = (id) => `https://doi.org/${id}`;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: m.title,
+  description: m.desc,
+  inLanguage: lang,
+  url: new URL(methodPath(lang), SITE).href,
+  author: { "@type": "Person", name: "Aleksej Dix", url: "https://github.com/AleksejDix" },
+  isPartOf: { "@type": "WebSite", name: "Swiss Passport", url: SITE },
+  citation: SOURCES.map((s) => ({ "@type": "ScholarlyArticle", name: s.cite, url: doi(s.doi) })),
+};
+---
+<Base lang={lang} title={m.title} description={m.desc} alternates={alternates} jsonLd={jsonLd}>
+<main class="page">
+  <header class="qhead">
+    <h1>{m.title}</h1>
+    <p class="lede">{m.lede}</p>
+  </header>
+
+  {m.sections.map(([heading, paragraphs], i) => (
+    <section class="row" aria-labelledby={`m${i}`}>
+      <h2 id={`m${i}`}>{heading}</h2>
+      <div class="prose">{paragraphs.map((p) => <p>{p}</p>)}</div>
+    </section>
+  ))}
+
+  <section class="row" aria-labelledby="sources">
+    <h2 id="sources">{ui.sources}</h2>
+    <ul class="sources">
+      {SOURCES.map((s) => <li lang="en">{s.cite} <a href={doi(s.doi)} rel="noopener">doi:{s.doi}</a></li>)}
+    </ul>
+  </section>
+
+  <nav class="row qnav" aria-label={m.link}>
+    <p class="cta"><a class="button" href="/learn/">{ui.practise}</a></p>
+    <p><a href={questionsPath(lang)}>{ui.nav_questions}</a></p>
+  </nav>
+</main>
+</Base>

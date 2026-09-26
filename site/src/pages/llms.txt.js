@@ -1,7 +1,8 @@
 // llms.txt: a plain-text map of the site for AI assistants (https://llmstxt.org).
 import { SITE } from "../site.js";
-import { TEXT, LANG_IDS, questions, topics, questionPath, questionsPath, topicPath, guidePath } from "../data.js";
+import { TEXT, LANG_IDS, questions, topics, questionPath, questionsPath, topicPath, guidePath, methodPath } from "../data.js";
 import { GUIDE } from "../guide.js";
+import { METHOD } from "../method.js";
 
 export function GET() {
   const en = TEXT.en;
@@ -16,6 +17,10 @@ export function GET() {
     "## About the test",
     "",
     ...LANG_IDS.map((lang) => `- [${GUIDE[lang].title}](${url(guidePath(lang))})`),
+    "",
+    "## Learning method",
+    "",
+    ...LANG_IDS.map((lang) => `- [${METHOD[lang].title}](${url(methodPath(lang))})`),
     "",
     "## Question lists",
     "",

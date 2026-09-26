@@ -2,7 +2,8 @@
 // Homepage in one language, at /de/, /en/, /fr/ and so on. The language picker is at /.
 import Base from "../../layouts/Base.astro";
 import { STRINGS } from "../../scripts/i18n.js";
-import { LANG_IDS, homePath } from "../../data.js";
+import { LANG_IDS, homePath, methodPath } from "../../data.js";
+import { METHOD } from "../../method.js";
 import { SITE } from "../../site.js";
 
 export function getStaticPaths() {
@@ -69,6 +70,7 @@ const jsonLd = {
       <div><dt>{s.m4t}</dt><dd>{s.m4d}</dd></div>
       <div><dt>{s.m5t}</dt><dd>{s.m5d}</dd></div>
     </dl>
+    <p class="note"><a href={methodPath(lang)}>{METHOD[lang].link} →</a></p>
   </section>
 
   <section class="row" aria-labelledby="reviews">
