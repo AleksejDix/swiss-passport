@@ -55,7 +55,7 @@ const jsonLd = {
 <Base lang={lang} title={title} description={description} alternates={alternates} jsonLd={jsonLd}>
 <main class="page question">
   <header class="qhead">
-    <p class="small">{ui.question_n.replace("{n}", q.n)} · <a href={`${questionsPath(lang)}#${q.lesson}`}>{lesson.title}</a></p>
+    <p class="small meta"><span>{ui.question_n.replace("{n}", q.n)}</span> <a href={`${questionsPath(lang)}#${q.lesson}`}>{lesson.title}</a></p>
     <h1>{text.question}</h1>
     {lang !== "de" && <p class="qde" lang="de">{de.question}</p>}
     {q.image && <img class="qpicture" src={img(q.image)} alt={text.question} loading="lazy">}
@@ -101,7 +101,7 @@ const jsonLd = {
     <div>
       <p><strong><a href={topicPath(lang, q.concept)}>{concept.title}</a></strong></p>
       <p>{concept.intro[0]}</p>
-      <p class="small">{t.units[unit].title} · {lesson.title}</p>
+      <p class="small">{t.units[unit].title}<br>{lesson.title}</p>
       {q.concept.sources?.length > 0 && (
         <>
           <h3>{ui.sources}</h3>

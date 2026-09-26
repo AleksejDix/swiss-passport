@@ -63,16 +63,11 @@ const jsonLd = {
   <section class="row" aria-labelledby="method">
     <h2 id="method">{s.method}</h2>
     <dl class="method">
-      <dt>{s.m1t}</dt>
-      <dd>{s.m1d}</dd>
-      <dt>{s.m2t}</dt>
-      <dd>{s.m2d}</dd>
-      <dt>{s.m3t}</dt>
-      <dd>{s.m3d}</dd>
-      <dt>{s.m4t}</dt>
-      <dd>{s.m4d}</dd>
-      <dt>{s.m5t}</dt>
-      <dd>{s.m5d}</dd>
+      <div><dt>{s.m1t}</dt><dd>{s.m1d}</dd></div>
+      <div><dt>{s.m2t}</dt><dd>{s.m2d}</dd></div>
+      <div><dt>{s.m3t}</dt><dd>{s.m3d}</dd></div>
+      <div><dt>{s.m4t}</dt><dd>{s.m4d}</dd></div>
+      <div><dt>{s.m5t}</dt><dd>{s.m5d}</dd></div>
     </dl>
   </section>
 
@@ -104,8 +99,8 @@ const jsonLd = {
 
   <section class="row" id="start" aria-labelledby="start-title">
     <h2 id="start-title">{s.start}</h2>
-    <div>
-      <h3 class="first">{s.s_browser}</h3>
+    <div class="pairs">
+      <h3>{s.s_browser}</h3>
       <p set:html={s.s_browser_p}></p>
       <h3>{s.s_connector}</h3>
       <p>{s.s_connector_p}</p>

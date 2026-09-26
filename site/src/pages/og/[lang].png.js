@@ -5,16 +5,17 @@ import { Resvg } from "@resvg/resvg-js";
 import { STRINGS } from "../../scripts/i18n.js";
 import { LANG_IDS } from "../../data.js";
 
+// Satori reads static fonts only, so the image uses the static cuts of Inter, the typeface of the site.
 // The font comes in one file per script; each gets its own name so Cyrillic text falls back to it.
 const font = (script, weight) => ({
-  name: `Golos ${script}`,
+  name: `Inter ${script}`,
   weight,
   style: "normal",
-  data: readFileSync(`node_modules/@fontsource/golos-text/files/golos-text-${script}-${weight}-normal.woff`),
+  data: readFileSync(`node_modules/@fontsource/inter/files/inter-${script}-${weight}-normal.woff`),
 });
-const FONTS = [font("latin", 400), font("latin", 600), font("cyrillic", 400), font("cyrillic", 600)];
+const FONTS = [font("latin", 400), font("latin", 700), font("cyrillic", 400), font("cyrillic", 700)];
 
-const RED = "#d52b1e";
+const RED = "#da291c"; // Pantone 485 C, the red of the Swiss flag
 const el = (type, style, ...children) => ({ type, props: { style: { display: "flex", ...style }, children } });
 
 export function getStaticPaths() {
@@ -23,17 +24,18 @@ export function getStaticPaths() {
 
 export async function GET({ params }) {
   const s = STRINGS[params.lang];
-  const cross = el("div", { width: 72, height: 72, background: RED, display: "flex", position: "relative" },
-    el("div", { position: "absolute", left: 14, top: 29, width: 44, height: 14, background: "#fff" }),
-    el("div", { position: "absolute", left: 29, top: 14, width: 14, height: 44, background: "#fff" }));
+  // The flag on a 32-unit square scaled by 2: arms 12 wide and 14 long (a sixth longer than wide), 12 from the edge.
+  const cross = el("div", { width: 64, height: 64, background: RED, position: "relative" },
+    el("div", { position: "absolute", left: 12, top: 26, width: 40, height: 12, background: "#fff" }),
+    el("div", { position: "absolute", left: 26, top: 12, width: 12, height: 40, background: "#fff" }));
   const svg = await satori(
     el("div", {
-      width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between",
-      padding: 72, background: "#fff", color: "#000", fontFamily: "Golos latin, Golos cyrillic",
+      width: "100%", height: "100%", flexDirection: "column", justifyContent: "space-between",
+      padding: 72, background: "#fff", color: "#000", fontFamily: "Inter latin, Inter cyrillic",
     },
-      el("div", { display: "flex", alignItems: "center", gap: 24, fontSize: 36, fontWeight: 600 }, cross, "Swiss Passport"),
-      el("div", { display: "flex", fontSize: 76, fontWeight: 600, lineHeight: 1.05, letterSpacing: -2, maxWidth: 1000 }, s.h1),
-      el("div", { display: "flex", fontSize: 32, color: "#767676", borderTop: "4px solid #000", paddingTop: 24 }, `350 ${s.f1}`),
+      el("div", { alignItems: "center", gap: 24, fontSize: 36, fontWeight: 700, letterSpacing: -0.5 }, cross, "Swiss Passport"),
+      el("div", { fontSize: 84, fontWeight: 700, lineHeight: 0.96, letterSpacing: -3.4, maxWidth: 1056 }, s.h1),
+      el("div", { fontSize: 30, color: "#6b6b6b", borderTop: "3px solid #000", paddingTop: 21 }, `350 ${s.f1}`),
     ),
     { width: 1200, height: 630, fonts: FONTS },
   );

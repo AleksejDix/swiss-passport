@@ -24,7 +24,7 @@ const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, questionsPath(id
   {units.map((u) => (
     <section class="row" aria-labelledby={u.id}>
       <h2 id={u.id}>{t.units[u.id].title}</h2>
-      <div>
+      <div class="pairs">
         {u.lessons.map((l) => (
           <>
             <h3 id={l}>{t.lessons[l].title}</h3>

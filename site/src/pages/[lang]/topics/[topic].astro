@@ -38,7 +38,7 @@ const jsonLd = {
 <Base lang={lang} title={title} description={description} alternates={alternates} jsonLd={jsonLd}>
 <main class="page question">
   <header class="qhead">
-    <p class="small">{t.units[c.unit].title} · <a href={`${questionsPath(lang)}#${c.lesson}`}>{lesson.title}</a></p>
+    <p class="small meta"><span>{t.units[c.unit].title}</span> <a href={`${questionsPath(lang)}#${c.lesson}`}>{lesson.title}</a></p>
     <h1>{topic.title}</h1>
   </header>
 
@@ -53,7 +53,7 @@ const jsonLd = {
   {topic.key_terms?.length > 0 && (
     <section class="row" aria-labelledby="terms">
       <h2 id="terms">{ui.key_terms}</h2>
-      <dl class="mistakes">
+      <dl class="pairs">
         {topic.key_terms.map((k) => (
           <>
             <dt lang="de">{k.term}</dt>
