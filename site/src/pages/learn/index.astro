@@ -2,9 +2,12 @@
 // Learn online: the browser client for the MCP tools. One URL for all languages; learn.js picks the language.
 // The font is served from this site, not from Google.
 import "@fontsource-variable/inter/opsz.css";
+// Preloaded so the first paint already uses Inter and text does not reflow when the font arrives.
+import interLatin from "@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2?url";
 import "../../styles/styles.css";
 import "../../styles/learn.css";
 import { SITE } from "../../site.js";
+import { LANGS } from "../../scripts/i18n.js";
 
 // Chrome origin trial: turns on WebMCP (the page tools in learn.js) for https://swiss-passport.com
 // in Chrome 149 to 156. Expires 17 November 2026; renew at https://developer.chrome.com/origintrials/.
@@ -14,6 +17,7 @@ const WEBMCP_TRIAL = "Ah7vqevf8D3IVPeMj+zJrDK0DW9H1YhsqvNHCXPYqtBuaMnmHmLWf3KCrF
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learn online: Swiss Passport</title>
 <meta name="description" content="Practise the 350 official questions of the Zurich naturalisation knowledge test in your browser, in six languages.">
@@ -31,7 +35,10 @@ const WEBMCP_TRIAL = "Ah7vqevf8D3IVPeMj+zJrDK0DW9H1YhsqvNHCXPYqtBuaMnmHmLWf3KCrF
     </svg>
     <span>Swiss Passport</span>
   </a>
-  <nav class="langs-nav" aria-label="Language" data-langs></nav>
+  <!-- Rendered here so the header has its final height before learn.js marks the chosen language. -->
+  <nav class="langs-nav" aria-label="Language" data-langs>
+    {Object.entries(LANGS).map(([id, name]) => <button type="button" lang={id} aria-pressed="false">{name}</button>)}
+  </nav>
 </header>
 <main class="page app" data-app aria-live="polite">
   <p class="small">Loading…</p>

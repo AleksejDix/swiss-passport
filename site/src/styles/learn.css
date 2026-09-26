@@ -1,5 +1,6 @@
 /* Learn online: the practice screens on the grid of styles.css (tokens, masthead, answer rows). */
-.app { padding-bottom: calc(3 * var(--line)); min-height: 60vh; }
+/* A full screen while learn.js loads: the footer starts below the fold, so nothing visible moves. */
+.app { padding-bottom: calc(3 * var(--line)); min-height: 100vh; min-height: 100svh; }
 
 /* Overview and results: title and lead, as on every other page */
 .intro { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--gutter); padding-bottom: calc(3 * var(--line)); }

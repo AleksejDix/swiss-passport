@@ -2,6 +2,8 @@
 // Every page except /learn: head with canonical and language alternates, masthead, footer.
 // The font is served from this site, not from Google.
 import "@fontsource-variable/inter/opsz.css";
+// Preloaded so the first paint already uses Inter and text does not reflow when the font arrives.
+import interLatin from "@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2?url";
 import "../styles/styles.css";
 import { SITE } from "../site.js";
 import { LANGS, STRINGS } from "../scripts/i18n.js";
@@ -20,6 +22,7 @@ const PRIVACY_LABEL = { de: "Datenschutz", en: "Privacy", fr: "Protection des do
 <html lang={lang}>
 <head>
 <meta charset="utf-8">
+<link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content={description}>

@@ -1,6 +1,10 @@
 ---
 // Language picker at /. No language is the default: the learner picks one, and the choice is remembered.
 import "@fontsource-variable/inter/opsz.css";
+// Preloaded so the first paint already uses Inter and text does not reflow when the font arrives.
+import interLatin from "@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2?url";
+// The picker also shows Русский and Українська in large type.
+import interCyrillic from "@fontsource-variable/inter/files/inter-cyrillic-opsz-normal.woff2?url";
 import "../styles/styles.css";
 import { SITE } from "../site.js";
 import { LANGS, STRINGS } from "../scripts/i18n.js";
@@ -14,6 +18,8 @@ const url = (path) => new URL(path, SITE).href;
 <html lang="mul">
 <head>
 <meta charset="utf-8">
+<link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin>
+<link rel="preload" href={interCyrillic} as="font" type="font/woff2" crossorigin>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content={description}>
