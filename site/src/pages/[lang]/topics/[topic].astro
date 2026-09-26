@@ -1,6 +1,8 @@
 ---
 // One page per topic and language: the explanation, key terms, a memory aid, and the exam questions on it.
 import Base from "../../../layouts/Base.astro";
+import HistoryTimeline from "../../../components/topics/HistoryTimeline.astro";
+import { isHistory, TIMELINE_TEXT } from "../../../viz/history.js";
 import { UI } from "../../../ui.js";
 import { SITE } from "../../../site.js";
 import { TEXT, LANG_IDS, topics, questionPath, questionsPath, topicPath } from "../../../data.js";
@@ -49,6 +51,13 @@ const jsonLd = {
       {topic.mnemonic && <p class="mnemonic"><strong>{ui.mnemonic}:</strong> {topic.mnemonic}</p>}
     </div>
   </section>
+
+  {isHistory(c.id) && (
+    <section class="row" aria-labelledby="timeline">
+      <h2 id="timeline">{TIMELINE_TEXT[lang].title}</h2>
+      <div><HistoryTimeline lang={lang} current={c.id} caption={false} /></div>
+    </section>
+  )}
 
   {topic.key_terms?.length > 0 && (
     <section class="row" aria-labelledby="terms">

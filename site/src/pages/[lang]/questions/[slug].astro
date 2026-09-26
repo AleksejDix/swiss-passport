@@ -1,6 +1,8 @@
 ---
 // One page per official question and language: the question, the correct answer, why, and the German original.
 import Base from "../../../layouts/Base.astro";
+import HistoryTimeline from "../../../components/topics/HistoryTimeline.astro";
+import { isHistory } from "../../../viz/history.js";
 import { UI } from "../../../ui.js";
 import { TEXT, LANG_IDS, lessons, questions, questionPath, questionsPath, topicPath } from "../../../data.js";
 
@@ -104,6 +106,7 @@ const jsonLd = {
     <div>
       <p><strong><a href={topicPath(lang, q.concept)}>{concept.title}</a></strong></p>
       <p>{concept.intro[0]}</p>
+      {isHistory(q.concept.id) && <HistoryTimeline lang={lang} current={q.concept.id} />}
       <p class="small">{t.units[unit].title}<br>{lesson.title}</p>
       {q.concept.sources?.length > 0 && (
         <>
