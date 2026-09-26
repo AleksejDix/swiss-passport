@@ -1,0 +1,25 @@
+---
+// When is the test? (issue #10) Two orders, because it depends on the municipality (zh.ch); the City of Zurich
+// tests only after the application (stadt-zuerich.ch). The test is the red step.
+import "../../styles/guide-visuals.css";
+import { ORDER_TEXT } from "../../viz/guide-check.js";
+
+const { lang } = Astro.props;
+const t = ORDER_TEXT[lang];
+const flows = [
+  { label: t.before, steps: [t.when, t.test, t.apply] },
+  { label: t.after, steps: [t.apply, t.when, t.test] },
+];
+---
+<figure class="ord">
+  <figcaption class="ord-title">{t.caption}</figcaption>
+  {flows.map((f) => (
+    <div class="ord-flow">
+      <p class="ord-label">{f.label}</p>
+      <ol class="ord-steps">
+        {f.steps.map((s) => <li class={s === t.test ? "is-test" : undefined}>{s}</li>)}
+      </ol>
+    </div>
+  ))}
+  <p class="ord-note">{t.note}</p>
+</figure>

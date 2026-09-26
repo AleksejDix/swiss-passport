@@ -1,6 +1,8 @@
 ---
 // The test guide: who takes the Grundkenntnistest, which questions, where, and what it costs. Official facts only.
 import Base from "../../../layouts/Base.astro";
+import SelfCheck from "../../../components/guide/SelfCheck.astro";
+import TestOrder from "../../../components/guide/TestOrder.astro";
 import { UI } from "../../../ui.js";
 import { GUIDE, LINKS } from "../../../guide.js";
 import { LANG_IDS, guidePath, questionsPath, methodPath } from "../../../data.js";
@@ -45,6 +47,8 @@ const sources = [
       <h2 id={`f${i}`}>{f.q}</h2>
       <div class="prose">
         {f.a.map((html) => (html.startsWith("<ul>") ? <Fragment set:html={fill(html)} /> : <p set:html={fill(html)} />))}
+        {i === 1 && <SelfCheck lang={lang} />}
+        {i === 3 && <TestOrder lang={lang} />}
       </div>
     </section>
   ))}
@@ -65,3 +69,7 @@ const sources = [
   </nav>
 </main>
 </Base>
+
+<script>
+  import "../../../scripts/self-check.js";
+</script>
