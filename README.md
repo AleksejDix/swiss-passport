@@ -1,14 +1,73 @@
-# Swiss Passport: Zurich Knowledge Test
+<p align="center">
+  <a href="https://swiss-passport.com"><img src="site/public/favicon.svg" width="64" height="64" alt="Swiss Passport"></a>
+</p>
 
-Learn for the naturalisation knowledge test (Grundkenntnistest) of the Canton of Zurich by talking to an AI assistant, in German, English, French, Italian, Russian or Ukrainian.
+<h1 align="center">Swiss Passport</h1>
 
-The project is an [MCP](https://modelcontextprotocol.io) server. You add it to Claude or ChatGPT, and the assistant becomes a patient tutor: it explains one topic at a time, asks the official questions one by one, checks every answer against the answer key and brings topics back for review on the right day.
+<p align="center">
+  <strong>Learn for the Zurich citizenship test.</strong><br>
+  The 350 official questions of the knowledge test (Grundkenntnistest), one at a time, in your language.<br>
+  In the browser, in Claude or in ChatGPT. Free, no account.
+</p>
 
+<p align="center">
+  <a href="https://swiss-passport.com"><img src="https://img.shields.io/badge/website-swiss--passport.com-DA291C?style=flat-square" alt="Website: swiss-passport.com"></a>
+  <a href="https://swiss-passport.com/learn/"><img src="https://img.shields.io/badge/learn-in_the_browser-000000?style=flat-square" alt="Learn in the browser"></a>
+  <a href="#claude"><img src="https://img.shields.io/badge/MCP-Claude_%26_ChatGPT-000000?style=flat-square" alt="MCP server for Claude and ChatGPT"></a>
+  <a href="#license"><img src="https://img.shields.io/badge/license-non--commercial-767676?style=flat-square" alt="License: non-commercial"></a>
+</p>
+
+<p align="center">
+  <a href="https://swiss-passport.com"><img src=".github/screenshot.png" alt="The swiss-passport.com homepage: a map of the cantons next to a real exam question about the majority of the cantons" width="800"></a>
+</p>
+
+<p align="center">
+  <a href="https://swiss-passport.com/de/">Deutsch</a> &nbsp;
+  <a href="https://swiss-passport.com/en/">English</a> &nbsp;
+  <a href="https://swiss-passport.com/fr/">Français</a> &nbsp;
+  <a href="https://swiss-passport.com/it/">Italiano</a> &nbsp;
+  <a href="https://swiss-passport.com/ru/">Русский</a> &nbsp;
+  <a href="https://swiss-passport.com/uk/">Українська</a>
+</p>
+
+> [!NOTE]
 > Not an official product of the Canton of Zurich. The questions come from the canton's official question list; the explanations were written for this project and checked against official sources.
+
+## Start learning
+
+There are three ways in. They share one learner code, so you can start in the browser and continue in Claude or ChatGPT.
+
+| | Where | What you need |
+|---|---|---|
+| **Browser** | [swiss-passport.com/learn](https://swiss-passport.com/learn/) | Nothing. Open the page and start. |
+| **Claude** | Web, desktop and mobile app, also by voice | A custom connector (below) |
+| **ChatGPT** | With Developer mode turned on | A custom app (below) |
+
+The connector address for Claude and ChatGPT is:
+
+```
+https://swiss-passport.com/mcp
+```
+
+### Claude
+
+Settings → Connectors → **Add custom connector**, paste the address. No login needed.
+
+### ChatGPT
+
+Settings → Apps & Connectors → Advanced → turn on **Developer mode**. Then **Create**, paste the address and choose *No authentication*. Enable the app in a chat via **+ → Developer mode**.
+
+### Your progress
+
+On first use you get a learner code like `BERG-7K2Q`. Write it down and give it to the tutor in a new chat to continue where you left off. No account, no personal data.
+
+### Claude Desktop, fully offline
+
+Build the extension (`cd server && npm run pack`) and drag `server/swiss-passport-zh.mcpb` into Claude Desktop. Progress then stays on your computer in `~/.swiss-passport-quiz/`.
 
 ## How it teaches
 
-The method follows [Execute Program](https://www.executeprogram.com/why-ep):
+The method follows [Execute Program](https://www.executeprogram.com/why-ep). The website explains it in detail, with the research behind it: [swiss-passport.com/en/method](https://swiss-passport.com/en/method/).
 
 - **Short lessons.** 37 lessons in 7 units, from the basics (Switzerland at a glance, how the state works) to the canton and the municipalities. Each concept is explained briefly and practised right away.
 - **One question at a time.** The server hands out exactly one step. The assistant never sees the next question in advance and never judges answers itself.
@@ -19,27 +78,22 @@ The method follows [Execute Program](https://www.executeprogram.com/why-ep):
 - **Exam language.** Learners study in their own language, but always see the German wording, because the real test is in German.
 - **Voice.** In voice conversations, questions that need pictures are left out and answers can be spoken.
 
-## Use it
+## What's inside
 
-### Claude (web, desktop, mobile)
+| | |
+|---:|---|
+| **350** | official questions of the Canton of Zurich |
+| **37** | lessons in 7 units, from the basics to your municipality |
+| **96** | topics, each explained in simple language |
+| **6** | languages, always with the German original |
+| **50** | questions per mock exam |
 
-Settings → Connectors → **Add custom connector**, URL:
+Every question, with its answer and explanation, is also on the website: [all questions](https://swiss-passport.com/en/questions/) and [about the test](https://swiss-passport.com/en/grundkenntnistest/).
 
-```
-https://swiss-passport.com/mcp
-```
+Explanations were written in simple German (B1) using only official sources (the canton's and the city's learning brochures, admin.ch, ch.ch, zh.ch, the Historical Dictionary of Switzerland, fedlex) and translated into five languages. The translations are not official and would benefit from a review by native speakers. [Open an issue](https://github.com/AleksejDix/swiss-passport/issues) if you spot a mistake.
 
-No login. On first use you get a learner code like `BERG-7K2Q`; give it in later chats to continue where you left off.
-
-### ChatGPT
-
-Settings → Apps & Connectors → Advanced → turn on **Developer mode**, then **Create** with the same URL and *No authentication*. Enable the app in a chat via **+ → Developer mode**.
-
-### Claude Desktop, offline progress
-
-Build the extension (`cd server && npm run pack`) and drag `server/swiss-passport-zh.mcpb` into Claude Desktop. Progress is stored on your computer in `~/.swiss-passport-quiz/`.
-
-## Content
+<details>
+<summary><strong>Content files</strong></summary>
 
 | File | What it holds |
 |---|---|
@@ -50,20 +104,23 @@ Build the extension (`cd server && npm run pack`) and drag `server/swiss-passpor
 | `sources/` | Links to the official documents and a summary of the exam rules. |
 | `content/review_flags.md` | Open points for a human reviewer. |
 
-Explanations were written in simple German (B1) using only official sources (the canton's and the city's learning brochures, admin.ch, ch.ch, zh.ch, the Historical Dictionary of Switzerland, fedlex) and translated into five languages. The translations are not official and would benefit from a review by native speakers.
+</details>
 
 ## Development
+
+<details>
+<summary><strong>Build, test and deploy</strong></summary>
 
 The server lives in `server/` (TypeScript, Node 22+).
 
 ```sh
 cd server
 npm install
-npm test          # builds and runs the local and HTTP end-to-end tests
-npm run pack      # Claude Desktop extension (.mcpb)
-npm run deploy    # Cloudflare: website + /mcp Worker (progress in D1)
+npm test            # builds and runs the local and HTTP end-to-end tests
+npm run pack        # Claude Desktop extension (.mcpb)
+npm run deploy      # Cloudflare: website + /mcp Worker (progress in D1)
 npm run dev:worker  # the same Worker locally on http://localhost:8787
-npm run release   # self-hosting package for a Mac (Node + built-in SQLite, see deploy/install.sh)
+npm run release     # self-hosting package for a Mac (Node + built-in SQLite, see deploy/install.sh)
 ```
 
 | Entry point | Transport | Progress stored in |
@@ -75,6 +132,8 @@ npm run release   # self-hosting package for a Mac (Node + built-in SQLite, see 
 The website (`site/`, Astro) is built into `server/public` and served by the same Worker as static files.
 
 `src/server.ts` defines the tools and the tutoring instructions, `src/engine.ts` the lessons, reviews and mock exam, and `src/view/` the quiz card shown in the chat ([MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/)).
+
+</details>
 
 ## License
 
