@@ -2,18 +2,21 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import type { Assets } from "./assets.js";
-import { LANGUAGES, lessonById, questions, type Lang } from "./content.js";
-import * as engine from "./engine.js";
-import { emptyProgress, newLearnerCode, normalizeCode, type Progress, type Store } from "./progress.js";
+import { catalog, LANGUAGES, type Lang } from "./catalog.js";
+import { createEngine, emptyProgress, REVIEW_SIZE, type Progress } from "./engine/index.js";
+import { newLearnerCode, normalizeCode, type Store } from "./store.js";
 
 export const VERSION = "0.8.0";
 
+const engine = createEngine(catalog);
+const { exam } = catalog;
+
 const INSTRUCTIONS = `
-You are a patient tutor for the Swiss naturalisation knowledge test (Grundkenntnistest) of the Canton of Zurich.
+You are a patient tutor for ${exam.name}.
 The tools hold the official questions and verified explanations and hand them out ONE STEP AT A TIME.
 
 Rules:
-- Language: ask which language the learner wants (de, en, fr, it, ru, uk) and pass it as "language".
+- Language: ask which language the learner wants (${LANGUAGES.join(", ")}) and pass it as "language".
   Speak in that language. The real exam is in German: always also show the German wording ("german") of the question.
 - Start of a session: call get_progress. If reviews are due, call start_reviews first, otherwise start_lesson.
   If there is an unfinished session, offer to continue it (the start tools restart it).
@@ -26,8 +29,8 @@ Rules:
   teach the exam answer and mention today's fact). Then show the next step from "next".
 - A wrong answer comes back later in the same round ("retry": true) until the learner gets it right. Encourage them;
   do not give away the answer again when it comes back.
-- Mock exam (start_mock_exam): ask the 50 questions one by one without any feedback. The result comes after the last answer.
-  The official pass mark is not published.
+- Mock exam (start_mock_exam): ask the ${exam.size} questions one by one without any feedback. The result comes after the last answer.
+  The pass mark is ${exam.pass_mark}.
 - Never add facts that are not in the tool results. Keep messages short and encouraging.
 - Questions with pictures come with images. Where the quiz card is shown, the learner sees them there.
 
@@ -63,7 +66,7 @@ interface Out {
 
 /** Tool result: JSON text and pictures for the model, plus the same data for the quiz card (structuredContent). */
 async function toResult(assets: Assets, { data, questionId }: Out, lang?: Lang) {
-  const q = questionId ? questions.get(questionId) : undefined;
+  const q = questionId ? engine.question(questionId) : undefined;
   const files: [string, string, string][] = q
     ? [
         ...(q.image ? [["question", "Picture for the question", q.image] as [string, string, string]] : []),
@@ -139,7 +142,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
     }
     p ??= emptyProgress();
     if (args.language) p.language = args.language;
-    const lang = p.language ?? "de";
+    const lang = (p.language ?? LANGUAGES[0]) as Lang; // only languages of the catalog are ever stored
     const out = fn(p, lang);
     await store.save(id, p);
     if (online) out.data = { learner_code: id, ...(created && { new_learner_code: "Tell the learner to write this code down." }), ...out.data };
@@ -171,7 +174,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       run(args, (p, lang) => {
         const id = lesson_id ?? engine.nextLessonId(p);
         if (!id) return { data: { done: true, message: "All lessons done. Continue with reviews and mock exams." } };
-        if (!lessonById.has(id)) return { data: { error: `Unknown lesson ${id}. Lessons are l01 to l37.` } };
+        if (!engine.lessons.includes(id)) return { data: { error: `Unknown lesson ${id}. Lessons are ${engine.lessons[0]} to ${engine.lessons.at(-1)}.` } };
         engine.startLesson(p, id, voice);
         return stepOut(p, lang);
       }),
@@ -183,7 +186,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       title: "Start reviews",
       _meta: cardUi,
       annotations: changesProgress,
-      description: "Starts a review round of up to 10 questions whose concepts are due, and returns the first one.",
+      description: `Starts a review round of up to ${REVIEW_SIZE} questions whose concepts are due, and returns the first one.`,
       inputSchema: { ...common, voice },
     },
     ({ voice, ...args }) =>
@@ -198,7 +201,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       title: "Start a mock exam",
       _meta: cardUi,
       annotations: changesProgress,
-      description: "Starts a mock exam with 50 random questions like the official practice test, and returns the first one.",
+      description: `Starts a mock exam with ${exam.size} random questions like the official practice test, and returns the first one.`,
       inputSchema: { ...common, voice },
     },
     ({ voice, ...args }) =>

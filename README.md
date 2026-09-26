@@ -131,7 +131,16 @@ npm run release     # self-hosting package for a Mac (Node + built-in SQLite, se
 
 The website (`site/`, Astro) is built into `server/public` and served by the same Worker as static files.
 
-`src/server.ts` defines the tools and the tutoring instructions, `src/engine.ts` the lessons, reviews and mock exam, and `src/view/` the quiz card shown in the chat ([MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/)).
+The learning engine and the content are kept apart:
+
+| Path | What it does |
+|---|---|
+| `src/engine/` | The learning engine: lessons, spaced reviews and mock exam. It holds no content: a catalog is passed in with `createEngine(catalog)`. |
+| `src/catalog.ts` | The Zurich catalog: the content files from the repository root, plus the exam name, the mock exam size and the pass mark. |
+| `src/server.ts` | The MCP tools and the tutoring instructions. |
+| `src/view/` | The quiz card shown in the chat ([MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/)). |
+
+Another exam with four-option questions can reuse the engine with its own catalog in the same file format (`quiz.json`, `curriculum.json`, `i18n/<lang>.json`).
 
 </details>
 
