@@ -97,6 +97,7 @@ export function currentStep(s: Session, lang: Lang) {
       explain_first: { title: t.title, intro: t.intro, key_terms: t.key_terms, ...(t.mnemonic && { mnemonic: t.mnemonic }) },
     }),
     step: `${s.pos + 1}/${s.questions.length}`,
+    concept: t.title,
     ...(retry && { retry: true }),
     question: questionText(qid, lang),
   };

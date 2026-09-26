@@ -7,6 +7,7 @@ const API = "/mcp";
 // Interface text. Quiz content comes translated from the server.
 const T = {
   de: {
+    showExplanation: "Erklärung zeigen", answerFirst: "Beantworte zuerst die Frage. Die Erklärung erscheint danach.",
     title: "Online lernen", lede: "Kurze Lektionen, Wiederholungen zur richtigen Zeit und Probeprüfungen mit den offiziellen Fragen.",
     lesson: "Lektion", continueLesson: "Weiter mit der Lektion", reviews: "Wiederholen", due: (n) => `${n} fällig`, noneDue: "nichts fällig",
     exam: "Probeprüfung", examSub: "50 Fragen, ohne Hilfe", allDone: "Alle Lektionen erledigt",
@@ -21,6 +22,7 @@ const T = {
     yours: "Deine Antwort", error: "Keine Verbindung zum Server. Versuch es nochmals.", nextLesson: "Nächste Lektion",
   },
   en: {
+    showExplanation: "Show explanation", answerFirst: "Answer the question first. The explanation appears afterwards.",
     title: "Learn online", lede: "Short lessons, reviews at the right time and mock exams with the official questions.",
     lesson: "Lesson", continueLesson: "Continue lesson", reviews: "Review", due: (n) => `${n} due`, noneDue: "nothing due",
     exam: "Mock exam", examSub: "50 questions, no help", allDone: "All lessons done",
@@ -35,6 +37,7 @@ const T = {
     yours: "Your answer", error: "No connection to the server. Try again.", nextLesson: "Next lesson",
   },
   fr: {
+    showExplanation: "Afficher l'explication", answerFirst: "Réponds d'abord à la question. L'explication apparaît ensuite.",
     title: "Apprendre en ligne", lede: "Des leçons courtes, des révisions au bon moment et des examens blancs avec les questions officielles.",
     lesson: "Leçon", continueLesson: "Continuer la leçon", reviews: "Réviser", due: (n) => `${n} à réviser`, noneDue: "rien à réviser",
     exam: "Examen blanc", examSub: "50 questions, sans aide", allDone: "Toutes les leçons sont faites",
@@ -49,6 +52,7 @@ const T = {
     yours: "Ta réponse", error: "Pas de connexion au serveur. Réessaie.", nextLesson: "Leçon suivante",
   },
   it: {
+    showExplanation: "Mostra la spiegazione", answerFirst: "Rispondi prima alla domanda. La spiegazione appare dopo.",
     title: "Impara online", lede: "Lezioni brevi, ripassi al momento giusto ed esami di prova con le domande ufficiali.",
     lesson: "Lezione", continueLesson: "Continua la lezione", reviews: "Ripassa", due: (n) => `${n} da ripassare`, noneDue: "niente da ripassare",
     exam: "Esame di prova", examSub: "50 domande, senza aiuto", allDone: "Tutte le lezioni fatte",
@@ -63,6 +67,7 @@ const T = {
     yours: "La tua risposta", error: "Nessuna connessione al server. Riprova.", nextLesson: "Prossima lezione",
   },
   ru: {
+    showExplanation: "Показать объяснение", answerFirst: "Сначала ответь на вопрос. Объяснение появится после ответа.",
     title: "Учиться онлайн", lede: "Короткие уроки, повторение в нужный момент и пробные экзамены с официальными вопросами.",
     lesson: "Урок", continueLesson: "Продолжить урок", reviews: "Повторить", due: (n) => `к повторению: ${n}`, noneDue: "повторять нечего",
     exam: "Пробный экзамен", examSub: "50 вопросов, без подсказок", allDone: "Все уроки пройдены",
@@ -77,6 +82,7 @@ const T = {
     yours: "Твой ответ", error: "Нет связи с сервером. Попробуй ещё раз.", nextLesson: "Следующий урок",
   },
   uk: {
+    showExplanation: "Показати пояснення", answerFirst: "Спершу дай відповідь на запитання. Пояснення з'явиться після відповіді.",
     title: "Навчатися онлайн", lede: "Короткі уроки, повторення у правильний час і пробні іспити з офіційними запитаннями.",
     lesson: "Урок", continueLesson: "Продовжити урок", reviews: "Повторити", due: (n) => `до повторення: ${n}`, noneDue: "нічого повторювати",
     exam: "Пробний іспит", examSub: "50 запитань, без підказок", allDone: "Усі уроки пройдено",
@@ -138,6 +144,7 @@ async function call(name, args = {}) {
 
 function show(...nodes) {
   app.replaceChildren(...nodes.flat().filter((n) => n != null && n !== false));
+  app.classList.toggle("is-step", Boolean(app.querySelector(".step-layout")));
   window.scrollTo({ top: 0 });
 }
 
@@ -242,10 +249,29 @@ async function start(tool) {
   }
 }
 
+// Concept explanations seen in this session, so every question of a concept can offer it again.
+const conceptCache = new Map();
+
+/** The concept explanation, collapsed: learners try the question first and open it when they want. */
+function conceptDetails(c, open = false) {
+  return h("details", { class: "explain", open },
+    h("summary", {}, t().showExplanation),
+    h("div", { class: "explain-body" },
+      c.intro.map((para) => h("p", {}, para)),
+      h("dl", { class: "terms-list" }, c.key_terms.flatMap((k) => [h("dt", { lang: "de" }, k.term), h("dd", {}, k.definition)])),
+      c.mnemonic && h("p", { class: "mnemonic" }, c.mnemonic)));
+}
+
+/**
+ * One step, always in the same layout: the question with its options and the Next button on the right,
+ * the explanation on the left (on phones: question first, explanation below).
+ */
 function renderStep(step, images, lessonTitle) {
   const s = t();
   const q = step.question;
   const title = step.lesson ? `${s.lesson} ${step.lesson.position.split("/")[0]}: ${step.lesson.title}` : lessonTitle ?? (kind === "exam" ? s.exam : s.reviews);
+  if (step.explain_first) conceptCache.set(step.explain_first.title, step.explain_first);
+  const concept = kind === "exam" ? undefined : conceptCache.get(step.concept);
   const hasPictures = Boolean(images.a);
   const choices = ["a", "b", "c", "d"].map((letter) =>
     h("button", { class: "choice", type: "button", "data-letter": letter, onclick: () => answer(letter, title) },
@@ -253,22 +279,24 @@ function renderStep(step, images, lessonTitle) {
       images[letter] ? h("img", { src: images[letter], alt: `${letter.toUpperCase()}` }) : h("span", {}, q.options[letter])),
   );
   const heading = h("p", { class: "question", tabindex: "-1" }, q.question);
-  const c = step.explain_first;
   show(
     h("div", { class: "step-head" }, h("span", {}, title), h("span", {}, step.step), h("button", { type: "button", onclick: home }, s.overview)),
     h("div", { class: "bar" }, h("i", { style: `width:${progressPercent(step.step)}%` })),
-    c && h("section", { class: "concept-box" },
-      h("h2", {}, c.title),
-      c.intro.map((para) => h("p", {}, para)),
-      h("dl", { class: "terms-list" }, c.key_terms.flatMap((k) => [h("dt", { lang: "de" }, k.term), h("dd", {}, k.definition)])),
-      c.mnemonic && h("p", { class: "mnemonic" }, c.mnemonic)),
-    step.retry && h("p", { class: "retry" }, s.retry),
-    kind === "exam" && step.step === "1/50" && h("p", { class: "small" }, s.examNote),
-    heading,
-    q.german && h("p", { class: "german", lang: "de" }, q.german.question),
-    images.question && h("img", { class: "qpicture", src: images.question, alt: "" }),
-    h("div", { class: `choices${hasPictures ? " pictures" : ""}`, "data-choices": true }, choices),
-    h("p", { class: "hint" }, s.keys),
+    h("div", { class: "step-layout" },
+      h("section", { class: "qpanel" },
+        step.retry && h("p", { class: "retry" }, s.retry),
+        heading,
+        q.german && h("p", { class: "german", lang: "de" }, q.german.question),
+        images.question && h("img", { class: "qpicture", src: images.question, alt: "" }),
+        h("div", { class: `choices${hasPictures ? " pictures" : ""}`, "data-choices": true }, choices),
+        h("div", { "data-after": true }),
+        h("p", { class: "hint" }, s.keys)),
+      h("aside", { class: "side", "data-side": true },
+        h("h2", { class: "side-title" }, kind === "exam" ? s.exam : step.concept),
+        h("div", { "data-feedback": true }),
+        kind === "exam" ? h("p", { class: "small" }, s.examNote)
+          : concept ? conceptDetails(concept) : h("p", { class: "small", "data-answer-first": true }, s.answerFirst)),
+    ),
   );
   heading.focus({ preventScroll: true });
 }
@@ -306,22 +334,31 @@ async function answer(letter, title) {
     if (b.dataset.letter === f.correct_answer) b.classList.add("is-right");
     else if (b.dataset.letter === letter) b.classList.add("is-wrong");
   });
-  const box = h("section", { class: "feedback" },
+
+  // Right: the verdict and the Next button, always in the same place.
+  const next = h("button", { class: "next", type: "button", onclick: () => proceed() }, s.next);
+  // h() drops empty parts; plain append() would print "false"/"undefined".
+  document.querySelector("[data-after]").append(h("div", {},
     h("p", { class: `verdict-line${f.correct ? " ok" : ""}` },
       f.correct ? s.right : `${s.wrong} ${f.correct_answer.toUpperCase()}: ${f.correct_answer_text}`),
     f.correct_answer_german && !f.correct && h("p", { class: "german", lang: "de" }, f.correct_answer_german),
-    h("p", {}, f.why),
-    f.about_your_answer && h("p", {}, f.about_your_answer),
-    f.note && h("p", { class: "note mnemonic" }, f.note),
     f.comes_again_later_in_this_round && h("p", { class: "retry" }, s.comesAgain),
-    f.sources?.[0] && h("p", { class: "src" }, `${s.source}: `, h("a", { href: f.sources[0], target: "_blank", rel: "noopener" }, new URL(f.sources[0]).hostname.replace(/^www\./, ""))),
-    h("button", { class: "next", type: "button", onclick: () => proceed() }, s.next),
-  );
-  document.querySelector("[data-choices]").after(box);
+    next,
+  ));
   document.querySelector(".hint")?.remove();
+
+  // Left: why, why not the chosen option, notes and the source.
+  document.querySelector("[data-feedback]").append(
+    h("section", { class: "feedback" },
+      h("p", {}, f.why),
+      f.about_your_answer && h("p", {}, f.about_your_answer),
+      f.note && h("p", { class: "note mnemonic" }, f.note),
+      f.sources?.[0] && h("p", { class: "src" }, `${s.source}: `, h("a", { href: f.sources[0], target: "_blank", rel: "noopener" }, new URL(f.sources[0]).hostname.replace(/^www\./, "")))),
+  );
+  document.querySelector("[data-answer-first]")?.remove();
+
   pendingNext = () => (data.next ? renderStep(data.next, images, title) : renderSummary(data.finished));
-  box.querySelector(".next").focus({ preventScroll: true });
-  box.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest" });
+  next.focus({ preventScroll: true });
 }
 
 function proceed() {
