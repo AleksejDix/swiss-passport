@@ -21,5 +21,10 @@
     }
   ],
   // Daily: delete progress 12 months after the last activity (see the privacy policy).
-  "triggers": { "crons": ["30 3 * * *"] }
+  "triggers": { "crons": ["30 3 * * *"] },
+  // www redirects to the root with a Cloudflare redirect rule (dashboard: Rules > Redirect Rules).
+  "routes": [{ "pattern": "swiss-passport.com", "custom_domain": true }],
+  // Only the real domain: no *.workers.dev copy of the site.
+  "workers_dev": false,
+  "preview_urls": false
 }
