@@ -26,7 +26,7 @@ The method follows [Execute Program](https://www.executeprogram.com/why-ep):
 Settings → Connectors → **Add custom connector**, URL:
 
 ```
-https://swiss-passport-zh.vercel.app/mcp
+https://swiss-passport.com/mcp
 ```
 
 No login. On first use you get a learner code like `BERG-7K2Q`; give it in later chats to continue where you left off.

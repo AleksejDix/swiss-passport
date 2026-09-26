@@ -110,7 +110,7 @@ const jsonLd = {
       <h3>{s.s_connector}</h3>
       <p>{s.s_connector_p}</p>
       <div class="url">
-        <code data-url>https://swiss-passport-zh.vercel.app/mcp</code>
+        <code data-url>{new URL("/mcp", SITE).href}</code>
         <button type="button" data-copy aria-live="polite">{s.copy}</button>
       </div>
       <h3>{s.s_claude}</h3>

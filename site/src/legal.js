@@ -3,7 +3,7 @@
 export const OPERATOR = {
   name: "Aleksej Dix",
   region: "Kanton Zürich, Schweiz",
-  email: "contact@swiss-passport.ch",
+  email: "contact@swiss-passport.com",
 };
 
 // Date of the last change to the privacy policy.
