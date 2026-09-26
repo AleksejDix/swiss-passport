@@ -4,12 +4,14 @@ import { HISTORY, TIMELINE_TEXT } from "./history.js";
 import { PARLIAMENT_TEXT } from "./parliament.js";
 import { FEDERAL_COUNCIL_TEXT } from "./federal-council.js";
 import { POWERS_TEXT } from "./powers.js";
+import { LEVELS_TEXT } from "./levels.js";
 
 const VISUALS = {
   history: { topics: HISTORY.map((e) => e.topic), title: (lang) => TIMELINE_TEXT[lang].title },
   parliament: { topics: ["parliament_chambers", "parliament_tasks"], title: (lang) => PARLIAMENT_TEXT[lang].title },
   federalCouncil: { topics: ["federal_council", "administration"], title: (lang) => FEDERAL_COUNCIL_TEXT[lang].title },
   powers: { topics: ["separation_of_powers", "justice_police", "zh_government", "zh_parliament"], title: (lang) => POWERS_TEXT[lang].title },
+  levels: { topics: ["three_levels", "federal_tasks"], title: (lang) => LEVELS_TEXT[lang].title },
 };
 
 /** The figure of a topic ("history", "parliament", …), or undefined. */

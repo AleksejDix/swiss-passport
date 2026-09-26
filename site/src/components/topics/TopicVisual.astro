@@ -4,6 +4,7 @@ import HistoryTimeline from "./HistoryTimeline.astro";
 import Parliament from "./Parliament.astro";
 import FederalCouncil from "./FederalCouncil.astro";
 import Powers from "./Powers.astro";
+import Levels from "./Levels.astro";
 import { visualFor } from "../../viz/topic-visuals.js";
 
 const { lang, topic, caption = true } = Astro.props;
@@ -13,3 +14,4 @@ const kind = visualFor(topic);
 {kind === "parliament" && <Parliament lang={lang} caption={caption} />}
 {kind === "federalCouncil" && <FederalCouncil lang={lang} caption={caption} />}
 {kind === "powers" && <Powers lang={lang} caption={caption} />}
+{kind === "levels" && <Levels lang={lang} caption={caption} />}
