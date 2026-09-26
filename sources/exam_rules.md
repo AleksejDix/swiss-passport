@@ -23,6 +23,7 @@ Only official sources, quoted verbatim. Checked 2026-09-25.
 - **Pass mark:** no official page states it. The practice test decides «bestanden / nicht bestanden» on the server; 14/50 was «Nicht bestanden».
 - **Time limit:** no official page states it; the practice test has no visible timer.
 - **Whether the real test uses the same format as the practice test** (50 questions): not confirmed.
+- **Test language:** no official page says in which language the test is taken (zh.ch and stadt-zuerich.ch, checked 2026-09-26). All official material is German only: question list «PDF | 78 Seiten | Deutsch», brochure «PDF | 76 Seiten | Deutsch», and the practice test. So in practice German, but not stated.
 
 → Ask the canton: grundkenntnistest@ji.zh.ch, Tel. +41 43 259 83 81 (Mon–Thu 13:30–17:00, Fri 13:30–16:00).
 
