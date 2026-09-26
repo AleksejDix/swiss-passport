@@ -94,6 +94,8 @@ h4 { font-weight: 400; }
 .masthead > * { grid-column: 1 / -1; }
 .brand { display: flex; align-items: center; gap: 0.625rem; width: fit-content; font-weight: 700; text-decoration: none; }
 .brand:hover { color: inherit; }
+/* On the language picker the name is the page heading; it keeps the size of the masthead. */
+h1.brand { font-size: inherit; line-height: inherit; letter-spacing: inherit; margin: 0; }
 .mark { width: var(--line); height: var(--line); flex: none; }
 .nav, .langs-nav { display: flex; flex-wrap: wrap; column-gap: 1rem; }
 .nav a { text-decoration: none; }
