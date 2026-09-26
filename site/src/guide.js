@@ -44,6 +44,7 @@ export const GUIDE = {
       { q: "Wie bereite ich mich vor?", a: [
         'Der Kanton bietet den <a href="{zh}">Übungstest</a>, die Einbürgerungsbroschüre und die Liste aller Fragen an.',
         'Hier findest du <a href="{questions}">alle 350 Fragen mit Antwort und Erklärung</a>, nach Thema geordnet, in sechs Sprachen und immer mit dem deutschen Wortlaut. Mit <a href="{learn}">Online lernen</a> übst du in kurzen Lektionen mit Wiederholungen und Probeprüfungen.',
+        'Warum diese Art zu lernen wirkt, erklärt <a href="{method}">die Seite zur Methode</a>.',
       ] },
     ],
     sources: "Quellen",
@@ -81,6 +82,7 @@ export const GUIDE = {
       { q: "How do I prepare?", a: [
         'The canton offers the <a href="{zh}">practice test</a>, the naturalisation brochure and the list of all questions.',
         'Here you find <a href="{questions}">all 350 questions with answers and explanations</a>, sorted by topic, in six languages and always with the German wording. With <a href="{learn}">Learn online</a> you practise in short lessons with reviews and mock exams.',
+        'Why this way of learning works is explained on <a href="{method}">the method page</a>.',
       ] },
     ],
     sources: "Sources",
@@ -118,6 +120,7 @@ export const GUIDE = {
       { q: "Comment me préparer ?", a: [
         'Le canton propose le <a href="{zh}">test d\'entraînement</a>, la brochure de naturalisation et la liste de toutes les questions.',
         'Ici, tu trouves <a href="{questions}">les 350 questions avec réponse et explication</a>, classées par thème, en six langues et toujours avec le texte allemand. Avec <a href="{learn}">Apprendre en ligne</a>, tu t\'entraînes en courtes leçons avec répétitions et examens blancs.',
+        'Pourquoi cette façon d\'apprendre fonctionne : voir <a href="{method}">la page sur la méthode</a>.',
       ] },
     ],
     sources: "Sources",
@@ -155,6 +158,7 @@ export const GUIDE = {
       { q: "Come mi preparo?", a: [
         'Il Cantone offre il <a href="{zh}">test di esercitazione</a>, l\'opuscolo sulla naturalizzazione e la lista di tutte le domande.',
         'Qui trovi <a href="{questions}">tutte le 350 domande con risposta e spiegazione</a>, ordinate per tema, in sei lingue e sempre con il testo tedesco. Con <a href="{learn}">Impara online</a> ti eserciti in brevi lezioni con ripetizioni ed esami di prova.',
+        'Perché questo modo di studiare funziona lo spiega <a href="{method}">la pagina sul metodo</a>.',
       ] },
     ],
     sources: "Fonti",
@@ -192,6 +196,7 @@ export const GUIDE = {
       { q: "Как подготовиться?", a: [
         'Кантон предлагает <a href="{zh}">тренировочный тест</a>, брошюру о натурализации и список всех вопросов.',
         'Здесь есть <a href="{questions}">все 350 вопросов с ответами и объяснениями</a>, по темам, на шести языках и всегда с немецкой формулировкой. В разделе <a href="{learn}">Учиться онлайн</a> ты тренируешься короткими уроками с повторениями и пробными экзаменами.',
+        'Почему такой способ учиться работает, объясняет <a href="{method}">страница о методе</a>.',
       ] },
     ],
     sources: "Источники",
@@ -229,6 +234,7 @@ export const GUIDE = {
       { q: "Як підготуватися?", a: [
         'Кантон пропонує <a href="{zh}">тренувальний тест</a>, брошуру про натуралізацію і список усіх запитань.',
         'Тут є <a href="{questions}">усі 350 запитань з відповідями й поясненнями</a>, за темами, шістьма мовами й завжди з німецьким формулюванням. У розділі <a href="{learn}">Навчатися онлайн</a> ти тренуєшся короткими уроками з повтореннями й пробними іспитами.',
+        'Чому такий спосіб навчання працює, пояснює <a href="{method}">сторінка про метод</a>.',
       ] },
     ],
     sources: "Джерела",

@@ -11,6 +11,7 @@ export const SOURCES = [
 
 export const METHOD = {
   de: {
+    nav: "Methode",
     link: "Warum diese Methode funktioniert",
     title: "So lernst du für den Einbürgerungstest: die Methode hinter Swiss Passport",
     desc: "Warum Fragen beantworten und in wachsenden Abständen wiederholen besser wirkt als Lesen, und wie Swiss Passport damit auf den Grundkenntnistest Zürich vorbereitet.",
@@ -43,6 +44,7 @@ export const METHOD = {
     ],
   },
   en: {
+    nav: "Method",
     link: "Why this method works",
     title: "How to learn for the citizenship test: the method behind Swiss Passport",
     desc: "Why answering questions and repeating them at growing intervals works better than rereading, and how Swiss Passport uses it to prepare you for the Zurich knowledge test.",
@@ -75,6 +77,7 @@ export const METHOD = {
     ],
   },
   fr: {
+    nav: "Méthode",
     link: "Pourquoi cette méthode fonctionne",
     title: "Comment apprendre pour le test de naturalisation : la méthode de Swiss Passport",
     desc: "Pourquoi répondre aux questions et les répéter à intervalles croissants fonctionne mieux que relire, et comment Swiss Passport t'y prépare pour le test de connaissances de Zurich.",
@@ -107,6 +110,7 @@ export const METHOD = {
     ],
   },
   it: {
+    nav: "Metodo",
     link: "Perché questo metodo funziona",
     title: "Come studiare per il test di naturalizzazione: il metodo di Swiss Passport",
     desc: "Perché rispondere alle domande e ripeterle a intervalli crescenti funziona meglio che rileggere, e come Swiss Passport ti prepara così al test di conoscenze di Zurigo.",
@@ -139,6 +143,7 @@ export const METHOD = {
     ],
   },
   ru: {
+    nav: "Метод",
     link: "Почему этот метод работает",
     title: "Как готовиться к тесту на гражданство: метод Swiss Passport",
     desc: "Почему отвечать на вопросы и повторять их с растущими интервалами полезнее, чем перечитывать, и как Swiss Passport готовит так к тесту на знания в Цюрихе.",
@@ -171,6 +176,7 @@ export const METHOD = {
     ],
   },
   uk: {
+    nav: "Метод",
     link: "Чому цей метод працює",
     title: "Як готуватися до тесту на громадянство: метод Swiss Passport",
     desc: "Чому відповідати на запитання й повторювати їх із дедалі більшими інтервалами краще, ніж перечитувати, і як Swiss Passport так готує до тесту на знання в Цюриху.",

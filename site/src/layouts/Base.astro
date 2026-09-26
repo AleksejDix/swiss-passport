@@ -10,7 +10,8 @@ import { LANGS, STRINGS } from "../scripts/i18n.js";
 import { UI } from "../ui.js";
 import { GUIDE } from "../guide.js";
 import { ABOUT } from "../about.js";
-import { homePath, questionsPath, guidePath, aboutPath } from "../data.js";
+import { METHOD } from "../method.js";
+import { homePath, questionsPath, guidePath, aboutPath, methodPath } from "../data.js";
 
 const { lang, title, description, alternates, jsonLd, xDefault, mapCredit = false, remember = true } = Astro.props;
 const s = { ...STRINGS[lang], ...UI[lang] };
@@ -62,6 +63,7 @@ const PRIVACY_LABEL = { de: "Datenschutz", en: "Privacy", fr: "Protection des do
     <a href="/learn/">{s.nav_learn}</a>
     <a href={questionsPath(lang)}>{s.nav_questions}</a>
     <a href={guidePath(lang)}>{GUIDE[lang].nav}</a>
+    <a href={methodPath(lang)}>{METHOD[lang].nav}</a>
   </nav>
   <nav class="langs-nav" aria-label="Language">
     {Object.entries(LANGS).map(([id, name]) => (
