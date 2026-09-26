@@ -296,6 +296,12 @@ h1.brand { font-size: inherit; line-height: inherit; letter-spacing: inherit; ma
   .url { flex-direction: column; }
   .url button { padding-block: 0.75rem; }
 }
+/* Start: the steps in each AI app, numbered in red like the steps of "How it works". */
+.howto { list-style: decimal; padding-left: 1.25rem; margin-top: 0.375rem; }
+.howto li + li { margin-top: 0.375rem; }
+/* The steps name English menu items: no German hyphenation inside them. */
+.howto li { hyphens: manual; }
+.howto li::marker { color: var(--red); font-weight: 700; font-variant-numeric: tabular-nums; }
 
 /* ---- Page heads: questions, topics, the guide, about, the legal pages ------------------- */
 

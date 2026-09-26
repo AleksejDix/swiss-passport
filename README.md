@@ -35,27 +35,23 @@
 
 ## Start learning
 
-There are three ways in. They share one learner code, so you can start in the browser and continue in Claude or ChatGPT.
-
-| | Where | What you need |
-|---|---|---|
-| **Browser** | [swiss-passport.com/learn](https://swiss-passport.com/learn/) | Nothing. Open the page and start. |
-| **Claude** | Web, desktop and mobile app, also by voice | A custom connector (below) |
-| **ChatGPT** | With Developer mode turned on | A custom app (below) |
-
-The connector address for Claude and ChatGPT is:
+Learn in the browser at [swiss-passport.com/learn](https://swiss-passport.com/learn/), or add Swiss Passport to an AI app. It is a remote MCP server, no account and no login:
 
 ```
 https://swiss-passport.com/mcp
 ```
 
-### Claude
+All ways share one learner code, so you can start in the browser and continue in an AI app.
 
-Settings → Connectors → **Add custom connector**, paste the address. No login needed.
+| App | Plans | Steps |
+|---|---|---|
+| **Claude** | Free and paid. Add on web or desktop, then also in the phone app and by voice. Quiz card. | Customize → Connectors → **+** → **Add custom connector**. Paste the address, **Add**, **Connect**. In a chat: **+** → Connectors → turn on Swiss Passport. |
+| **ChatGPT** | Plus, Pro, Business, Enterprise, Edu. Web only. Quiz card. | **Plugins** → **Add** → **Create MCP App** (no Add button: turn on Developer mode in the settings first). Paste the address, *No Authentication*, **Create**. In a new chat type `@Swiss Passport`. After an update: Settings → Plugins → Swiss Passport → **Refresh tools**. |
+| **Grok** | grok.com. Text only. | grok.com/connectors → **New Connector** → **Custom**. Paste the address. In a chat ask Grok to use Swiss Passport. |
+| **Mistral Vibe (Le Chat)** | Free and paid, web. Text only. | Connectors → **Add Connector** → **Custom MCP Connector**. Name `SwissPassport`, paste the address, **Connect**. In a chat: **+** → Tools → turn it on. |
+| **Perplexity** | Pro and Max, web. Text only. | Settings → Connectors → **+ Custom connector** → **Remote**. Authentication *None*, transport *Streamable HTTP*, **Add**. |
 
-### ChatGPT
-
-Settings → Apps & Connectors → Advanced → turn on **Developer mode**. Then **Create**, paste the address and choose *No authentication*. Enable the app in a chat via **+ → Developer mode**.
+Any other app that can add a remote MCP server works the same way. The clickable quiz card (MCP Apps) shows in Claude and ChatGPT; elsewhere the assistant asks the questions as text.
 
 ### Your progress
 
