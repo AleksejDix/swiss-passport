@@ -1,4 +1,6 @@
-// Quiz card shown inside the chat (MCP Apps view): progress, feedback, question and clickable options with pictures.
+// Quiz card shown inside the chat (MCP Apps view): concept, question and clickable options with pictures.
+// Where the host lets views call tools, a click answers right here (answer tool) and the card updates in place,
+// so the chat does not grow with every question. Otherwise a click sends the letter as a chat message.
 import { App } from "@modelcontextprotocol/ext-apps/app-with-deps";
 
 type Letter = "a" | "b" | "c" | "d";
@@ -10,29 +12,39 @@ interface Question {
 }
 interface Step {
   lesson?: { title: string; unit: string; position: string };
-  explain_first?: { title: string; key_terms: { term: string }[] };
+  explain_first?: { title: string; intro: string[]; key_terms: { term: string; definition: string }[]; mnemonic?: string };
   step: string;
   question: Question;
 }
-interface Feedback { correct?: boolean; recorded?: boolean; correct_answer?: Letter; correct_answer_text?: string }
+interface Feedback {
+  correct?: boolean;
+  recorded?: boolean;
+  correct_answer?: Letter;
+  correct_answer_text?: string;
+  why?: string;
+  about_your_answer?: string;
+  note?: string;
+  comes_again_later_in_this_round?: boolean;
+}
 interface Card {
   lang?: string;
-  data: Step | { feedback: Feedback; next?: Step; finished?: Record<string, unknown> } | Record<string, unknown>;
+  data: { learner_code?: string } & (Step | { feedback: Feedback; next?: Step; finished?: Record<string, unknown> } | Record<string, unknown>);
   images: Partial<Record<"question" | Letter, string>>;
 }
 
-// Card labels in the learner's language.
-const LABELS: Record<string, { right: string; wrongIs: string }> = {
-  de: { right: "Richtig", wrongIs: "Richtig ist" },
-  en: { right: "Correct", wrongIs: "Correct answer:" },
-  fr: { right: "Correct", wrongIs: "Bonne réponse :" },
-  it: { right: "Giusto", wrongIs: "Risposta giusta:" },
-  ru: { right: "Верно", wrongIs: "Правильный ответ:" },
-  uk: { right: "Правильно", wrongIs: "Правильна відповідь:" },
+// Card labels in the learner's language. `done` is sent to the chat as the learner's message at the end of a round.
+const LABELS: Record<string, { right: string; wrongIs: string; again: string; next: string; done: string }> = {
+  de: { right: "Richtig", wrongIs: "Richtig ist", again: "Diese Frage kommt in dieser Runde noch einmal.", next: "Weiter", done: "Fertig! Wie geht es weiter?" },
+  en: { right: "Correct", wrongIs: "Correct answer:", again: "This question comes again later in this round.", next: "Next", done: "Done! What's next?" },
+  fr: { right: "Correct", wrongIs: "Bonne réponse :", again: "Cette question reviendra plus tard dans cette série.", next: "Suivant", done: "Terminé ! Et maintenant ?" },
+  it: { right: "Giusto", wrongIs: "Risposta giusta:", again: "Questa domanda tornerà più avanti in questo giro.", next: "Avanti", done: "Finito! E adesso?" },
+  ru: { right: "Верно", wrongIs: "Правильный ответ:", again: "Этот вопрос ещё вернётся в этом раунде.", next: "Дальше", done: "Готово! Что дальше?" },
+  uk: { right: "Правильно", wrongIs: "Правильна відповідь:", again: "Це питання ще повернеться в цьому раунді.", next: "Далі", done: "Готово! Що далі?" },
 };
 
 const root = document.getElementById("root")!;
 const app = new App({ name: "swiss-passport-card", version: "1.0.0" });
+let learnerCode: string | undefined;
 
 const el = (tag: string, cls = "", text = "") => {
   const e = document.createElement(tag);
@@ -43,6 +55,7 @@ const el = (tag: string, cls = "", text = "") => {
 
 function render({ lang, data, images }: Card) {
   const label = LABELS[lang ?? "de"] ?? LABELS.de;
+  learnerCode = data.learner_code ?? learnerCode;
   root.replaceChildren();
   const feedback = "feedback" in data ? (data.feedback as Feedback) : undefined;
   const step = ("question" in data ? data : "next" in data ? data.next : undefined) as Step | undefined;
@@ -53,14 +66,26 @@ function render({ lang, data, images }: Card) {
     root.append(
       el("div", `banner ${ok ? "ok" : "bad"}`, ok ? `✓ ${label.right}` : `✗ ${label.wrongIs} ${feedback.correct_answer?.toUpperCase()}: ${feedback.correct_answer_text}`),
     );
+    for (const text of [feedback.why, feedback.about_your_answer, feedback.note]) if (text) root.append(el("p", "para", text));
+    if (feedback.comes_again_later_in_this_round) root.append(el("p", "muted", label.again));
+    // The learner reads the explanation first; the next question comes on "Next".
+    if (step) {
+      const next = el("button", "next", label.next) as HTMLButtonElement;
+      next.onclick = () => showStep(step, images, lang);
+      root.append(next);
+      return;
+    }
   }
   if (finished) {
     const score = "score" in finished ? `${finished.score}/${finished.total}` : `${finished.correct_first_try}/${finished.total}`;
     root.append(el("div", "done", `🎉 ${score}`));
     return;
   }
-  if (!step) return;
+  if (step) showStep(step, images, lang);
+}
 
+function showStep(step: Step, images: Card["images"], lang?: string) {
+  root.replaceChildren();
   const [n, total] = step.step.split("/").map(Number);
   const head = el("div", "head");
   head.append(el("span", "title", step.lesson?.title ?? ""), el("span", "count", step.step));
@@ -70,10 +95,18 @@ function render({ lang, data, images }: Card) {
   bar.append(fill);
   root.append(head, bar);
 
-  if (step.explain_first) {
+  const concept = step.explain_first;
+  if (concept) {
+    root.append(el("div", "concept", concept.title));
+    for (const p of concept.intro) root.append(el("p", "para", p));
     const terms = el("div", "terms");
-    for (const t of step.explain_first.key_terms) terms.append(el("span", "chip", t.term));
-    root.append(el("div", "concept", step.explain_first.title), terms);
+    for (const t of concept.key_terms) {
+      const chip = el("span", "chip", t.term);
+      chip.title = t.definition;
+      terms.append(chip);
+    }
+    root.append(terms);
+    if (concept.mnemonic) root.append(el("p", "muted", concept.mnemonic));
   }
 
   const q = step.question;
@@ -99,11 +132,49 @@ function render({ lang, data, images }: Card) {
     b.onclick = async () => {
       opts.querySelectorAll("button").forEach((x) => ((x as HTMLButtonElement).disabled = true));
       b.classList.add("chosen");
-      await app.sendMessage({ role: "user", content: [{ type: "text", text: letter.toUpperCase() }] });
+      await choose(letter, q, lang);
     };
     opts.append(b);
   }
   root.append(opts);
+}
+
+/** Answers on the card itself where the host allows it; otherwise the letter goes to the chat. */
+async function choose(letter: Letter, q: Question, lang?: string) {
+  if (app.getHostCapabilities()?.serverTools) {
+    try {
+      const r = await app.callServerTool({
+        name: "answer",
+        arguments: { answer: letter, question_id: q.id, ...(learnerCode && { learner_code: learnerCode }) },
+      });
+      const card = r.structuredContent as Card | undefined;
+      if (!r.isError && card?.data) {
+        render(card);
+        await tellModel(letter, q, card);
+        if ("finished" in card.data) await app.sendMessage({ role: "user", content: [{ type: "text", text: (LABELS[lang ?? "de"] ?? LABELS.de).done }] });
+        return;
+      }
+    } catch {
+      // Fall back to the chat below.
+    }
+  }
+  await app.sendMessage({ role: "user", content: [{ type: "text", text: letter.toUpperCase() }] });
+}
+
+/** Lets the tutor know what happened on the card, without a chat message. */
+async function tellModel(letter: Letter, q: Question, { data }: Card) {
+  if (!app.getHostCapabilities()?.updateModelContext) return;
+  const feedback = "feedback" in data ? (data.feedback as Feedback) : undefined;
+  const now = ("question" in data ? data : "next" in data ? data.next : undefined) as Step | undefined;
+  const result = feedback?.recorded ? "" : feedback ? (feedback.correct ? " (correct)" : " (wrong)") : "";
+  const text =
+    `Quiz card: the learner answered ${letter.toUpperCase()} to "${q.question}"${result}. ` +
+    (now
+      ? `The card now shows step ${now.step}: "${now.question.question}". Do not repeat it in the chat.`
+      : "finished" in data
+        ? `The round is finished: ${JSON.stringify(data.finished)}`
+        : "");
+  await app.updateModelContext({ content: [{ type: "text", text }] }).catch(() => {});
 }
 
 app.ontoolresult = (params) => {

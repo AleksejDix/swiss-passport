@@ -51,7 +51,7 @@ assert(r.error?.includes("Unknown learner code"), "unknown code is rejected");
 const other = await call(c, "get_progress", {});
 assert(other.learner_code !== code && other.lessons_done === 0, "a second learner gets their own fresh progress");
 
-const card = await c.readResource({ uri: "ui://swiss-passport/card.html" });
+const card = await c.readResource({ uri: "ui://swiss-passport/card-v2.html" });
 assert(card.contents[0].mimeType === "text/html;profile=mcp-app", "quiz card available online");
 
 const home = await fetch(`http://localhost:${PORT}/`);

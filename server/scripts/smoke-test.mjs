@@ -29,8 +29,9 @@ assert(tools.length === 5, `5 tools: ${tools.join(", ")}`);
 
 const toolList = (await client.listTools()).tools;
 assert(toolList.every((t) => t.annotations?.destructiveHint === false && t.annotations?.openWorldHint === false), "all tools declared non-destructive and closed-world");
-assert(toolList.filter((t) => t._meta?.ui?.resourceUri === "ui://swiss-passport/card.html").length === 4, "4 question tools show the quiz card");
-const card = await client.readResource({ uri: "ui://swiss-passport/card.html" });
+assert(toolList.filter((t) => t._meta?.ui?.resourceUri === "ui://swiss-passport/card-v2.html").length === 4, "4 question tools show the quiz card");
+assert(toolList.find((t) => t.name === "answer")._meta.ui.visibility.includes("app"), "the quiz card may call answer itself");
+const card = await client.readResource({ uri: "ui://swiss-passport/card-v2.html" });
 assert(card.contents[0].mimeType === "text/html;profile=mcp-app" && card.contents[0].text.includes("<div id=\"root\">"), "quiz card resource readable");
 
 let { json: p } = await call("get_progress", { language: "en" });
@@ -44,10 +45,12 @@ assert(step.question.german?.question, "German original included");
 // Lesson: the first question wrong. It must come back at the end until answered correctly.
 let r, concepts = 1, images = 0, answered = 0;
 const firstQ = step.question.id;
+({ json: r } = await call("answer", { answer: "a", question_id: "q000" }));
+assert(r.question_already_answered && r.question.id === firstQ && r.step === "1/9", "a card showing an old question answers nothing and gets the current step");
 for (;;) {
   const qid = step.question.id;
   const isFirst = answered === 0;
-  ({ json: r, images } = await call("answer", { answer: isFirst ? wrongFor(qid) : key[qid] }));
+  ({ json: r, images } = await call("answer", { answer: isFirst ? wrongFor(qid) : key[qid], question_id: qid }));
   answered++;
   assert(r.feedback.correct === !isFirst && r.feedback.why, `answer ${answered} (${qid}) checked with explanation`);
   if (isFirst) assert(r.feedback.comes_again_later_in_this_round, "wrong answer is announced to come again");

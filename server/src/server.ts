@@ -23,8 +23,11 @@ Rules:
 - Each tool result contains exactly one step. Show ONLY that step:
   - If it has "explain_first": explain that concept briefly and clearly, using only its intro, key_terms and mnemonic.
   - Then ask the one question with options a) to d). Stop and wait for the learner's reply.
-- When the learner replies (typed, spoken, or by clicking an option on the quiz card, which sends the letter), call
-  answer with their letter. Never judge the answer yourself and never reveal the correct answer beforehand.
+- Quiz card: where the host shows it, the card already shows the step (concept, question, options, pictures), checks
+  the learner's clicks itself and shows the feedback. Then do not repeat any of that in the chat: say one short line
+  and wait. The card tells you what the learner answered. If a click arrives as a chat message instead, answer it.
+- When the learner replies in the chat (typed or spoken), call answer with their letter.
+  Never judge the answer yourself and never reveal the correct answer beforehand.
   Give short feedback from "why", "about_your_answer" and "note" (if "note" says the exam answer is outdated,
   teach the exam answer and mention today's fact). Then show the next step from "next".
 - A wrong answer comes back later in the same round ("retry": true) until the learner gets it right. Encourage them;
@@ -51,12 +54,16 @@ Learner code (online version, no login):
   contains a new "learner_code". Tell the learner to write it down: they need it to continue on another day.
 - If you can remember things between conversations, remember the learner's code.`;
 
-const CARD_URI = "ui://swiss-passport/card.html";
+// Hosts cache the card by this URI (ChatGPT): give it a new version when the card changes.
+const CARD_URI = "ui://swiss-passport/card-v2.html";
 
 // The tools only change the learner's own quiz progress in this app's database: nothing is deleted,
 // nothing is sent to other systems. Explicit, because MCP treats unannotated tools as destructive and open-world.
 const changesProgress = { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: false };
 const cardUi = { ui: { resourceUri: CARD_URI } };
+// In the tool descriptions too: some hosts (ChatGPT) do not read the server instructions.
+const CARD_NOTE =
+  " Where the quiz card is shown, it displays this step and checks the answers itself: do not repeat its question, options or feedback in the chat.";
 
 /** What a tool produces before it is turned into an MCP result: data plus the question whose pictures to attach. */
 interface Out {
@@ -153,7 +160,9 @@ export function createServer(store: Store, { online, assets }: { online: boolean
     "get_progress",
     {
       title: "Learning progress",
-      description: "Lessons done, reviews due, unfinished session, readiness per topic and recent mock exams. Call at the start.",
+      description:
+        `Use this first when the user wants to learn for ${exam.name} (Swiss citizenship, Einbürgerung, Swiss passport). ` +
+        "Returns lessons done, reviews due, unfinished session, readiness per topic and recent mock exams.",
       inputSchema: common,
       // Locally it only reads; online it may create a new learner code.
       annotations: { ...changesProgress, readOnlyHint: !online, idempotentHint: !online },
@@ -167,7 +176,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       title: "Start a lesson",
       _meta: cardUi,
       annotations: changesProgress,
-      description: "Starts the next lesson (or lesson_id) and returns its first step: a concept explanation and one question.",
+      description: "Starts the next lesson (or lesson_id) and returns its first step: a concept explanation and one question." + CARD_NOTE,
       inputSchema: { ...common, voice, lesson_id: z.string().optional().describe("e.g. l05. Default: next unfinished lesson.") },
     },
     ({ voice, lesson_id, ...args }) =>
@@ -186,7 +195,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       title: "Start reviews",
       _meta: cardUi,
       annotations: changesProgress,
-      description: `Starts a review round of up to ${REVIEW_SIZE} questions whose concepts are due, and returns the first one.`,
+      description: `Starts a review round of up to ${REVIEW_SIZE} questions whose concepts are due, and returns the first one.` + CARD_NOTE,
       inputSchema: { ...common, voice },
     },
     ({ voice, ...args }) =>
@@ -201,7 +210,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       title: "Start a mock exam",
       _meta: cardUi,
       annotations: changesProgress,
-      description: `Starts a mock exam with ${exam.size} random questions like the official practice test, and returns the first one.`,
+      description: `Starts a mock exam with ${exam.size} random questions like the official practice test, and returns the first one.` + CARD_NOTE,
       inputSchema: { ...common, voice },
     },
     ({ voice, ...args }) =>
@@ -215,15 +224,26 @@ export function createServer(store: Store, { online, assets }: { online: boolean
     "answer",
     {
       title: "Answer the current question",
-      _meta: cardUi,
+      // The quiz card calls this tool itself when the learner clicks an option.
+      _meta: { ui: { ...cardUi.ui, visibility: ["model", "app"] }, "openai/widgetAccessible": true },
       annotations: changesProgress,
       description:
-        "Submits the learner's letter for the current question. Returns feedback (none in mock exams) and the next step, or the result at the end.",
-      inputSchema: { ...common, answer: z.enum(["a", "b", "c", "d"]).describe("The learner's choice") },
+        "Submits the learner's letter for the current question. Returns feedback (none in mock exams) and the next step, or the result at the end." +
+        CARD_NOTE,
+      inputSchema: {
+        ...common,
+        answer: z.enum(["a", "b", "c", "d"]).describe("The learner's choice"),
+        question_id: z.string().optional().describe("Set by the quiz card only: the question it shows."),
+      },
     },
-    ({ answer, ...args }) =>
+    ({ answer, question_id, ...args }) =>
       run(args, (p, lang) => {
         if (!p.session) return { data: { error: "No active session. Call start_lesson, start_reviews or start_mock_exam." } };
+        // A card still showing an earlier question: answer nothing and bring the card to the current step.
+        if (question_id && question_id !== p.session.questions[p.session.pos]) {
+          const out = stepOut(p, lang);
+          return { ...out, data: { question_already_answered: true, ...out.data } };
+        }
         const r = engine.answer(p, answer, lang);
         return { data: r, questionId: "next" in r ? r.next?.question.id : undefined };
       }),
