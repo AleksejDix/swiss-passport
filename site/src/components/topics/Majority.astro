@@ -1,0 +1,30 @@
+---
+// The majority of the cantons (issue #8): the canton map with the six former half-cantons in red, their value in
+// cantonal votes and the sum 20 × 1 + 6 × ½ = 23, of which 12 are needed. The map is one shared file
+// (/cantons.svg), so the pages stay light. Texts: key terms and the homepage's vote strings.
+import "../../styles/majority.css";
+import { TEXT } from "../../data.js";
+import { STRINGS } from "../../scripts/i18n.js";
+import { MAP } from "../../scripts/map-data.js";
+import { termName, termText } from "../../viz/terms.js";
+
+const { lang, caption = true } = Astro.props;
+const c = TEXT[lang].concepts;
+const s = STRINGS[lang];
+const title = termName(c, lang, "double_majority", "Ständemehr");
+const full = MAP.cantons.filter((k) => !k.half).length;
+const halves = MAP.cantons.filter((k) => k.half).length;
+const sum = `${full} × 1 + ${halves} × ½ = ${full + halves / 2} ${s.hero_votes}`;
+---
+<figure class="maj">
+  {caption && <figcaption class="maj-title">{title}</figcaption>}
+  <p class="maj-def">{termText(c, lang, "double_majority", "Ständemehr")}</p>
+  <img class="maj-map" src="/cantons.svg" width={MAP.width} height={MAP.height} alt={`${title}: ${sum}. ${s.hero_rule}`} loading="lazy" decoding="async" />
+  <ul class="maj-legend">
+    <li><i class="sw"></i>{termName(c, lang, "three_levels", "Kanton")} <b>1</b> <span>× {full}</span></li>
+    <li><i class="sw half"></i>{termName(c, lang, "three_levels", "Halbkanton")} <b>½</b> <span>× {halves}</span></li>
+  </ul>
+  <p class="maj-sum">{sum}</p>
+  <p class="maj-rule">{s.hero_rule}</p>
+  <p class="maj-credit">{s.map_credit}</p>
+</figure>

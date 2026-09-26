@@ -1,0 +1,14 @@
+/* The majority of the cantons (components/topics/Majority.astro): grey cantons, the former half-cantons red. */
+.maj { margin-block: var(--line); }
+.maj-title { font-weight: 700; }
+.maj-def { font-size: var(--xs); line-height: var(--xs-lh); color: var(--grey); margin-top: 0.1875rem; }
+.maj-map { display: block; width: 100%; max-width: 36rem; height: auto; margin-top: 0.75rem; }
+.maj-legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; margin-top: 0.75rem; }
+.maj-legend li { display: flex; align-items: baseline; gap: 0.5rem; }
+.maj-legend .sw { width: 0.75rem; height: 0.75rem; background: #c4c4c4; flex: none; transform: translateY(0.0625rem); }
+.maj-legend .sw.half { background: var(--red); }
+.maj-legend span { color: var(--grey); }
+.maj-sum { font-size: var(--m); line-height: var(--m-lh); font-weight: 700; margin-top: 0.75rem; }
+.maj-rule { margin-top: 0.1875rem; }
+.maj-credit { font-size: var(--xs); line-height: var(--xs-lh); color: var(--grey); margin-top: 0.5rem; }
+.row:has(> div > .maj:first-child) > * { align-self: start; }
