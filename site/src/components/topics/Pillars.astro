@@ -1,0 +1,32 @@
+---
+// The three pillars of old-age provision (issue #7): three pillars under a roof labelled with the reference age;
+// under each its key term and definition; the memory aid and supplementary benefits below. All texts are key
+// terms and memory aids of three_pillars and ahv_iv; the title is the topic title.
+import "../../styles/pillars.css";
+import { TEXT } from "../../data.js";
+import { termName, termText } from "../../viz/terms.js";
+
+const { lang, caption = true } = Astro.props;
+const c = TEXT[lang].concepts;
+const name = (topic, term) => termName(c, lang, topic, term);
+const text = (topic, term) => termText(c, lang, topic, term);
+const pillars = ["Erste Säule", "Zweite Säule", "Dritte Säule"];
+---
+<figure class="plr">
+  {caption && <figcaption class="plr-title">{c.three_pillars.title}</figcaption>}
+  <div class="plr-house">
+    <p class="plr-roof">{name("ahv_iv", "Referenzalter")} 65</p>
+    <div class="plr-cols">
+      {pillars.map((term, i) => (
+        <div class="plr-col" style={`--i:${i}`}>
+          <div class="plr-pillar" aria-hidden="true"><span>{i + 1}</span></div>
+          <p class="plr-name">{name("three_pillars", term)}</p>
+          {lang !== "de" && <p class="plr-de" lang="de">{term}</p>}
+          <p class="plr-def">{text("three_pillars", term)}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+  <p class="plr-note">{c.three_pillars.mnemonic}</p>
+  <p class="plr-el"><b>{name("ahv_iv", "Ergänzungsleistungen (EL)")}</b> {text("ahv_iv", "Ergänzungsleistungen (EL)")}</p>
+</figure>

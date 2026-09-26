@@ -5,6 +5,7 @@ import { PARLIAMENT_TEXT } from "./parliament.js";
 import { FEDERAL_COUNCIL_TEXT } from "./federal-council.js";
 import { POWERS_TEXT } from "./powers.js";
 import { LEVELS_TEXT } from "./levels.js";
+import { TEXT } from "../data.js";
 
 const VISUALS = {
   history: { topics: HISTORY.map((e) => e.topic), title: (lang) => TIMELINE_TEXT[lang].title },
@@ -12,6 +13,7 @@ const VISUALS = {
   federalCouncil: { topics: ["federal_council", "administration"], title: (lang) => FEDERAL_COUNCIL_TEXT[lang].title },
   powers: { topics: ["separation_of_powers", "justice_police", "zh_government", "zh_parliament"], title: (lang) => POWERS_TEXT[lang].title },
   levels: { topics: ["three_levels", "federal_tasks"], title: (lang) => LEVELS_TEXT[lang].title },
+  pillars: { topics: ["three_pillars", "ahv_iv"], title: (lang) => TEXT[lang].concepts.three_pillars.title },
 };
 
 /** The figure of a topic ("history", "parliament", …), or undefined. */

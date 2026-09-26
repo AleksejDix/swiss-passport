@@ -26,10 +26,3 @@ export const membersLabel = (lang, n) => {
   const forms = POWERS_TEXT[lang].members;
   return `${n} ${forms[new Intl.PluralRules(lang).select(n)] ?? forms.other}`;
 };
-
-/** The name of a body in the page language: the German term itself, or the text before ":" or "," of its definition. */
-export const termName = (concepts, lang, topic, term) => {
-  const k = concepts[topic].key_terms.find((k) => k.term === term);
-  if (!k) throw new Error(`key term ${term} missing in ${lang}/${topic}`);
-  return lang === "de" ? term : k.definition.split(/[:,]/)[0].trim();
-};
