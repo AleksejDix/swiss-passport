@@ -3,7 +3,7 @@ import sitemap from "@astrojs/sitemap";
 import securityHeaders from "./security-headers.mjs";
 import { SITE } from "./src/site.js";
 
-// Static site. The build goes into server/public, which Vercel serves next to the /mcp function.
+// Static site. The build goes into server/public, which the Cloudflare Worker serves next to /mcp.
 export default defineConfig({
   site: SITE,
   outDir: "../server/public",

@@ -15,8 +15,7 @@ server/release/
 server/*.mcpb
 server/scripts/preview/out/
 
-# Local deployment settings (Vercel project link, env files)
-.vercel/
+# Local env files
 .env*
 
 # Website (site/): build goes into server/public, images are copied from images/
