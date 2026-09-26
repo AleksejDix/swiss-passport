@@ -37,6 +37,9 @@ a:hover { color: var(--red); }
   border-bottom: 2px solid transparent;
 }
 .langs-nav button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--red); }
+.langs-nav a { color: var(--grey); text-decoration: none; padding-bottom: 2px; border-bottom: 2px solid transparent; }
+.langs-nav a:hover { color: var(--ink); }
+.langs-nav a[aria-current] { color: var(--ink); border-bottom-color: var(--red); }
 .nav { display: flex; gap: 1.25rem; align-items: baseline; font-size: 0.875rem; }
 .quiet { color: var(--grey); }
 .cta { margin-top: 1.75rem; }
@@ -153,6 +156,31 @@ h3 { font-size: 1rem; font-weight: 600; margin-top: 1.5rem; }
 .footer { border-top: 1px solid var(--ink); padding-block: 1.25rem 3rem; font-size: 0.875rem; color: var(--grey); }
 .footer p + p { margin-top: 0.5rem; }
 .footer a + a { margin-left: 1.25rem; }
+
+/* Question pages and the question list */
+.qhead { padding-block: 2rem 3rem; max-width: 44rem; }
+.qhead h1 { font-size: clamp(1.75rem, 5vw, 2.75rem); line-height: 1.1; letter-spacing: -0.02em; margin-top: 0.75rem; }
+.qhead .lede { max-width: 44ch; }
+.qde { color: var(--grey); font-size: 1.125rem; margin-top: 0.75rem; }
+.qpicture { display: block; max-width: 100%; max-height: 24rem; margin-top: 1.5rem; }
+.qoptions li { display: grid; grid-template-columns: 2.25rem 1fr; align-items: start; border-top: 1px solid var(--rule); padding: 0.625rem 0.25rem; }
+.qoptions li:first-child { border-top: 0; padding-top: 0; }
+.qoptions b {
+  width: 1.625rem; height: 1.625rem; display: grid; place-items: center;
+  border: 1px solid var(--ink); font-size: 0.8125rem; font-weight: 600;
+}
+.qoptions .is-right b { background: var(--red); border-color: var(--red); color: var(--paper); }
+.qoptions .is-right span { font-weight: 600; }
+.qoptions small { display: block; color: var(--grey); font-size: 0.8125rem; font-weight: 400; }
+.qoptions img { display: block; max-width: 10rem; max-height: 8rem; margin-bottom: 0.375rem; }
+.mistakes dt { font-weight: 600; margin-top: 0.75rem; }
+.sources li + li { margin-top: 0.25rem; }
+.qnav p { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: baseline; }
+.qnav .cta { margin-top: 0; }
+.qlist { list-style: decimal; padding-left: 1.5rem; }
+.qlist li { padding-block: 0.25rem; }
+.qlist li::marker { color: var(--grey); font-size: 0.875rem; }
+h3:first-child { margin-top: 0; }
 
 /* Below 60rem everything is one column, as in /learn. */
 @media (max-width: 59.99rem) {

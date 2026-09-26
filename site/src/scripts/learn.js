@@ -1,6 +1,6 @@
 // Learn online: a browser client for the same MCP tools that Claude and ChatGPT use.
 // Progress lives on the server under the learner code, which the browser remembers.
-import { LANGS, currentLang, saveLang } from "../i18n.js";
+import { LANGS, currentLang, saveLang } from "./i18n.js";
 
 const API = "/mcp";
 

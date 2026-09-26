@@ -1,0 +1,15 @@
+{
+  "name": "swiss-passport-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "images": "rm -rf public/images && cp -R ../images public/images",
+    "dev": "npm run images && astro dev",
+    "build": "npm run images && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.5"
+  }
+}

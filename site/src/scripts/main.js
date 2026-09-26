@@ -1,7 +1,8 @@
-import { LANGS, STRINGS, applyStrings, currentLang, saveLang } from "./i18n.js";
+import { STRINGS } from "./i18n.js";
 import { MAP, HERO_QUESTION } from "./map-data.js";
 
-// Homepage: the canton map with a real exam question, the review timeline, the language switch and the copy button.
+// Homepage: the canton map with a real exam question, the review timeline and the copy button.
+// The page is rendered in its language at build time; the script only adds the interactive parts.
 // Everything is shown in its final state when motion is reduced.
 const motion = document.documentElement.classList.contains("js-motion");
 const $ = (s, root = document) => root.querySelector(s);
@@ -13,7 +14,7 @@ const run = (el, keyframes, options) =>
   el.animate(keyframes, { duration: 500, easing: ease, fill: "forwards", ...options }).finished.catch(() => {});
 const SVG = "http://www.w3.org/2000/svg";
 
-let lang = currentLang();
+const lang = document.documentElement.lang;
 const S = () => STRINGS[lang];
 
 /** Small element builder that skips empty children. */
@@ -143,7 +144,7 @@ async function choose(letter) {
     !correct && t.distractors?.[letter] && h("p", {}, t.distractors[letter]),
     h("p", {}, t.why),
     h("p", {},
-      h("a", { class: "button", href: "learn/" }, s.hero_cta),
+      h("a", { class: "button", href: "/learn/" }, s.hero_cta),
       h("button", { class: "again", type: "button", onclick: renderQuestion }, s.hero_again)),
   ));
   // On phones the map sits above the question: bring it into view to show the count.
@@ -189,21 +190,7 @@ copy.addEventListener("click", async () => {
   setTimeout(() => (copy.textContent = S().copy), 2000);
 });
 
-// ---- Language ---------------------------------------------------------------------------
-
-function setLanguage(next) {
-  lang = next;
-  applyStrings(lang);
-  $$("[data-langnav] button").forEach((b) => b.setAttribute("aria-pressed", String(b.lang === lang)));
-  renderQuestion();
-}
-
-$("[data-langnav]").append(
-  ...Object.entries(LANGS).map(([id, name]) =>
-    h("button", { type: "button", lang: id, onclick: () => { saveLang(id); setLanguage(id); } }, name),
-  ),
-);
-setLanguage(lang);
+renderQuestion();
 
 if (motion) {
   playCross();

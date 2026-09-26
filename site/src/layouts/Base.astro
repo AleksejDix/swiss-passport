@@ -1,0 +1,87 @@
+---
+// Every page except /learn: head with canonical and language alternates, masthead, footer.
+import "../styles/styles.css";
+import { SITE } from "../site.js";
+import { LANGS, STRINGS } from "../scripts/i18n.js";
+import { UI } from "../ui.js";
+import { homePath, questionsPath } from "../data.js";
+
+const { lang, title, description, alternates, jsonLd, mapCredit = false } = Astro.props;
+const s = { ...STRINGS[lang], ...UI[lang] };
+const url = (path) => new URL(path, SITE).href;
+const isRoot = Astro.url.pathname === "/";
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={url(alternates[lang])}>
+{Object.entries(alternates).map(([id, path]) => <link rel="alternate" hreflang={id} href={url(path)}>)}
+<link rel="alternate" hreflang="x-default" href={url(alternates.en)}>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Swiss Passport">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={url(alternates[lang])}>
+<meta property="og:locale" content={lang}>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="sitemap" href="/sitemap-index.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap">
+{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+<script is:inline define:vars={{ lang, isRoot, langs: Object.keys(LANGS) }}>
+  // The root page follows the learner's saved or browser language; any other page remembers its own.
+  try {
+    if (isRoot) {
+      const saved = localStorage.getItem("sp-lang");
+      const wanted = saved ?? navigator.languages.map((l) => l.slice(0, 2)).find((l) => langs.includes(l));
+      if (wanted && wanted !== "en" && langs.includes(wanted)) location.replace(`/${wanted}/`);
+    } else if (lang !== "en") {
+      localStorage.setItem("sp-lang", lang);
+    }
+  } catch { /* storage unavailable */ }
+</script>
+<slot name="head" />
+</head>
+<body>
+<header class="page masthead">
+  <a class="brand" href={homePath(lang)} aria-label="Swiss Passport">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" fill="var(--red)"/>
+      <rect class="arm arm-h" x="6" y="13" width="20" height="6" fill="#fff"/>
+      <rect class="arm arm-v" x="13" y="6" width="6" height="20" fill="#fff"/>
+    </svg>
+    <span>Swiss Passport</span>
+  </a>
+  <nav class="nav">
+    <a href="/learn/">{s.nav_learn}</a>
+    <a href={questionsPath(lang)}>{s.nav_questions}</a>
+    <a class="quiet" href="https://github.com/AleksejDix/swiss-passport">{s.nav_source}</a>
+  </nav>
+  <nav class="langs-nav" aria-label="Language">
+    {Object.entries(LANGS).map(([id, name]) => (
+      <a href={alternates[id]} hreflang={id} lang={id} aria-current={id === lang ? "page" : undefined} data-lang={id}>{name}</a>
+    ))}
+  </nav>
+</header>
+
+<slot />
+
+<footer class="page">
+  <div class="footer">
+  <p>{s.foot}</p>
+  {mapCredit && <p>{s.map_credit}</p>}
+  <p><a href="https://github.com/AleksejDix/swiss-passport">{s.nav_source}</a> <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE">{s.foot_license}</a></p>
+  </div>
+</footer>
+<script is:inline>
+  for (const a of document.querySelectorAll("[data-lang]")) {
+    a.addEventListener("click", () => { try { localStorage.setItem("sp-lang", a.dataset.lang); } catch {} });
+  }
+</script>
+</body>
+</html>

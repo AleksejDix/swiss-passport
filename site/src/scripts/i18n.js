@@ -1,7 +1,7 @@
-// Homepage texts in the six learner languages, and the shared language choice (also used by /learn).
+// Homepage texts in the six learner languages (rendered at build time), and the shared language choice (also used by /learn).
 export const LANGS = { de: "Deutsch", en: "English", fr: "Français", it: "Italiano", ru: "Русский", uk: "Українська" };
 
-const URL_LEARN = '<a href="learn/">';
+const URL_LEARN = '<a href="/learn/">';
 
 export const STRINGS = {
   de: {
@@ -234,15 +234,4 @@ export function currentLang() {
 
 export function saveLang(lang) {
   write("sp-lang", lang);
-}
-
-/** Replaces every text marked with data-i18n (plain text) or data-i18n-html (contains a link). */
-export function applyStrings(lang) {
-  const s = STRINGS[lang];
-  document.documentElement.lang = lang;
-  document.title = s.title;
-  document.querySelector('meta[name="description"]')?.setAttribute("content", s.description);
-  for (const el of document.querySelectorAll("[data-i18n]")) el.textContent = s[el.dataset.i18n];
-  for (const el of document.querySelectorAll("[data-i18n-html]")) el.innerHTML = s[el.dataset.i18nHtml];
-  for (const el of document.querySelectorAll("[data-i18n-label]")) el.setAttribute("aria-label", s[el.dataset.i18nLabel]);
 }

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://swiss-passport-zh.vercel.app/sitemap-index.xml

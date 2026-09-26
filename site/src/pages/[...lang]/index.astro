@@ -1,0 +1,129 @@
+---
+// Homepage in one language. English is served at /, the others at /de/, /fr/ and so on.
+import Base from "../../layouts/Base.astro";
+import { STRINGS } from "../../scripts/i18n.js";
+import { LANG_IDS, homePath } from "../../data.js";
+import { SITE } from "../../site.js";
+
+export function getStaticPaths() {
+  return LANG_IDS.map((lang) => ({ params: { lang: lang === "en" ? undefined : lang }, props: { lang } }));
+}
+
+const { lang } = Astro.props;
+const s = STRINGS[lang];
+const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, homePath(id)]));
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Swiss Passport",
+  url: new URL(homePath(lang), SITE).href,
+  description: s.description,
+  inLanguage: lang,
+};
+---
+<Base lang={lang} title={s.title} description={s.description} alternates={alternates} jsonLd={jsonLd} mapCredit>
+<script is:inline slot="head">if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-motion");</script>
+<main class="page">
+  <section class="hero" aria-labelledby="title">
+    <div class="hero-head">
+      <h1 id="title">{s.h1}</h1>
+      <p class="lede">{s.lede}</p>
+      <p class="cta"><a class="button" href="/learn/">{s.cta}</a></p>
+    </div>
+
+    <div class="hero-cols">
+      <figure class="map" data-map-figure>
+        <svg class="map-svg" data-map role="img" aria-labelledby="map-title"><title id="map-title">{s.map_title}</title></svg>
+        <figcaption class="tally">
+          <p class="tally-num"><span class="count" data-count>0</span> <span class="of">/ 23</span> <span class="label">{s.hero_votes}</span></p>
+          <div class="tally-bar" aria-hidden="true"><i data-tally></i><b class="needed"></b></div>
+          <p class="small" data-tally-note>{s.hero_rule}</p>
+        </figcaption>
+      </figure>
+
+      <div class="hero-act" data-hero>
+        <p class="small">{s.hero_try}</p>
+        <p class="hq" lang="de" data-hq-de>Was bedeutet bei Abstimmungen «Ständemehr»?</p>
+        <p class="htr" data-hq-tr></p>
+        <div class="hchoices" data-hero-choices></div>
+        <div class="hfeedback" data-hero-feedback aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="row" aria-labelledby="how">
+    <h2 id="how">{s.how}</h2>
+    <ol class="steps">
+      <li><span class="n">1</span><p>{s.step1}</p></li>
+      <li><span class="n">2</span><p>{s.step2}</p></li>
+      <li><span class="n">3</span><p>{s.step3}</p></li>
+    </ol>
+  </section>
+
+  <section class="row" aria-labelledby="method">
+    <h2 id="method">{s.method}</h2>
+    <dl class="method">
+      <dt>{s.m1t}</dt>
+      <dd>{s.m1d}</dd>
+      <dt>{s.m2t}</dt>
+      <dd>{s.m2d}</dd>
+      <dt>{s.m3t}</dt>
+      <dd>{s.m3d}</dd>
+      <dt>{s.m4t}</dt>
+      <dd>{s.m4d}</dd>
+      <dt>{s.m5t}</dt>
+      <dd>{s.m5d}</dd>
+    </dl>
+  </section>
+
+  <section class="row" aria-labelledby="reviews">
+    <h2 id="reviews">{s.reviews}</h2>
+    <div>
+      <p>{s.reviews_p}</p>
+      <div class="timeline" data-timeline aria-hidden="true">
+        <div class="axis"></div>
+        <span style="--d:1">1</span><span style="--d:3">3</span><span style="--d:7">7</span><span style="--d:14">14</span><span style="--d:30">30</span>
+      </div>
+      <p class="small">{s.reviews_caption}</p>
+    </div>
+  </section>
+
+  <section class="row" aria-labelledby="contents">
+    <h2 id="contents">{s.contents}</h2>
+    <div>
+    <table class="facts">
+      <tr><td>350</td><th scope="row">{s.f1}</th></tr>
+      <tr><td>37</td><th scope="row">{s.f2}</th></tr>
+      <tr><td>96</td><th scope="row">{s.f3}</th></tr>
+      <tr><td>6</td><th scope="row">{s.f4}</th></tr>
+      <tr><td>50</td><th scope="row">{s.f5}</th></tr>
+    </table>
+    <p class="note">{s.contents_note}</p>
+    </div>
+  </section>
+
+  <section class="row" id="start" aria-labelledby="start-title">
+    <h2 id="start-title">{s.start}</h2>
+    <div>
+      <h3 class="first">{s.s_browser}</h3>
+      <p set:html={s.s_browser_p}></p>
+      <h3>{s.s_connector}</h3>
+      <p>{s.s_connector_p}</p>
+      <div class="url">
+        <code data-url>https://swiss-passport-zh.vercel.app/mcp</code>
+        <button type="button" data-copy aria-live="polite">{s.copy}</button>
+      </div>
+      <h3>{s.s_claude}</h3>
+      <p>{s.s_claude_p}</p>
+      <h3>{s.s_chatgpt}</h3>
+      <p>{s.s_chatgpt_p}</p>
+      <h3>{s.s_progress}</h3>
+      <p>{s.s_progress_p}</p>
+    </div>
+  </section>
+</main>
+</Base>
+
+<script>
+  import "../../scripts/main.js";
+</script>
