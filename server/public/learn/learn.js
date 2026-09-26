@@ -1,7 +1,8 @@
 // Learn online: a browser client for the same MCP tools that Claude and ChatGPT use.
 // Progress lives on the server under the learner code, which the browser remembers.
+import { LANGS, currentLang, saveLang } from "../i18n.js";
+
 const API = "/mcp";
-const LANGS = { de: "Deutsch", en: "English", fr: "Français", it: "Italiano", ru: "Русский", uk: "Українська" };
 
 // Interface text. Quiz content comes translated from the server.
 const T = {
@@ -95,8 +96,7 @@ const store = {
   get: (k) => { try { return localStorage.getItem(k); } catch { return null; } },
   set: (k, v) => { try { localStorage.setItem(k, v); } catch { /* private mode: code shown on screen */ } },
 };
-const browserLang = navigator.languages.map((l) => l.slice(0, 2)).find((l) => l in LANGS);
-let lang = store.get("sp-lang") ?? browserLang ?? "de";
+let lang = currentLang();
 let code = store.get("sp-code");
 const t = () => T[lang];
 
@@ -155,10 +155,11 @@ function renderLangs() {
     ),
   );
   document.documentElement.lang = lang;
+  document.title = `${t().title}: Swiss Passport`;
 }
 function setLang(id) {
   lang = id;
-  store.set("sp-lang", id);
+  saveLang(id);
   renderLangs();
   home();
 }

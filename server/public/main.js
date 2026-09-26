@@ -1,3 +1,5 @@
+import { LANGS, STRINGS, applyStrings, currentLang, saveLang } from "./i18n.js";
+
 // Motion for the landing page: the Swiss cross, one quiz step played once, the language rotation,
 // the review timeline, and the copy button. Everything is shown in its final state when motion is reduced.
 const motion = document.documentElement.classList.contains("js-motion");
@@ -78,7 +80,7 @@ async function rotateLanguages() {
   const tr = $("[data-tr]", demo);
   const labels = $$("[data-lang]");
   const order = labels.map((l) => l.dataset.lang);
-  let i = 0;
+  let i = Math.max(0, order.indexOf(tr.lang));
   for (;;) {
     await wait(2600);
     i = (i + 1) % order.length;
@@ -112,9 +114,34 @@ function watchTimeline() {
 const copy = $("[data-copy]");
 copy.addEventListener("click", async () => {
   await navigator.clipboard.writeText($("[data-url]").textContent.trim());
-  copy.textContent = "Copied";
-  setTimeout(() => (copy.textContent = "Copy"), 2000);
+  copy.textContent = STRINGS[lang].copied;
+  setTimeout(() => (copy.textContent = STRINGS[lang].copy), 2000);
 });
+
+// Language: texts, the language switch, and the demo translation line.
+let lang = currentLang();
+function setLanguage(next) {
+  lang = next;
+  applyStrings(lang);
+  $$("[data-langnav] button").forEach((b) => b.setAttribute("aria-pressed", String(b.lang === lang)));
+  const shown = lang === "de" ? "en" : lang;
+  const tr = $("[data-tr]", demo);
+  tr.textContent = TRANSLATIONS[shown];
+  tr.lang = shown;
+  $$("[data-lang]").forEach((l) => l.classList.toggle("on", l.dataset.lang === shown));
+}
+$("[data-langnav]").append(
+  ...Object.entries(LANGS).map(([id, name]) => {
+    const b = document.createElement("button");
+    Object.assign(b, { type: "button", lang: id, textContent: name });
+    b.addEventListener("click", () => {
+      saveLang(id);
+      setLanguage(id);
+    });
+    return b;
+  }),
+);
+setLanguage(lang);
 
 /** Runs `play` once, when at least `threshold` of the element is on screen. */
 function whenVisible(el, threshold, play) {

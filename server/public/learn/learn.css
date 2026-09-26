@@ -1,11 +1,4 @@
 /* Learn online: builds on ../styles.css (tokens, masthead, rows). */
-.langs-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.25rem 0.75rem; font-size: 0.875rem; }
-.langs-nav button {
-  font: inherit; background: none; border: 0; padding: 0 0 2px; color: var(--grey); cursor: pointer;
-  border-bottom: 2px solid transparent;
-}
-.langs-nav button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--red); }
-
 .app { padding-block: 1.5rem 4rem; min-height: 60vh; }
 .app h1 { font-size: clamp(2rem, 7vw, 3rem); }
 
