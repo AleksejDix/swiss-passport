@@ -13,5 +13,7 @@ export const termName = (concepts, lang, topic, term) =>
 /** The definition without the name in front of it. */
 export const termText = (concepts, lang, topic, term) => {
   const d = find(concepts, lang, topic, term).definition;
-  return lang === "de" ? d : d.replace(/^[^:]*:\s*/, "");
+  if (lang === "de") return d;
+  const rest = d.replace(/^[^:]*:\s*/, "");
+  return rest.charAt(0).toUpperCase() + rest.slice(1); // "Majorité des cantons : la majorité …" → "La majorité …"
 };
