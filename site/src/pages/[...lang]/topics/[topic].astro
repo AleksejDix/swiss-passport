@@ -1,0 +1,97 @@
+---
+// One page per topic and language: the explanation, key terms, a memory aid, and the exam questions on it.
+import Base from "../../../layouts/Base.astro";
+import { UI } from "../../../ui.js";
+import { SITE } from "../../../site.js";
+import { TEXT, LANG_IDS, topics, questionPath, questionsPath, topicPath } from "../../../data.js";
+
+export function getStaticPaths() {
+  return LANG_IDS.flatMap((lang) =>
+    topics.map((c, i) => ({
+      params: { lang: lang === "en" ? undefined : lang, topic: c.id.replace(/_/g, "-") },
+      props: { lang, c, prev: topics[i - 1], next: topics[i + 1] },
+    })),
+  );
+}
+
+const { lang, c, prev, next } = Astro.props;
+const ui = UI[lang];
+const t = TEXT[lang];
+const topic = t.concepts[c.id];
+const lesson = t.lessons[c.lesson];
+
+const title = `${topic.title} | ${ui.title_suffix}`;
+const description = topic.intro[0].length > 300 ? `${topic.intro[0].slice(0, 297)}...` : topic.intro[0];
+const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, topicPath(id, c)]));
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  name: topic.title,
+  description,
+  inLanguage: lang,
+  learningResourceType: "Explanation",
+  educationalLevel: "Grundkenntnistest Kanton Zürich",
+  isPartOf: { "@type": "WebSite", name: "Swiss Passport", url: SITE },
+  citation: c.sources,
+};
+---
+<Base lang={lang} title={title} description={description} alternates={alternates} jsonLd={jsonLd}>
+<main class="page question">
+  <header class="qhead">
+    <p class="small">{t.units[c.unit].title} · <a href={`${questionsPath(lang)}#${c.lesson}`}>{lesson.title}</a></p>
+    <h1>{topic.title}</h1>
+  </header>
+
+  <section class="row" aria-labelledby="intro">
+    <h2 id="intro">{ui.topic}</h2>
+    <div class="prose">
+      {topic.intro.map((p) => <p>{p}</p>)}
+      {topic.mnemonic && <p class="mnemonic"><strong>{ui.mnemonic}:</strong> {topic.mnemonic}</p>}
+    </div>
+  </section>
+
+  {topic.key_terms?.length > 0 && (
+    <section class="row" aria-labelledby="terms">
+      <h2 id="terms">{ui.key_terms}</h2>
+      <dl class="mistakes">
+        {topic.key_terms.map((k) => (
+          <>
+            <dt lang="de">{k.term}</dt>
+            <dd>{k.definition}</dd>
+          </>
+        ))}
+      </dl>
+    </section>
+  )}
+
+  <section class="row" aria-labelledby="questions">
+    <h2 id="questions">{ui.topic_questions}</h2>
+    <ol class="tq">
+      {c.questions.map((q) => (
+        <li>
+          <a href={questionPath(lang, q)}>{t.questions[q.id].question}</a>
+          <span class="small">{ui.answer}: {q.answer.toUpperCase()}, {t.questions[q.id].options[q.answer]}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  {c.sources?.length > 0 && (
+    <section class="row" aria-labelledby="sources">
+      <h2 id="sources">{ui.sources}</h2>
+      <ul class="sources">
+        {c.sources.map((src) => <li><a href={src} rel="noopener">{new URL(src).hostname.replace(/^www\./, "")}</a></li>)}
+      </ul>
+    </section>
+  )}
+
+  <nav class="row qnav" aria-label={ui.topic}>
+    <p class="cta"><a class="button" href="/learn/">{ui.practise}</a></p>
+    <p>
+      {prev && <a rel="prev" href={topicPath(lang, prev)}>← {ui.prev_topic}</a>}
+      {next && <a rel="next" href={topicPath(lang, next)}>{ui.next_topic} →</a>}
+      <a href={questionsPath(lang)}>{ui.nav_questions}</a>
+    </p>
+  </nav>
+</main>
+</Base>

@@ -1,6 +1,7 @@
 // llms.txt: a plain-text map of the site for AI assistants (https://llmstxt.org).
 import { SITE } from "../site.js";
-import { TEXT, LANG_IDS, questions, questionPath, questionsPath } from "../data.js";
+import { TEXT, LANG_IDS, questions, topics, questionPath, questionsPath, topicPath, guidePath } from "../data.js";
+import { GUIDE } from "../guide.js";
 
 export function GET() {
   const en = TEXT.en;
@@ -12,6 +13,10 @@ export function GET() {
     "",
     "The questions are published by the Canton of Zurich (Gemeindeamt, Abteilung Einbürgerungen, May 2025). The test itself is in German. Explanations were checked against official sources (zh.ch, stadt-zuerich.ch, admin.ch, ch.ch). Not an official service of the canton.",
     "",
+    "## About the test",
+    "",
+    ...LANG_IDS.map((lang) => `- [${GUIDE[lang].title}](${url(guidePath(lang))})`),
+    "",
     "## Question lists",
     "",
     ...LANG_IDS.map((lang) => `- [${TEXT[lang].title}](${url(questionsPath(lang))})`),
@@ -20,6 +25,10 @@ export function GET() {
     "",
     `- [Learn online](${url("/learn/")}): lessons, spaced repetition and 50-question mock exams in the browser`,
     `- MCP connector for Claude and ChatGPT: ${url("/mcp")}`,
+    "",
+    "## Topics (English)",
+    "",
+    ...topics.map((c) => `- [${en.concepts[c.id].title}](${url(topicPath("en", c))})`),
     "",
     "## Questions (English)",
     "",

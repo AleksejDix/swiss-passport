@@ -17,6 +17,8 @@ export const prefix = (lang) => (lang === "en" ? "" : `/${lang}`);
 export const homePath = (lang) => `${prefix(lang)}/`;
 export const questionsPath = (lang) => `${prefix(lang)}/questions/`;
 export const questionPath = (lang, q) => `${prefix(lang)}/questions/${q.slug}/`;
+export const topicPath = (lang, c) => `${prefix(lang)}/topics/${c.id.replace(/_/g, "-")}/`;
+export const guidePath = (lang) => `${prefix(lang)}/grundkenntnistest/`;
 
 /** A URL slug from the German question, the wording used in the real test (same slug in every language). */
 function slugify(text) {
@@ -41,3 +43,11 @@ export const questions = lessons
     const concept = conceptOf.get(q.id);
     return { ...q, n, slug: `${n}-${slugify(de.questions[q.id].question)}`, concept, lesson: concept.lesson };
   });
+
+/** All topics in curriculum order, each with its lesson, unit and questions. */
+export const topics = lessons.flatMap((l) =>
+  l.concepts.map((id) => {
+    const c = concepts.find((k) => k.id === id);
+    return { ...c, unit: l.unit, questions: questions.filter((q) => q.concept.id === id) };
+  }),
+);

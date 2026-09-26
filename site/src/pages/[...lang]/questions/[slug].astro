@@ -2,7 +2,7 @@
 // One page per official question and language: the question, the correct answer, why, and the German original.
 import Base from "../../../layouts/Base.astro";
 import { UI } from "../../../ui.js";
-import { TEXT, LANG_IDS, lessons, questions, questionPath, questionsPath } from "../../../data.js";
+import { TEXT, LANG_IDS, lessons, questions, questionPath, questionsPath, topicPath } from "../../../data.js";
 
 export function getStaticPaths() {
   return LANG_IDS.flatMap((lang) =>
@@ -99,7 +99,8 @@ const jsonLd = {
   <section class="row" aria-labelledby="topic">
     <h2 id="topic">{ui.topic}</h2>
     <div>
-      <p><strong>{concept.title}</strong></p>
+      <p><strong><a href={topicPath(lang, q.concept)}>{concept.title}</a></strong></p>
+      <p>{concept.intro[0]}</p>
       <p class="small">{t.units[unit].title} · {lesson.title}</p>
       {q.concept.sources?.length > 0 && (
         <>

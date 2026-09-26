@@ -4,7 +4,8 @@ import "../styles/styles.css";
 import { SITE } from "../site.js";
 import { LANGS, STRINGS } from "../scripts/i18n.js";
 import { UI } from "../ui.js";
-import { homePath, questionsPath } from "../data.js";
+import { GUIDE } from "../guide.js";
+import { homePath, questionsPath, guidePath } from "../data.js";
 
 const { lang, title, description, alternates, jsonLd, mapCredit = false } = Astro.props;
 const s = { ...STRINGS[lang], ...UI[lang] };
@@ -60,7 +61,7 @@ const isRoot = Astro.url.pathname === "/";
   <nav class="nav">
     <a href="/learn/">{s.nav_learn}</a>
     <a href={questionsPath(lang)}>{s.nav_questions}</a>
-    <a class="quiet" href="https://github.com/AleksejDix/swiss-passport">{s.nav_source}</a>
+    <a href={guidePath(lang)}>{GUIDE[lang].nav}</a>
   </nav>
   <nav class="langs-nav" aria-label="Language">
     {Object.entries(LANGS).map(([id, name]) => (

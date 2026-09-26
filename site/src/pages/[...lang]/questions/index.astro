@@ -1,8 +1,8 @@
 ---
-// All 350 questions in one language, grouped by unit and lesson, each linking to its own page.
+// All 350 questions in one language, grouped by unit, lesson and topic, each linking to its own page.
 import Base from "../../../layouts/Base.astro";
 import { UI } from "../../../ui.js";
-import { TEXT, LANG_IDS, units, questions, questionPath, questionsPath } from "../../../data.js";
+import { TEXT, LANG_IDS, units, topics, questionPath, questionsPath, topicPath } from "../../../data.js";
 
 export function getStaticPaths() {
   return LANG_IDS.map((lang) => ({ params: { lang: lang === "en" ? undefined : lang }, props: { lang } }));
@@ -28,11 +28,16 @@ const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, questionsPath(id
         {u.lessons.map((l) => (
           <>
             <h3 id={l}>{t.lessons[l].title}</h3>
-            <ol class="qlist">
-              {questions.filter((q) => q.lesson === l).map((q) => (
-                <li><a href={questionPath(lang, q)}>{t.questions[q.id].question}</a></li>
-              ))}
-            </ol>
+            {topics.filter((c) => c.lesson === l).map((c) => (
+              <>
+                <h4><a href={topicPath(lang, c)}>{t.concepts[c.id].title}</a></h4>
+                <ol class="qlist">
+                  {c.questions.map((q) => (
+                    <li value={q.n}><a href={questionPath(lang, q)}>{t.questions[q.id].question}</a></li>
+                  ))}
+                </ol>
+              </>
+            ))}
           </>
         ))}
       </div>
