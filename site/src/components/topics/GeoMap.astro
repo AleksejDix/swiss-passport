@@ -1,0 +1,41 @@
+---
+// A map for a geography topic (issues #13, #14): the shared SVG file of the map, and over it the marks and
+// names in the reader's language. Marks keep their size on every screen; the map scales.
+import "../../styles/geo-map.css";
+import { TEXT } from "../../data.js";
+import { MAP_OF_TOPIC, MAP_TEXT, MAP_LEGEND, geometry, mapMarks } from "../../viz/maps.js";
+import { termName } from "../../viz/terms.js";
+
+const { lang, topic, caption = true } = Astro.props;
+const name = MAP_OF_TOPIC[topic];
+const g = geometry(name);
+const t = MAP_TEXT[lang];
+const marks = mapMarks(name, lang);
+// A legend entry names a map text or a key term of a topic.
+const legend = (MAP_LEGEND[name] ?? []).map(([key, a, term]) => [key, term ? termName(TEXT[lang].concepts, lang, a, term) : t[a]]);
+---
+<figure class={`geo geo-${name}`}>
+  {caption && <figcaption class="geo-title">{TEXT[lang].concepts[topic].title}</figcaption>}
+  <div class="geo-box">
+    <img src={`/maps/${name}.svg`} width={g.width} height={g.height} alt="" loading="lazy" decoding="async" />
+    <ul class="geo-marks">
+      {marks.map((m) => (
+        <li class={`mk mk-${m.kind} ${m.side.split(" ").map((c) => (c === "wrap" ? c : `at-${c}`)).join(" ")}${m.strong ? " is-strong" : ""}`} style={`--x:${m.x.toFixed(2)}%;--y:${m.y.toFixed(2)}%`}>
+          <span>{m.rank && <b>{m.rank}</b>}{m.text}</span>
+        </li>
+      ))}
+    </ul>
+    {name === "ch-size" && (
+      <>
+        <p class="dim dim-x"><span>350 {t.km}</span></p>
+        <p class="dim dim-y"><span>220 {t.km}</span></p>
+      </>
+    )}
+  </div>
+  {legend.length > 0 && (
+    <ul class="geo-legend">
+      {legend.map(([key, text]) => <li><i class={`key key-${key}`}></i>{text}</li>)}
+    </ul>
+  )}
+  <p class="geo-credit">{t.credit}</p>
+</figure>

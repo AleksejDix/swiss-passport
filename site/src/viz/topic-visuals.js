@@ -1,4 +1,4 @@
-// Which topic shows which figure (issues #1 to #8). A figure appears on its topics' pages and on the pages of
+// Which topic shows which figure (issues #1 to #8, maps #13 and #14). A figure appears on its topics' pages and on the pages of
 // all their questions; the pages ask this registry instead of knowing each figure.
 import { HISTORY, TIMELINE_TEXT } from "./history.js";
 import { PARLIAMENT_TEXT } from "./parliament.js";
@@ -7,6 +7,7 @@ import { POWERS_TEXT } from "./powers.js";
 import { LEVELS_TEXT } from "./levels.js";
 import { TEXT } from "../data.js";
 import { termName } from "./terms.js";
+import { MAP_OF_TOPIC, MAP_TEXT } from "./maps.js";
 
 const VISUALS = {
   history: { topics: HISTORY.map((e) => e.topic), title: (lang) => TIMELINE_TEXT[lang].title },
@@ -17,6 +18,7 @@ const VISUALS = {
   pillars: { topics: ["three_pillars", "ahv_iv"], title: (lang) => TEXT[lang].concepts.three_pillars.title },
   // Not on the referendum topic: an optional referendum needs only the majority of the people.
   majority: { topics: ["double_majority", "initiative"], title: (lang) => termName(TEXT[lang].concepts, lang, "double_majority", "Ständemehr") },
+  map: { topics: Object.keys(MAP_OF_TOPIC), title: (lang) => MAP_TEXT[lang].map },
 };
 
 /** The figure of a topic ("history", "parliament", …), or undefined. */

@@ -7,6 +7,7 @@ import Powers from "./Powers.astro";
 import Levels from "./Levels.astro";
 import Pillars from "./Pillars.astro";
 import Majority from "./Majority.astro";
+import GeoMap from "./GeoMap.astro";
 import { visualFor } from "../../viz/topic-visuals.js";
 
 const { lang, topic, caption = true } = Astro.props;
@@ -19,3 +20,4 @@ const kind = visualFor(topic);
 {kind === "levels" && <Levels lang={lang} caption={caption} />}
 {kind === "pillars" && <Pillars lang={lang} caption={caption} />}
 {kind === "majority" && <Majority lang={lang} caption={caption} />}
+{kind === "map" && <GeoMap lang={lang} topic={topic} caption={caption} />}
