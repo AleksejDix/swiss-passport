@@ -25,7 +25,10 @@ const lesson = t.lessons[q.lesson];
 const unit = lessons.find((l) => l.id === q.lesson).unit;
 const img = (path) => `/${path}`;
 
-const title = `${text.question} | ${ui.title_suffix}`;
+// Some official questions share their wording; the answer keeps those titles apart.
+const shared = questions.some((o) => o.id !== q.id && t.questions[o.id].question === text.question);
+const answerTitle = text.options[right].charAt(0).toUpperCase() + text.options[right].slice(1);
+const title = shared ? `${text.question} ${answerTitle} | ${ui.title_suffix}` : `${text.question} | ${ui.title_suffix}`;
 const description = `${ui.answer}: ${right.toUpperCase()}, ${text.options[right]}. ${text.why}`.slice(0, 300);
 const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, questionPath(id, q)]));
 
