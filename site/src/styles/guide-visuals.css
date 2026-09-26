@@ -17,7 +17,9 @@
 }
 .chk-buttons button:hover, .chk-again:hover { background: var(--ink); color: var(--paper); }
 .chk.is-live .chk-step.is-active .chk-buttons { visibility: visible; }
-.chk.is-live .chk-step:not(.is-active, .is-no, .is-yes), .chk.is-live .chk-end:not(.is-hit) { opacity: 0.4; }
+/* Steps not reached yet are grey (5.3:1, still readable), not faded. */
+.chk.is-live .chk-step:not(.is-active, .is-no, .is-yes), .chk.is-live .chk-end:not(.is-hit) { color: var(--grey); }
+.chk.is-live .chk-step:not(.is-active, .is-no, .is-yes) .chk-n, .chk.is-live .chk-end:not(.is-hit) .chk-n { border-color: var(--grey); }
 .chk-step.is-no .chk-n { background: var(--ink); color: var(--paper); }
 .chk-step.is-yes .chk-n, .chk-end.is-hit .chk-n { background: var(--red); border-color: var(--red); color: var(--paper); }
 .chk-step.is-yes .chk-yes { color: var(--red); font-weight: 700; }
