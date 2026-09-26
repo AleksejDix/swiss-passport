@@ -32,32 +32,29 @@
 
 <main class="page">
   <section class="hero" aria-labelledby="title">
-    <h1 id="title" data-i18n="h1">Learn for the Zurich citizenship test.</h1>
-    <div class="hero-cols">
-    <div>
-    <p class="lede" data-i18n="lede">Talk to Claude or ChatGPT, or practise right here. You learn the 350 official questions of the canton, one at a time, in your language, and every answer is checked.</p>
-    <p class="cta"><a class="button" href="learn/" data-i18n="cta">Start learning in your browser</a></p>
+    <div class="hero-head">
+      <h1 id="title" data-i18n="h1">Learn for the Zurich citizenship test.</h1>
+      <p class="lede" data-i18n="lede">Talk to Claude or ChatGPT, or practise right here. You learn the 350 official questions of the canton, one at a time, in your language, and every answer is checked.</p>
+      <p class="cta"><a class="button" href="learn/" data-i18n="cta">Start learning in your browser</a></p>
     </div>
 
-    <figure class="demo" aria-label="Example: one quiz step" data-i18n-label="demo_label">
-      <div class="demo-head">
-        <span data-i18n="demo_head">Lesson 11: Initiative and referendum</span>
-        <span class="step" data-step>3/9</span>
+    <div class="hero-cols">
+      <figure class="map" data-map-figure>
+        <svg class="map-svg" data-map role="img" aria-labelledby="map-title"><title id="map-title" data-i18n="map_title">Map of the 26 cantons</title></svg>
+        <figcaption class="tally">
+          <p class="tally-num"><span class="count" data-count>0</span> <span class="of">/ 23</span> <span class="label" data-i18n="hero_votes">cantonal votes</span></p>
+          <div class="tally-bar" aria-hidden="true"><i data-tally></i><b class="needed"></b></div>
+          <p class="small" data-tally-note data-i18n="hero_rule">Needed: 12 of 23. The 6 former half cantons count half.</p>
+        </figcaption>
+      </figure>
+
+      <div class="hero-act" data-hero>
+        <p class="small" data-i18n="hero_try">Try a real exam question.</p>
+        <p class="hq" lang="de" data-hq-de>Was bedeutet bei Abstimmungen «Ständemehr»?</p>
+        <p class="htr" data-hq-tr></p>
+        <div class="hchoices" data-hero-choices></div>
+        <div class="hfeedback" data-hero-feedback aria-live="polite"></div>
       </div>
-      <div class="bar" aria-hidden="true"><i data-bar></i></div>
-      <p class="q" lang="de" data-q>Was bedeutet bei Abstimmungen «Ständemehr»?</p>
-      <p class="tr" data-tr lang="en">In votes, what does «majority of the cantons» (Ständemehr) mean?</p>
-      <ol class="opts" data-opts>
-        <li lang="de"><b>A</b>Mehrheit aller Stimmen</li>
-        <li lang="de" data-right><b>B</b>Mehrheit der Kantone</li>
-        <li lang="de"><b>C</b>Mehrheit der Stimmen nach Sprachregionen</li>
-        <li lang="de"><b>D</b>Mehrheit in den Meinungsumfragen</li>
-      </ol>
-      <p class="verdict" data-verdict lang="de"><strong>Richtig.</strong> «Stände» ist ein altes Wort für die Kantone. Das Ständemehr ist erreicht, wenn die Mehrheit der Kantone Ja sagt.</p>
-      <figcaption class="langs" aria-hidden="true" data-langs>
-        <span data-lang="en" class="on">English</span><span data-lang="fr">Français</span><span data-lang="it">Italiano</span><span data-lang="ru">Русский</span><span data-lang="uk">Українська</span><span data-lang="de">Deutsch</span>
-      </figcaption>
-    </figure>
     </div>
   </section>
 
@@ -136,6 +133,7 @@
 <footer class="page">
   <div class="footer">
   <p data-i18n="foot">Not an official service of the Canton of Zurich. The questions are published by the canton's Gemeindeamt; the explanations and translations are part of this project.</p>
+  <p data-i18n="map_credit">Map: Bundesamt für Statistik (BFS), GEOSTAT.</p>
   <p><a href="https://github.com/AleksejDix/swiss-passport" data-i18n="nav_source">Source code</a> <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE" data-i18n="foot_license">License: free for personal and non-profit use</a></p>
   </div>
 </footer>

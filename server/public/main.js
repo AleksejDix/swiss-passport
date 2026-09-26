@@ -1,7 +1,8 @@
 import { LANGS, STRINGS, applyStrings, currentLang, saveLang } from "./i18n.js";
+import { MAP, HERO_QUESTION } from "./map-data.js";
 
-// Motion for the landing page: the Swiss cross, one quiz step played once, the language rotation,
-// the review timeline, and the copy button. Everything is shown in its final state when motion is reduced.
+// Homepage: the canton map with a real exam question, the review timeline, the language switch and the copy button.
+// Everything is shown in its final state when motion is reduced.
 const motion = document.documentElement.classList.contains("js-motion");
 const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
@@ -10,25 +11,24 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 // Resolves when the animation ends, also when it is cancelled (e.g. the page is hidden).
 const run = (el, keyframes, options) =>
   el.animate(keyframes, { duration: 500, easing: ease, fill: "forwards", ...options }).finished.catch(() => {});
+const SVG = "http://www.w3.org/2000/svg";
 
-const TRANSLATIONS = {
-  en: "In votes, what does «majority of the cantons» (Ständemehr) mean?",
-  fr: "Que signifie «majorité des cantons» lors des votations\u202F?",
-  it: "Che cosa significa, nelle votazioni, «maggioranza dei Cantoni»?",
-  ru: "Что означает при голосованиях «большинство кантонов» (Ständemehr)?",
-  uk: "Що означає під час голосувань «більшість кантонів» (Ständemehr)?",
-  de: "Das Original, wie es im Test steht.",
-};
+let lang = currentLang();
+const S = () => STRINGS[lang];
 
-const demo = $(".demo");
-const opts = $$("[data-opts] li", demo);
-const right = $("[data-right]", demo);
-
-function showAnswered() {
-  right.classList.add("right");
-  $("[data-step]", demo).textContent = "4/9";
-  $("[data-bar]", demo).style.width = "44.4%";
+/** Small element builder that skips empty children. */
+function h(tag, attrs = {}, ...children) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (v == null || v === false) continue;
+    if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
+    else el.setAttribute(k, v === true ? "" : v);
+  }
+  el.append(...children.flat().filter((c) => c != null && c !== false));
+  return el;
 }
+
+// ---- The Swiss cross in the logo --------------------------------------------------------
 
 async function playCross() {
   run($(".arm-h"), [{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }], { duration: 450 });
@@ -36,64 +36,134 @@ async function playCross() {
   await run($(".arm-v"), [{ transform: "scaleY(0)" }, { transform: "scaleY(1)" }], { duration: 450 });
 }
 
-async function playDemo() {
-  // The quiz step builds up line by line.
-  run($("[data-bar]", demo), [{ width: "22.2%" }, { width: "33.3%" }], { duration: 700 });
-  await run($("[data-q]", demo), [
-    { clipPath: "inset(0 100% 0 0)", opacity: 1 },
-    { clipPath: "inset(0 0 0 0)", opacity: 1 },
-  ], { duration: 800 });
-  run($("[data-tr]", demo), [{ opacity: 0, transform: "translateY(4px)" }, { opacity: 1, transform: "none" }], { duration: 400 });
-  await Promise.all(
-    opts.map((li, i) =>
-      run(li, [{ opacity: 0, transform: "translateX(-8px)" }, { opacity: 1, transform: "none" }], { duration: 400, delay: 150 + i * 90 }),
+// ---- Canton map -----------------------------------------------------------------------
+
+const svg = $("[data-map]");
+svg.setAttribute("viewBox", `0 0 ${MAP.width} ${MAP.height}`);
+const cantonEls = MAP.cantons.map((c) => {
+  const path = document.createElementNS(SVG, "path");
+  path.setAttribute("d", c.d);
+  path.setAttribute("class", "canton");
+  path.dataset.abbr = c.abbr;
+  svg.append(path);
+  return { ...c, el: path };
+});
+for (const d of MAP.lakes) {
+  const lake = document.createElementNS(SVG, "path");
+  lake.setAttribute("d", d);
+  lake.setAttribute("class", "lake");
+  svg.append(lake);
+}
+// West to east: the order in which the country is drawn and the votes are counted.
+const westToEast = [...cantonEls].sort((a, b) => a.cx - b.cx);
+
+async function drawMap() {
+  westToEast.forEach((c, i) =>
+    run(c.el, [{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 500, delay: i * 45 }),
+  );
+  await wait(westToEast.length * 45 + 300);
+  $$(".lake", svg).forEach((l) => run(l, [{ opacity: 0 }, { opacity: 1 }], { duration: 600 }));
+}
+
+// ---- Vote count: majority of the cantons ---------------------------------------------
+
+const NEEDED = 12;
+const TOTAL = 23;
+const fmt = (n) => (Number.isInteger(n) ? String(n) : `${Math.floor(n)}½`);
+
+function setTally(votes) {
+  $("[data-count]").textContent = fmt(votes);
+  $("[data-tally]").style.width = `${(votes / TOTAL) * 100}%`;
+}
+
+function resetMap() {
+  cantonEls.forEach((c) => c.el.classList.remove("yes"));
+  setTally(0);
+  const note = $("[data-tally-note]");
+  note.classList.remove("tally-note-done");
+  note.textContent = S().hero_rule;
+}
+
+/** Cantons say yes one by one, from west to east, until 12 of 23 cantonal votes are reached. */
+async function countVotes() {
+  let votes = 0;
+  for (const c of westToEast) {
+    if (votes >= NEEDED) break;
+    c.el.classList.add("yes");
+    votes += c.half ? 0.5 : 1;
+    setTally(votes);
+    if (motion) await wait(260);
+  }
+  const note = $("[data-tally-note]");
+  note.textContent = S().hero_reached;
+  note.classList.add("tally-note-done");
+}
+
+// ---- The exam question ------------------------------------------------------------------
+
+let answered = false;
+
+function renderQuestion() {
+  answered = false;
+  const t = HERO_QUESTION.text[lang];
+  const de = HERO_QUESTION.text.de;
+  $("[data-hq-de]").textContent = de.question;
+  const tr = $("[data-hq-tr]");
+  tr.textContent = lang === "de" ? "" : t.question;
+  tr.hidden = lang === "de";
+  tr.lang = lang;
+  $("[data-hero-choices]").replaceChildren(
+    ...["a", "b", "c", "d"].map((letter) =>
+      h("button", { class: "hchoice", type: "button", "data-letter": letter, onclick: () => choose(letter) },
+        h("b", {}, letter.toUpperCase()),
+        h("span", { lang },
+          t.options[letter],
+          lang !== "de" && h("small", { lang: "de" }, de.options[letter]))),
     ),
   );
-
-  // A red pointer travels to the chosen answer, like a learner's hand.
-  await wait(600);
-  const pointer = document.createElement("span");
-  pointer.className = "pointer";
-  $("[data-opts]", demo).append(pointer);
-  const at = (li) => `translateY(${li.offsetTop}px)`;
-  pointer.style.height = `${opts[0].offsetHeight}px`;
-  await run(pointer, [{ opacity: 0, transform: at(opts[0]) }, { opacity: 1, transform: at(opts[0]) }], { duration: 250 });
-  await run(pointer, [{ transform: at(opts[0]) }, { transform: at(right) }], { duration: 550, delay: 250 });
-  right.classList.add("chosen");
-  await wait(450);
-  right.classList.remove("chosen");
-  showAnswered();
-  $("[data-step]", demo).animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 });
-  $("[data-bar]", demo).animate([{ width: "33.3%" }, { width: "44.4%" }], { duration: 600, easing: ease });
-  await run($("[data-verdict]", demo), [
-    { clipPath: "inset(0 100% 0 0)", opacity: 1 },
-    { clipPath: "inset(0 0 0 0)", opacity: 1 },
-  ], { duration: 900 });
-  run(pointer, [{ opacity: 1 }, { opacity: 0 }], { duration: 400, delay: 600 });
-
-  await wait(1800);
-  rotateLanguages();
+  $("[data-hero-feedback]").replaceChildren();
+  resetMap();
 }
 
-// The translation line cycles through the learner languages; the German stays, as in the real test.
-async function rotateLanguages() {
-  const tr = $("[data-tr]", demo);
-  const labels = $$("[data-lang]");
-  const order = labels.map((l) => l.dataset.lang);
-  let i = Math.max(0, order.indexOf(tr.lang));
-  for (;;) {
-    await wait(2600);
-    i = (i + 1) % order.length;
-    const lang = order[i];
-    await run(tr, [{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-4px)" }], { duration: 250 });
-    tr.textContent = TRANSLATIONS[lang];
-    tr.lang = lang;
-    labels.forEach((l) => l.classList.toggle("on", l.dataset.lang === lang));
-    await run(tr, [{ opacity: 0, transform: "translateY(4px)" }, { opacity: 1, transform: "none" }], { duration: 350 });
-  }
+async function choose(letter) {
+  if (answered) return;
+  answered = true;
+  const t = HERO_QUESTION.text[lang];
+  const right = HERO_QUESTION.answer;
+  const correct = letter === right;
+  $$("[data-hero-choices] button").forEach((b) => {
+    b.disabled = true;
+    if (b.dataset.letter === right) b.classList.add("is-right");
+    else if (b.dataset.letter === letter) b.classList.add("is-wrong");
+  });
+  const s = S();
+  // Wrapped in h() so that empty parts are skipped (replaceChildren would print "false").
+  $("[data-hero-feedback]").replaceChildren(h("div", {},
+    h("p", { class: `verdict${correct ? " ok" : ""}` }, correct ? s.hero_right : `${s.hero_wrong} ${right.toUpperCase()}: ${t.options[right]}`),
+    !correct && t.distractors?.[letter] && h("p", {}, t.distractors[letter]),
+    h("p", {}, t.why),
+    h("p", {},
+      h("a", { class: "button", href: "learn/" }, s.hero_cta),
+      h("button", { class: "again", type: "button", onclick: renderQuestion }, s.hero_again)),
+  ));
+  // On phones the map sits above the question: bring it into view to show the count.
+  const map = $("[data-map-figure]");
+  if (map.getBoundingClientRect().top < 0) map.scrollIntoView({ behavior: motion ? "smooth" : "auto", block: "start" });
+  await countVotes();
 }
 
-// Review timeline: the axis draws, then each review day appears where it falls in the month.
+// ---- Review timeline: the axis draws, then each review day appears where it falls ------
+
+/** Runs `play` once, when at least `threshold` of the element is on screen. */
+function whenVisible(el, threshold, play) {
+  const observer = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return;
+    observer.disconnect();
+    play();
+  }, { threshold });
+  observer.observe(el);
+}
+
 function watchTimeline() {
   const tl = $("[data-timeline]");
   whenVisible(tl, 0.8, () => {
@@ -110,53 +180,33 @@ function watchTimeline() {
   });
 }
 
-// Copy the connector address.
+// ---- Copy the connector address ---------------------------------------------------------
+
 const copy = $("[data-copy]");
 copy.addEventListener("click", async () => {
   await navigator.clipboard.writeText($("[data-url]").textContent.trim());
-  copy.textContent = STRINGS[lang].copied;
-  setTimeout(() => (copy.textContent = STRINGS[lang].copy), 2000);
+  copy.textContent = S().copied;
+  setTimeout(() => (copy.textContent = S().copy), 2000);
 });
 
-// Language: texts, the language switch, and the demo translation line.
-let lang = currentLang();
+// ---- Language ---------------------------------------------------------------------------
+
 function setLanguage(next) {
   lang = next;
   applyStrings(lang);
   $$("[data-langnav] button").forEach((b) => b.setAttribute("aria-pressed", String(b.lang === lang)));
-  const shown = lang === "de" ? "en" : lang;
-  const tr = $("[data-tr]", demo);
-  tr.textContent = TRANSLATIONS[shown];
-  tr.lang = shown;
-  $$("[data-lang]").forEach((l) => l.classList.toggle("on", l.dataset.lang === shown));
+  renderQuestion();
 }
+
 $("[data-langnav]").append(
-  ...Object.entries(LANGS).map(([id, name]) => {
-    const b = document.createElement("button");
-    Object.assign(b, { type: "button", lang: id, textContent: name });
-    b.addEventListener("click", () => {
-      saveLang(id);
-      setLanguage(id);
-    });
-    return b;
-  }),
+  ...Object.entries(LANGS).map(([id, name]) =>
+    h("button", { type: "button", lang: id, onclick: () => { saveLang(id); setLanguage(id); } }, name),
+  ),
 );
 setLanguage(lang);
 
-/** Runs `play` once, when at least `threshold` of the element is on screen. */
-function whenVisible(el, threshold, play) {
-  const observer = new IntersectionObserver(([entry]) => {
-    if (!entry.isIntersecting) return;
-    observer.disconnect();
-    play();
-  }, { threshold });
-  observer.observe(el);
-}
-
 if (motion) {
   playCross();
-  whenVisible(demo, 0.5, playDemo);
+  drawMap();
   watchTimeline();
-} else {
-  showAnswered();
 }

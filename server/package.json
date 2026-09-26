@@ -10,7 +10,8 @@
     "test": "npm run build && node scripts/smoke-test.mjs && node scripts/http-test.mjs",
     "serve": "node dist/http.js",
     "release": "npm run build && rm -rf release && mkdir -p release/swiss-passport-server && cp -R dist data deploy/install.sh deploy/uninstall.sh release/swiss-passport-server/ && tar -czf release/swiss-passport-server.tgz -C release swiss-passport-server && rm -rf release/swiss-passport-server",
-    "deploy": "npm run build && vercel deploy --prod"
+    "deploy": "npm run build && vercel deploy --prod",
+    "build:map": "node scripts/build-map.mjs"
   },
   "license": "PolyForm-Noncommercial-1.0.0",
   "type": "module",
@@ -23,7 +24,11 @@
   "devDependencies": {
     "@anthropic-ai/mcpb": "^2.1.2",
     "@types/node": "^26.6.2",
+    "d3-geo": "^3.1.1",
     "esbuild": "^0.28.2",
+    "swiss-maps": "^4.7.0",
+    "topojson-client": "^3.1.0",
+    "topojson-simplify": "^3.0.3",
     "typescript": "^7.0.2"
   },
   "bin": {
