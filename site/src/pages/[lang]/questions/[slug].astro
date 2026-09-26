@@ -1,6 +1,7 @@
 ---
 // One page per official question and language: the question, the correct answer, why, and the German original.
 import Base from "../../../layouts/Base.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import TopicVisual from "../../../components/topics/TopicVisual.astro";
 import { visualFor } from "../../../viz/topic-visuals.js";
 import { UI } from "../../../ui.js";
@@ -60,7 +61,7 @@ const jsonLd = {
 <Base lang={lang} title={title} description={description} alternates={alternates} jsonLd={jsonLd}>
 <main class="page question">
   <header class="qhead">
-    <p class="small meta"><span>{ui.question_n.replace("{n}", q.n)}</span> <a href={`${questionsPath(lang)}#${q.lesson}`}>{lesson.title}</a></p>
+    <Breadcrumbs lang={lang} items={[[ui.nav_questions, questionsPath(lang)], [concept.title, topicPath(lang, q.concept)], [ui.question_n.replace("{n}", q.n), questionPath(lang, q)]]} />
     <h1>{text.question}</h1>
     {lang !== "de" && <p class="qde" lang="de">{de.question}</p>}
     {q.image && <img class="qpicture" src={img(q.image)} alt={text.question} loading="lazy">}

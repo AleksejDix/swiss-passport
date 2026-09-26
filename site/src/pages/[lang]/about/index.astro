@@ -1,6 +1,7 @@
 ---
 // About: who is behind the site, where the content comes from, how it is checked, privacy and license.
 import Base from "../../../layouts/Base.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import { ABOUT, ABOUT_LINKS } from "../../../about.js";
 import { SITE } from "../../../site.js";
 import { LANG_IDS, aboutPath, guidePath } from "../../../data.js";
@@ -32,6 +33,7 @@ const jsonLd = {
 <Base lang={lang} title={a.title} description={a.desc} alternates={alternates} jsonLd={jsonLd}>
 <main class="page">
   <header class="qhead">
+    <Breadcrumbs lang={lang} items={[[a.nav, aboutPath(lang)]]} />
     <h1>{a.title}</h1>
     <p class="lede">{a.desc}</p>
   </header>

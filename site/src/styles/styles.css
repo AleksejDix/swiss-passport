@@ -309,7 +309,9 @@ h1.brand { font-size: inherit; line-height: inherit; letter-spacing: inherit; ma
 .qhead > * { grid-column: 1 / -1; }
 .qhead .lede { margin-top: calc(2 * var(--line)); }
 .qhead > h1 + .small { margin-top: var(--line); }
-.meta { display: flex; flex-wrap: wrap; column-gap: var(--gutter); margin-bottom: var(--line); }
+.crumbs { margin-bottom: var(--line); }
+.crumbs ol { display: flex; flex-wrap: wrap; }
+.crumbs li + li::before { content: "/"; content: "/" / ""; margin-inline: 0.5em; }
 .qde { font-size: var(--m); line-height: var(--m-lh); letter-spacing: -0.012em; color: var(--grey); margin-top: var(--line); }
 .qpicture { display: block; max-height: 24rem; width: auto; margin-top: calc(2 * var(--line)); }
 @media (min-width: 40rem) {
@@ -319,9 +321,6 @@ h1.brand { font-size: inherit; line-height: inherit; letter-spacing: inherit; ma
   .qhead > h1 { grid-column: 1 / span 10; }
   .qhead .qde { grid-column: 1 / span 8; }
   .qhead .lede, .qhead .cta { grid-column: 4 / span 6; }
-  .meta { display: grid; grid-template-columns: subgrid; }
-  .meta > :first-child { grid-column: 1 / span 3; }
-  .meta > :nth-child(2) { grid-column: 4 / -1; }
 }
 
 /* The answers on a question page */

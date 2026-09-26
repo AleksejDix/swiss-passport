@@ -1,6 +1,8 @@
 // Interface text of the question pages, in the six learner languages. The homepage texts are in scripts/i18n.js.
 export const UI = {
   de: {
+    home: "Start",
+    breadcrumb: "Pfad",
     topic_questions: "Fragen zu diesem Thema",
     key_terms: "Wichtige Begriffe",
     mnemonic: "Eselsbrücke",
@@ -24,6 +26,8 @@ export const UI = {
     credit: "Offizielle Frage des Kantons Zürich (Gemeindeamt, Stand Mai 2025). Erklärung: Swiss Passport.",
   },
   en: {
+    home: "Home",
+    breadcrumb: "Breadcrumb",
     topic_questions: "Exam questions on this topic",
     key_terms: "Key terms",
     mnemonic: "Memory aid",
@@ -47,6 +51,8 @@ export const UI = {
     credit: "Official question of the Canton of Zurich (Gemeindeamt, May 2025). Translation and explanation: Swiss Passport.",
   },
   fr: {
+    home: "Accueil",
+    breadcrumb: "Fil d'Ariane",
     topic_questions: "Questions d'examen sur ce thème",
     key_terms: "Mots clés",
     mnemonic: "Pour retenir",
@@ -70,6 +76,8 @@ export const UI = {
     credit: "Question officielle du canton de Zurich (Gemeindeamt, mai 2025). Traduction et explication : Swiss Passport.",
   },
   it: {
+    home: "Home",
+    breadcrumb: "Percorso",
     topic_questions: "Domande d'esame su questo tema",
     key_terms: "Parole chiave",
     mnemonic: "Per ricordare",
@@ -93,6 +101,8 @@ export const UI = {
     credit: "Domanda ufficiale del Cantone di Zurigo (Gemeindeamt, maggio 2025). Traduzione e spiegazione: Swiss Passport.",
   },
   ru: {
+    home: "Главная",
+    breadcrumb: "Навигационная цепочка",
     topic_questions: "Вопросы теста по этой теме",
     key_terms: "Ключевые понятия",
     mnemonic: "Как запомнить",
@@ -116,6 +126,8 @@ export const UI = {
     credit: "Официальный вопрос кантона Цюрих (Gemeindeamt, май 2025). Перевод и объяснение: Swiss Passport.",
   },
   uk: {
+    home: "Головна",
+    breadcrumb: "Навігаційний ланцюжок",
     topic_questions: "Запитання тесту з цієї теми",
     key_terms: "Ключові поняття",
     mnemonic: "Як запам'ятати",

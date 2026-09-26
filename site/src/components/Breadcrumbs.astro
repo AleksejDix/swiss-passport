@@ -1,0 +1,25 @@
+---
+// The path from the home page to this page (issue #12): visible above the title and, from the same list,
+// as a schema.org BreadcrumbList for search results. `items` are [name, path] after Home; the last is this page.
+import { SITE } from "../site.js";
+import { UI } from "../ui.js";
+import { homePath } from "../data.js";
+
+const { lang, items } = Astro.props;
+const trail = [[UI[lang].home, homePath(lang)], ...items];
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: trail.map(([name, path], i) => ({
+    "@type": "ListItem", position: i + 1, name, item: new URL(path, SITE).href,
+  })),
+};
+---
+<nav class="small crumbs" aria-label={UI[lang].breadcrumb}>
+  <ol>
+    {trail.map(([name, path], i) => (
+      <li>{i < trail.length - 1 ? <a href={path}>{name}</a> : <span aria-current="page">{name}</span>}</li>
+    ))}
+  </ol>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</nav>

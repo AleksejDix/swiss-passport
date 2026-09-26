@@ -1,6 +1,7 @@
 ---
 // All 350 questions in one language, grouped by unit, lesson and topic, each linking to its own page.
 import Base from "../../../layouts/Base.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import { UI } from "../../../ui.js";
 import { TEXT, LANG_IDS, units, topics, questionPath, questionsPath, topicPath } from "../../../data.js";
 
@@ -16,6 +17,7 @@ const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, questionsPath(id
 <Base lang={lang} title={ui.questions_title} description={ui.questions_desc} alternates={alternates}>
 <main class="page">
   <header class="qhead">
+    <Breadcrumbs lang={lang} items={[[ui.nav_questions, questionsPath(lang)]]} />
     <h1>{ui.questions_title}</h1>
     <p class="lede">{ui.questions_lede}</p>
     <p class="cta"><a class="button" href="/learn/">{ui.practise}</a></p>

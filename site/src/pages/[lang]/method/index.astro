@@ -2,6 +2,7 @@
 // The learning method: what Swiss Passport does (retrieval, spacing, feedback, mixing) and the research behind it.
 // Sections 2 to 5 each show a visual (src/components/method/) that lets the reader try the idea.
 import Base from "../../../layouts/Base.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import ForgettingCurve from "../../../components/method/ForgettingCurve.astro";
 import TryQuestion from "../../../components/method/TryQuestion.astro";
 import MixedPractice from "../../../components/method/MixedPractice.astro";
@@ -36,6 +37,7 @@ const jsonLd = {
 <Base lang={lang} title={m.title} description={m.desc} alternates={alternates} jsonLd={jsonLd}>
 <main class="page">
   <header class="qhead">
+    <Breadcrumbs lang={lang} items={[[m.nav, methodPath(lang)]]} />
     <h1>{m.title}</h1>
     <p class="lede">{m.lede}</p>
   </header>

@@ -1,6 +1,7 @@
 ---
 // The test guide: who takes the Grundkenntnistest, which questions, where, and what it costs. Official facts only.
 import Base from "../../../layouts/Base.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import SelfCheck from "../../../components/guide/SelfCheck.astro";
 import TestOrder from "../../../components/guide/TestOrder.astro";
 import { UI } from "../../../ui.js";
@@ -38,6 +39,7 @@ const sources = [
 <Base lang={lang} title={g.title} description={g.desc} alternates={alternates} jsonLd={jsonLd}>
 <main class="page">
   <header class="qhead">
+    <Breadcrumbs lang={lang} items={[[g.nav, guidePath(lang)]]} />
     <h1>{g.title}</h1>
     <p class="lede">{g.lede}</p>
   </header>
