@@ -1,0 +1,43 @@
+---
+// "How it works" as a short chat (issue #9): one real lesson step, as the tutor runs it in Claude or ChatGPT:
+// the learner picks a language, the tutor explains, asks a real exam question, checks the answer and says why.
+// scripts/chat-demo.js plays it once when it scrolls into view; without it the whole chat is shown.
+import "../../styles/chat.css";
+import { TEXT, questions } from "../../data.js";
+import { STRINGS } from "../../scripts/i18n.js";
+import { termText } from "../../viz/terms.js";
+import { CHAT_TEXT, CHAT_TOPIC, CHAT_QUESTION } from "../../viz/chat.js";
+
+const { lang } = Astro.props;
+const t = CHAT_TEXT[lang];
+const c = TEXT[lang].concepts;
+const q = questions.find((x) => x.id === CHAT_QUESTION);
+const text = TEXT[lang].questions[CHAT_QUESTION];
+const de = TEXT.de.questions[CHAT_QUESTION];
+const letters = q.options.map((o) => o.id);
+---
+<figure class="chat" data-chat>
+  <figcaption class="chat-title">{t.title}</figcaption>
+  <ol class="chat-log">
+    <li class="msg you"><p class="who">{t.you}</p><p class="bubble">{t.pick}</p></li>
+    <li class="msg tutor">
+      <p class="who">{t.tutor}</p>
+      <div class="bubble"><p><b>{c[CHAT_TOPIC].mnemonic}</b></p><p>{termText(c, lang, CHAT_TOPIC, "Kollegialitätsprinzip")}</p></div>
+    </li>
+    <li class="msg tutor">
+      <p class="who">{t.tutor}</p>
+      <div class="bubble">
+        <p><b>{text.question}</b></p>
+        {lang !== "de" && <p class="de" lang="de">{de.question}</p>}
+        <ol class="opts">
+          {letters.map((l) => <li data-letter={l} class={l === q.answer ? "is-right" : undefined}><span class="l">{l.toUpperCase()}</span><span>{text.options[l]}</span></li>)}
+        </ol>
+      </div>
+    </li>
+    <li class="msg you"><p class="who">{t.you}</p><p class="bubble">{q.answer.toUpperCase()}</p></li>
+    <li class="msg tutor" data-answer={q.answer}>
+      <p class="who">{t.tutor}</p>
+      <div class="bubble"><p><b class="ok">{STRINGS[lang].hero_right}</b> {text.why}</p></div>
+    </li>
+  </ol>
+</figure>

@@ -2,6 +2,7 @@
 // Homepage in one language, at /de/, /en/, /fr/ and so on. The language picker is at /.
 import Base from "../../layouts/Base.astro";
 import QuestionMap from "../../components/home/QuestionMap.astro";
+import ChatDemo from "../../components/home/ChatDemo.astro";
 import { STRINGS } from "../../scripts/i18n.js";
 import { LANG_IDS, homePath, methodPath } from "../../data.js";
 import { METHOD } from "../../method.js";
@@ -60,6 +61,7 @@ const jsonLd = {
       <li><span class="n">2</span><p>{s.step2}</p></li>
       <li><span class="n">3</span><p>{s.step3}</p></li>
     </ol>
+    <ChatDemo lang={lang} />
   </section>
 
   <section class="row" aria-labelledby="method">
@@ -126,4 +128,5 @@ const jsonLd = {
 <script>
   import "../../scripts/main.js";
   import "../../scripts/question-map.js";
+  import "../../scripts/chat-demo.js";
 </script>
