@@ -168,6 +168,7 @@ function show(...nodes) {
 }
 
 function fail() {
+  view = {};
   show(h("p", { class: "error" }, t().error), h("button", { class: "next", onclick: home }, t().overview));
 }
 
@@ -187,7 +188,7 @@ function setLang(id) {
   lang = id;
   saveLang(id);
   renderLangs();
-  home();
+  return home();
 }
 
 // ---- Overview -------------------------------------------------------------------------
@@ -238,6 +239,8 @@ async function home() {
       h("p", { class: "error", "data-code-error": true, hidden: true }, s.unknownCode),
     )],
   ));
+  view = {};
+  return p;
 }
 
 async function useCode(event) {
@@ -255,13 +258,17 @@ async function useCode(event) {
 // ---- Quiz steps -----------------------------------------------------------------------
 
 let kind = "lesson";
+// What the screen shows (a step, its feedback, a summary), so the agent tools can report it.
+let view = {};
+let stepTitle;
 
 async function start(tool) {
   kind = { start_lesson: "lesson", start_reviews: "review", start_mock_exam: "exam" }[tool];
   try {
     const { data, images } = await call(tool);
-    if (!data.question) return home();
-    renderStep(data, images);
+    if (!data.question) await home();
+    else renderStep(data, images);
+    return data;
   } catch {
     fail();
   }
@@ -288,6 +295,8 @@ function renderStep(step, images, lessonTitle) {
   const s = t();
   const q = step.question;
   const title = step.lesson ? `${s.lesson} ${step.lesson.position.split("/")[0]}: ${step.lesson.title}` : lessonTitle ?? (kind === "exam" ? s.exam : s.reviews);
+  view = { step };
+  stepTitle = title;
   if (step.explain_first) conceptCache.set(step.explain_first.title, step.explain_first);
   const concept = kind === "exam" ? undefined : conceptCache.get(step.concept);
   const hasPictures = Boolean(images.a);
@@ -343,7 +352,9 @@ async function answer(letter, title) {
 
   if (kind === "exam") {
     // No feedback in the mock exam: straight to the next question or the result.
-    return data.next ? renderStep(data.next, images, title) : renderExamResult(data.finished);
+    if (data.next) renderStep(data.next, images, title);
+    else renderExamResult(data.finished);
+    return data;
   }
 
   const f = data.feedback;
@@ -377,7 +388,9 @@ async function answer(letter, title) {
   document.querySelector("[data-answer-first]")?.remove();
 
   pendingNext = () => (data.next ? renderStep(data.next, images, title) : renderSummary(data.finished));
+  view.feedback = f;
   next.focus({ preventScroll: true });
+  return data;
 }
 
 function proceed() {
@@ -388,6 +401,7 @@ function proceed() {
 
 function renderSummary(f) {
   const s = t();
+  view = { summary: f };
   show(...frame(
     h("div", { class: "intro" }, h("h1", {}, f.lesson ? s.doneLesson : s.doneReview)),
     [
@@ -404,6 +418,7 @@ function renderSummary(f) {
 
 function renderExamResult(r) {
   const s = t();
+  view = { examResult: r };
   show(...frame(
     h("div", { class: "intro" }, h("h1", {}, s.examResult)),
     [
@@ -432,5 +447,110 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && pendingNext && !e.target.closest("button")) { e.preventDefault(); proceed(); }
 });
 
+// ---- WebMCP: the same learning for an AI agent in the browser ----------------------------
+// Chrome offers document.modelContext (behind a flag or in its origin trial); elsewhere nothing happens.
+// Every tool operates this page, so the learner sees each step the agent takes.
+
+/** A step as the agent receives it: the question and options in the learner's language and in German. */
+const stepForAgent = (step) => ({
+  mode: kind,
+  step: step.step,
+  ...(step.lesson && { lesson: step.lesson.title }),
+  ...(kind !== "exam" && { topic: step.concept }),
+  ...(step.explain_first && { explain_first: step.explain_first }),
+  ...(step.retry && { retry: "The learner got this question wrong earlier in this round." }),
+  question: step.question.question,
+  options: step.question.options,
+  ...(step.question.german && { german: step.question.german }),
+  ...((step.question.image || step.question.option_images) && { pictures: "The question has pictures, shown on the page." }),
+});
+
+const NO_QUESTION = "There is no open question on the page. Start a lesson, reviews or a mock exam first.";
+
+const AGENT_TOOLS = [
+  {
+    name: "get_progress",
+    title: "Learning progress",
+    description: "Returns the learner's progress: lessons done, reviews due, an unfinished round, readiness per topic and recent mock exams. Does not change the page.",
+    annotations: { readOnlyHint: true },
+    async execute() {
+      const { data } = await call("get_progress");
+      const { learner_code, new_learner_code, ...progress } = data;
+      return progress;
+    },
+  },
+  ...[
+    ["start_lesson", "Start a lesson", "Opens the next lesson on the page and returns its first question. A step with explain_first introduces a new topic: explain it briefly before the question."],
+    ["start_reviews", "Start reviews", "Opens the reviews that are due on the page and returns the first question."],
+    ["start_mock_exam", "Start a mock exam", "Starts a mock exam on the page: 50 random official questions without feedback until the end, like the real test. Returns the first question."],
+  ].map(([name, title, description]) => ({
+    name,
+    title,
+    description,
+    async execute() {
+      const data = await start(name);
+      if (!data) return { error: t().error };
+      return data.question ? stepForAgent(data) : { message: data.message };
+    },
+  })),
+  {
+    name: "answer_question",
+    title: "Answer the question",
+    description: "Submits the learner's answer to the question on the page. In lessons and reviews it returns whether the answer is right and why, as the page shows it; call next_question to go on. In a mock exam it returns the next question, or the result after the last one.",
+    inputSchema: {
+      type: "object",
+      properties: { answer: { type: "string", enum: ["a", "b", "c", "d"], description: "The letter the learner chose." } },
+      required: ["answer"],
+    },
+    async execute({ answer: letter } = {}) {
+      if (!["a", "b", "c", "d"].includes(letter)) return { error: "answer must be a, b, c or d." };
+      if (!view.step || view.feedback) return { error: view.feedback ? "This question is answered. Call next_question." : NO_QUESTION };
+      const exam = kind === "exam";
+      const data = await answer(letter, stepTitle);
+      if (!data?.feedback) return { error: t().error };
+      if (exam) return data.next ? { recorded: true, next: stepForAgent(data.next) } : { exam_finished: data.finished };
+      return { ...data.feedback, then: data.next ? "Call next_question when the learner is ready." : "Round finished: call next_question for the summary." };
+    },
+  },
+  {
+    name: "next_question",
+    title: "Next question",
+    description: "After the feedback, goes on to the next question on the page, or to the summary at the end of the round.",
+    async execute() {
+      if (!pendingNext) return { error: view.step ? "Answer the question on the page first." : NO_QUESTION };
+      proceed();
+      return view.step ? stepForAgent(view.step) : { round_finished: view.summary };
+    },
+  },
+  {
+    name: "set_language",
+    title: "Change the language",
+    description: "Switches the page to the learner's language and shows the overview. The German wording of the real test stays visible next to it.",
+    inputSchema: {
+      type: "object",
+      properties: { language: { type: "string", enum: Object.keys(LANGS), description: "de, en, fr, it, ru or uk" } },
+      required: ["language"],
+    },
+    async execute({ language } = {}) {
+      if (!(language in LANGS)) return { error: `language must be one of ${Object.keys(LANGS).join(", ")}.` };
+      await setLang(language);
+      return { language: LANGS[language] };
+    },
+  },
+];
+
+function registerAgentTools() {
+  const context = document.modelContext ?? navigator.modelContext;
+  if (!context?.registerTool) return;
+  for (const { execute, inputSchema = { type: "object", properties: {} }, ...tool } of AGENT_TOOLS) {
+    // Tools return text; the agent gets JSON it can read, also when the server cannot be reached.
+    const run = async (input) => JSON.stringify(await execute(input ?? {}).catch(() => ({ error: t().error })));
+    try {
+      Promise.resolve(context.registerTool({ ...tool, inputSchema, execute: run })).catch(() => {});
+    } catch { /* an older shape of the API: the page works without the tools */ }
+  }
+}
+
 renderLangs();
 home();
+registerAgentTools();
