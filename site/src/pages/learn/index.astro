@@ -5,6 +5,10 @@ import "@fontsource-variable/inter/opsz.css";
 import "../../styles/styles.css";
 import "../../styles/learn.css";
 import { SITE } from "../../site.js";
+
+// Chrome origin trial: turns on WebMCP (the page tools in learn.js) for https://swiss-passport.com
+// in Chrome 149 to 156. Expires 17 November 2026; renew at https://developer.chrome.com/origintrials/.
+const WEBMCP_TRIAL = "Ah7vqevf8D3IVPeMj+zJrDK0DW9H1YhsqvNHCXPYqtBuaMnmHmLWf3KCrF/2VwL0uVxX270c/pmvrYpkOtYMWwwAAABSeyJvcmlnaW4iOiJodHRwczovL3N3aXNzLXBhc3Nwb3J0LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwfQ==";
 ---
 <!doctype html>
 <html lang="en">
@@ -15,6 +19,7 @@ import { SITE } from "../../site.js";
 <meta name="description" content="Practise the 350 official questions of the Zurich naturalisation knowledge test in your browser, in six languages.">
 <link rel="canonical" href={new URL("/learn/", SITE).href}>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta http-equiv="origin-trial" content={WEBMCP_TRIAL}>
 </head>
 <body class="learn">
 <header class="page masthead">
