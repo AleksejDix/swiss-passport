@@ -41,6 +41,7 @@ let { json: step } = await call("start_lesson", {});
 assert(step.lesson?.position === "1/37" && step.explain_first && step.step === "1/9", "lesson starts with one concept and one question");
 assert(!("questions" in step) && !JSON.stringify(step).includes('"answer"'), "only one question, no answer leaked");
 assert(step.question.german?.question, "German original included");
+assert(!step.voice_instructions, "no voice instructions in a text session");
 
 // Lesson: the first question wrong. It must come back at the end until answered correctly.
 let r, concepts = 1, images = 0, answered = 0;
@@ -107,10 +108,12 @@ assert(p.lessons_done === 1 && p.next_lesson.id === "l02" && !p.unfinished_sessi
 // Voice: picture questions are left out, and the lesson still counts as done.
 const pictureQs = new Set(quiz.questions.filter((q) => q.image || q.options.some((o) => o.image)).map((q) => q.id));
 ({ json: step } = await call("start_lesson", { lesson_id: "l34", voice: true }));
+assert(step.voice_instructions?.includes("call answer"), "voice step tells the model to send answers with answer");
 let voiceQs = [step.question.id];
 for (;;) {
   ({ json: r } = await call("answer", { answer: key[step.question.id] }));
   if (!r.next) break;
+  if (!r.voice_instructions) assert(false, "voice instructions missing after an answer");
   step = r.next; voiceQs.push(step.question.id);
 }
 assert(voiceQs.length === 7 && !voiceQs.some((q) => pictureQs.has(q)), "voice lesson l34: 7 questions, no pictures (q110, q289 skipped)");

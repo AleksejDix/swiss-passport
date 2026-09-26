@@ -6,7 +6,7 @@ import { catalog, LANGUAGES, type Lang } from "./catalog.js";
 import { createEngine, emptyProgress, REVIEW_SIZE, type Progress } from "./engine/index.js";
 import { newLearnerCode, normalizeCode, type Store } from "./store.js";
 
-export const VERSION = "0.8.0";
+export const VERSION = "0.8.1";
 
 const engine = createEngine(catalog);
 const { exam } = catalog;
@@ -24,8 +24,9 @@ Rules:
   - If it has "explain_first": explain that concept briefly and clearly, using only its intro, key_terms and mnemonic.
   - Then ask the one question with options a) to d). Stop and wait for the learner's reply.
 - Quiz card: where the host shows it, the card already shows the step (concept, question, options, pictures), checks
-  the learner's clicks itself and shows the feedback. Then do not repeat any of that in the chat: say one short line
+  the learner's clicks itself and shows the feedback. Then, in a text chat, do not repeat any of that: say one short line
   and wait. The card tells you what the learner answered. If a click arrives as a chat message instead, answer it.
+  In a voice conversation, read the step aloud anyway (see below).
 - When the learner replies in the chat (typed or spoken), call answer with their letter.
   Never judge the answer yourself and never reveal the correct answer beforehand.
   Give short feedback from "why", "about_your_answer" and "note" (if "note" says the exam answer is outdated,
@@ -70,7 +71,14 @@ const changesProgress = { readOnlyHint: false, destructiveHint: false, idempoten
 const cardUi = { ui: { resourceUri: CARD_URI } };
 // In the tool descriptions too: some hosts (ChatGPT) do not read the server instructions.
 const CARD_NOTE =
-  " Where the quiz card is shown, it displays this step and checks the answers itself: do not repeat its question, options or feedback in the chat.";
+  " Where the quiz card is shown, it displays this step and checks clicks itself: in a text chat do not repeat its question, options or feedback." +
+  " In a voice conversation read them aloud. When the learner answers in the chat or by voice, call answer with their letter:" +
+  " only answers sent with answer are saved. Never make up questions or judge answers yourself.";
+// In every step of a voice session: ChatGPT's voice mode ignored the card note, asked its own questions and saved nothing.
+const VOICE_STEP =
+  "Voice conversation: say the feedback (if any) in one or two sentences. Explain explain_first (if any) in two or three sentences." +
+  " Then read this question and its options A to D aloud and wait. When the learner answers, call answer with their letter:" +
+  " only answers sent with answer are saved. Never ask other questions and never judge the answer yourself.";
 
 /** What a tool produces before it is turned into an MCP result: data plus the question whose pictures to attach. */
 interface Out {
@@ -158,6 +166,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
     if (args.language) p.language = args.language;
     const lang = (p.language ?? LANGUAGES[0]) as Lang; // only languages of the catalog are ever stored
     const out = fn(p, lang);
+    if (p.session?.voice && out.questionId) out.data = { voice_instructions: VOICE_STEP, ...out.data };
     await store.save(id, p);
     if (online) out.data = { learner_code: id, ...(created && { new_learner_code: "Tell the learner to write this code down." }), ...out.data };
     return toResult(assets, out, lang);
