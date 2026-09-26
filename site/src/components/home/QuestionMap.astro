@@ -1,0 +1,37 @@
+---
+// All 350 questions at a glance (issue #2): one dot per question, grouped by lesson and unit.
+// Every lesson links to its questions. scripts/question-map.js fills the dots in and reads out the lesson.
+import "../../styles/question-map.css";
+import { TEXT, units, questions, questionsPath } from "../../data.js";
+import { OVERVIEW, countLabel } from "../../viz/overview.js";
+
+const { lang } = Astro.props;
+const o = OVERVIEW[lang];
+const t = TEXT[lang];
+let number = 0;
+const lessonsOf = (u) =>
+  u.lessons.map((id) => {
+    number += 1;
+    const n = questions.filter((q) => q.lesson === id).length;
+    return { id, n, label: `${o.lesson} ${number}: ${t.lessons[id].title} · ${countLabel(lang, n)}` };
+  });
+const blocks = units.map((u) => ({ id: u.id, title: t.units[u.id].title, lessons: lessonsOf(u) }));
+---
+<figure class="qmap" data-qmap data-hint={o.hint}>
+  <figcaption class="viz-title">{o.title}</figcaption>
+  <div class="qmap-units">
+    {blocks.map((u) => (
+      <div class="qmap-unit">
+        <p class="qmap-unit-title">{u.title}</p>
+        <div class="qmap-lessons">
+          {u.lessons.map((l) => (
+            <a class="qmap-lesson" href={`${questionsPath(lang)}#${l.id}`} aria-label={l.label} title={l.label} data-label={l.label}>
+              {Array.from({ length: l.n }, () => <i></i>)}
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+  <p class="qmap-readout" data-readout aria-hidden="true">{o.hint}</p>
+</figure>

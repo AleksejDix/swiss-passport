@@ -1,6 +1,7 @@
 ---
 // Homepage in one language, at /de/, /en/, /fr/ and so on. The language picker is at /.
 import Base from "../../layouts/Base.astro";
+import QuestionMap from "../../components/home/QuestionMap.astro";
 import { STRINGS } from "../../scripts/i18n.js";
 import { LANG_IDS, homePath, methodPath } from "../../data.js";
 import { METHOD } from "../../method.js";
@@ -95,6 +96,7 @@ const jsonLd = {
       <tr><td>6</td><th scope="row">{s.f4}</th></tr>
       <tr><td>50</td><th scope="row">{s.f5}</th></tr>
     </table>
+    <QuestionMap lang={lang} />
     <p class="note">{s.contents_note}</p>
     </div>
   </section>
@@ -123,4 +125,5 @@ const jsonLd = {
 
 <script>
   import "../../scripts/main.js";
+  import "../../scripts/question-map.js";
 </script>
