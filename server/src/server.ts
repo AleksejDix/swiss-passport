@@ -54,6 +54,13 @@ Learner code (online version, no login):
   contains a new "learner_code". Tell the learner to write it down: they need it to continue on another day.
 - If you can remember things between conversations, remember the learner's code.`;
 
+const WEBSITE = "https://swiss-passport.com";
+// Shown next to the app in AI apps that read the server's icons (the site's favicon, also as PNG).
+const ICONS = [
+  { src: `${WEBSITE}/icon-512.png`, mimeType: "image/png", sizes: ["512x512"] },
+  { src: `${WEBSITE}/favicon.svg`, mimeType: "image/svg+xml", sizes: ["any"] },
+];
+
 // Hosts cache the card by this URI (ChatGPT): give it a new version when the card changes.
 const CARD_URI = "ui://swiss-passport/card-v2.html";
 
@@ -115,7 +122,7 @@ const stepOut = (p: Progress, lang: Lang): Out => {
  */
 export function createServer(store: Store, { online, assets }: { online: boolean; assets: Assets }) {
   const server = new McpServer(
-    { name: "swiss-passport-zh", version: VERSION },
+    { name: "swiss-passport-zh", title: "Swiss Passport", version: VERSION, websiteUrl: WEBSITE, icons: ICONS },
     { instructions: online ? INSTRUCTIONS + ONLINE_INSTRUCTIONS : INSTRUCTIONS },
   );
 

@@ -1,0 +1,78 @@
+---
+// Adding Swiss Passport to an AI app: the MCP address, then numbered steps per app (texts in connect.js).
+import Base from "../../../layouts/Base.astro";
+import AppLinks from "../../../components/AppLinks.astro";
+import { CONNECT, LOGOS } from "../../../connect.js";
+import { STRINGS } from "../../../scripts/i18n.js";
+import { SITE } from "../../../site.js";
+import { LANG_IDS, connectPath } from "../../../data.js";
+
+export function getStaticPaths() {
+  return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
+}
+
+const { lang } = Astro.props;
+const c = CONNECT[lang];
+const s = STRINGS[lang];
+const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, connectPath(id)]));
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: c.title,
+  description: c.desc,
+  inLanguage: lang,
+  url: new URL(connectPath(lang), SITE).href,
+  step: c.apps.map((app) => ({
+    "@type": "HowToSection",
+    name: app.name,
+    itemListElement: app.steps.map((text) => ({ "@type": "HowToStep", text })),
+  })),
+};
+---
+<Base lang={lang} title={c.title} description={c.desc} alternates={alternates} jsonLd={jsonLd}>
+<main class="page">
+  <header class="qhead">
+    <h1>{c.title}</h1>
+    <p class="lede">{c.desc}</p>
+    <AppLinks lang={lang} here />
+  </header>
+
+  <section class="row" aria-labelledby="address">
+    <h2 id="address">{c.address}</h2>
+    <div>
+      <p>{s.s_connector_p}</p>
+      <div class="url">
+        <code data-url>{new URL("/mcp", SITE).href}</code>
+        <button type="button" data-copy data-copied={s.copied} aria-live="polite">{s.copy}</button>
+      </div>
+    </div>
+  </section>
+
+  {c.apps.map((app) => (
+    <section class="row" id={app.id} aria-labelledby={`${app.id}-title`}>
+      <h2 id={`${app.id}-title`}><svg class="logo" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true" set:html={LOGOS[app.id]} />{app.name}</h2>
+      <div>
+        <p>{app.note}</p>
+        <ol class="howto">{app.steps.map((step) => <li>{step}</li>)}</ol>
+      </div>
+    </section>
+  ))}
+
+  <section class="row" aria-labelledby="other">
+    <h2 id="other">{c.other}</h2>
+    <div><p>{c.other_p}</p></div>
+  </section>
+
+  <section class="row" aria-labelledby="progress">
+    <h2 id="progress">{s.s_progress}</h2>
+    <div>
+      <p>{s.s_progress_p}</p>
+      <p class="note">{c.logos}</p>
+    </div>
+  </section>
+</main>
+</Base>
+
+<script>
+  import "../../../scripts/copy.js";
+</script>

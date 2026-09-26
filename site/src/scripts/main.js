@@ -181,15 +181,6 @@ function watchTimeline() {
   });
 }
 
-// ---- Copy the connector address ---------------------------------------------------------
-
-const copy = $("[data-copy]");
-copy.addEventListener("click", async () => {
-  await navigator.clipboard.writeText($("[data-url]").textContent.trim());
-  copy.textContent = S().copied;
-  setTimeout(() => (copy.textContent = S().copy), 2000);
-});
-
 renderQuestion();
 
 if (motion) {

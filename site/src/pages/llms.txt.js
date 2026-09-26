@@ -1,6 +1,6 @@
 // llms.txt: a plain-text map of the site for AI assistants (https://llmstxt.org).
 import { SITE } from "../site.js";
-import { TEXT, LANG_IDS, questions, topics, questionPath, questionsPath, topicPath, guidePath, methodPath } from "../data.js";
+import { TEXT, LANG_IDS, questions, topics, questionPath, questionsPath, topicPath, guidePath, methodPath, connectPath } from "../data.js";
 import { GUIDE } from "../guide.js";
 import { METHOD } from "../method.js";
 
@@ -29,7 +29,7 @@ export function GET() {
     "## Learn",
     "",
     `- [Learn online](${url("/learn/")}): lessons, spaced repetition and 50-question mock exams in the browser`,
-    `- Remote MCP server for Claude, ChatGPT, Grok, Mistral Vibe, Perplexity and other AI apps (Streamable HTTP, no authentication): ${url("/mcp")}`,
+    `- Remote MCP server for Claude, ChatGPT, Grok, Mistral Vibe, Perplexity and other AI apps (Streamable HTTP, no authentication): ${url("/mcp")}. Setup steps: ${url(connectPath("en"))}`,
     `- WebMCP: in browsers that support it, ${url("/learn/")} offers page tools for agents: get_progress, start_lesson, start_reviews, start_mock_exam, answer_question, next_question, set_language`,
     "",
     "## Topics (English)",

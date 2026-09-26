@@ -4,8 +4,10 @@ import Base from "../../layouts/Base.astro";
 import QuestionMap from "../../components/home/QuestionMap.astro";
 import ChatDemo from "../../components/home/ChatDemo.astro";
 import { STRINGS } from "../../scripts/i18n.js";
-import { LANG_IDS, homePath, methodPath } from "../../data.js";
+import AppLinks from "../../components/AppLinks.astro";
+import { LANG_IDS, homePath, methodPath, connectPath } from "../../data.js";
 import { METHOD } from "../../method.js";
+import { CONNECT } from "../../connect.js";
 import { SITE } from "../../site.js";
 
 export function getStaticPaths() {
@@ -112,19 +114,12 @@ const jsonLd = {
       <p>{s.s_connector_p}</p>
       <div class="url">
         <code data-url>{new URL("/mcp", SITE).href}</code>
-        <button type="button" data-copy aria-live="polite">{s.copy}</button>
+        <button type="button" data-copy data-copied={s.copied} aria-live="polite">{s.copy}</button>
       </div>
-      {s.apps.map((app) => (
-        <Fragment>
-          <h3>{app.name}</h3>
-          <div>
-            <p class="small">{app.note}</p>
-            <ol class="howto">{app.steps.map((step) => <li>{step}</li>)}</ol>
-          </div>
-        </Fragment>
-      ))}
-      <h3>{s.s_other}</h3>
-      <p>{s.s_other_p}</p>
+      <div>
+        <AppLinks lang={lang} />
+        <p class="note"><a href={connectPath(lang)}>{CONNECT[lang].link} →</a></p>
+      </div>
       <h3>{s.s_progress}</h3>
       <p>{s.s_progress_p}</p>
     </div>
@@ -134,6 +129,7 @@ const jsonLd = {
 
 <script>
   import "../../scripts/main.js";
+  import "../../scripts/copy.js";
   import "../../scripts/question-map.js";
   import "../../scripts/chat-demo.js";
 </script>

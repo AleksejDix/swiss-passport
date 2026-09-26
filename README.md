@@ -41,7 +41,7 @@ Learn in the browser at [swiss-passport.com/learn](https://swiss-passport.com/le
 https://swiss-passport.com/mcp
 ```
 
-All ways share one learner code, so you can start in the browser and continue in an AI app.
+All ways share one learner code, so you can start in the browser and continue in an AI app. Step by step, in six languages: [swiss-passport.com/en/connect](https://swiss-passport.com/en/connect/).
 
 | App | Plans | Steps |
 |---|---|---|
