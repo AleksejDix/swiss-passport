@@ -25,6 +25,7 @@ export function GET() {
     "",
     `- [Learn online](${url("/learn/")}): lessons, spaced repetition and 50-question mock exams in the browser`,
     `- MCP connector for Claude and ChatGPT: ${url("/mcp")}`,
+    `- WebMCP: in browsers that support it, ${url("/learn/")} offers page tools for agents: get_progress, start_lesson, start_reviews, start_mock_exam, answer_question, next_question, set_language`,
     "",
     "## Topics (English)",
     "",
