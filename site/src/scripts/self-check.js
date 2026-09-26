@@ -12,6 +12,7 @@ for (const check of document.querySelectorAll("[data-check]")) {
     activate(-1);
     result.textContent = text;
     out.hidden = false;
+    check.querySelector("[data-again]").focus(); // keyboard users land next to the result
   };
   const reset = () => {
     for (const s of steps) s.classList.remove("is-yes", "is-no");
