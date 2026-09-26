@@ -26,7 +26,7 @@ const jsonLd = {
   inLanguage: lang,
 };
 ---
-<Base lang={lang} title={s.title} description={s.description} alternates={alternates} jsonLd={jsonLd} xDefault="/" mapCredit>
+<Base lang={lang} title={s.title} description={s.description} alternates={alternates} jsonLd={jsonLd} xDefault="/">
 <script is:inline slot="head">if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-motion");</script>
 <main class="page">
   <section class="hero" aria-labelledby="title">
@@ -36,25 +36,6 @@ const jsonLd = {
       <p class="cta"><a class="button" href={connectPath(lang)}>{s.cta}</a></p>
       <AppLinks lang={lang} />
       <p class="note"><a href="/learn/">{s.cta_browser} →</a></p>
-    </div>
-
-    <div class="hero-cols">
-      <figure class="map" data-map-figure>
-        <svg class="map-svg" data-map role="img" aria-labelledby="map-title"><title id="map-title">{s.map_title}</title></svg>
-        <figcaption class="tally">
-          <p class="tally-num"><span class="count" data-count>0</span> <span class="of">/ 23</span> <span class="label">{s.hero_votes}</span></p>
-          <div class="tally-bar" aria-hidden="true"><i data-tally></i><b class="needed"></b></div>
-          <p class="small" data-tally-note>{s.hero_rule}</p>
-        </figcaption>
-      </figure>
-
-      <div class="hero-act" data-hero>
-        <p class="small">{s.hero_try}</p>
-        <p class="hq" lang="de" data-hq-de>Was bedeutet bei Abstimmungen «Ständemehr»?</p>
-        <p class="htr" data-hq-tr></p>
-        <div class="hchoices" data-hero-choices></div>
-        <div class="hfeedback" data-hero-feedback aria-live="polite"></div>
-      </div>
     </div>
   </section>
 
