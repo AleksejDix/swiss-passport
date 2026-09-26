@@ -33,7 +33,9 @@ const jsonLd = {
     <div class="hero-head">
       <h1 id="title">{s.h1}</h1>
       <p class="lede">{s.lede}</p>
-      <p class="cta"><a class="button" href="/learn/">{s.cta}</a></p>
+      <p class="cta"><a class="button" href={connectPath(lang)}>{s.cta}</a></p>
+      <AppLinks lang={lang} />
+      <p class="note"><a href="/learn/">{s.cta_browser} →</a></p>
     </div>
 
     <div class="hero-cols">
@@ -108,8 +110,6 @@ const jsonLd = {
   <section class="row" id="start" aria-labelledby="start-title">
     <h2 id="start-title">{s.start}</h2>
     <div class="pairs">
-      <h3>{s.s_browser}</h3>
-      <p set:html={s.s_browser_p}></p>
       <h3>{s.s_connector}</h3>
       <p>{s.s_connector_p}</p>
       <div class="url">
@@ -120,6 +120,8 @@ const jsonLd = {
         <AppLinks lang={lang} />
         <p class="note"><a href={connectPath(lang)}>{CONNECT[lang].link} →</a></p>
       </div>
+      <h3>{s.s_browser}</h3>
+      <p set:html={s.s_browser_p}></p>
       <h3>{s.s_progress}</h3>
       <p>{s.s_progress_p}</p>
     </div>
