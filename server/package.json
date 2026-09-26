@@ -10,7 +10,7 @@
     "test": "npm run build && node scripts/smoke-test.mjs && node scripts/http-test.mjs",
     "serve": "node dist/http.js",
     "release": "npm run build && rm -rf release && mkdir -p release/swiss-passport-server && cp -R dist data deploy/install.sh deploy/uninstall.sh release/swiss-passport-server/ && tar -czf release/swiss-passport-server.tgz -C release swiss-passport-server && rm -rf release/swiss-passport-server",
-    "deploy": "npm run build && npm run site && vercel deploy --prod",
+    "deploy": "npm run build && npm run site && vercel deploy --prod --archive=tgz",
     "build:map": "node scripts/build-map.mjs",
     "site": "npm --prefix ../site install && npm --prefix ../site run build"
   },
