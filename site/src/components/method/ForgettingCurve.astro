@@ -1,0 +1,61 @@
+---
+// Schematic forgetting curve: all six repetitions in one evening vs spread out like the app (see src/viz/curve.js).
+// The finished chart is in the HTML; scripts/method-viz.js draws it in and adds the day-by-day readout.
+import { VIZ } from "../../method.js";
+import { DAYS, PLANS, W, H, PLOT, x, y, path, recall, level } from "../../viz/curve.js";
+
+const { lang } = Astro.props;
+const v = VIZ[lang];
+const pct = (n, of) => `${((100 * n) / of).toFixed(2)}%`;
+const reviews = PLANS.spaced.reviews;
+const ticks = [0, 10, 20, 30, 40, 50, 60];
+const tableDays = [1, 7, 14, 30, 60];
+const labels = { day: v.day, review: v.review, levels: v.levels, spaced: v.spacedShort, cram: v.cramShort };
+---
+<figure class="viz curve" data-curve data-labels={JSON.stringify(labels)}>
+  <figcaption class="viz-title">{v.curveTitle}</figcaption>
+  <ul class="viz-legend">
+    <li><i class="key key-spaced"></i>{v.spaced}</li>
+    <li><i class="key key-cram"></i>{v.cram}</li>
+  </ul>
+  <div class="curve-plot" data-plot tabindex="0" role="img" aria-label={`${v.curveTitle}. ${v.curveNote}`}>
+    <svg viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
+      <defs>
+        <clipPath id="curve-reveal"><rect class="reveal" x="0" y="0" width={W} height={H} /></clipPath>
+      </defs>
+      <line class="grid" x1={PLOT.left} x2={PLOT.right} y1={y(1)} y2={y(1)} />
+      <line class="grid" x1={PLOT.left} x2={PLOT.right} y1={y(0)} y2={y(0)} />
+      {reviews.map((d) => <line class="grid" x1={x(d)} x2={x(d)} y1={y(0)} y2={y(0) + 5} />)}
+      <g clip-path="url(#curve-reveal)">
+        <path class="line line-cram" d={path("cram")} />
+        <path class="line line-spaced" d={path("spaced")} />
+      </g>
+      {reviews.map((d) => <circle class="dot" data-day={d} cx={x(d)} cy={y(1)} r="4.5" />)}
+      <line class="cross" data-cross x1="0" x2="0" y1={y(1) - 6} y2={y(0)} visibility="hidden" />
+    </svg>
+    <span class="ylab" style={`top:${pct(y(1), H)}`}>{v.all}</span>
+    <span class="ylab" style={`top:${pct(y(0), H)}`}>{v.none}</span>
+    <span class="direct" style={`right:0;top:${pct(y(recall("spaced", DAYS)) + 6, H)}`}>{v.spacedShort}</span>
+    <span class="direct" style={`right:0;top:${pct(y(0.12), H)}`}>{v.cramShort}</span>
+    <div class="viz-tip" data-tip hidden></div>
+  </div>
+  <div class="viz-axis" aria-hidden="true">
+    {ticks.map((t, i) => (
+      <span style={`left:${pct(x(t), W)}`} class={i === 0 ? "first" : i === ticks.length - 1 ? "last" : undefined}>
+        {i === ticks.length - 1 ? `${t} ${v.days}` : t}
+      </span>
+    ))}
+  </div>
+  <p class="viz-note">{v.curveNote}</p>
+  <details class="viz-table">
+    <summary>{v.table}</summary>
+    <table>
+      <thead><tr><th scope="col">{v.day}</th><th scope="col">{v.spacedShort}</th><th scope="col">{v.cramShort}</th></tr></thead>
+      <tbody>
+        {tableDays.map((d) => (
+          <tr><th scope="row">{d}</th><td>{v.levels[level(recall("spaced", d))]}</td><td>{v.levels[level(recall("cram", d))]}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </details>
+</figure>

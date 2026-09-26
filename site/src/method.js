@@ -209,3 +209,61 @@ export const METHOD = {
     ],
   },
 };
+
+// Labels of the four visuals on the method page (components in src/components/method/).
+export const VIZ = {
+  de: {
+    curveTitle: "Wie viel du noch weisst", cram: "Alles an einem Abend (6-mal)", spaced: "Verteilt: nach 1, 3, 7, 14 und 30 Tagen",
+    cramShort: "An einem Abend", spacedShort: "Verteilt", day: "Tag", days: "Tage", review: "Wiederholung", all: "alles", none: "nichts",
+    levels: ["fast vergessen", "unsicher", "gut", "sehr gut"], table: "Als Tabelle",
+    curveNote: "Schema, keine Messwerte: So verlaufen Vergessen und Wiederholen typischerweise. Beide Linien stehen für gleich viele Wiederholungen.",
+    tryIt: "Probier es aus: Wähl die Antwort, die dir richtig scheint.",
+    blocked: "Thema für Thema", mixed: "Gemischt, wie im Test", mixNote: "12 Fragen aus 3 Themen.",
+    showIn: "Frage anzeigen auf",
+  },
+  en: {
+    curveTitle: "How much you still know", cram: "All in one evening (6 times)", spaced: "Spread out: after 1, 3, 7, 14 and 30 days",
+    cramShort: "One evening", spacedShort: "Spread out", day: "Day", days: "Days", review: "Review", all: "everything", none: "nothing",
+    levels: ["almost forgotten", "unsure", "good", "very good"], table: "As a table",
+    curveNote: "Schematic, not measured data: how forgetting and reviewing typically unfold. Both lines stand for the same number of repetitions.",
+    tryIt: "Try it: pick the answer that seems right to you.",
+    blocked: "Topic by topic", mixed: "Mixed, like in the test", mixNote: "12 questions from 3 topics.",
+    showIn: "Show the question in",
+  },
+  fr: {
+    curveTitle: "Ce que tu sais encore", cram: "Tout en une soirée (6 fois)", spaced: "Réparti : après 1, 3, 7, 14 et 30 jours",
+    cramShort: "Une soirée", spacedShort: "Réparti", day: "Jour", days: "Jours", review: "Répétition", all: "tout", none: "rien",
+    levels: ["presque oublié", "incertain", "bien", "très bien"], table: "Sous forme de tableau",
+    curveNote: "Schéma, pas des mesures : comment l'oubli et les répétitions évoluent en général. Les deux lignes représentent le même nombre de répétitions.",
+    tryIt: "Essaie : choisis la réponse qui te semble juste.",
+    blocked: "Thème par thème", mixed: "Mélangé, comme au test", mixNote: "12 questions de 3 thèmes.",
+    showIn: "Afficher la question en",
+  },
+  it: {
+    curveTitle: "Quanto ricordi ancora", cram: "Tutto in una sera (6 volte)", spaced: "Distribuito: dopo 1, 3, 7, 14 e 30 giorni",
+    cramShort: "Una sera", spacedShort: "Distribuito", day: "Giorno", days: "Giorni", review: "Ripetizione", all: "tutto", none: "niente",
+    levels: ["quasi dimenticato", "incerto", "bene", "molto bene"], table: "Come tabella",
+    curveNote: "Schema, non dati misurati: come procedono di solito l'oblio e le ripetizioni. Le due linee rappresentano lo stesso numero di ripetizioni.",
+    tryIt: "Prova: scegli la risposta che ti sembra giusta.",
+    blocked: "Un tema alla volta", mixed: "Misto, come nel test", mixNote: "12 domande da 3 temi.",
+    showIn: "Mostra la domanda in",
+  },
+  ru: {
+    curveTitle: "Сколько ты ещё помнишь", cram: "Всё за один вечер (6 раз)", spaced: "Распределённо: через 1, 3, 7, 14 и 30 дней",
+    cramShort: "Один вечер", spacedShort: "Распределённо", day: "День", days: "Дни", review: "Повторение", all: "всё", none: "ничего",
+    levels: ["почти забыто", "неуверенно", "хорошо", "очень хорошо"], table: "В виде таблицы",
+    curveNote: "Схема, а не данные измерений: как обычно идут забывание и повторение. Обе линии означают одинаковое число повторений.",
+    tryIt: "Попробуй: выбери ответ, который кажется тебе правильным.",
+    blocked: "Тема за темой", mixed: "Вперемешку, как на тесте", mixNote: "12 вопросов из 3 тем.",
+    showIn: "Показать вопрос на",
+  },
+  uk: {
+    curveTitle: "Скільки ти ще пам'ятаєш", cram: "Усе за один вечір (6 разів)", spaced: "Розподілено: через 1, 3, 7, 14 і 30 днів",
+    cramShort: "Один вечір", spacedShort: "Розподілено", day: "День", days: "Дні", review: "Повторення", all: "усе", none: "нічого",
+    levels: ["майже забуто", "непевно", "добре", "дуже добре"], table: "У вигляді таблиці",
+    curveNote: "Схема, а не дані вимірювань: як зазвичай відбуваються забування й повторення. Обидві лінії означають однакову кількість повторень.",
+    tryIt: "Спробуй: обери відповідь, яка здається тобі правильною.",
+    blocked: "Тема за темою", mixed: "Упереміш, як на тесті", mixNote: "12 запитань із 3 тем.",
+    showIn: "Показати запитання мовою",
+  },
+};

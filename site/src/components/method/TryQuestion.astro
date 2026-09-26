@@ -1,0 +1,30 @@
+---
+// A real exam question to try: after an answer, why it is right, and why a tempting wrong answer is wrong.
+// Same look as the question on the homepage; scripts/method-viz.js reacts to the choice.
+import { VIZ } from "../../method.js";
+import { STRINGS } from "../../scripts/i18n.js";
+import { TEXT, questions } from "../../data.js";
+
+const { lang, id } = Astro.props;
+const v = VIZ[lang];
+const s = STRINGS[lang];
+const q = questions.find((o) => o.id === id);
+const t = TEXT[lang].questions[id];
+const de = TEXT.de.questions[id];
+const letters = q.options.map((o) => o.id);
+const data = { answer: q.answer, options: t.options, why: t.why, distractors: t.distractors ?? {}, right: s.hero_right, wrong: s.hero_wrong, again: s.hero_again };
+---
+<figure class="viz try" data-try data-question={JSON.stringify(data)}>
+  <p class="small">{v.tryIt}</p>
+  <p class="hq" lang={lang}>{t.question}</p>
+  {lang !== "de" && <p class="htr" lang="de">{de.question}</p>}
+  <div class="hchoices">
+    {letters.map((l) => (
+      <button class="hchoice" type="button" data-letter={l}>
+        <b>{l.toUpperCase()}</b>
+        <span lang={lang}>{t.options[l]}{lang !== "de" && <small lang="de">{de.options[l]}</small>}</span>
+      </button>
+    ))}
+  </div>
+  <div class="hfeedback" data-feedback aria-live="polite"></div>
+</figure>
