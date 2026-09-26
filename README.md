@@ -107,14 +107,14 @@ Explanations were written in simple German (B1) using only official sources (the
 <details>
 <summary><strong>Build, test and deploy</strong></summary>
 
-The server lives in `server/` (TypeScript, Node 22+).
+The server lives in `server/` (TypeScript, Node 22+). Every push to `main` deploys swiss-passport.com through Cloudflare Workers Builds.
 
 ```sh
 cd server
 npm install
 npm test            # builds and runs the local and HTTP end-to-end tests
 npm run pack        # Claude Desktop extension (.mcpb)
-npm run deploy      # Cloudflare: website + /mcp Worker (progress in D1)
+npm run deploy      # Cloudflare by hand: website + /mcp Worker (progress in D1)
 npm run dev:worker  # the same Worker locally on http://localhost:8787
 npm run release     # self-hosting package for a Mac (Node + built-in SQLite, see deploy/install.sh)
 ```

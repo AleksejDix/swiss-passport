@@ -1,5 +1,6 @@
 // Cloudflare Worker for swiss-passport.com: the website (static files from ../site, built into ./public)
-// plus the MCP endpoint /mcp (src/worker.ts). Deploy: npm run deploy.
+// plus the MCP endpoint /mcp (src/worker.ts). Deployed by Cloudflare Workers Builds on every push to main
+// (root directory server/, build: npm ci && npm run build && npm run site, deploy: npx wrangler deploy).
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "swiss-passport",
