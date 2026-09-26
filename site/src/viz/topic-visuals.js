@@ -2,10 +2,12 @@
 // all their questions; the pages ask this registry instead of knowing each figure.
 import { HISTORY, TIMELINE_TEXT } from "./history.js";
 import { PARLIAMENT_TEXT } from "./parliament.js";
+import { FEDERAL_COUNCIL_TEXT } from "./federal-council.js";
 
 const VISUALS = {
   history: { topics: HISTORY.map((e) => e.topic), title: (lang) => TIMELINE_TEXT[lang].title },
   parliament: { topics: ["parliament_chambers", "parliament_tasks"], title: (lang) => PARLIAMENT_TEXT[lang].title },
+  federalCouncil: { topics: ["federal_council", "administration"], title: (lang) => FEDERAL_COUNCIL_TEXT[lang].title },
 };
 
 /** The figure of a topic ("history", "parliament", …), or undefined. */

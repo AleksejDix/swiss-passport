@@ -1,0 +1,48 @@
+---
+// The Federal Council (issue #4): seven members in one frame ("seven heads, one voice"), one of them President of
+// the Confederation for a year; each member heads one of the seven departments; the Federal Chancellery supports
+// them without being a member. Names and abbreviations come from the topic texts (src/viz/federal-council.js).
+import "../../styles/federal-council.css";
+import { TEXT } from "../../data.js";
+import { FEDERAL_COUNCIL_TEXT, departments } from "../../viz/federal-council.js";
+
+const { lang, caption = true } = Astro.props;
+const c = TEXT[lang].concepts;
+const term = (topic, name) => {
+  const k = c[topic].key_terms.find((k) => k.term === name);
+  if (!k) throw new Error(`key term ${name} missing in ${lang}/${topic}`);
+  return k.definition;
+};
+const german = departments(TEXT.de.concepts.administration.intro[1]).map((d) => d.abbr);
+const depts = departments(c.administration.intro[1]);
+if (depts.length !== 7) throw new Error(`expected 7 departments in ${lang}, found ${depts.length}`);
+const PRESIDENT = 3; // which dot is marked does not matter: the presidency changes every year
+---
+<figure class="fc">
+  {caption && <figcaption class="fc-title">{FEDERAL_COUNCIL_TEXT[lang].title}</figcaption>}
+  <div class="fc-council">
+    <div class="fc-seven" aria-hidden="true">
+      {Array.from({ length: 7 }, (_, i) => <i class={i === PRESIDENT ? "dot president" : "dot"} style={`--i:${i}`}></i>)}
+    </div>
+    <div>
+      <p class="fc-term" lang="de">Bundesrat</p>
+      <p class="fc-def">{term("federal_council", "Bundesrat")} {c.federal_council.mnemonic}</p>
+      <p class="fc-key"><i class="dot president"></i><span><span lang="de">Bundespräsident/in</span>: {term("federal_council", "Bundespräsident/Bundespräsidentin")}</span></p>
+    </div>
+  </div>
+  <p class="fc-def fc-lead">{term("administration", "Departement")}</p>
+  <ol class="fc-depts">
+    {depts.map((d, i) => (
+      <li style={`--i:${i}`}>
+        <i class="dot"></i>
+        <b lang="de">{german[i]}</b>
+        <span>{d.name}{d.abbr !== german[i] && ` (${d.abbr})`}</span>
+      </li>
+    ))}
+  </ol>
+  <p class="fc-chancellery">
+    <i class="dot open"></i>
+    <b lang="de">Bundeskanzlei</b>
+    <span>{term("administration", "Bundeskanzlei")} {c.administration.mnemonic}</span>
+  </p>
+</figure>

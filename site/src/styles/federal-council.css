@@ -1,0 +1,37 @@
+/* The Federal Council (components/topics/FederalCouncil.astro). Black dots are members, the red one the
+   President of the Confederation, the open one the Federal Chancellery (not a member). */
+.fc { margin-block: var(--line); }
+.fc-title { font-weight: 700; }
+.fc .dot { display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--ink); flex: none; }
+.fc .dot.president { background: var(--red); }
+.fc .dot.open { background: var(--paper); box-shadow: inset 0 0 0 1.25px var(--ink); }
+.fc-council { display: grid; gap: 0.75rem var(--gutter); margin-top: var(--line); align-items: start; }
+@media (min-width: 40rem) { .fc-council { grid-template-columns: auto 1fr; } }
+/* Seven heads in one frame: they decide as one body. */
+.fc-seven { display: inline-flex; gap: 0.5rem; padding: 0.625rem 0.75rem; border: 1px solid var(--ink); border-radius: 999px; justify-self: start; }
+.fc-seven .dot { width: 1.125rem; height: 1.125rem; }
+.fc-term { font-weight: 700; }
+.fc-def { font-size: var(--xs); line-height: var(--xs-lh); color: var(--grey); margin-top: 0.1875rem; }
+.fc-key { display: flex; align-items: baseline; gap: 0.5rem; margin-top: 0.5rem; font-size: var(--xs); line-height: var(--xs-lh); }
+.fc-key .dot { width: 0.625rem; height: 0.625rem; transform: translateY(0.0625rem); }
+.fc-lead { margin-top: var(--line); }
+.fc-depts { margin-top: 0.5rem; border-top: 1px solid var(--rule); }
+.fc-depts li, .fc-chancellery { display: grid; grid-template-columns: 0.75rem 3.5rem 1fr; column-gap: 0.75rem; align-items: baseline; padding-block: 0.375rem; border-bottom: 1px solid var(--rule); }
+.fc-depts .dot, .fc-chancellery .dot { transform: translateY(0.0625rem); }
+.fc-chancellery { margin-top: 0.75rem; border-bottom: 0; }
+.fc-chancellery span { font-size: var(--xs); line-height: var(--xs-lh); color: var(--grey); }
+
+/* The seven dots and the departments appear one after another, where scroll-driven animation is supported. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fc { view-timeline: --fc block; }
+    .fc-seven .dot, .fc-depts li {
+      animation: fc-in linear both; animation-timeline: --fc;
+      animation-range: entry calc(10% + var(--i) * 5%) entry calc(35% + var(--i) * 5%);
+    }
+    @keyframes fc-in { from { opacity: 0; transform: translateY(0.375rem); } to { opacity: 1; transform: none; } }
+  }
+}
+
+/* A row that starts with the figure: heading and figure both at the top. */
+.row:has(> div > .fc:first-child) > * { align-self: start; }
