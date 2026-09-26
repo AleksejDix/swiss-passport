@@ -1,0 +1,11 @@
+---
+// The figure that belongs to a topic (see src/viz/topic-visuals.js), on topic and question pages.
+import HistoryTimeline from "./HistoryTimeline.astro";
+import Parliament from "./Parliament.astro";
+import { visualFor } from "../../viz/topic-visuals.js";
+
+const { lang, topic, caption = true } = Astro.props;
+const kind = visualFor(topic);
+---
+{kind === "history" && <HistoryTimeline lang={lang} current={topic} caption={caption} />}
+{kind === "parliament" && <Parliament lang={lang} caption={caption} />}

@@ -1,0 +1,38 @@
+/* The Federal Assembly (components/topics/Parliament.astro): black seats, the half-canton seats as rings.
+   Both chambers use one seat size, so the Council of States is drawn as much smaller as it is. */
+.parl { margin-block: var(--line); }
+.parl-title { font-weight: 700; }
+.parl-chambers { display: grid; gap: 0.75rem var(--gutter); margin-top: var(--line); }
+.parl-seats { display: block; width: 100%; height: auto; }
+.parl-seats circle { fill: var(--ink); }
+.parl-seats circle.half { fill: var(--paper); stroke: var(--ink); stroke-width: 1.25; vector-effect: non-scaling-stroke; }
+/* Phones: one chamber after the other, the small one at its true size relative to the large one. */
+.parl-nc { order: 1; } .parl-nc-label { order: 2; } .parl-cs { order: 3; margin-top: var(--line); } .parl-cs-label { order: 4; }
+.parl-cs { width: calc(var(--cs) / var(--nc) * 100%); }
+/* Wider screens: the chambers side by side on one baseline, column widths in proportion, labels below. */
+@media (min-width: 40rem) {
+  .parl-chambers { grid-template-columns: var(--nc-col) var(--cs-col); }
+  .parl-chambers > * { order: 0; }
+  .parl-seats { align-self: end; }
+  .parl-cs { width: 100%; margin-top: 0; }
+}
+.parl-num { font-size: var(--l); line-height: var(--l-lh); font-weight: 700; letter-spacing: -0.02em; }
+.parl-term { font-weight: 700; }
+.parl-def { font-size: var(--xs); line-height: var(--xs-lh); color: var(--grey); margin-top: 0.1875rem; }
+.parl-legend { margin-top: 0.75rem; font-size: var(--xs); line-height: var(--xs-lh); }
+.parl-legend li { display: flex; align-items: center; gap: 0.5rem; }
+.parl-legend .seat { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--ink); flex: none; }
+.parl-legend .seat.half { background: var(--paper); box-shadow: inset 0 0 0 1.25px var(--ink); }
+.parl-united { margin-top: calc(1.5 * var(--line)); padding-top: 0.75rem; border-top: 1px solid var(--rule); }
+
+/* Seats appear row by row as the figure scrolls into view, where the browser supports it. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .parl { view-timeline: --parl block; }
+    .parl-row {
+      animation: parl-in linear both; animation-timeline: --parl;
+      animation-range: entry calc(15% + var(--i) * 7%) entry calc(40% + var(--i) * 7%);
+    }
+    @keyframes parl-in { from { opacity: 0; } to { opacity: 1; } }
+  }
+}

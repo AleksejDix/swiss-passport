@@ -1,0 +1,67 @@
+---
+// The Federal Assembly (issue #3): the National Council (200 seats) and the Council of States (46 seats)
+// as semicircles at the same scale; in the Council of States the six seats of the former half-cantons are rings.
+// Labels are the key terms of parliament_chambers; the last line is the memory aid of parliament_tasks.
+import "../../styles/parliament.css";
+import { TEXT } from "../../data.js";
+import { hemicycle } from "../../viz/hemicycle.js";
+import { PARLIAMENT_TEXT } from "../../viz/parliament.js";
+
+const { lang, caption = true } = Astro.props;
+const p = PARLIAMENT_TEXT[lang];
+const terms = TEXT[lang].concepts.parliament_chambers.key_terms;
+const def = (term) => terms.find((k) => k.term === term).definition;
+const tasks = TEXT[lang].concepts.parliament_tasks.mnemonic;
+
+const national = hemicycle(200);
+const states = hemicycle(46);
+const OUTER = 100; // radius of the National Council
+const dot = national.step * OUTER * 0.36;
+const outerStates = dot / (states.step * 0.36); // same seat size in both chambers
+const HALF_CANTON_SEATS = 6; // the last six seats of the Council of States
+
+const chamber = (h, outer, half = 0) => {
+  const pad = dot + 1.5;
+  const view = [-outer - pad, -outer - pad, 2 * (outer + pad), outer + 2 * pad].map((v) => v.toFixed(1)).join(" ");
+  const rows = Array.from({ length: h.rows }, (_, row) =>
+    h.seats.map((s, i) => ({ ...s, i })).filter((s) => s.row === row),
+  );
+  return { view, width: 2 * (outer + pad), rows, outer, half, total: h.seats.length };
+};
+const nc = chamber(national, OUTER);
+const cs = chamber(states, outerStates, HALF_CANTON_SEATS);
+const seat = (c, s) => ({ cx: (s.x * c.outer).toFixed(1), cy: (s.y * c.outer).toFixed(1), r: dot.toFixed(2), half: s.i >= c.total - c.half });
+---
+<figure class="parl" style={`--nc:${nc.width.toFixed(1)};--cs:${cs.width.toFixed(1)};--nc-col:${nc.width.toFixed(1)}fr;--cs-col:${cs.width.toFixed(1)}fr`}>
+  {caption && <figcaption class="parl-title">{p.title}</figcaption>}
+  <div class="parl-chambers">
+    {[nc, cs].map((c, k) => (
+      <svg class={`parl-seats ${k ? "parl-cs" : "parl-nc"}`} viewBox={c.view} aria-hidden="true">
+        {c.rows.map((row, i) => (
+          <g class="parl-row" style={`--i:${i}`}>
+            {row.map((s) => { const d = seat(c, s); return <circle class={d.half ? "half" : undefined} cx={d.cx} cy={d.cy} r={d.r} />; })}
+          </g>
+        ))}
+      </svg>
+    ))}
+    <div class="parl-label parl-nc-label">
+      <p class="parl-num">200</p>
+      <p class="parl-term" lang="de">Nationalrat</p>
+      <p class="parl-def">{def("Nationalrat")}</p>
+    </div>
+    <div class="parl-label parl-cs-label">
+      <p class="parl-num">46</p>
+      <p class="parl-term" lang="de">Ständerat</p>
+      <p class="parl-def">{def("Ständerat")}</p>
+      <ul class="parl-legend">
+        <li><i class="seat"></i>{p.cantons}</li>
+        <li><i class="seat half"></i>{p.halves}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="parl-united">
+    <p class="parl-num">200 + 46 = 246</p>
+    <p class="parl-term" lang="de">Vereinigte Bundesversammlung</p>
+    <p class="parl-def">{def("Vereinigte Bundesversammlung")} {tasks}</p>
+  </div>
+</figure>

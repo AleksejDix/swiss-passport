@@ -1,8 +1,8 @@
 ---
 // One page per topic and language: the explanation, key terms, a memory aid, and the exam questions on it.
 import Base from "../../../layouts/Base.astro";
-import HistoryTimeline from "../../../components/topics/HistoryTimeline.astro";
-import { isHistory, TIMELINE_TEXT } from "../../../viz/history.js";
+import TopicVisual from "../../../components/topics/TopicVisual.astro";
+import { visualFor, visualTitle } from "../../../viz/topic-visuals.js";
 import { UI } from "../../../ui.js";
 import { SITE } from "../../../site.js";
 import { TEXT, LANG_IDS, topics, questionPath, questionsPath, topicPath } from "../../../data.js";
@@ -52,10 +52,10 @@ const jsonLd = {
     </div>
   </section>
 
-  {isHistory(c.id) && (
-    <section class="row" aria-labelledby="timeline">
-      <h2 id="timeline">{TIMELINE_TEXT[lang].title}</h2>
-      <div><HistoryTimeline lang={lang} current={c.id} caption={false} /></div>
+  {visualFor(c.id) && (
+    <section class="row" aria-labelledby="visual">
+      <h2 id="visual">{visualTitle(c.id, lang)}</h2>
+      <div><TopicVisual lang={lang} topic={c.id} caption={false} /></div>
     </section>
   )}
 
