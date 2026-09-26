@@ -1,13 +1,14 @@
 /* Learn online: builds on ../styles.css (tokens, masthead, rows). */
 /* Wider page for the two-column step view; overview and results keep the narrow column. */
-.learn .page { max-width: 72rem; }
 .app { padding-block: 1.5rem 4rem; min-height: 60vh; }
-.app:not(.is-step) > * { max-width: 44rem; }
+.intro { max-width: 44rem; }
+.intro, .intro-step { margin-bottom: 1.5rem; }
 .app h1 { font-size: clamp(2rem, 7vw, 3rem); }
 
 /* Overview */
 .overview-lede { margin-top: 1rem; max-width: 34ch; font-size: 1.125rem; }
-.actions { display: grid; gap: 0.5rem; margin-top: 2rem; }
+.actions { display: grid; gap: 0.5rem; }
+.score + p + .actions, .small + .actions { margin-top: 1.5rem; }
 .action {
   display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; width: 100%;
   font: inherit; text-align: left; padding: 0.875rem 1rem; cursor: pointer;
@@ -20,7 +21,7 @@
 .action span:first-child { font-weight: 600; }
 .action span:last-child { font-size: 0.875rem; opacity: 0.8; }
 
-.stats { margin-top: 2.5rem; border-top: 1px solid var(--ink); }
+.stats { margin: 0; }
 .stats .facts td { font-size: 1.75rem; width: 1%; white-space: nowrap; text-align: left; }
 .readiness { margin-top: 1.5rem; }
 .readiness li { display: grid; grid-template-columns: 1fr 3rem; gap: 0.75rem; align-items: center; padding-block: 0.25rem; font-size: 0.9375rem; }
@@ -28,7 +29,7 @@
 .readiness .meter i { display: block; height: 100%; background: var(--red); }
 .readiness span:last-of-type { text-align: right; font-variant-numeric: tabular-nums; }
 
-.code { margin-top: 2.5rem; border-top: 1px solid var(--ink); padding-top: 1.25rem; }
+.code { margin-top: 2rem; border-top: 1px solid var(--rule); padding-top: 1.25rem; }
 .code strong { font-size: 1.3125rem; letter-spacing: 0.04em; }
 .code form { display: flex; margin-top: 0.75rem; border: 1px solid var(--ink); max-width: 24rem; }
 .code input { flex: 1; min-width: 0; font: inherit; border: 0; padding: 0.5rem 0.75rem; text-transform: uppercase; }
@@ -44,16 +45,16 @@
 .retry { font-size: 0.875rem; color: var(--red); }
 [data-after] .retry { margin-top: 0.5rem; }
 
-/* Step: question on the right, explanation on the left (phones: question first). */
-.step-layout { display: grid; gap: 2.5rem; margin-top: 1.5rem; }
-.qpanel, .side { border-top: 1px solid var(--ink); padding-top: 1.25rem; }
+/* Every screen: what you act on on the right, information on the left (phones: action first). */
+.cols { display: grid; gap: 2.5rem; }
+.act, .info { border-top: 1px solid var(--ink); padding-top: 1.25rem; }
 @media (min-width: 60rem) {
-  .step-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "side main"; gap: 3.5rem; align-items: start; }
-  .qpanel { grid-area: main; position: sticky; top: 1.5rem; }
-  .side { grid-area: side; }
+  .cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "info act"; gap: 3.5rem; align-items: start; }
+  .act { grid-area: act; position: sticky; top: 1.5rem; }
+  .info { grid-area: info; }
 }
-.side-title { font-size: 1.3125rem; line-height: 1.3; margin-bottom: 1rem; }
-.side .feedback { margin: 0 0 1.5rem; padding: 0; border: 0; }
+.info-title { font-size: 1.3125rem; line-height: 1.3; margin-bottom: 1rem; }
+.info .feedback { margin: 0 0 1.5rem; padding: 0; border: 0; }
 .explain summary {
   display: inline-flex; align-items: center; gap: 0.625rem; padding-block: 0.25rem;
   font-weight: 600; cursor: pointer; list-style: none;
@@ -109,9 +110,8 @@
 .hint { font-size: 0.8125rem; color: var(--grey); margin-top: 0.5rem; }
 
 /* Results */
-.score { font-size: clamp(3rem, 12vw, 5rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1; margin: 1rem 0 0.5rem; font-variant-numeric: tabular-nums; }
-.mistakes-title { font-size: 1rem; font-weight: 600; margin-top: 2.5rem; }
-.mistakes { margin-top: 0.75rem; }
+.score { font-size: clamp(3rem, 12vw, 5rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.5rem; font-variant-numeric: tabular-nums; }
+.mistakes { margin-top: 0.25rem; }
 .mistakes li { padding-block: 0.75rem; border-top: 1px solid var(--rule); }
 .mistakes .q { font-weight: 600; font-size: 1rem; }
 .mistakes .a { color: var(--red); }

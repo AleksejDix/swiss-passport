@@ -5,8 +5,8 @@
   --grey: #767676;
   --rule: #e5e5e5;
   --paper: #fff;
-  --col: 44rem;
-  --side: 9rem; /* left column for section headings */
+  --col: 72rem; /* one width for every page */
+  --gap: 3.5rem;
   font-family: "Golos Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 106.25%; /* 17px */
   line-height: 1.5;
@@ -28,7 +28,6 @@ a:hover { color: var(--red); }
 
 /* Masthead */
 .masthead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem 1.5rem; padding-block: 1.5rem; }
-.masthead .langs-nav { flex-basis: 100%; }
 .brand { display: inline-flex; align-items: center; gap: 0.625rem; font-weight: 600; text-decoration: none; }
 .brand:hover { color: inherit; }
 .mark { width: 1.75rem; height: 1.75rem; }
@@ -50,13 +49,18 @@ h3.first { margin-top: 0; }
 
 /* Hero */
 .hero { padding-block: 2rem 4rem; }
+.hero-cols { display: grid; gap: 2.25rem; margin-top: 1.25rem; }
+@media (min-width: 60rem) {
+  .hero-cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--gap); align-items: start; }
+  .hero-cols .demo { margin-top: 0; }
+}
 h1 {
   font-size: clamp(2.5rem, 9vw, 4.5rem);
   font-weight: 600;
   line-height: 1.02;
   letter-spacing: -0.03em;
 }
-.lede { font-size: 1.3125rem; line-height: 1.4; margin-top: 1.25rem; max-width: 34ch; }
+.lede { font-size: 1.3125rem; line-height: 1.4; max-width: 34ch; }
 
 /* Demo: one quiz step, played once on load */
 .demo { margin-top: 2.25rem; border: 1px solid var(--ink); padding: 1.25rem 1.25rem 1rem; }
@@ -87,10 +91,10 @@ h1 {
 
 /* Sections: heading in the left column, content on the right */
 .row {
-  display: grid; grid-template-columns: var(--side) 1fr; gap: 0 1.5rem;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 var(--gap);
   border-top: 1px solid var(--ink); padding-block: 1.25rem 3.5rem;
 }
-h2 { font-size: 1rem; font-weight: 600; line-height: 1.5; }
+h2 { font-size: 1.3125rem; font-weight: 600; line-height: 1.3; }
 h3 { font-size: 1rem; font-weight: 600; margin-top: 1.5rem; }
 .row p + p { margin-top: 0.75rem; }
 .small, .note { font-size: 0.875rem; color: var(--grey); }
@@ -134,9 +138,12 @@ h3 { font-size: 1rem; font-weight: 600; margin-top: 1.5rem; }
 .footer p + p { margin-top: 0.5rem; }
 .footer a + a { margin-left: 1.25rem; }
 
-@media (max-width: 40rem) {
+/* Below 60rem everything is one column, as in /learn. */
+@media (max-width: 59.99rem) {
   .row { grid-template-columns: 1fr; }
   h2 { margin-bottom: 0.75rem; }
+}
+@media (max-width: 40rem) {
   .pointer { left: -0.75rem; }
 }
 

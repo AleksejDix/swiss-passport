@@ -7,6 +7,7 @@ const API = "/mcp";
 // Interface text. Quiz content comes translated from the server.
 const T = {
   de: {
+    whatNext: "Wie geht es weiter", whatNextText: "Die Themen dieser Runde kommen morgen zur Wiederholung. Mach jeden Tag zuerst die fälligen Wiederholungen, dann eine neue Lektion.",
     showExplanation: "Erklärung zeigen", answerFirst: "Beantworte zuerst die Frage. Die Erklärung erscheint danach.",
     title: "Online lernen", lede: "Kurze Lektionen, Wiederholungen zur richtigen Zeit und Probeprüfungen mit den offiziellen Fragen.",
     lesson: "Lektion", continueLesson: "Weiter mit der Lektion", reviews: "Wiederholen", due: (n) => `${n} fällig`, noneDue: "nichts fällig",
@@ -22,6 +23,7 @@ const T = {
     yours: "Deine Antwort", error: "Keine Verbindung zum Server. Versuch es nochmals.", nextLesson: "Nächste Lektion",
   },
   en: {
+    whatNext: "What's next", whatNextText: "The topics of this round come back for review tomorrow. Each day, do the due reviews first, then a new lesson.",
     showExplanation: "Show explanation", answerFirst: "Answer the question first. The explanation appears afterwards.",
     title: "Learn online", lede: "Short lessons, reviews at the right time and mock exams with the official questions.",
     lesson: "Lesson", continueLesson: "Continue lesson", reviews: "Review", due: (n) => `${n} due`, noneDue: "nothing due",
@@ -37,6 +39,7 @@ const T = {
     yours: "Your answer", error: "No connection to the server. Try again.", nextLesson: "Next lesson",
   },
   fr: {
+    whatNext: "Et ensuite", whatNextText: "Les thèmes de cette série reviendront demain pour une révision. Chaque jour, fais d'abord les révisions prévues, puis une nouvelle leçon.",
     showExplanation: "Afficher l'explication", answerFirst: "Réponds d'abord à la question. L'explication apparaît ensuite.",
     title: "Apprendre en ligne", lede: "Des leçons courtes, des révisions au bon moment et des examens blancs avec les questions officielles.",
     lesson: "Leçon", continueLesson: "Continuer la leçon", reviews: "Réviser", due: (n) => `${n} à réviser`, noneDue: "rien à réviser",
@@ -52,6 +55,7 @@ const T = {
     yours: "Ta réponse", error: "Pas de connexion au serveur. Réessaie.", nextLesson: "Leçon suivante",
   },
   it: {
+    whatNext: "E adesso", whatNextText: "I temi di questo giro tornano domani per il ripasso. Ogni giorno fai prima i ripassi previsti, poi una nuova lezione.",
     showExplanation: "Mostra la spiegazione", answerFirst: "Rispondi prima alla domanda. La spiegazione appare dopo.",
     title: "Impara online", lede: "Lezioni brevi, ripassi al momento giusto ed esami di prova con le domande ufficiali.",
     lesson: "Lezione", continueLesson: "Continua la lezione", reviews: "Ripassa", due: (n) => `${n} da ripassare`, noneDue: "niente da ripassare",
@@ -67,6 +71,7 @@ const T = {
     yours: "La tua risposta", error: "Nessuna connessione al server. Riprova.", nextLesson: "Prossima lezione",
   },
   ru: {
+    whatNext: "Что дальше", whatNextText: "Темы этого урока вернутся на повторение завтра. Каждый день сначала повторяй то, что пора повторить, потом проходи новый урок.",
     showExplanation: "Показать объяснение", answerFirst: "Сначала ответь на вопрос. Объяснение появится после ответа.",
     title: "Учиться онлайн", lede: "Короткие уроки, повторение в нужный момент и пробные экзамены с официальными вопросами.",
     lesson: "Урок", continueLesson: "Продолжить урок", reviews: "Повторить", due: (n) => `к повторению: ${n}`, noneDue: "повторять нечего",
@@ -82,6 +87,7 @@ const T = {
     yours: "Твой ответ", error: "Нет связи с сервером. Попробуй ещё раз.", nextLesson: "Следующий урок",
   },
   uk: {
+    whatNext: "Що далі", whatNextText: "Теми цього уроку повернуться на повторення завтра. Щодня спершу повторюй те, що час повторити, потім проходь новий урок.",
     showExplanation: "Показати пояснення", answerFirst: "Спершу дай відповідь на запитання. Пояснення з'явиться після відповіді.",
     title: "Навчатися онлайн", lede: "Короткі уроки, повторення у правильний час і пробні іспити з офіційними запитаннями.",
     lesson: "Урок", continueLesson: "Продовжити урок", reviews: "Повторити", due: (n) => `до повторення: ${n}`, noneDue: "нічого повторювати",
@@ -142,9 +148,22 @@ async function call(name, args = {}) {
   return { data, images: images ?? {} };
 }
 
+/**
+ * Every screen uses the same frame: a head row, then two columns on large screens.
+ * Right: what you act on (the question, the buttons). Left: information (explanation, progress).
+ * On phones the right part comes first.
+ */
+function frame(head, act, info) {
+  return [
+    head,
+    h("div", { class: "cols" },
+      h("section", { class: "act" }, act),
+      h("aside", { class: "info" }, info)),
+  ];
+}
+
 function show(...nodes) {
   app.replaceChildren(...nodes.flat().filter((n) => n != null && n !== false));
-  app.classList.toggle("is-step", Boolean(app.querySelector(".step-layout")));
   window.scrollTo({ top: 0 });
 }
 
@@ -187,9 +206,8 @@ async function home() {
   }
   const s = t();
   const exams = p.last_exams.map((e) => `${e.score}/${e.total}`).join(", ");
-  show(
-    h("h1", {}, s.title),
-    h("p", { class: "overview-lede" }, s.lede),
+  show(...frame(
+    h("div", { class: "intro" }, h("h1", {}, s.title), h("p", { class: "overview-lede" }, s.lede)),
     h("div", { class: "actions" },
       h("button", { class: "action primary", onclick: () => start("start_lesson"), disabled: !p.next_lesson },
         h("span", {}, p.next_lesson ? `${s.lesson} ${Number(p.next_lesson.id.slice(1))}: ${p.next_lesson.title}` : s.allDone),
@@ -199,7 +217,7 @@ async function home() {
       h("button", { class: "action", onclick: () => start("start_mock_exam") },
         h("span", {}, s.exam), h("span", {}, s.examSub)),
     ),
-    h("section", { class: "stats" },
+    [h("section", { class: "stats" },
       h("table", { class: "facts" },
         h("tr", {}, h("td", {}, `${p.lessons_done}/${p.lessons_total}`), h("th", { scope: "row" }, s.lessonsDone)),
         exams && h("tr", {}, h("td", {}, String(p.last_exams.length)), h("th", { scope: "row" }, `${s.examsDone}: ${exams}`)),
@@ -218,8 +236,8 @@ async function home() {
         h("input", { name: "code", "aria-label": s.haveCode, placeholder: s.haveCode, autocomplete: "off", spellcheck: "false" }),
         h("button", { type: "submit" }, s.useCode)),
       h("p", { class: "error", "data-code-error": true, hidden: true }, s.unknownCode),
-    ),
-  );
+    )],
+  ));
 }
 
 async function useCode(event) {
@@ -280,22 +298,23 @@ function renderStep(step, images, lessonTitle) {
   );
   const heading = h("p", { class: "question", tabindex: "-1" }, q.question);
   show(
-    h("div", { class: "step-head" }, h("span", {}, title), h("span", {}, step.step), h("button", { type: "button", onclick: home }, s.overview)),
-    h("div", { class: "bar" }, h("i", { style: `width:${progressPercent(step.step)}%` })),
-    h("div", { class: "step-layout" },
-      h("section", { class: "qpanel" },
+    ...frame(
+      h("div", { class: "intro-step" },
+        h("div", { class: "step-head" }, h("span", {}, title), h("span", {}, step.step), h("button", { type: "button", onclick: home }, s.overview)),
+        h("div", { class: "bar" }, h("i", { style: `width:${progressPercent(step.step)}%` }))),
+      [
         step.retry && h("p", { class: "retry" }, s.retry),
         heading,
         q.german && h("p", { class: "german", lang: "de" }, q.german.question),
         images.question && h("img", { class: "qpicture", src: images.question, alt: "" }),
         h("div", { class: `choices${hasPictures ? " pictures" : ""}`, "data-choices": true }, choices),
         h("div", { "data-after": true }),
-        h("p", { class: "hint" }, s.keys)),
-      h("aside", { class: "side", "data-side": true },
-        h("h2", { class: "side-title" }, kind === "exam" ? s.exam : step.concept),
+        h("p", { class: "hint" }, s.keys)],
+      [
+        h("h2", { class: "info-title" }, kind === "exam" ? s.exam : step.concept),
         h("div", { "data-feedback": true }),
         kind === "exam" ? h("p", { class: "small" }, s.examNote)
-          : concept ? conceptDetails(concept) : h("p", { class: "small", "data-answer-first": true }, s.answerFirst)),
+          : concept ? conceptDetails(concept) : h("p", { class: "small", "data-answer-first": true }, s.answerFirst)],
     ),
   );
   heading.focus({ preventScroll: true });
@@ -369,32 +388,39 @@ function proceed() {
 
 function renderSummary(f) {
   const s = t();
-  show(
-    h("h1", {}, f.lesson ? s.doneLesson : s.doneReview),
-    h("p", { class: "score" }, `${f.correct_first_try}/${f.total}`),
-    h("p", {}, s.firstTry),
-    h("div", { class: "actions" },
-      f.next_lesson && h("button", { class: "action primary", onclick: () => start("start_lesson") }, h("span", {}, s.nextLesson), h("span", {}, f.next_lesson)),
-      f.reviews_due > 0 && h("button", { class: "action", onclick: () => start("start_reviews") }, h("span", {}, s.reviews), h("span", {}, s.due(f.reviews_due))),
-      h("button", { class: "action", onclick: home }, h("span", {}, s.overview), h("span", {}))),
-  );
+  show(...frame(
+    h("div", { class: "intro" }, h("h1", {}, f.lesson ? s.doneLesson : s.doneReview)),
+    [
+      h("p", { class: "score" }, `${f.correct_first_try}/${f.total}`),
+      h("p", {}, s.firstTry),
+      h("div", { class: "actions" },
+        f.next_lesson && h("button", { class: "action primary", onclick: () => start("start_lesson") }, h("span", {}, s.nextLesson), h("span", {}, f.next_lesson)),
+        f.reviews_due > 0 && h("button", { class: "action", onclick: () => start("start_reviews") }, h("span", {}, s.reviews), h("span", {}, s.due(f.reviews_due))),
+        h("button", { class: "action", onclick: home }, h("span", {}, s.overview), h("span", {}))),
+    ],
+    [h("h2", { class: "info-title" }, s.whatNext), h("p", {}, s.whatNextText)],
+  ));
 }
 
 function renderExamResult(r) {
   const s = t();
-  show(
-    h("h1", {}, s.examResult),
-    h("p", { class: "score" }, `${r.score}/${r.total}`),
-    h("p", { class: "small" }, s.passMark),
-    r.mistakes.length > 0 && h("h2", { class: "mistakes-title" }, s.mistakes),
+  show(...frame(
+    h("div", { class: "intro" }, h("h1", {}, s.examResult)),
+    [
+      h("p", { class: "score" }, `${r.score}/${r.total}`),
+      h("p", { class: "small" }, s.passMark),
+      h("div", { class: "actions" }, h("button", { class: "action primary", onclick: home }, h("span", {}, s.overview), h("span", {}))),
+    ],
+    [
+    r.mistakes.length > 0 && h("h2", { class: "info-title" }, s.mistakes),
     h("ol", { class: "mistakes" }, r.mistakes.map((m) =>
       h("li", {},
         h("p", { class: "q" }, m.question),
         h("p", { class: "w" }, `${s.yours}: ${m.your_answer.toUpperCase()}`),
         h("p", { class: "a" }, `${m.correct_answer.toUpperCase()}: ${m.correct_answer_text}`),
         h("p", { class: "w" }, m.why)))),
-    h("button", { class: "next", onclick: home }, s.overview),
-  );
+    ],
+  ));
 }
 
 // Keyboard: A to D answer, Enter continues.
