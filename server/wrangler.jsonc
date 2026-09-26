@@ -22,6 +22,9 @@
   ],
   // Daily: delete progress 12 months after the last activity (see the privacy policy).
   "triggers": { "crons": ["30 3 * * *"] },
+  // Workers Logs: calls of /mcp and their errors in the dashboard, kept 3 days (privacy policy).
+  // Request bodies (learner code, answers) are not logged.
+  "observability": { "enabled": true },
   // www redirects to the root with a Cloudflare redirect rule (dashboard: Rules > Redirect Rules).
   "routes": [{ "pattern": "swiss-passport.com", "custom_domain": true }],
   // Only the real domain: no *.workers.dev copy of the site.
