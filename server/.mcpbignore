@@ -12,3 +12,4 @@ public/
 wrangler.jsonc
 migrations/
 .wrangler/
+chatgpt-listing.md

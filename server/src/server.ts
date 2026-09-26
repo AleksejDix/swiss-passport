@@ -63,7 +63,17 @@ const ICONS = [
 ];
 
 // Hosts cache the card by this URI (ChatGPT): give it a new version when the card changes.
-const CARD_URI = "ui://swiss-passport/card-v2.html";
+const CARD_URI = "ui://swiss-passport/card-v3.html";
+// The card loads nothing from the network: its script is inline and pictures come as data: URIs in the tool result.
+// ChatGPT reads its own keys (widgetDomain is required in its plugin directory). The standard ui.domain is left out:
+// Claude expects a hash of the server URL there, not the site's origin.
+const CARD_META = {
+  ui: { csp: { connectDomains: [], resourceDomains: [] } },
+  "openai/widgetCSP": { connect_domains: [], resource_domains: [] },
+  "openai/widgetDomain": WEBSITE,
+  "openai/widgetDescription":
+    "Quiz card: shows the current step (concept, question, options) and checks the learner's clicks itself. Do not repeat it in the chat.",
+};
 
 // The tools only change the learner's own quiz progress in this app's database: nothing is deleted,
 // nothing is sent to other systems. Explicit, because MCP treats unannotated tools as destructive and open-world.
@@ -134,8 +144,8 @@ export function createServer(store: Store, { online, assets }: { online: boolean
     { instructions: online ? INSTRUCTIONS + ONLINE_INSTRUCTIONS : INSTRUCTIONS },
   );
 
-  server.registerResource("Quiz card", CARD_URI, { mimeType: "text/html;profile=mcp-app" }, async () => ({
-    contents: [{ uri: CARD_URI, mimeType: "text/html;profile=mcp-app", text: await assets.card() }],
+  server.registerResource("Quiz card", CARD_URI, { mimeType: "text/html;profile=mcp-app", _meta: CARD_META }, async () => ({
+    contents: [{ uri: CARD_URI, mimeType: "text/html;profile=mcp-app", text: await assets.card(), _meta: CARD_META }],
   }));
 
   const common = {

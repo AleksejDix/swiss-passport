@@ -1,5 +1,6 @@
 ---
-// Privacy policy (German only). It describes exactly what the site and the /mcp server store; update it when that changes.
+// Privacy policy. It describes exactly what the site and the /mcp server store; update it when that changes,
+// together with the English translation in privacy.astro. This German version is binding.
 import Base from "../layouts/Base.astro";
 import { OPERATOR, PRIVACY_DATE } from "../legal.js";
 
@@ -19,10 +20,10 @@ const sections = [
     "Um zu sehen, welche Seiten genutzt werden, zählen wir Besuche mit Cloudflare Web Analytics. Dazu lädt die Seite ein kleines Skript von Cloudflare (static.cloudflareinsights.com). Es übermittelt die aufgerufene Seite, die Seite, von der du kommst, Browser, Betriebssystem, Gerätetyp, Land und die Ladezeit der Seite.",
     'Cloudflare Web Analytics setzt keine Cookies und speichert nichts in deinem Browser. Laut Cloudflare werden dafür keine personenbezogenen Daten verwendet und Besucher nicht über IP-Adresse oder Browsermerkmale wiedererkannt. Wir sehen nur zusammengefasste Zahlen. Das dient dazu, das Angebot zu verbessern (DSGVO Art. 6 Abs. 1 lit. f). Siehe die <a href="https://www.cloudflare.com/privacypolicy/">Datenschutzerklärung von Cloudflare</a>.',
   ]],
-  ["Online lernen und Connector für Claude und ChatGPT", [
-    "Wenn du online lernst oder den Connector nutzt, bekommst du einen zufälligen Lerncode (zum Beispiel BERG-7K2Q). Unter diesem Code speichern wir deinen Lernfortschritt: gewählte Sprache, beantwortete Fragen mit richtig oder falsch und Zeitpunkt, Stand der Themen und Resultate der Probeprüfungen.",
+  ["Online lernen und in KI-Apps", [
+    "Wenn du online lernst oder Swiss Passport in einer KI-App nutzt, bekommst du einen zufälligen Lerncode (zum Beispiel BERG-7K2Q). Unter diesem Code speichern wir deinen Lernfortschritt: gewählte Sprache, beantwortete Fragen mit richtig oder falsch und Zeitpunkt, Stand der Themen und Resultate der Probeprüfungen.",
     'Gespeichert wird in einer Datenbank von Cloudflare (Cloudflare D1, Standort Westeuropa). Zweck ist, dass du auf jedem Gerät weiterlernen kannst (DSGVO Art. 6 Abs. 1 lit. b). Der Fortschritt wird 12 Monate nach deiner letzten Aktivität automatisch gelöscht. Wer deinen Lerncode kennt, kann deinen Fortschritt sehen und fortsetzen, gib ihn deshalb nicht weiter.',
-    "Nutzt du den Connector in Claude oder ChatGPT, bekommt dieser Server nur die Aufrufe des Lernwerkzeugs (Lerncode, gewählte Antworten), nicht deinen Chatverlauf. Für den Chat selbst gelten die Datenschutzbestimmungen von Anthropic beziehungsweise OpenAI.",
+    "Nutzt du Swiss Passport in einer KI-App (zum Beispiel Claude, ChatGPT, Grok, Mistral Vibe oder Perplexity), bekommt dieser Server nur die Aufrufe der Lernwerkzeuge (Lerncode, Sprache, gewählte Antworten), nicht deinen Chatverlauf. Technische Angaben, die die App mitschickt, etwa eine anonyme Kennung, speichern wir nicht. Für den Chat selbst gelten die Datenschutzbestimmungen des Anbieters der App, zum Beispiel Anthropic oder OpenAI.",
   ]],
   ["E-Mail", [
     "Schreibst du an die oben genannte Adresse, leitet Cloudflare (Email Routing) die Nachricht an das Postfach des Betreibers weiter. Wir verwenden deine Nachricht nur, um dir zu antworten.",
@@ -46,7 +47,7 @@ const sections = [
 <main class="page">
   <header class="qhead">
     <h1>Datenschutzerklärung</h1>
-    <p class="small">Stand: {PRIVACY_DATE}</p>
+    <p class="small">Stand: {PRIVACY_DATE}. <a href="/privacy/" hreflang="en" lang="en">English translation</a></p>
   </header>
   {sections.map(([heading, paragraphs], i) => (
     <section class="row" aria-labelledby={`d${i}`}>

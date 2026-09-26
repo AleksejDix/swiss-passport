@@ -6,5 +6,9 @@ export const OPERATOR = {
   email: "contact@swiss-passport.com",
 };
 
-// Date of the last change to the privacy policy.
+// Date of the last change to the privacy policy (German, and the English translation).
 export const PRIVACY_DATE = "26. September 2026";
+export const PRIVACY_DATE_EN = "26 September 2026";
+
+// Date of the last change to the terms of use.
+export const TERMS_DATE = "26 September 2026";

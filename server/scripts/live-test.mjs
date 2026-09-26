@@ -25,7 +25,7 @@ await c.close();
 c = await connect(); // new connection, possibly another function instance: progress must come from the database
 const p = await call(c, "get_progress", { learner_code: code });
 assert(p.unfinished_session?.step === "2/9", "progress stored in the database and loaded again");
-const card = await c.readResource({ uri: "ui://swiss-passport/card-v2.html" });
+const card = await c.readResource({ uri: "ui://swiss-passport/card-v3.html" });
 assert(card.contents[0].text.length > 1000, "quiz card served");
 await c.close();
 console.log("live checks passed");
