@@ -7,12 +7,6 @@ export default defineConfig({
   site: SITE,
   outDir: "../server/public",
   trailingSlash: "always",
-  integrations: [
-    sitemap({
-      i18n: {
-        defaultLocale: "en",
-        locales: { en: "en", de: "de", fr: "fr", it: "it", ru: "ru", uk: "uk" },
-      },
-    }),
-  ],
+  // Language versions are declared per page with <link rel="alternate" hreflang>; / is the language picker.
+  integrations: [sitemap()],
 });

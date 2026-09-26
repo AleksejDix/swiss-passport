@@ -7,7 +7,7 @@ import { TEXT, LANG_IDS, lessons, questions, questionPath, questionsPath, topicP
 export function getStaticPaths() {
   return LANG_IDS.flatMap((lang) =>
     questions.map((q, i) => ({
-      params: { lang: lang === "en" ? undefined : lang, slug: q.slug },
+      params: { lang, slug: q.slug },
       props: { lang, q, prev: questions[i - 1], next: questions[i + 1] },
     })),
   );

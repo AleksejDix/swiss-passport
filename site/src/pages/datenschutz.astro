@@ -1,0 +1,51 @@
+---
+// Privacy policy (German only). It describes exactly what the site and the /mcp server store; update it when that changes.
+import Base from "../layouts/Base.astro";
+import { OPERATOR, PRIVACY_DATE } from "../legal.js";
+
+const sections = [
+  ["In Kürze", [
+    "Kein Konto, keine Cookies, keine Werbung, keine Analyse- oder Tracking-Dienste. Gespeichert wird nur, was für das Lernen nötig ist, und ohne Namen oder E-Mail-Adresse.",
+  ]],
+  ["Verantwortlich", [
+    `${OPERATOR.name}, ${OPERATOR.region}. E-Mail: <a href="mailto:${OPERATOR.email}">${OPERATOR.email}</a>`,
+    "Diese Erklärung richtet sich nach dem Schweizer Datenschutzgesetz (DSG) und, soweit anwendbar, nach der Datenschutz-Grundverordnung der EU (DSGVO).",
+  ]],
+  ["Aufruf der Website", [
+    'Die Website läuft bei Vercel Inc. (USA). Beim Aufruf einer Seite verarbeitet Vercel technisch nötige Daten: IP-Adresse, Datum und Uhrzeit, aufgerufene Adresse, Browser und Betriebssystem. Das dient dem Betrieb und der Sicherheit (DSGVO Art. 6 Abs. 1 lit. f). Wie lange diese Protokolle aufbewahrt werden, legt Vercel fest. Siehe die <a href="https://vercel.com/legal/privacy-policy">Datenschutzerklärung von Vercel</a>.',
+    "Die Schrift wird von dieser Website selbst ausgeliefert. Es werden keine Inhalte von Google oder anderen Dritten nachgeladen.",
+  ]],
+  ["Online lernen und Connector für Claude und ChatGPT", [
+    "Wenn du online lernst oder den Connector nutzt, bekommst du einen zufälligen Lerncode (zum Beispiel BERG-7K2Q). Unter diesem Code speichern wir deinen Lernfortschritt: gewählte Sprache, beantwortete Fragen mit richtig oder falsch und Zeitpunkt, Stand der Themen und Resultate der Probeprüfungen.",
+    'Gespeichert wird bei Upstash Inc. (USA) in einer Datenbank. Zweck ist, dass du auf jedem Gerät weiterlernen kannst (DSGVO Art. 6 Abs. 1 lit. b). Der Fortschritt wird 12 Monate nach deiner letzten Aktivität automatisch gelöscht. Wer deinen Lerncode kennt, kann deinen Fortschritt sehen und fortsetzen, gib ihn deshalb nicht weiter. Siehe die <a href="https://upstash.com/trust/privacy.pdf">Datenschutzerklärung von Upstash</a>.',
+    "Nutzt du den Connector in Claude oder ChatGPT, bekommt dieser Server nur die Aufrufe des Lernwerkzeugs (Lerncode, gewählte Antworten), nicht deinen Chatverlauf. Für den Chat selbst gelten die Datenschutzbestimmungen von Anthropic beziehungsweise OpenAI.",
+  ]],
+  ["Speicher im Browser", [
+    "Die Website speichert im Browser (localStorage) deine gewählte Sprache und, beim Online-Lernen, deinen Lerncode. Diese Angaben bleiben auf deinem Gerät und werden nicht für Tracking verwendet. Du kannst sie jederzeit in den Browsereinstellungen löschen.",
+  ]],
+  ["Bekanntgabe ins Ausland", [
+    "Vercel und Upstash haben ihren Sitz in den USA. Daten können deshalb in den USA oder in anderen Ländern verarbeitet werden. Die Übermittlung stützt sich auf die vertraglichen Garantien der Anbieter, insbesondere die Standardvertragsklauseln der EU-Kommission, die auch der Eidgenössische Datenschutz- und Öffentlichkeitsbeauftragte (EDÖB) anerkennt.",
+  ]],
+  ["Links", [
+    "Links zu anderen Websites (zum Beispiel zh.ch, admin.ch oder GitHub) führen zu Angeboten, für deren Datenschutz deren Betreiber verantwortlich sind.",
+  ]],
+  ["Deine Rechte", [
+    "Du kannst Auskunft über deine Daten verlangen, sie berichtigen oder löschen lassen und der Bearbeitung widersprechen. Schreib dazu an die oben genannte E-Mail-Adresse und nenne deinen Lerncode, sonst können wir deine Daten nicht finden.",
+    'Du kannst dich ausserdem beim <a href="https://www.edoeb.admin.ch">EDÖB</a> oder, wenn du in der EU wohnst, bei der Datenschutzbehörde deines Landes beschweren.',
+  ]],
+];
+---
+<Base lang="de" remember={false} title="Datenschutzerklärung | Swiss Passport" description="Welche Daten Swiss Passport verarbeitet: keine Cookies, kein Tracking, Lernfortschritt nur unter einem anonymen Lerncode." alternates={{ de: "/datenschutz/" }}>
+<main class="page">
+  <header class="qhead">
+    <h1>Datenschutzerklärung</h1>
+    <p class="small">Stand: {PRIVACY_DATE}</p>
+  </header>
+  {sections.map(([heading, paragraphs], i) => (
+    <section class="row" aria-labelledby={`d${i}`}>
+      <h2 id={`d${i}`}>{heading}</h2>
+      <div class="prose">{paragraphs.map((html) => <p set:html={html} />)}</div>
+    </section>
+  ))}
+</main>
+</Base>

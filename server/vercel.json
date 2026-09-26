@@ -3,6 +3,37 @@
   "installCommand": "echo prebuilt",
   "buildCommand": "echo prebuilt",
   "outputDirectory": "public",
-  "functions": { "api/mcp.js": { "includeFiles": "data/**" } },
-  "rewrites": [{ "source": "/mcp", "destination": "/api/mcp" }]
+  "functions": {
+    "api/mcp.js": {
+      "includeFiles": "data/**"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/mcp",
+      "destination": "/api/mcp"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/questions/:path*",
+      "destination": "/en/questions/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/topics/:path*",
+      "destination": "/en/topics/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/grundkenntnistest/:path*",
+      "destination": "/en/grundkenntnistest/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/about/:path*",
+      "destination": "/en/about/:path*",
+      "permanent": true
+    }
+  ]
 }

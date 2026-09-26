@@ -12,8 +12,8 @@ export const TEXT = { de, en, fr, it, ru, uk };
 export const LANG_IDS = Object.keys(TEXT);
 export const { units, lessons, concepts } = curriculum;
 
-// English lives at the root, the other languages under /de/, /fr/ and so on.
-export const prefix = (lang) => (lang === "en" ? "" : `/${lang}`);
+// Every language has its own prefix (/de/, /en/, ...); / is the language picker.
+export const prefix = (lang) => `/${lang}`;
 export const homePath = (lang) => `${prefix(lang)}/`;
 export const questionsPath = (lang) => `${prefix(lang)}/questions/`;
 export const questionPath = (lang, q) => `${prefix(lang)}/questions/${q.slug}/`;

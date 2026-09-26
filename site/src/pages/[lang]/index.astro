@@ -1,12 +1,12 @@
 ---
-// Homepage in one language. English is served at /, the others at /de/, /fr/ and so on.
+// Homepage in one language, at /de/, /en/, /fr/ and so on. The language picker is at /.
 import Base from "../../layouts/Base.astro";
 import { STRINGS } from "../../scripts/i18n.js";
 import { LANG_IDS, homePath } from "../../data.js";
 import { SITE } from "../../site.js";
 
 export function getStaticPaths() {
-  return LANG_IDS.map((lang) => ({ params: { lang: lang === "en" ? undefined : lang }, props: { lang } }));
+  return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
 }
 
 const { lang } = Astro.props;
@@ -21,7 +21,7 @@ const jsonLd = {
   inLanguage: lang,
 };
 ---
-<Base lang={lang} title={s.title} description={s.description} alternates={alternates} jsonLd={jsonLd} mapCredit>
+<Base lang={lang} title={s.title} description={s.description} alternates={alternates} jsonLd={jsonLd} xDefault="/" mapCredit>
 <script is:inline slot="head">if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-motion");</script>
 <main class="page">
   <section class="hero" aria-labelledby="title">

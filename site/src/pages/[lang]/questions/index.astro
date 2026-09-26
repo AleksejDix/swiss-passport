@@ -5,7 +5,7 @@ import { UI } from "../../../ui.js";
 import { TEXT, LANG_IDS, units, topics, questionPath, questionsPath, topicPath } from "../../../data.js";
 
 export function getStaticPaths() {
-  return LANG_IDS.map((lang) => ({ params: { lang: lang === "en" ? undefined : lang }, props: { lang } }));
+  return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
 }
 
 const { lang } = Astro.props;

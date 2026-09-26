@@ -1,5 +1,8 @@
 ---
 // Every page except /learn: head with canonical and language alternates, masthead, footer.
+// The font is served from this site, not from Google.
+import "@fontsource/golos-text/400.css";
+import "@fontsource/golos-text/600.css";
 import "../styles/styles.css";
 import { SITE } from "../site.js";
 import { LANGS, STRINGS } from "../scripts/i18n.js";
@@ -8,10 +11,11 @@ import { GUIDE } from "../guide.js";
 import { ABOUT } from "../about.js";
 import { homePath, questionsPath, guidePath, aboutPath } from "../data.js";
 
-const { lang, title, description, alternates, jsonLd, mapCredit = false } = Astro.props;
+const { lang, title, description, alternates, jsonLd, xDefault, mapCredit = false, remember = true } = Astro.props;
 const s = { ...STRINGS[lang], ...UI[lang] };
 const url = (path) => new URL(path, SITE).href;
-const isRoot = Astro.url.pathname === "/";
+// The legal pages are in German; the footer names them in the reader's language.
+const PRIVACY_LABEL = { de: "Datenschutz", en: "Privacy", fr: "Protection des données", it: "Protezione dei dati", ru: "Защита данных", uk: "Захист даних" };
 ---
 <!doctype html>
 <html lang={lang}>
@@ -22,7 +26,7 @@ const isRoot = Astro.url.pathname === "/";
 <meta name="description" content={description}>
 <link rel="canonical" href={url(alternates[lang])}>
 {Object.entries(alternates).map(([id, path]) => <link rel="alternate" hreflang={id} href={url(path)}>)}
-<link rel="alternate" hreflang="x-default" href={url(alternates.en)}>
+{xDefault && <link rel="alternate" hreflang="x-default" href={url(xDefault)}>}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Swiss Passport">
 <meta property="og:title" content={title}>
@@ -35,22 +39,11 @@ const isRoot = Astro.url.pathname === "/";
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="sitemap" href="/sitemap-index.xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap">
 {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
-<script is:inline define:vars={{ lang, isRoot, langs: Object.keys(LANGS) }}>
-  // The root page follows the learner's saved or browser language; any other page remembers its own.
-  try {
-    if (isRoot) {
-      const saved = localStorage.getItem("sp-lang");
-      const wanted = saved ?? navigator.languages.map((l) => l.slice(0, 2)).find((l) => langs.includes(l));
-      if (wanted && wanted !== "en" && langs.includes(wanted)) location.replace(`/${wanted}/`);
-    } else if (lang !== "en") {
-      localStorage.setItem("sp-lang", lang);
-    }
-  } catch { /* storage unavailable */ }
-</script>
+{remember && <script is:inline define:vars={{ lang }}>
+  // Remember the language of the page, so / and /learn open in it next time.
+  try { localStorage.setItem("sp-lang", lang); } catch { /* storage unavailable */ }
+</script>}
 <slot name="head" />
 </head>
 <body>
@@ -70,7 +63,7 @@ const isRoot = Astro.url.pathname === "/";
   </nav>
   <nav class="langs-nav" aria-label="Language">
     {Object.entries(LANGS).map(([id, name]) => (
-      <a href={alternates[id]} hreflang={id} lang={id} aria-current={id === lang ? "page" : undefined} data-lang={id}>{name}</a>
+      <a href={alternates[id] ?? homePath(id)} hreflang={id} lang={id} aria-current={id === lang ? "page" : undefined} data-lang={id}>{name}</a>
     ))}
   </nav>
 </header>
@@ -81,7 +74,7 @@ const isRoot = Astro.url.pathname === "/";
   <div class="footer">
   <p>{s.foot}</p>
   {mapCredit && <p>{s.map_credit}</p>}
-  <p><a href={aboutPath(lang)}>{ABOUT[lang].nav}</a> <a href="https://github.com/AleksejDix/swiss-passport">{s.nav_source}</a> <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE">{s.foot_license}</a></p>
+  <p><a href={aboutPath(lang)}>{ABOUT[lang].nav}</a> <a href="/impressum/">Impressum</a> <a href="/datenschutz/">{PRIVACY_LABEL[lang]}</a> <a href="https://github.com/AleksejDix/swiss-passport">{s.nav_source}</a> <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE">{s.foot_license}</a></p>
   </div>
 </footer>
 <script is:inline>

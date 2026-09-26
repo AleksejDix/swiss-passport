@@ -1,5 +1,8 @@
 ---
 // Learn online: the browser client for the MCP tools. One URL for all languages; learn.js picks the language.
+// The font is served from this site, not from Google.
+import "@fontsource/golos-text/400.css";
+import "@fontsource/golos-text/600.css";
 import "../../styles/styles.css";
 import "../../styles/learn.css";
 import { SITE } from "../../site.js";
@@ -13,9 +16,6 @@ import { SITE } from "../../site.js";
 <meta name="description" content="Practise the 350 official questions of the Zurich naturalisation knowledge test in your browser, in six languages.">
 <link rel="canonical" href={new URL("/learn/", SITE).href}>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap">
 </head>
 <body class="learn">
 <header class="page masthead">
@@ -33,6 +33,7 @@ import { SITE } from "../../site.js";
   <p class="small">Loading…</p>
 </main>
 <noscript><p class="page">This page needs JavaScript.</p></noscript>
+<footer class="page"><div class="footer"><p><a href="/impressum/">Impressum</a> <a href="/datenschutz/">Datenschutz</a></p></div></footer>
 <script>
   import "../../scripts/learn.js";
 </script>

@@ -8,7 +8,7 @@ import { TEXT, LANG_IDS, topics, questionPath, questionsPath, topicPath } from "
 export function getStaticPaths() {
   return LANG_IDS.flatMap((lang) =>
     topics.map((c, i) => ({
-      params: { lang: lang === "en" ? undefined : lang, topic: c.id.replace(/_/g, "-") },
+      params: { lang, topic: c.id.replace(/_/g, "-") },
       props: { lang, c, prev: topics[i - 1], next: topics[i + 1] },
     })),
   );

@@ -6,7 +6,7 @@ import { GUIDE, LINKS } from "../../../guide.js";
 import { LANG_IDS, guidePath, questionsPath } from "../../../data.js";
 
 export function getStaticPaths() {
-  return LANG_IDS.map((lang) => ({ params: { lang: lang === "en" ? undefined : lang }, props: { lang } }));
+  return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
 }
 
 const { lang } = Astro.props;
