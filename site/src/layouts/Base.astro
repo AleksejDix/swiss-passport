@@ -4,6 +4,7 @@
 import "@fontsource-variable/inter/opsz.css";
 // Preloaded so the first paint already uses Inter and text does not reflow when the font arrives.
 import interLatin from "@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2?url";
+import interCyrillic from "@fontsource-variable/inter/files/inter-cyrillic-opsz-normal.woff2?url";
 import "../styles/styles.css";
 import { SITE } from "../site.js";
 import { LANGS, STRINGS } from "../scripts/i18n.js";
@@ -17,6 +18,8 @@ const { lang, title, description, alternates, jsonLd, xDefault, mapCredit = fals
 const s = { ...STRINGS[lang], ...UI[lang] };
 const url = (path) => new URL(path, SITE).href;
 // The legal pages are in German; the footer names them in the reader's language.
+// Russian and Ukrainian text needs the Cyrillic file too, or titles rewrap when it arrives.
+const CYRILLIC = new Set(["ru", "uk"]);
 const PRIVACY_LABEL = { de: "Datenschutz", en: "Privacy", fr: "Protection des données", it: "Protezione dei dati", ru: "Защита данных", uk: "Захист даних" };
 ---
 <!doctype html>
@@ -24,6 +27,7 @@ const PRIVACY_LABEL = { de: "Datenschutz", en: "Privacy", fr: "Protection des do
 <head>
 <meta charset="utf-8">
 <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin>
+{CYRILLIC.has(lang) && <link rel="preload" href={interCyrillic} as="font" type="font/woff2" crossorigin>}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content={description}>
