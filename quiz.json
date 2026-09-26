@@ -1,0 +1,7033 @@
+{
+  "id": "grundkenntnistest-zh",
+  "source": "Kanton Zürich, Direktion der Justiz und des Innern, Gemeindeamt, Abteilung Einbürgerungen (Stand Mai 2025)",
+  "categories": [
+    "democracy",
+    "welfare_society",
+    "history",
+    "geography",
+    "culture"
+  ],
+  "levels": [
+    "federal",
+    "cantonal",
+    "municipal"
+  ],
+  "questions": [
+    {
+      "id": "q001",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q002",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q003",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q004",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q005",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q006",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q007",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q008",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q009",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q010",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q011",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q012",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q013",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q014",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q015",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q016",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q017",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q018",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q019",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q020",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q021",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q022",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q023",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q024",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q025",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q026",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q027",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q028",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q029",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q030",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q031",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q032",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q033",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q034",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q035",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q036",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q037",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q038",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q039",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q040",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q041",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q042",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q043",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q044",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q045",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q046",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q047",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q048",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q049",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q050",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q051",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q052",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q053",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q054",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q055",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a",
+          "image": "images/nationalfahne_a.png"
+        },
+        {
+          "id": "b",
+          "image": "images/nationalfahne_b.png"
+        },
+        {
+          "id": "c",
+          "image": "images/nationalfahne_c.png"
+        },
+        {
+          "id": "d",
+          "image": "images/nationalfahne_d.png"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q056",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q057",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q058",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q059",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q060",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q061",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q062",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q063",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q064",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q065",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q066",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q067",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q068",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q069",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q070",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q071",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q072",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q073",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q074",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q075",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q076",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q077",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q078",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q079",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q080",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q081",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q082",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q083",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q084",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q085",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q086",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q087",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q088",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q089",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q090",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q091",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q092",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q093",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q094",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q095",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q096",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q097",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q098",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q099",
+      "category": "democracy",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q100",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q101",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q102",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q103",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q104",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q105",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q106",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q107",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q108",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q109",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q110",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a",
+          "image": "images/wappen_zh_a.png"
+        },
+        {
+          "id": "b",
+          "image": "images/wappen_zh_b.png"
+        },
+        {
+          "id": "c",
+          "image": "images/wappen_zh_c.png"
+        },
+        {
+          "id": "d",
+          "image": "images/wappen_zh_d.png"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q111",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q112",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q113",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q114",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q115",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q116",
+      "category": "democracy",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q117",
+      "category": "democracy",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q118",
+      "category": "democracy",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q119",
+      "category": "democracy",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q120",
+      "category": "democracy",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q121",
+      "category": "democracy",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q122",
+      "category": "democracy",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q123",
+      "category": "democracy",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q124",
+      "category": "democracy",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q125",
+      "category": "democracy",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q126",
+      "category": "democracy",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q127",
+      "category": "democracy",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q128",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q129",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q130",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q131",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q132",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q133",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q134",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q135",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q136",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q137",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q138",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q139",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q140",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q141",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q142",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q143",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q144",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q145",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q146",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q147",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q148",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q149",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q150",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q151",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q152",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q153",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q154",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q155",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q156",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q157",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q158",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q159",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q160",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q161",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q162",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q163",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q164",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q165",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q166",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q167",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q168",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q169",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q170",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q171",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q172",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q173",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q174",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q175",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q176",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q177",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q178",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q179",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q180",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q181",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q182",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q183",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q184",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q185",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q186",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q187",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q188",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q189",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q190",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q191",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q192",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q193",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q194",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q195",
+      "category": "welfare_society",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q196",
+      "category": "welfare_society",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q197",
+      "category": "welfare_society",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q198",
+      "category": "welfare_society",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q199",
+      "category": "welfare_society",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q200",
+      "category": "welfare_society",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q201",
+      "category": "welfare_society",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q202",
+      "category": "welfare_society",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q203",
+      "category": "welfare_society",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q204",
+      "category": "welfare_society",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q205",
+      "category": "welfare_society",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q206",
+      "category": "welfare_society",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q207",
+      "category": "welfare_society",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q208",
+      "category": "welfare_society",
+      "level": "municipal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q209",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q210",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q211",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q212",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q213",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q214",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q215",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q216",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q217",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q218",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q219",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q220",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q221",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q222",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q223",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q224",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q225",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q226",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q227",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q228",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q229",
+      "category": "history",
+      "level": "federal",
+      "image": "images/q229_amphitheater_avenches.jpg",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q230",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q231",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q232",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q233",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q234",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q235",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q236",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q237",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q238",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q239",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q240",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q241",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q242",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q243",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q244",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q245",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q246",
+      "category": "history",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q247",
+      "category": "history",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q248",
+      "category": "history",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q249",
+      "category": "history",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q250",
+      "category": "history",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q251",
+      "category": "history",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q252",
+      "category": "history",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q253",
+      "category": "history",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q254",
+      "category": "history",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q255",
+      "category": "history",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q256",
+      "category": "history",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q257",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q258",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q259",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q260",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q261",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q262",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q263",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q264",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q265",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q266",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q267",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q268",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q269",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q270",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q271",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q272",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q273",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q274",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q275",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q276",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q277",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q278",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q279",
+      "category": "geography",
+      "level": "federal",
+      "image": "images/q279_matterhorn.jpg",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q280",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q281",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q282",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q283",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q284",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q285",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q286",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q287",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q288",
+      "category": "geography",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q289",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a",
+          "image": "images/karte_zh_a.png"
+        },
+        {
+          "id": "b",
+          "image": "images/karte_zh_b.png"
+        },
+        {
+          "id": "c",
+          "image": "images/karte_zh_c.png"
+        },
+        {
+          "id": "d",
+          "image": "images/karte_zh_d.png"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q290",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q291",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q292",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q293",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q294",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q295",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q296",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q297",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q298",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q299",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q300",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q301",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q302",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q303",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q304",
+      "category": "geography",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q305",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q306",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q307",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q308",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q309",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q310",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q311",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q312",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q313",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q314",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q315",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q316",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q317",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q318",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q319",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q320",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q321",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q322",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q323",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q324",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q325",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q326",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q327",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q328",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q329",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q330",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q331",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q332",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q333",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q334",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q335",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q336",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q337",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q338",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q339",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q340",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q341",
+      "category": "culture",
+      "level": "federal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q342",
+      "category": "culture",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q343",
+      "category": "culture",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q344",
+      "category": "culture",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q345",
+      "category": "culture",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q346",
+      "category": "culture",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    },
+    {
+      "id": "q347",
+      "category": "culture",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "c"
+    },
+    {
+      "id": "q348",
+      "category": "culture",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "a"
+    },
+    {
+      "id": "q349",
+      "category": "culture",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "d"
+    },
+    {
+      "id": "q350",
+      "category": "culture",
+      "level": "cantonal",
+      "options": [
+        {
+          "id": "a"
+        },
+        {
+          "id": "b"
+        },
+        {
+          "id": "c"
+        },
+        {
+          "id": "d"
+        }
+      ],
+      "answer": "b"
+    }
+  ],
+  "count": 350
+}

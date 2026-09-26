@@ -1,0 +1,8 @@
+{
+  "framework": null,
+  "installCommand": "echo prebuilt",
+  "buildCommand": "echo prebuilt",
+  "outputDirectory": "public",
+  "functions": { "api/mcp.js": { "includeFiles": "data/**" } },
+  "rewrites": [{ "source": "/mcp", "destination": "/api/mcp" }]
+}

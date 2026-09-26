@@ -1,0 +1,229 @@
+// The MCP server: tools, tutoring instructions and the quiz card. Used locally (stdio) and online (HTTP).
+import { readFileSync } from "node:fs";
+import { extname } from "node:path";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
+import { LANGUAGES, imagePath, lessonById, questions, type Lang } from "./content.js";
+import * as engine from "./engine.js";
+import { emptyProgress, newLearnerCode, normalizeCode, type Progress, type Store } from "./progress.js";
+
+export const VERSION = "0.8.0";
+
+const INSTRUCTIONS = `
+You are a patient tutor for the Swiss naturalisation knowledge test (Grundkenntnistest) of the Canton of Zurich.
+The tools hold the official questions and verified explanations and hand them out ONE STEP AT A TIME.
+
+Rules:
+- Language: ask which language the learner wants (de, en, fr, it, ru, uk) and pass it as "language".
+  Speak in that language. The real exam is in German: always also show the German wording ("german") of the question.
+- Start of a session: call get_progress. If reviews are due, call start_reviews first, otherwise start_lesson.
+  If there is an unfinished session, offer to continue it (the start tools restart it).
+- Each tool result contains exactly one step. Show ONLY that step:
+  - If it has "explain_first": explain that concept briefly and clearly, using only its intro, key_terms and mnemonic.
+  - Then ask the one question with options a) to d). Stop and wait for the learner's reply.
+- When the learner replies (typed, spoken, or by clicking an option on the quiz card, which sends the letter), call
+  answer with their letter. Never judge the answer yourself and never reveal the correct answer beforehand.
+  Give short feedback from "why", "about_your_answer" and "note" (if "note" says the exam answer is outdated,
+  teach the exam answer and mention today's fact). Then show the next step from "next".
+- A wrong answer comes back later in the same round ("retry": true) until the learner gets it right. Encourage them;
+  do not give away the answer again when it comes back.
+- Mock exam (start_mock_exam): ask the 50 questions one by one without any feedback. The result comes after the last answer.
+  The official pass mark is not published.
+- Never add facts that are not in the tool results. Keep messages short and encouraging.
+- Questions with pictures come with images. Where the quiz card is shown, the learner sees them there.
+
+Voice conversations (the learner speaks and listens):
+- Pass voice: true to the start tools. Picture questions are then left out.
+- Speak naturally and briefly: no tables, lists, emojis, markdown or question ids. Explain a concept in 2 to 3 sentences.
+- Read the question, then the options as "A: ..., B: ..., C: ..., D: ...". Say the German question only if the
+  learner uses German or asks for it; always say the German key term once.
+- The learner may answer with the letter or with the words of an option: map it to the letter. If unclear, ask again.
+- Feedback in one or two sentences, then go straight to the next question.
+`.trim();
+
+const ONLINE_INSTRUCTIONS = `
+
+Learner code (online version, no login):
+- Progress is saved under a personal learner code, e.g. "BERG-7K2Q". At the start, ask whether the learner has one.
+- Pass it as "learner_code" in EVERY tool call. If the learner has none, leave it empty in the first call: the result
+  contains a new "learner_code". Tell the learner to write it down: they need it to continue on another day.
+- If you can remember things between conversations, remember the learner's code.`;
+
+const CARD_URI = "ui://swiss-passport/card.html";
+
+// The tools only change the learner's own quiz progress in this app's database: nothing is deleted,
+// nothing is sent to other systems. Explicit, because MCP treats unannotated tools as destructive and open-world.
+const changesProgress = { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: false };
+const cardUi = { ui: { resourceUri: CARD_URI } };
+
+/** What a tool produces before it is turned into an MCP result: data plus the question whose pictures to attach. */
+interface Out {
+  data: Record<string, unknown>;
+  questionId?: string;
+}
+
+/** Tool result: JSON text and pictures for the model, plus the same data for the quiz card (structuredContent). */
+function toResult({ data, questionId }: Out, lang?: Lang) {
+  const q = questionId ? questions.get(questionId) : undefined;
+  const files: [string, string, string][] = q
+    ? [
+        ...(q.image ? [["question", "Picture for the question", q.image] as [string, string, string]] : []),
+        ...q.options.filter((o) => o.image).map((o) => [o.id, `Option ${o.id}`, o.image!] as [string, string, string]),
+      ]
+    : [];
+  const pictures = files.map(([key, label, file]) => ({
+    key,
+    label,
+    mimeType: extname(file) === ".png" ? "image/png" : "image/jpeg",
+    data: readFileSync(imagePath(file)).toString("base64"),
+  }));
+  return {
+    content: [
+      { type: "text" as const, text: JSON.stringify(data) },
+      ...pictures.flatMap((p) => [
+        { type: "text" as const, text: p.label },
+        { type: "image" as const, data: p.data, mimeType: p.mimeType },
+      ]),
+    ],
+    structuredContent: {
+      lang,
+      data,
+      images: Object.fromEntries(pictures.map((p) => [p.key, `data:${p.mimeType};base64,${p.data}`])),
+    },
+  };
+}
+
+const stepOut = (p: Progress, lang: Lang): Out => {
+  const step = engine.currentStep(p.session!, lang);
+  return { data: step, questionId: step.question.id };
+};
+
+/**
+ * Creates the server. `online` adds the learner code: without login, progress is stored per code.
+ * Locally there is one learner and progress lives in a file.
+ */
+export function createServer(store: Store, { online }: { online: boolean }) {
+  const server = new McpServer(
+    { name: "swiss-passport-zh", version: VERSION },
+    { instructions: online ? INSTRUCTIONS + ONLINE_INSTRUCTIONS : INSTRUCTIONS },
+  );
+
+  server.registerResource("Quiz card", CARD_URI, { mimeType: "text/html;profile=mcp-app" }, () => ({
+    contents: [{ uri: CARD_URI, mimeType: "text/html;profile=mcp-app", text: readFileSync(imagePath("card.html"), "utf8") }],
+  }));
+
+  const common = {
+    language: z.enum(LANGUAGES).optional().describe("Learner's language. Remembered for next time."),
+    ...(online && {
+      learner_code: z.string().optional().describe("The learner's code, e.g. BERG-7K2Q. Empty on first use: a new code is created."),
+    }),
+  };
+  const voice = z.boolean().default(false).describe("true in voice conversations: leaves out questions that need pictures.");
+
+  /** Loads the learner's progress, runs the tool, saves the progress and returns the MCP result. */
+  async function run(args: { language?: Lang; learner_code?: string }, fn: (p: Progress, lang: Lang) => Out) {
+    let id = "local";
+    let created = false;
+    let p: Progress | undefined;
+    if (!online) {
+      p = await store.load(id);
+    } else if (args.learner_code) {
+      id = normalizeCode(args.learner_code);
+      p = await store.load(id);
+      if (!p) return toResult({ data: { error: `Unknown learner code "${args.learner_code}". Check it, or leave learner_code empty to start fresh.` } });
+    } else {
+      do id = newLearnerCode();
+      while (await store.load(id));
+      created = true;
+    }
+    p ??= emptyProgress();
+    if (args.language) p.language = args.language;
+    const lang = p.language ?? "de";
+    const out = fn(p, lang);
+    await store.save(id, p);
+    if (online) out.data = { learner_code: id, ...(created && { new_learner_code: "Tell the learner to write this code down." }), ...out.data };
+    return toResult(out, lang);
+  }
+
+  server.registerTool(
+    "get_progress",
+    {
+      title: "Learning progress",
+      description: "Lessons done, reviews due, unfinished session, readiness per topic and recent mock exams. Call at the start.",
+      inputSchema: common,
+      // Locally it only reads; online it may create a new learner code.
+      annotations: { ...changesProgress, readOnlyHint: !online, idempotentHint: !online },
+    },
+    (args) => run(args, (p, lang) => ({ data: engine.progress(p, lang) })),
+  );
+
+  server.registerTool(
+    "start_lesson",
+    {
+      title: "Start a lesson",
+      _meta: cardUi,
+      annotations: changesProgress,
+      description: "Starts the next lesson (or lesson_id) and returns its first step: a concept explanation and one question.",
+      inputSchema: { ...common, voice, lesson_id: z.string().optional().describe("e.g. l05. Default: next unfinished lesson.") },
+    },
+    ({ voice, lesson_id, ...args }) =>
+      run(args, (p, lang) => {
+        const id = lesson_id ?? engine.nextLessonId(p);
+        if (!id) return { data: { done: true, message: "All lessons done. Continue with reviews and mock exams." } };
+        if (!lessonById.has(id)) return { data: { error: `Unknown lesson ${id}. Lessons are l01 to l37.` } };
+        engine.startLesson(p, id, voice);
+        return stepOut(p, lang);
+      }),
+  );
+
+  server.registerTool(
+    "start_reviews",
+    {
+      title: "Start reviews",
+      _meta: cardUi,
+      annotations: changesProgress,
+      description: "Starts a review round of up to 10 questions whose concepts are due, and returns the first one.",
+      inputSchema: { ...common, voice },
+    },
+    ({ voice, ...args }) =>
+      run(args, (p, lang) =>
+        engine.startReviews(p, voice) ? stepOut(p, lang) : { data: { nothing_due: true, message: "No reviews due. Continue with a lesson." } },
+      ),
+  );
+
+  server.registerTool(
+    "start_mock_exam",
+    {
+      title: "Start a mock exam",
+      _meta: cardUi,
+      annotations: changesProgress,
+      description: "Starts a mock exam with 50 random questions like the official practice test, and returns the first one.",
+      inputSchema: { ...common, voice },
+    },
+    ({ voice, ...args }) =>
+      run(args, (p, lang) => {
+        engine.startExam(p, voice);
+        return stepOut(p, lang);
+      }),
+  );
+
+  server.registerTool(
+    "answer",
+    {
+      title: "Answer the current question",
+      _meta: cardUi,
+      annotations: changesProgress,
+      description:
+        "Submits the learner's letter for the current question. Returns feedback (none in mock exams) and the next step, or the result at the end.",
+      inputSchema: { ...common, answer: z.enum(["a", "b", "c", "d"]).describe("The learner's choice") },
+    },
+    ({ answer, ...args }) =>
+      run(args, (p, lang) => {
+        if (!p.session) return { data: { error: "No active session. Call start_lesson, start_reviews or start_mock_exam." } };
+        const r = engine.answer(p, answer, lang);
+        return { data: r, questionId: "next" in r ? r.next?.question.id : undefined };
+      }),
+  );
+
+  return server;
+}

@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# Official documents: linked in sources/README.md, not redistributed here
+sources/*.pdf
+sources/*.txt
+sources/*.html
+
+# Dependencies and build output (server/)
+node_modules/
+server/dist/
+server/data/
+server/api/
+server/release/
+server/*.mcpb
+server/scripts/preview/out/
+
+# Local deployment settings (Vercel project link, env files)
+.vercel/
+.env*

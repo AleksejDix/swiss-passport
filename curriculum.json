@@ -1,0 +1,1780 @@
+{
+  "units": [
+    {
+      "id": "u1",
+      "lessons": [
+        "l01",
+        "l02",
+        "l03",
+        "l04"
+      ]
+    },
+    {
+      "id": "u2",
+      "lessons": [
+        "l05",
+        "l06",
+        "l07",
+        "l08",
+        "l09"
+      ]
+    },
+    {
+      "id": "u3",
+      "lessons": [
+        "l10",
+        "l11",
+        "l12",
+        "l13",
+        "l14",
+        "l15"
+      ]
+    },
+    {
+      "id": "u4",
+      "lessons": [
+        "l16",
+        "l17",
+        "l18",
+        "l19",
+        "l20",
+        "l21"
+      ]
+    },
+    {
+      "id": "u5",
+      "lessons": [
+        "l22",
+        "l23",
+        "l24",
+        "l25",
+        "l26"
+      ]
+    },
+    {
+      "id": "u6",
+      "lessons": [
+        "l27",
+        "l28",
+        "l29",
+        "l30"
+      ]
+    },
+    {
+      "id": "u7",
+      "lessons": [
+        "l31",
+        "l32",
+        "l33",
+        "l34",
+        "l35",
+        "l36",
+        "l37"
+      ]
+    }
+  ],
+  "lessons": [
+    {
+      "id": "l01",
+      "unit": "u1",
+      "concepts": [
+        "state_names",
+        "national_symbols",
+        "national_day"
+      ]
+    },
+    {
+      "id": "l02",
+      "unit": "u1",
+      "concepts": [
+        "regions",
+        "mountains",
+        "rivers",
+        "climate"
+      ]
+    },
+    {
+      "id": "l03",
+      "unit": "u1",
+      "concepts": [
+        "neighbours",
+        "size",
+        "cities",
+        "population"
+      ]
+    },
+    {
+      "id": "l04",
+      "unit": "u1",
+      "concepts": [
+        "national_languages",
+        "language_regions"
+      ]
+    },
+    {
+      "id": "l05",
+      "unit": "u2",
+      "concepts": [
+        "democracy",
+        "rule_of_law"
+      ]
+    },
+    {
+      "id": "l06",
+      "unit": "u2",
+      "concepts": [
+        "three_levels",
+        "federal_tasks"
+      ]
+    },
+    {
+      "id": "l07",
+      "unit": "u2",
+      "concepts": [
+        "separation_of_powers",
+        "justice_police"
+      ]
+    },
+    {
+      "id": "l08",
+      "unit": "u2",
+      "concepts": [
+        "parliament_chambers",
+        "parliament_tasks"
+      ]
+    },
+    {
+      "id": "l09",
+      "unit": "u2",
+      "concepts": [
+        "federal_council",
+        "administration"
+      ]
+    },
+    {
+      "id": "l10",
+      "unit": "u3",
+      "concepts": [
+        "voting_rights",
+        "swiss_abroad",
+        "voting_practice"
+      ]
+    },
+    {
+      "id": "l11",
+      "unit": "u3",
+      "concepts": [
+        "referendum",
+        "initiative",
+        "double_majority",
+        "direct_democracy"
+      ]
+    },
+    {
+      "id": "l12",
+      "unit": "u3",
+      "concepts": [
+        "parties",
+        "interest_groups",
+        "media"
+      ]
+    },
+    {
+      "id": "l13",
+      "unit": "u3",
+      "concepts": [
+        "freedoms",
+        "equality"
+      ]
+    },
+    {
+      "id": "l14",
+      "unit": "u3",
+      "concepts": [
+        "laws_codes",
+        "prohibitions"
+      ]
+    },
+    {
+      "id": "l15",
+      "unit": "u3",
+      "concepts": [
+        "duties",
+        "military_service"
+      ]
+    },
+    {
+      "id": "l16",
+      "unit": "u4",
+      "concepts": [
+        "three_pillars",
+        "ahv_iv"
+      ]
+    },
+    {
+      "id": "l17",
+      "unit": "u4",
+      "concepts": [
+        "social_insurance",
+        "health_insurance"
+      ]
+    },
+    {
+      "id": "l18",
+      "unit": "u4",
+      "concepts": [
+        "employment",
+        "labour_disputes",
+        "vocational"
+      ]
+    },
+    {
+      "id": "l19",
+      "unit": "u4",
+      "concepts": [
+        "taxes",
+        "family_support"
+      ]
+    },
+    {
+      "id": "l20",
+      "unit": "u4",
+      "concepts": [
+        "marriage",
+        "family_law",
+        "housing"
+      ]
+    },
+    {
+      "id": "l21",
+      "unit": "u4",
+      "concepts": [
+        "school",
+        "associations",
+        "emergency",
+        "driving"
+      ]
+    },
+    {
+      "id": "l22",
+      "unit": "u5",
+      "concepts": [
+        "early_history",
+        "founding_1291",
+        "marignano"
+      ]
+    },
+    {
+      "id": "l23",
+      "unit": "u5",
+      "concepts": [
+        "reformation",
+        "helvetic_republic",
+        "neutrality"
+      ]
+    },
+    {
+      "id": "l24",
+      "unit": "u5",
+      "concepts": [
+        "founding_1848",
+        "industrialisation"
+      ]
+    },
+    {
+      "id": "l25",
+      "unit": "u5",
+      "concepts": [
+        "general_strike",
+        "ww2",
+        "migration_history",
+        "prosperity",
+        "jura"
+      ]
+    },
+    {
+      "id": "l26",
+      "unit": "u5",
+      "concepts": [
+        "women_rights"
+      ]
+    },
+    {
+      "id": "l27",
+      "unit": "u6",
+      "concepts": [
+        "traditions",
+        "sports"
+      ]
+    },
+    {
+      "id": "l28",
+      "unit": "u6",
+      "concepts": [
+        "arts"
+      ]
+    },
+    {
+      "id": "l29",
+      "unit": "u6",
+      "concepts": [
+        "watch_industry",
+        "economy",
+        "transport"
+      ]
+    },
+    {
+      "id": "l30",
+      "unit": "u6",
+      "concepts": [
+        "international_orgs",
+        "eu_relations"
+      ]
+    },
+    {
+      "id": "l31",
+      "unit": "u7",
+      "concepts": [
+        "zh_government",
+        "zh_parliament",
+        "zh_canton_tasks"
+      ]
+    },
+    {
+      "id": "l32",
+      "unit": "u7",
+      "concepts": [
+        "municipal_politics",
+        "municipal_tasks"
+      ]
+    },
+    {
+      "id": "l33",
+      "unit": "u7",
+      "concepts": [
+        "zh_offices",
+        "zh_taxes",
+        "zh_school",
+        "municipal_social"
+      ]
+    },
+    {
+      "id": "l34",
+      "unit": "u7",
+      "concepts": [
+        "zh_location",
+        "zh_cities"
+      ]
+    },
+    {
+      "id": "l35",
+      "unit": "u7",
+      "concepts": [
+        "zh_waters",
+        "zh_land"
+      ]
+    },
+    {
+      "id": "l36",
+      "unit": "u7",
+      "concepts": [
+        "zh_ancient",
+        "zh_reformation",
+        "zh_modern"
+      ]
+    },
+    {
+      "id": "l37",
+      "unit": "u7",
+      "concepts": [
+        "zh_sechselaeuten",
+        "zh_events",
+        "zh_museums"
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "state_names",
+      "lesson": "l01",
+      "questions": [
+        "q003",
+        "q319",
+        "q327"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.fedlex.admin.ch/eli/cc/1999/404/de"
+      ]
+    },
+    {
+      "id": "national_symbols",
+      "lesson": "l01",
+      "questions": [
+        "q055",
+        "q214",
+        "q322"
+      ],
+      "sources": [
+        "https://www.aboutswitzerland.eda.admin.ch/de/fahne",
+        "https://www.admin.ch/de/schweizer-landeshymne",
+        "https://www.nb.admin.ch/de/helvetia-de"
+      ]
+    },
+    {
+      "id": "national_day",
+      "lesson": "l01",
+      "questions": [
+        "q174",
+        "q309",
+        "q326"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.fedlex.admin.ch/eli/cc/1999/404/de"
+      ]
+    },
+    {
+      "id": "regions",
+      "lesson": "l02",
+      "questions": [
+        "q262",
+        "q265",
+        "q277"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.aboutswitzerland.eda.admin.ch/de/geografie"
+      ]
+    },
+    {
+      "id": "mountains",
+      "lesson": "l02",
+      "questions": [
+        "q258",
+        "q268",
+        "q269",
+        "q279"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.aboutswitzerland.eda.admin.ch/de/geografie"
+      ]
+    },
+    {
+      "id": "rivers",
+      "lesson": "l02",
+      "questions": [
+        "q259",
+        "q260"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.aboutswitzerland.eda.admin.ch/de/geografie"
+      ]
+    },
+    {
+      "id": "climate",
+      "lesson": "l02",
+      "questions": [
+        "q270",
+        "q271",
+        "q272",
+        "q273"
+      ],
+      "sources": [
+        "https://www.meteoswiss.admin.ch/weather/weather-and-climate-from-a-to-z/foehn.html",
+        "https://www.are.admin.ch/de/planung-und-recht",
+        "https://www.uvek.admin.ch/de/raumplanung-in-der-schweiz"
+      ]
+    },
+    {
+      "id": "neighbours",
+      "lesson": "l03",
+      "questions": [
+        "q274",
+        "q275"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.aboutswitzerland.eda.admin.ch/de/geografie"
+      ]
+    },
+    {
+      "id": "size",
+      "lesson": "l03",
+      "questions": [
+        "q266",
+        "q267",
+        "q280"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.aboutswitzerland.eda.admin.ch/de/geografie"
+      ]
+    },
+    {
+      "id": "cities",
+      "lesson": "l03",
+      "questions": [
+        "q276",
+        "q323",
+        "q325"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/de/aktuell/news/2026/bevoelkerung-2025.html"
+      ]
+    },
+    {
+      "id": "population",
+      "lesson": "l03",
+      "questions": [
+        "q261",
+        "q278",
+        "q281",
+        "q282"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.bfs.admin.ch/bfs/de/home/statistiken/bevoelkerung/stand-entwicklung.html"
+      ]
+    },
+    {
+      "id": "national_languages",
+      "lesson": "l04",
+      "questions": [
+        "q063",
+        "q064",
+        "q065",
+        "q066"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.fedlex.admin.ch/eli/cc/1999/404/de"
+      ]
+    },
+    {
+      "id": "language_regions",
+      "lesson": "l04",
+      "questions": [
+        "q284",
+        "q285",
+        "q286",
+        "q287",
+        "q288"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.bfs.admin.ch/bfs/de/home/statistiken/bevoelkerung/sprachen-religionen/sprachen.html"
+      ]
+    },
+    {
+      "id": "democracy",
+      "lesson": "l05",
+      "questions": [
+        "q021",
+        "q022",
+        "q023"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.ch.ch/de/politisches-system/politische-rechte",
+        "https://www.fedlex.admin.ch/eli/cc/1999/404/de"
+      ]
+    },
+    {
+      "id": "rule_of_law",
+      "lesson": "l05",
+      "questions": [
+        "q067",
+        "q076",
+        "q091",
+        "q092"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.fedlex.admin.ch/eli/cc/1999/404/de"
+      ]
+    },
+    {
+      "id": "three_levels",
+      "lesson": "l06",
+      "questions": [
+        "q056",
+        "q057",
+        "q058",
+        "q059",
+        "q060"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.bfs.admin.ch/bfs/en/home/news/whats-new.assetdetail.36390081.html",
+        "https://www.ch.ch/de/politisches-system/funktionsweise-und-organisation/foderalismus/"
+      ]
+    },
+    {
+      "id": "federal_tasks",
+      "lesson": "l06",
+      "questions": [
+        "q012",
+        "q013",
+        "q052",
+        "q053",
+        "q054",
+        "q061",
+        "q062"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.ch.ch/de/politisches-system/funktionsweise-und-organisation/foderalismus/",
+        "https://www.fedlex.admin.ch/eli/cc/1999/404/de"
+      ]
+    },
+    {
+      "id": "separation_of_powers",
+      "lesson": "l07",
+      "questions": [
+        "q068",
+        "q069",
+        "q070",
+        "q071",
+        "q075"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.ch.ch/de/politisches-system/funktionsweise-und-organisation/gewaltenteilung/"
+      ]
+    },
+    {
+      "id": "justice_police",
+      "lesson": "l07",
+      "questions": [
+        "q072",
+        "q073",
+        "q074",
+        "q097"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.parlament.ch/de/%C3%BCber-das-parlament/parlamentsportraet/aufgaben-der-bundesversammlung/wahlen/wahl-mitglieder-eidgen%C3%B6ssische-gerichte",
+        "https://www.ch.ch/de/politisches-system/funktionsweise-und-organisation/gerichte/"
+      ]
+    },
+    {
+      "id": "parliament_chambers",
+      "lesson": "l08",
+      "questions": [
+        "q020",
+        "q034",
+        "q035",
+        "q038",
+        "q039",
+        "q044"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.parlament.ch/de/organe/nationalrat",
+        "https://www.parlament.ch/de/organe/staenderat"
+      ]
+    },
+    {
+      "id": "parliament_tasks",
+      "lesson": "l08",
+      "questions": [
+        "q026",
+        "q037",
+        "q045",
+        "q047"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.parlament.ch/de/organe/vereinigte-bundesversammlung",
+        "https://www.ch.ch/de/politisches-system/funktionsweise-und-organisation/wie-entsteht-ein-gesetz/"
+      ]
+    },
+    {
+      "id": "federal_council",
+      "lesson": "l09",
+      "questions": [
+        "q005",
+        "q025",
+        "q040",
+        "q041"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.admin.ch/gov/en/start/federal-council/tasks/decision-making.html",
+        "https://www.ch.ch/de/politisches-system/regierung/"
+      ]
+    },
+    {
+      "id": "administration",
+      "lesson": "l09",
+      "questions": [
+        "q004",
+        "q007"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.admin.ch/de/bundesverwaltung-departemente",
+        "https://www.bk.admin.ch/bk/de/home/bk/bundeskanzler.html"
+      ]
+    },
+    {
+      "id": "voting_rights",
+      "lesson": "l10",
+      "questions": [
+        "q010",
+        "q027",
+        "q028",
+        "q029",
+        "q030",
+        "q083",
+        "q134"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.ch.ch/de/abstimmungen-und-wahlen/abstimmungen/stimm-und-wahlrecht/",
+        "https://www.fedlex.admin.ch/eli/cc/1999/404/de"
+      ]
+    },
+    {
+      "id": "swiss_abroad",
+      "lesson": "l10",
+      "questions": [
+        "q009"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.eda.admin.ch/de/stimm-und-wahlrecht",
+        "https://www.ch.ch/de/abstimmungen-und-wahlen/abstimmungen/stimm-und-wahlrecht/"
+      ]
+    },
+    {
+      "id": "voting_practice",
+      "lesson": "l10",
+      "questions": [
+        "q046",
+        "q050",
+        "q051"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.bk.admin.ch/de/blanko-abstimmungstermine"
+      ]
+    },
+    {
+      "id": "referendum",
+      "lesson": "l11",
+      "questions": [
+        "q006",
+        "q032"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.ch.ch/de/abstimmungen-und-wahlen/referenden/obligatorisches-und-fakultatives-referendum/",
+        "https://www.ch.ch/de/demokratie/politische-rechte/fakultatives-referendum/wie-ergreift-man-auf-bundesebene-das-fakultative-referendum/"
+      ]
+    },
+    {
+      "id": "initiative",
+      "lesson": "l11",
+      "questions": [
+        "q033",
+        "q043",
+        "q049"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.ch.ch/de/abstimmungen-und-wahlen/initiativen/was-ist-eine-eidgenossische-volksinitiative/",
+        "https://www.bk.admin.ch/de/volksinitiativen"
+      ]
+    },
+    {
+      "id": "double_majority",
+      "lesson": "l11",
+      "questions": [
+        "q008",
+        "q048"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.fedlex.admin.ch/eli/cc/1999/404/de",
+        "https://www.ch.ch/de/abstimmungen-und-wahlen/referenden/obligatorisches-und-fakultatives-referendum/"
+      ]
+    },
+    {
+      "id": "direct_democracy",
+      "lesson": "l11",
+      "questions": [
+        "q031",
+        "q036"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.eda.admin.ch/aboutswitzerland/de/home/politik-geschichte/politisches-system/direkte-demokratie.html",
+        "https://www.ch.ch/de/abstimmungen-und-wahlen/initiativen/was-ist-eine-eidgenossische-volksinitiative/"
+      ]
+    },
+    {
+      "id": "parties",
+      "lesson": "l12",
+      "questions": [
+        "q011",
+        "q042"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.ch.ch/de/politisches-system/politische-parteien/politische-parteien-in-der-schweiz/"
+      ]
+    },
+    {
+      "id": "interest_groups",
+      "lesson": "l12",
+      "questions": [
+        "q142",
+        "q143",
+        "q166",
+        "q170"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf"
+      ]
+    },
+    {
+      "id": "media",
+      "lesson": "l12",
+      "questions": [
+        "q317",
+        "q318"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.fedlex.admin.ch/eli/cc/1999/404/de"
+      ]
+    },
+    {
+      "id": "freedoms",
+      "lesson": "l13",
+      "questions": [
+        "q014",
+        "q015",
+        "q077",
+        "q078",
+        "q079",
+        "q086"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.fedlex.admin.ch/eli/cc/1999/404/de",
+        "https://www.fedlex.admin.ch/de/cc/internal-law/15"
+      ]
+    },
+    {
+      "id": "equality",
+      "lesson": "l13",
+      "questions": [
+        "q019",
+        "q080",
+        "q082",
+        "q089"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.fedlex.admin.ch/eli/cc/1999/404/de"
+      ]
+    },
+    {
+      "id": "laws_codes",
+      "lesson": "l14",
+      "questions": [
+        "q024",
+        "q094",
+        "q095",
+        "q096"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.fedlex.admin.ch/eli/cc/1999/404/de",
+        "https://www.fedlex.admin.ch/eli/cc/24/233_245_233/de"
+      ]
+    },
+    {
+      "id": "prohibitions",
+      "lesson": "l14",
+      "questions": [
+        "q081",
+        "q084",
+        "q085",
+        "q087",
+        "q093",
+        "q098",
+        "q182"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.fedlex.admin.ch/eli/cc/1999/404/de",
+        "https://www.fedlex.admin.ch/eli/cc/54/757_781_799/de"
+      ]
+    },
+    {
+      "id": "duties",
+      "lesson": "l15",
+      "questions": [
+        "q016",
+        "q017",
+        "q018"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.bag.admin.ch/de/krankenversicherung-versicherungspflicht-fuer-in-der-schweiz-wohnhafte-versicherte",
+        "https://www.ch.ch/de/wohnen/umzug/ab-und-anmelden-bei-der-wohngemeinde/"
+      ]
+    },
+    {
+      "id": "military_service",
+      "lesson": "l15",
+      "questions": [
+        "q088",
+        "q090",
+        "q132"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.ch.ch/de/sicherheit-und-recht/militardienst-und-zivildienst/zivildienst/",
+        "https://www.ch.ch/de/sicherheit-und-recht/zivilschutz/"
+      ]
+    },
+    {
+      "id": "three_pillars",
+      "lesson": "l16",
+      "questions": [
+        "q139",
+        "q140",
+        "q141"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.ch.ch/de/pensionierung/altersvorsorge/wie-funktioniert-die-altersvorsorge/",
+        "https://www.bsv.admin.ch/de/dreisaeulensystem"
+      ]
+    },
+    {
+      "id": "ahv_iv",
+      "lesson": "l16",
+      "questions": [
+        "q138",
+        "q145",
+        "q147",
+        "q151",
+        "q154",
+        "q175",
+        "q193"
+      ],
+      "sources": [
+        "https://www.bsv.admin.ch/de/ahv-21",
+        "https://www.ahv-iv.ch/de/Sozialversicherungen/Alters-und-Hinterlassenenversicherung-AHV/13-AHV-Rente",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf"
+      ]
+    },
+    {
+      "id": "social_insurance",
+      "lesson": "l17",
+      "questions": [
+        "q136",
+        "q137",
+        "q152",
+        "q153",
+        "q156",
+        "q176"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.ch.ch/de/versicherungen/arbeitslosenversicherung/",
+        "https://www.ch.ch/de/arbeit/unfallversicherung/"
+      ]
+    },
+    {
+      "id": "health_insurance",
+      "lesson": "l17",
+      "questions": [
+        "q130",
+        "q133",
+        "q155",
+        "q157",
+        "q158",
+        "q160",
+        "q194"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.bag.admin.ch/de/krankenversicherung-versicherungspflicht-fuer-in-der-schweiz-wohnhafte-versicherte",
+        "https://www.ch.ch/de/krankenkasse-auslander/"
+      ]
+    },
+    {
+      "id": "employment",
+      "lesson": "l18",
+      "questions": [
+        "q129",
+        "q165",
+        "q169",
+        "q171",
+        "q179",
+        "q181"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.ch.ch/de/arbeit/kundigung-arbeitsvertrag/",
+        "https://www.ch.ch/de/arbeit/familie-und-arbeit/schwangerschaft-und-arbeit/"
+      ]
+    },
+    {
+      "id": "labour_disputes",
+      "lesson": "l18",
+      "questions": [
+        "q167",
+        "q168",
+        "q172"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.ch.ch/de/arbeit/probleme-am-arbeitsplatz/",
+        "https://www.kmu.admin.ch/de/arbeitsstreitigkeiten"
+      ]
+    },
+    {
+      "id": "vocational",
+      "lesson": "l18",
+      "questions": [
+        "q173",
+        "q177"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.zh.ch/de/bildung/berufs-studien-laufbahnberatung.html"
+      ]
+    },
+    {
+      "id": "taxes",
+      "lesson": "l19",
+      "questions": [
+        "q099",
+        "q128",
+        "q148",
+        "q150",
+        "q180",
+        "q192"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.ch.ch/de/steuern-und-finanzen/steuererklarung/",
+        "https://www.ch.ch/de/steuern-und-finanzen/steuerarten/mehrwertsteuer/"
+      ]
+    },
+    {
+      "id": "family_support",
+      "lesson": "l19",
+      "questions": [
+        "q131",
+        "q146",
+        "q149"
+      ],
+      "sources": [
+        "https://www.zh.ch/de/soziales/familienzulagen.html",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf"
+      ]
+    },
+    {
+      "id": "marriage",
+      "lesson": "l20",
+      "questions": [
+        "q184",
+        "q185",
+        "q186",
+        "q189",
+        "q191"
+      ],
+      "sources": [
+        "https://www.ch.ch/de/familie-und-partnerschaft/heirat--konkubinat--partenariat/heiraten/",
+        "https://www.ejpd.admin.ch/bj/de/home/gesellschaft/zivilstand/faq/namensrecht.html",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf"
+      ]
+    },
+    {
+      "id": "family_law",
+      "lesson": "l20",
+      "questions": [
+        "q144",
+        "q163"
+      ],
+      "sources": [
+        "https://www.bj.admin.ch/de/schwangerschaftsabbruch",
+        "https://www.ekf.admin.ch/dam/ekf/de/dokumente/2_9_schwangerschaftsabbruch.pdf.download.pdf/2_9_schwangerschaftsabbruch.pdf"
+      ]
+    },
+    {
+      "id": "housing",
+      "lesson": "l20",
+      "questions": [
+        "q183",
+        "q187",
+        "q188"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.ch.ch/de/wohnen/miete/mietvertrag-und-pachtvertrag/",
+        "https://www.bwo.admin.ch/de/schlichtungsverfahren"
+      ]
+    },
+    {
+      "id": "school",
+      "lesson": "l21",
+      "questions": [
+        "q161",
+        "q162",
+        "q164"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf"
+      ]
+    },
+    {
+      "id": "associations",
+      "lesson": "l21",
+      "questions": [
+        "q195"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.kmu.admin.ch/de/wie-gruendet-man-einen-verein-und-welche-motivation-steckt-dahinter"
+      ]
+    },
+    {
+      "id": "emergency",
+      "lesson": "l21",
+      "questions": [
+        "q135",
+        "q159",
+        "q312"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.ch.ch/de/sicherheit-und-recht/gefahren-und-notfalle/",
+        "https://www.babs.admin.ch/de/sirenen"
+      ]
+    },
+    {
+      "id": "driving",
+      "lesson": "l21",
+      "questions": [
+        "q190"
+      ],
+      "sources": [
+        "https://www.ch.ch/de/fahrzeuge-und-verkehr/verhalten-im-strassenverkehr/verkehrsregeln/alkohol-am-steuer/",
+        "https://www.admin.ch/de/nsb?id=8631"
+      ]
+    },
+    {
+      "id": "early_history",
+      "lesson": "l22",
+      "questions": [
+        "q227",
+        "q229"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/de/articles/008017/2008-04-08/"
+      ]
+    },
+    {
+      "id": "founding_1291",
+      "lesson": "l22",
+      "questions": [
+        "q226",
+        "q243",
+        "q321"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/textes/d/D9600.php"
+      ]
+    },
+    {
+      "id": "marignano",
+      "lesson": "l22",
+      "questions": [
+        "q230"
+      ],
+      "sources": [
+        "https://hls-dhs-dss.ch/de/articles/008896/",
+        "https://hls-dhs-dss.ch/de/articles/008898/2010-05-07/"
+      ]
+    },
+    {
+      "id": "reformation",
+      "lesson": "l23",
+      "questions": [
+        "q216",
+        "q231",
+        "q232"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/de/articles/013328/2013-01-29/"
+      ]
+    },
+    {
+      "id": "helvetic_republic",
+      "lesson": "l23",
+      "questions": [
+        "q209",
+        "q233"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/de/articles/009797/"
+      ]
+    },
+    {
+      "id": "neutrality",
+      "lesson": "l23",
+      "questions": [
+        "q001",
+        "q234"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/articles/016572"
+      ]
+    },
+    {
+      "id": "founding_1848",
+      "lesson": "l24",
+      "questions": [
+        "q213",
+        "q228",
+        "q235"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/textes/d/D17241.php"
+      ]
+    },
+    {
+      "id": "industrialisation",
+      "lesson": "l24",
+      "questions": [
+        "q221",
+        "q223",
+        "q225",
+        "q237",
+        "q238",
+        "q246"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/de/articles/013824/2015-02-11/"
+      ]
+    },
+    {
+      "id": "general_strike",
+      "lesson": "l25",
+      "questions": [
+        "q211"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/articles/016533"
+      ]
+    },
+    {
+      "id": "ww2",
+      "lesson": "l25",
+      "questions": [
+        "q220"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/textes/d/D8927.php"
+      ]
+    },
+    {
+      "id": "migration_history",
+      "lesson": "l25",
+      "questions": [
+        "q212",
+        "q218",
+        "q219"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/de/articles/007991/"
+      ]
+    },
+    {
+      "id": "prosperity",
+      "lesson": "l25",
+      "questions": [
+        "q224",
+        "q239"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/de/articles/016611/"
+      ]
+    },
+    {
+      "id": "jura",
+      "lesson": "l25",
+      "questions": [
+        "q215"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/de/articles/007399/2025-12-18/"
+      ]
+    },
+    {
+      "id": "women_rights",
+      "lesson": "l26",
+      "questions": [
+        "q217",
+        "q222",
+        "q240",
+        "q241"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/articles/010380"
+      ]
+    },
+    {
+      "id": "traditions",
+      "lesson": "l27",
+      "questions": [
+        "q305",
+        "q307",
+        "q315",
+        "q316",
+        "q329",
+        "q340"
+      ],
+      "sources": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.aboutswitzerland.eda.admin.ch/de/traditionen",
+        "https://www.bak.admin.ch/bak/de/home/kulturerbe/immaterielles-kulturerbe-unesco-lebendige-traditionen/immaterielles-kulturerbe-unesco-in-der-schweiz/repraesentative-liste-des-immateriellen-kulturerbes/jodel.html"
+      ]
+    },
+    {
+      "id": "sports",
+      "lesson": "l27",
+      "questions": [
+        "q306",
+        "q308",
+        "q320",
+        "q328",
+        "q341"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.aboutswitzerland.eda.admin.ch/en/national-sports",
+        "https://www.aboutswitzerland.eda.admin.ch/en/schwingen-swiss-wrestling-sumo-style"
+      ]
+    },
+    {
+      "id": "arts",
+      "lesson": "l28",
+      "questions": [
+        "q313",
+        "q330",
+        "q331",
+        "q332"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.landesmuseum.ch/history-switzerland",
+        "https://www.eda.admin.ch/aboutswitzerland/de/home/gesellschaft/kultur/literatur.html"
+      ]
+    },
+    {
+      "id": "watch_industry",
+      "lesson": "l29",
+      "questions": [
+        "q245",
+        "q314"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.aboutswitzerland.eda.admin.ch/de/uhrenindustrie",
+        "https://www.aboutswitzerland.eda.admin.ch/de/wirtschaftszweige"
+      ]
+    },
+    {
+      "id": "economy",
+      "lesson": "l29",
+      "questions": [
+        "q210",
+        "q283",
+        "q324"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/de/articles/003626/2020-01-20/",
+        "https://www.aboutswitzerland.eda.admin.ch/de/chemie-und-pharma"
+      ]
+    },
+    {
+      "id": "transport",
+      "lesson": "l29",
+      "questions": [
+        "q257",
+        "q263",
+        "q310",
+        "q311"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.aboutswitzerland.eda.admin.ch/de/weltmeisterin-im-zugfahren-die-entstehungsgeschichte-der-bahnnation-schweiz",
+        "https://www.bav.admin.ch/de/neat-neue-eisenbahn-alpentransversale"
+      ]
+    },
+    {
+      "id": "international_orgs",
+      "lesson": "l30",
+      "questions": [
+        "q236",
+        "q244",
+        "q333",
+        "q334",
+        "q335",
+        "q337",
+        "q338",
+        "q339"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.eda.admin.ch/eda/de/home/aussenpolitik/internationale-organisationen/internationale-organisationeninderschweiz/international-geneva.html",
+        "https://www.eda.admin.ch/de/organisation-fuer-sicherheit-und-zusammenarbeit-in-europa-osze"
+      ]
+    },
+    {
+      "id": "eu_relations",
+      "lesson": "l30",
+      "questions": [
+        "q002",
+        "q178",
+        "q242",
+        "q264",
+        "q336"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.europa.eda.admin.ch/de/paket-schweiz-eu",
+        "https://www.europa.eda.admin.ch/de/schweiz-eu-in-zahlen"
+      ]
+    },
+    {
+      "id": "zh_government",
+      "lesson": "l31",
+      "questions": [
+        "q100",
+        "q101",
+        "q106",
+        "q109",
+        "q113"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.zh.ch/de/regierungsrat.html",
+        "https://www.zh.ch/de/politik-staat/kanton/kantonale-verwaltung.html"
+      ]
+    },
+    {
+      "id": "zh_parliament",
+      "lesson": "l31",
+      "questions": [
+        "q108",
+        "q111",
+        "q112",
+        "q116"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.zh.ch/de/kantonsrat.html",
+        "https://www.kantonsrat.zh.ch/kurz-erklaert/"
+      ]
+    },
+    {
+      "id": "zh_canton_tasks",
+      "lesson": "l31",
+      "questions": [
+        "q103",
+        "q104",
+        "q105",
+        "q107"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf"
+      ]
+    },
+    {
+      "id": "municipal_politics",
+      "lesson": "l32",
+      "questions": [
+        "q102",
+        "q117",
+        "q118",
+        "q122",
+        "q123",
+        "q124",
+        "q126",
+        "q127"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/de/politik-und-verwaltung/behoerden-und-organe/stadtrat.html"
+      ]
+    },
+    {
+      "id": "municipal_tasks",
+      "lesson": "l32",
+      "questions": [
+        "q119",
+        "q120",
+        "q121",
+        "q125",
+        "q207"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.zh.ch/de/politik-staat/gemeinden.html"
+      ]
+    },
+    {
+      "id": "zh_offices",
+      "lesson": "l33",
+      "questions": [
+        "q114",
+        "q115",
+        "q206"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.zh.ch/de/sicherheitsdirektion/strassenverkehrsamt.html",
+        "https://www.zh.ch/de/mobilitaet/fahrzeuge-kontrollschilder.html"
+      ]
+    },
+    {
+      "id": "zh_taxes",
+      "lesson": "l33",
+      "questions": [
+        "q196",
+        "q197"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.zh.ch/de/steuern-finanzen/steuern.html"
+      ]
+    },
+    {
+      "id": "zh_school",
+      "lesson": "l33",
+      "questions": [
+        "q198",
+        "q199",
+        "q205",
+        "q208"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.zh.ch/de/bildung/schulen/volksschule/kindergarten.html"
+      ]
+    },
+    {
+      "id": "municipal_social",
+      "lesson": "l33",
+      "questions": [
+        "q200",
+        "q201",
+        "q202",
+        "q203",
+        "q204"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.zh.ch/de/steuern-finanzen/gemeindefinanzen/zuercher-finanzausgleich.html"
+      ]
+    },
+    {
+      "id": "zh_location",
+      "lesson": "l34",
+      "questions": [
+        "q110",
+        "q289",
+        "q290",
+        "q291",
+        "q304"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/de/stadtleben/stadtportraet/zuerichs-geschichte/stadtarchiv/wissensportal/wappen-stadt-zuerich.html",
+        "https://hls-dhs-dss.ch/de/articles/007381/2017-08-24/"
+      ]
+    },
+    {
+      "id": "zh_cities",
+      "lesson": "l34",
+      "questions": [
+        "q292",
+        "q294",
+        "q302",
+        "q303"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.zh.ch/de/news-uebersicht/medienmitteilungen/2026/02/bevoelkerung-im-kanton-zuerich-waechst-weiter-jedoch-langsamer.html"
+      ]
+    },
+    {
+      "id": "zh_waters",
+      "lesson": "l35",
+      "questions": [
+        "q293",
+        "q295",
+        "q296",
+        "q297",
+        "q298",
+        "q299"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf"
+      ]
+    },
+    {
+      "id": "zh_land",
+      "lesson": "l35",
+      "questions": [
+        "q300",
+        "q301"
+      ],
+      "sources": [
+        "https://www.zh.ch/de/planen-bauen/raumplanung/raumbeobachtung/bodennutzung.html",
+        "https://ad.zh.ch/spuren-geschichte-kyburg/"
+      ]
+    },
+    {
+      "id": "zh_ancient",
+      "lesson": "l36",
+      "questions": [
+        "q248",
+        "q249",
+        "q250"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/de/articles/007381/2017-08-24/"
+      ]
+    },
+    {
+      "id": "zh_reformation",
+      "lesson": "l36",
+      "questions": [
+        "q251",
+        "q252",
+        "q254"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/de/articles/010447/",
+        "https://hls-dhs-dss.ch/de/articles/007381/2017-08-24/"
+      ]
+    },
+    {
+      "id": "zh_modern",
+      "lesson": "l36",
+      "questions": [
+        "q247",
+        "q253",
+        "q255",
+        "q256"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/de/articles/007381/2017-08-24/",
+        "https://hls-dhs-dss.ch/de/articles/006480/2024-04-04/"
+      ]
+    },
+    {
+      "id": "zh_sechselaeuten",
+      "lesson": "l37",
+      "questions": [
+        "q342",
+        "q349"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf"
+      ]
+    },
+    {
+      "id": "zh_events",
+      "lesson": "l37",
+      "questions": [
+        "q343",
+        "q344",
+        "q345"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/aktuell/publikationen/2024/einbuergerung-lernbroschuere-grundkenntnistest/lernbroschuere-grundkenntnistest.pdf"
+      ]
+    },
+    {
+      "id": "zh_museums",
+      "lesson": "l37",
+      "questions": [
+        "q346",
+        "q347",
+        "q348",
+        "q350"
+      ],
+      "sources": [
+        "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/gkt/broschuere_einbuergerung_grundkenntnistest.pdf",
+        "https://hls-dhs-dss.ch/de/articles/012024/2012-05-31/"
+      ]
+    }
+  ]
+}

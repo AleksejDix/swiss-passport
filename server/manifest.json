@@ -1,0 +1,67 @@
+{
+  "manifest_version": "0.3",
+  "name": "swiss-passport-zh",
+  "display_name": "Swiss Passport: Zurich Knowledge Test",
+  "version": "0.8.0",
+  "description": "Learn for the naturalisation knowledge test (Grundkenntnistest) of the Canton of Zurich, in 6 languages.",
+  "long_description": "Short lessons, spaced reviews and 50-question mock exams based on the 350 official questions of the Canton of Zurich. Explanations are checked against official sources. Languages: German, English, French, Italian, Russian, Ukrainian. Progress is saved only on your computer.",
+  "author": {
+    "name": "Aleksej Dix",
+    "url": "https://github.com/AleksejDix"
+  },
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "keywords": [
+    "switzerland",
+    "naturalisation",
+    "einbuergerung",
+    "zurich",
+    "learning",
+    "quiz"
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/dist/index.js"
+      ]
+    }
+  },
+  "tools": [
+    {
+      "name": "get_progress",
+      "description": "Lessons done, reviews due, readiness per topic."
+    },
+    {
+      "name": "start_lesson",
+      "description": "Starts the next lesson, one question at a time."
+    },
+    {
+      "name": "start_reviews",
+      "description": "Starts a round of due spaced reviews."
+    },
+    {
+      "name": "start_mock_exam",
+      "description": "Starts a 50-question mock exam like the official practice test."
+    },
+    {
+      "name": "answer",
+      "description": "Answers the current question and returns the next step."
+    }
+  ],
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=20.0.0"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AleksejDix/swiss-passport"
+  }
+}
