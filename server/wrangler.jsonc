@@ -16,7 +16,7 @@
     {
       "binding": "DB",
       "database_name": "swiss-passport",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "c4c8a8e2-9141-4f8c-af91-eaccf6d5ece3",
       "migrations_dir": "migrations"
     }
   ],
