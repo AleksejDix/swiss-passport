@@ -12,6 +12,7 @@
     "release": "npm run build && rm -rf release && mkdir -p release/swiss-passport-server && cp -R dist data deploy/install.sh deploy/uninstall.sh release/swiss-passport-server/ && tar -czf release/swiss-passport-server.tgz -C release swiss-passport-server && rm -rf release/swiss-passport-server",
     "deploy": "npm run build && npm run site && wrangler deploy",
     "build:map": "node scripts/build-map.mjs",
+    "stats": "node scripts/stats.mjs",
     "site": "npm --prefix ../site install && npm --prefix ../site run build",
     "dev:worker": "npm run build && npm run site && wrangler d1 migrations apply swiss-passport --local && wrangler dev"
   },
