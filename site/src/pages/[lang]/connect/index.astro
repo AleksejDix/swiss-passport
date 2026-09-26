@@ -2,6 +2,7 @@
 // Adding Swiss Passport to an AI app: the MCP address, then numbered steps per app (texts in connect.js).
 import Base from "../../../layouts/Base.astro";
 import AppLinks from "../../../components/AppLinks.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import { CONNECT, LOGOS } from "../../../connect.js";
 import { STRINGS } from "../../../scripts/i18n.js";
 import { SITE } from "../../../site.js";
@@ -32,6 +33,7 @@ const jsonLd = {
 <Base lang={lang} title={c.title} description={c.desc} alternates={alternates} jsonLd={jsonLd}>
 <main class="page">
   <header class="qhead">
+    <Breadcrumbs lang={lang} items={[[c.nav, connectPath(lang)]]} />
     <h1>{c.title}</h1>
     <p class="lede">{c.desc}</p>
     <AppLinks lang={lang} here />
