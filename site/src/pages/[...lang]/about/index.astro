@@ -1,0 +1,45 @@
+---
+// About: who is behind the site, where the content comes from, how it is checked, privacy and license.
+import Base from "../../../layouts/Base.astro";
+import { ABOUT, ABOUT_LINKS } from "../../../about.js";
+import { SITE } from "../../../site.js";
+import { LANG_IDS, aboutPath, guidePath } from "../../../data.js";
+
+export function getStaticPaths() {
+  return LANG_IDS.map((lang) => ({ params: { lang: lang === "en" ? undefined : lang }, props: { lang } }));
+}
+
+const { lang } = Astro.props;
+const a = ABOUT[lang];
+const links = { ...ABOUT_LINKS, guide: guidePath(lang) };
+const fill = (html) => html.replace(/\{(\w+)\}/g, (_, k) => links[k]);
+const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, aboutPath(id)]));
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: a.title,
+  inLanguage: lang,
+  url: new URL(aboutPath(lang), SITE).href,
+  mainEntity: {
+    "@type": "WebSite",
+    name: "Swiss Passport",
+    url: SITE,
+    author: { "@type": "Person", name: "Aleksej Dix", url: "https://github.com/AleksejDix" },
+    license: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  },
+};
+---
+<Base lang={lang} title={a.title} description={a.desc} alternates={alternates} jsonLd={jsonLd}>
+<main class="page">
+  <header class="qhead">
+    <h1>{a.title}</h1>
+    <p class="lede">{a.desc}</p>
+  </header>
+  {a.sections.map(([heading, paragraphs], i) => (
+    <section class="row" aria-labelledby={`a${i}`}>
+      <h2 id={`a${i}`}>{heading}</h2>
+      <div class="prose">{paragraphs.map((html) => <p set:html={fill(html)} />)}</div>
+    </section>
+  ))}
+</main>
+</Base>

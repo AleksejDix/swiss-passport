@@ -19,6 +19,7 @@ export const questionsPath = (lang) => `${prefix(lang)}/questions/`;
 export const questionPath = (lang, q) => `${prefix(lang)}/questions/${q.slug}/`;
 export const topicPath = (lang, c) => `${prefix(lang)}/topics/${c.id.replace(/_/g, "-")}/`;
 export const guidePath = (lang) => `${prefix(lang)}/grundkenntnistest/`;
+export const aboutPath = (lang) => `${prefix(lang)}/about/`;
 
 /** A URL slug from the German question, the wording used in the real test (same slug in every language). */
 function slugify(text) {
