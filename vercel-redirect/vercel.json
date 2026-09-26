@@ -1,0 +1,10 @@
+{
+  "framework": null,
+  "installCommand": "echo none",
+  "buildCommand": "echo none",
+  "outputDirectory": "public",
+  "redirects": [
+    { "source": "/:path((?!mcp$).*)", "destination": "https://swiss-passport.com/:path", "permanent": true }
+  ],
+  "rewrites": [{ "source": "/mcp", "destination": "https://swiss-passport.com/mcp" }]
+}

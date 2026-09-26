@@ -23,3 +23,6 @@ server/scripts/preview/out/
 server/public/
 site/public/images/
 site/.astro/
+
+# Cloudflare Worker (server/): local dev state
+server/.wrangler/

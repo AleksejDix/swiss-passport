@@ -1,0 +1,5 @@
+# English moved from / to /en/ (the root is now the language picker).
+/questions/* /en/questions/:splat 301
+/topics/* /en/topics/:splat 301
+/grundkenntnistest/* /en/grundkenntnistest/:splat 301
+/about/* /en/about/:splat 301

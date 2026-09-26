@@ -61,15 +61,18 @@ cd server
 npm install
 npm test          # builds and runs the local and HTTP end-to-end tests
 npm run pack      # Claude Desktop extension (.mcpb)
-npm run deploy    # Vercel (progress in Upstash Redis)
+npm run deploy    # Cloudflare: website + /mcp Worker (progress in D1)
+npm run dev:worker  # the same Worker locally on http://localhost:8787
 npm run release   # self-hosting package for a Mac (Node + built-in SQLite, see deploy/install.sh)
 ```
 
 | Entry point | Transport | Progress stored in |
 |---|---|---|
 | `src/index.ts` | stdio (Claude Desktop extension) | a local JSON file |
-| `src/vercel.ts` | Streamable HTTP on Vercel | Upstash Redis, per learner code |
+| `src/worker.ts` | Streamable HTTP on Cloudflare Workers (swiss-passport.com) | Cloudflare D1, per learner code |
 | `src/http.ts` | Streamable HTTP, self-hosted | SQLite (`node:sqlite`), per learner code |
+
+The website (`site/`, Astro) is built into `server/public` and served by the same Worker as static files.
 
 `src/server.ts` defines the tools and the tutoring instructions, `src/engine.ts` the lessons, reviews and mock exam, and `src/view/` the quiz card shown in the chat ([MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/)).
 

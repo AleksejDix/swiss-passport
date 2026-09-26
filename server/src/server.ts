@@ -1,9 +1,8 @@
 // The MCP server: tools, tutoring instructions and the quiz card. Used locally (stdio) and online (HTTP).
-import { readFileSync } from "node:fs";
-import { extname } from "node:path";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { LANGUAGES, imagePath, lessonById, questions, type Lang } from "./content.js";
+import type { Assets } from "./assets.js";
+import { LANGUAGES, lessonById, questions, type Lang } from "./content.js";
 import * as engine from "./engine.js";
 import { emptyProgress, newLearnerCode, normalizeCode, type Progress, type Store } from "./progress.js";
 
@@ -63,7 +62,7 @@ interface Out {
 }
 
 /** Tool result: JSON text and pictures for the model, plus the same data for the quiz card (structuredContent). */
-function toResult({ data, questionId }: Out, lang?: Lang) {
+async function toResult(assets: Assets, { data, questionId }: Out, lang?: Lang) {
   const q = questionId ? questions.get(questionId) : undefined;
   const files: [string, string, string][] = q
     ? [
@@ -71,12 +70,14 @@ function toResult({ data, questionId }: Out, lang?: Lang) {
         ...q.options.filter((o) => o.image).map((o) => [o.id, `Option ${o.id}`, o.image!] as [string, string, string]),
       ]
     : [];
-  const pictures = files.map(([key, label, file]) => ({
-    key,
-    label,
-    mimeType: extname(file) === ".png" ? "image/png" : "image/jpeg",
-    data: readFileSync(imagePath(file)).toString("base64"),
-  }));
+  const pictures = await Promise.all(
+    files.map(async ([key, label, file]) => ({
+      key,
+      label,
+      mimeType: file.endsWith(".png") ? "image/png" : "image/jpeg",
+      data: await assets.image(file),
+    })),
+  );
   return {
     content: [
       { type: "text" as const, text: JSON.stringify(data) },
@@ -102,14 +103,14 @@ const stepOut = (p: Progress, lang: Lang): Out => {
  * Creates the server. `online` adds the learner code: without login, progress is stored per code.
  * Locally there is one learner and progress lives in a file.
  */
-export function createServer(store: Store, { online }: { online: boolean }) {
+export function createServer(store: Store, { online, assets }: { online: boolean; assets: Assets }) {
   const server = new McpServer(
     { name: "swiss-passport-zh", version: VERSION },
     { instructions: online ? INSTRUCTIONS + ONLINE_INSTRUCTIONS : INSTRUCTIONS },
   );
 
-  server.registerResource("Quiz card", CARD_URI, { mimeType: "text/html;profile=mcp-app" }, () => ({
-    contents: [{ uri: CARD_URI, mimeType: "text/html;profile=mcp-app", text: readFileSync(imagePath("card.html"), "utf8") }],
+  server.registerResource("Quiz card", CARD_URI, { mimeType: "text/html;profile=mcp-app" }, async () => ({
+    contents: [{ uri: CARD_URI, mimeType: "text/html;profile=mcp-app", text: await assets.card() }],
   }));
 
   const common = {
@@ -130,7 +131,7 @@ export function createServer(store: Store, { online }: { online: boolean }) {
     } else if (args.learner_code) {
       id = normalizeCode(args.learner_code);
       p = await store.load(id);
-      if (!p) return toResult({ data: { error: `Unknown learner code "${args.learner_code}". Check it, or leave learner_code empty to start fresh.` } });
+      if (!p) return toResult(assets, { data: { error: `Unknown learner code "${args.learner_code}". Check it, or leave learner_code empty to start fresh.` } });
     } else {
       do id = newLearnerCode();
       while (await store.load(id));
@@ -142,7 +143,7 @@ export function createServer(store: Store, { online }: { online: boolean }) {
     const out = fn(p, lang);
     await store.save(id, p);
     if (online) out.data = { learner_code: id, ...(created && { new_learner_code: "Tell the learner to write this code down." }), ...out.data };
-    return toResult(out, lang);
+    return toResult(assets, out, lang);
   }
 
   server.registerTool(

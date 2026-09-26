@@ -1,9 +1,0 @@
-node_modules
-src
-scripts
-dist
-deploy
-release
-*.mcpb
-manifest.json
-tsconfig.json

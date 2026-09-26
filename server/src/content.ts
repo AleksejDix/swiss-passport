@@ -1,8 +1,13 @@
-// Loads the quiz content (questions, curriculum, texts per language) and resolves
-// texts in the learner's language, falling back to German field by field.
-import { readFileSync, existsSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+// The quiz content (questions, curriculum, texts per language), bundled into the server so it needs no files
+// at runtime (also on Cloudflare Workers). Resolves texts in the learner's language, falling back to German.
+import quizJson from "../../quiz.json" with { type: "json" };
+import curriculumJson from "../../curriculum.json" with { type: "json" };
+import de from "../../i18n/de.json" with { type: "json" };
+import en from "../../i18n/en.json" with { type: "json" };
+import fr from "../../i18n/fr.json" with { type: "json" };
+import it from "../../i18n/it.json" with { type: "json" };
+import ru from "../../i18n/ru.json" with { type: "json" };
+import uk from "../../i18n/uk.json" with { type: "json" };
 
 export const LANGUAGES = ["de", "en", "fr", "it", "ru", "uk"] as const;
 export type Lang = (typeof LANGUAGES)[number];
@@ -40,19 +45,9 @@ interface Texts {
   questions: Record<string, TextQuestion>;
 }
 
-// Data lives in ../data next to the compiled files (copied there by the build),
-// or in the repository root when running from source.
-const here = dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = [join(here, "..", "data"), join(process.cwd(), "data"), join(here, "..", "..")].find((d) =>
-  existsSync(join(d, "quiz.json")),
-)!;
-const read = <T>(file: string): T => JSON.parse(readFileSync(join(DATA_DIR, file), "utf8"));
-
-const quiz = read<{ questions: QuizQuestion[] }>("quiz.json");
-export const curriculum = read<Curriculum>("curriculum.json");
-const texts = Object.fromEntries(
-  LANGUAGES.map((l) => [l, read<Texts>(`i18n/${l}.json`)]),
-) as Record<Lang, Texts>;
+const quiz = quizJson as unknown as { questions: QuizQuestion[] };
+export const curriculum = curriculumJson as Curriculum;
+const texts = { de, en, fr, it, ru, uk } as unknown as Record<Lang, Texts>;
 
 export const questions = new Map(quiz.questions.map((q) => [q.id, q]));
 export const conceptOfQuestion = new Map(
@@ -115,6 +110,3 @@ export function explanation(id: string, given: Letter, lang: Lang) {
   };
 }
 
-export function imagePath(rel: string): string {
-  return join(DATA_DIR, rel);
-}

@@ -8,6 +8,7 @@ scripts/preview/
 release/
 deploy/
 dist/http.js
-api/
 public/
-vercel.json
+wrangler.jsonc
+migrations/
+.wrangler/

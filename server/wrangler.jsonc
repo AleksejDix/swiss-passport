@@ -1,0 +1,25 @@
+// Cloudflare Worker for swiss-passport.com: the website (static files from ../site, built into ./public)
+// plus the MCP endpoint /mcp (src/worker.ts). Deploy: npm run deploy.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "swiss-passport",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    // Everything else is served as static files without running the Worker.
+    "run_worker_first": ["/mcp"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "swiss-passport",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  // Daily: delete progress 12 months after the last activity (see the privacy policy).
+  "triggers": { "crons": ["30 3 * * *"] }
+}
