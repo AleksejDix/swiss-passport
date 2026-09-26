@@ -1,2 +1,131 @@
-<!doctype html><meta charset="utf-8"><title>Swiss Passport: Zurich Knowledge Test</title>
-<p>MCP server for learning the naturalisation knowledge test of the Canton of Zurich. Add this address + <code>/mcp</code> as a custom connector in Claude.</p>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swiss Passport: learn for the Zurich citizenship test</title>
+<meta name="description" content="Learn the 350 official questions of the Zurich naturalisation knowledge test with Claude or ChatGPT, one question at a time, in six languages.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-motion");</script>
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<header class="page masthead">
+  <a class="brand" href="/" aria-label="Swiss Passport, home">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" fill="var(--red)"/>
+      <rect class="arm arm-h" x="6" y="13" width="20" height="6" fill="#fff"/>
+      <rect class="arm arm-v" x="13" y="6" width="6" height="20" fill="#fff"/>
+    </svg>
+    <span>Swiss Passport</span>
+  </a>
+  <a class="quiet" href="https://github.com/AleksejDix/swiss-passport">Source code</a>
+</header>
+
+<main class="page">
+  <section class="hero" aria-labelledby="title">
+    <h1 id="title">Learn for the Zurich citizenship test.</h1>
+    <p class="lede">Talk to Claude or ChatGPT. It teaches you the 350 official questions of the canton, one at a time, in your language, and checks every answer.</p>
+
+    <figure class="demo" aria-label="Example: one quiz step">
+      <div class="demo-head">
+        <span>Lesson 11: Initiative and referendum</span>
+        <span class="step" data-step>3/9</span>
+      </div>
+      <div class="bar" aria-hidden="true"><i data-bar></i></div>
+      <p class="q" lang="de" data-q>Was bedeutet bei Abstimmungen «Ständemehr»?</p>
+      <p class="tr" data-tr lang="en">In votes, what does «majority of the cantons» (Ständemehr) mean?</p>
+      <ol class="opts" data-opts>
+        <li lang="de"><b>A</b>Mehrheit aller Stimmen</li>
+        <li lang="de" data-right><b>B</b>Mehrheit der Kantone</li>
+        <li lang="de"><b>C</b>Mehrheit der Stimmen nach Sprachregionen</li>
+        <li lang="de"><b>D</b>Mehrheit in den Meinungsumfragen</li>
+      </ol>
+      <p class="verdict" data-verdict lang="de"><strong>Richtig.</strong> «Stände» ist ein altes Wort für die Kantone. Das Ständemehr ist erreicht, wenn die Mehrheit der Kantone Ja sagt.</p>
+      <figcaption class="langs" aria-hidden="true" data-langs>
+        <span data-lang="en" class="on">English</span><span data-lang="fr">Français</span><span data-lang="it">Italiano</span><span data-lang="ru">Русский</span><span data-lang="uk">Українська</span><span data-lang="de">Deutsch</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="row" aria-labelledby="how">
+    <h2 id="how">How it works</h2>
+    <ol class="steps">
+      <li><span class="n">1</span><p>Add Swiss Passport to Claude or ChatGPT. It takes a minute and needs no account.</p></li>
+      <li><span class="n">2</span><p>Say which language you want to learn in: German, English, French, Italian, Russian or Ukrainian.</p></li>
+      <li><span class="n">3</span><p>Do one short lesson a day. When a topic is due again, the tutor asks you first.</p></li>
+    </ol>
+  </section>
+
+  <section class="row" aria-labelledby="method">
+    <h2 id="method">Method</h2>
+    <dl class="method">
+      <dt>One question at a time</dt>
+      <dd>A short explanation, then a question right away. The next question only appears after you answer.</dd>
+      <dt>Repeat until correct</dt>
+      <dd>A question you get wrong comes back at the end of the lesson until you get it right.</dd>
+      <dt>Pitfalls explained</dt>
+      <dd>Every answer says why it is right and why the tempting wrong answer is wrong.</dd>
+      <dt>German included</dt>
+      <dd>You learn in your language, and always see the German wording used in the real test.</dd>
+      <dt>Mock exam</dt>
+      <dd>50 random questions without help, like the canton's official practice test.</dd>
+    </dl>
+  </section>
+
+  <section class="row" aria-labelledby="reviews">
+    <h2 id="reviews">Reviews</h2>
+    <div>
+      <p>Every topic comes back after 1, 3, 7, 14 and 30 days. A mistake moves it back one step, so you practise what you forget and skip what you know.</p>
+      <div class="timeline" data-timeline aria-hidden="true">
+        <div class="axis"></div>
+        <span style="--d:1">1</span><span style="--d:3">3</span><span style="--d:7">7</span><span style="--d:14">14</span><span style="--d:30">30</span>
+      </div>
+      <p class="small">Days after the lesson</p>
+    </div>
+  </section>
+
+  <section class="row" aria-labelledby="contents">
+    <h2 id="contents">Contents</h2>
+    <div>
+    <table class="facts">
+      <tr><td>350</td><th scope="row">official questions of the Canton of Zurich</th></tr>
+      <tr><td>37</td><th scope="row">lessons in 7 units, from the basics to your municipality</th></tr>
+      <tr><td>96</td><th scope="row">topics, each explained in simple language</th></tr>
+      <tr><td>6</td><th scope="row">languages, always with the German original</th></tr>
+      <tr><td>50</td><th scope="row">questions per mock exam</th></tr>
+    </table>
+    <p class="note">Explanations were written for this project and checked against official sources: the learning brochures of the Canton and the City of Zurich, admin.ch, ch.ch and zh.ch.</p>
+    </div>
+  </section>
+
+  <section class="row" id="start" aria-labelledby="start-title">
+    <h2 id="start-title">Start</h2>
+    <div>
+      <p>Use this address as a custom connector:</p>
+      <div class="url">
+        <code data-url>https://swiss-passport-zh.vercel.app/mcp</code>
+        <button type="button" data-copy aria-live="polite">Copy</button>
+      </div>
+      <h3>Claude</h3>
+      <p>Settings, Connectors, Add custom connector. Paste the address, no login needed. Works on the web, on desktop and in the mobile app, also with voice.</p>
+      <h3>ChatGPT</h3>
+      <p>Settings, Apps &amp; Connectors, Advanced: turn on Developer mode. Then Create, paste the address, choose no authentication, and enable the app in a chat.</p>
+      <h3>Your progress</h3>
+      <p>On first use you get a learner code like BERG-7K2Q. Write it down and tell it to the tutor in a new chat to continue. No account, no personal data.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="page">
+  <div class="footer">
+  <p>Not an official service of the Canton of Zurich. The questions are published by the canton's Gemeindeamt; the explanations and translations are part of this project.</p>
+  <p><a href="https://github.com/AleksejDix/swiss-passport">Source code</a> <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE">License: free for personal and non-profit use</a></p>
+  </div>
+</footer>
+</body>
+</html>
