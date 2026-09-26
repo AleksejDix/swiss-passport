@@ -1,6 +1,6 @@
 /* Timeline of Swiss history (components/topics/HistoryTimeline.astro): a black line with open dots;
    the current topic is a red dot. Text stays black and grey; the red dot carries the emphasis. */
-.htl { margin-top: var(--line); }
+.htl { margin-block: var(--line); }
 .htl-title { font-weight: 700; }
 .htl-list { position: relative; margin-top: 0.75rem; }
 .htl-list::before { content: ""; position: absolute; left: 0.3125rem; top: 0.75rem; bottom: 0.75rem; width: 1px; background: var(--ink); }
