@@ -93,6 +93,8 @@ const jsonLd = {
     <h2 id="why">{ui.why}</h2>
     <div>
       <p>{text.why}</p>
+      {/* Where the official answer is outdated or simplified: what applies today. */}
+      {text.note && <p class="mnemonic">{text.note}</p>}
       {text.distractors && Object.keys(text.distractors).length > 0 && (
         <>
           <h3>{ui.mistakes}</h3>
