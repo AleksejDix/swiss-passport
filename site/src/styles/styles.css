@@ -315,7 +315,7 @@ h2 .logo { width: 1.375rem; height: 1.375rem; margin-right: 0.5rem; vertical-ali
 .row :is(div, dl) > h3:first-child { margin-top: 0; }
 .row h3 + :is(p, dl, ul) { margin-top: 0.375rem; }
 .sources li + li { margin-top: 0.375rem; }
-.qnav p { display: flex; flex-wrap: wrap; gap: 0.75rem var(--gutter); align-items: baseline; }
+.qnav p, .links { display: flex; flex-wrap: wrap; gap: 0.75rem var(--gutter); align-items: baseline; }
 .qnav .cta { margin-top: 0; }
 .row.qnav > p:not(.cta) { margin-top: var(--line); }
 @media (min-width: 64rem) {

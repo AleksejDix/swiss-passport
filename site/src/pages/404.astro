@@ -44,7 +44,7 @@ const MISSING = {
   {Object.keys(LANGS).map((id) => (
     <section class="row" lang={id}>
       <h2>{MISSING[id]}</h2>
-      <p><a href={questionsPath(id)}>{UI[id].nav_questions}</a> <a href={homePath(id)}>{UI[id].home}</a></p>
+      <p class="links"><a href={questionsPath(id)}>{UI[id].nav_questions}</a> <a href={homePath(id)}>{UI[id].home}</a></p>
     </section>
   ))}
 </main>
