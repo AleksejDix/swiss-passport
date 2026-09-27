@@ -52,7 +52,8 @@ Learner code (online version, no login):
 - Pass it as "learner_code" in EVERY tool call. A learner who starts from scratch has none: pass new_learner: true,
   and the first start_lesson, start_reviews or start_mock_exam returns a new "learner_code" (get_progress only reads
   and creates none). Tell the learner to write it down: they need it to continue on another day.
-- If you can remember things between conversations, remember the learner's code.`;
+- If you can remember things between conversations, remember the learner's code. In a new chat, ask the learner
+  first whether to continue with it (e.g. "Continue with BERG-7K2Q?"): another person may use the same device.`;
 
 /** The server instructions: online they also explain the learner code. */
 export const instructions = (online: boolean) => (online ? INSTRUCTIONS + ONLINE_INSTRUCTIONS : INSTRUCTIONS);
