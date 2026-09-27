@@ -40,6 +40,29 @@ export const methodPath = (lang: string) => `${prefix(lang)}/method/`;
 export const curriculumPath = (lang: string) => `${prefix(lang)}/curriculum/`;
 export const connectPath = (lang: string) => `${prefix(lang)}/connect/`;
 
+/**
+ * aria-current of a link on the page at `path`: "page" on the linked page itself, "true" on the pages below it
+ * (a question below all questions). A language's homepage is never the section of the pages below it.
+ */
+export function ariaCurrent(href: string, path: string): "page" | "true" | undefined {
+  if (path === href) return "page";
+  if (href.split("/").length > 3 && path.startsWith(href)) return "true";
+  return undefined;
+}
+
+/** The pages of the main menu: in the masthead, and again in the footer. */
+export function menu(lang: string) {
+  const site = texts(lang).site;
+  return [
+    { href: "/learn/", label: site.home.nav_learn },
+    { href: connectPath(lang), label: site.connect.nav },
+    { href: questionsPath(lang), label: site.ui.nav_questions },
+    { href: curriculumPath(lang), label: site.curriculum.nav },
+    { href: guidePath(lang), label: site.guide.nav },
+    { href: methodPath(lang), label: site.method.nav },
+  ];
+}
+
 /** A URL slug from the German question, the wording used in the real test (same slug in every language). */
 function slugify(text: string) {
   const slug = text

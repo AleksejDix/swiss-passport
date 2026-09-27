@@ -7415,7 +7415,10 @@
       "s_progress": "Dein Fortschritt",
       "s_progress_p": "Beim ersten Mal bekommst du einen Lerncode wie BERG-7K2Q. Schreib ihn auf und nenn ihn dem Tutor in einem neuen Chat, um weiterzumachen. Kein Konto, keine persönlichen Daten.",
       "foot": "Kein offizielles Angebot des Kantons Zürich. Die Fragen veröffentlicht das Gemeindeamt des Kantons; Erklärungen und Übersetzungen gehören zu diesem Projekt.",
-      "foot_license": "Lizenz: frei für private und gemeinnützige Nutzung"
+      "foot_license": "Lizenz: frei für private und gemeinnützige Nutzung",
+      "foot_learn": "Lernen",
+      "foot_project": "Projekt",
+      "foot_legal": "Rechtliches"
     },
     "ui": {
       "home": "Start",

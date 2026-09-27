@@ -7415,7 +7415,10 @@
       "s_progress": "Tu progreso",
       "s_progress_p": "La primera vez recibes un código de estudio como BERG-7K2Q. Anótalo y díselo al tutor en un chat nuevo para continuar. Sin cuenta, sin datos personales.",
       "foot": "No es un servicio oficial del cantón de Zúrich. Las preguntas las publica la Oficina de Asuntos Municipales (Gemeindeamt) del cantón; las explicaciones y las traducciones son de este proyecto.",
-      "foot_license": "Licencia: libre para uso privado y sin fines de lucro"
+      "foot_license": "Licencia: libre para uso privado y sin fines de lucro",
+      "foot_learn": "Aprender",
+      "foot_project": "Proyecto",
+      "foot_legal": "Información legal"
     },
     "ui": {
       "home": "Inicio",

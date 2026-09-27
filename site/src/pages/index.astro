@@ -44,10 +44,14 @@ const alternates = Object.fromEntries(Object.keys(LANGUAGE_NAMES).map((id) => [i
   </main>
 
   <Footer
-    links={[
-      { href: "/impressum/", label: "Impressum", lang: "de" },
-      { href: "/datenschutz/", label: "Datenschutz", lang: "de" },
-      { href: "https://github.com/AleksejDix/swiss-passport", label: "GitHub" },
+    groups={[
+      {
+        links: [
+          { href: "/impressum/", label: "Impressum", lang: "de" },
+          { href: "/datenschutz/", label: "Datenschutz", lang: "de" },
+          { href: "https://github.com/AleksejDix/swiss-passport", label: "GitHub" },
+        ],
+      },
     ]}
   />
   <script is:inline>

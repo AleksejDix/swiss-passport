@@ -7,7 +7,7 @@ import Brand from "../components/layout/Brand.astro";
 import MainNav from "../components/layout/MainNav.astro";
 import LanguageNav from "../components/layout/LanguageNav.svelte";
 import Footer from "../components/layout/Footer.astro";
-import { homePath, aboutPath, sponsorsPath } from "../data.ts";
+import { homePath, aboutPath, sponsorsPath, menu } from "../data.ts";
 import { texts, LANGUAGE_NAMES } from "../i18n.ts";
 import { COFFEE } from "../site.ts";
 
@@ -72,14 +72,26 @@ const REPO = "https://github.com/AleksejDix/swiss-passport";
 
   <Footer
     support={{ text: texts(lang).site.sponsors.footer, label: texts(lang).site.sponsors.button, href: COFFEE }}
-    text={s.foot}
-    links={[
-      { href: aboutPath(lang), label: texts(lang).site.about.nav },
-      { href: sponsorsPath(lang), label: texts(lang).site.sponsors.nav },
-      { href: "/impressum/", label: "Impressum", lang: "de" },
-      { href: "/datenschutz/", label: texts(lang).site.privacy },
-      { href: REPO, label: s.nav_source },
-      { href: `${REPO}/blob/main/LICENSE`, label: s.foot_license },
+    tagline={s.h1}
+    note={s.foot}
+    groups={[
+      { title: s.foot_learn, links: menu(lang) },
+      {
+        title: s.foot_project,
+        links: [
+          { href: aboutPath(lang), label: texts(lang).site.about.nav },
+          { href: sponsorsPath(lang), label: texts(lang).site.sponsors.nav },
+          { href: REPO, label: s.nav_source },
+          { href: `${REPO}/blob/main/LICENSE`, label: s.foot_license },
+        ],
+      },
+      {
+        title: s.foot_legal,
+        links: [
+          { href: "/impressum/", label: "Impressum", lang: "de" },
+          { href: "/datenschutz/", label: texts(lang).site.privacy },
+        ],
+      },
     ]}
   />
 </Document>

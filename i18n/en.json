@@ -7415,7 +7415,10 @@
       "s_progress": "Your progress",
       "s_progress_p": "On first use you get a learner code like BERG-7K2Q. Write it down and tell it to the tutor in a new chat to continue. No account, no personal data.",
       "foot": "Not an official service of the Canton of Zurich. The questions are published by the canton's Gemeindeamt; the explanations and translations are part of this project.",
-      "foot_license": "License: free for personal and non-profit use"
+      "foot_license": "License: free for personal and non-profit use",
+      "foot_learn": "Learn",
+      "foot_project": "Project",
+      "foot_legal": "Legal"
     },
     "ui": {
       "home": "Home",

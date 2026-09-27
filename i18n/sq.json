@@ -7415,7 +7415,10 @@
       "s_progress": "Përparimi yt",
       "s_progress_p": "Herën e parë merr një kod mësimor si BERG-7K2Q. Shënoje dhe thuaja tutorit në një bisedë të re për të vazhduar. Pa llogari, pa të dhëna personale.",
       "foot": "Nuk është shërbim zyrtar i kantonit të Cyrihut. Pyetjet i publikon zyra për komunat e kantonit (Gemeindeamt); shpjegimet dhe përkthimet janë pjesë e këtij projekti.",
-      "foot_license": "Licenca: e lirë për përdorim privat dhe jofitimprurës"
+      "foot_license": "Licenca: e lirë për përdorim privat dhe jofitimprurës",
+      "foot_learn": "Mësimi",
+      "foot_project": "Projekti",
+      "foot_legal": "Informacion ligjor"
     },
     "ui": {
       "home": "Kreu",

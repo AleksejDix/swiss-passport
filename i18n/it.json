@@ -7415,7 +7415,10 @@
       "s_progress": "I tuoi progressi",
       "s_progress_p": "Al primo uso ricevi un codice come BERG-7K2Q. Annotalo e dillo al tutor in una nuova chat per continuare. Nessun account, nessun dato personale.",
       "foot": "Non è un servizio ufficiale del Cantone di Zurigo. Le domande sono pubblicate dal Gemeindeamt del Cantone; spiegazioni e traduzioni fanno parte di questo progetto.",
-      "foot_license": "Licenza: libera per uso privato e senza scopo di lucro"
+      "foot_license": "Licenza: libera per uso privato e senza scopo di lucro",
+      "foot_learn": "Imparare",
+      "foot_project": "Progetto",
+      "foot_legal": "Note legali"
     },
     "ui": {
       "home": "Home",

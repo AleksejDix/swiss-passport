@@ -7415,7 +7415,10 @@
       "s_progress": "Ta progression",
       "s_progress_p": "À la première utilisation, tu reçois un code comme BERG-7K2Q. Note-le et donne-le au tuteur dans une nouvelle conversation pour continuer. Sans compte, sans données personnelles.",
       "foot": "Ce n'est pas un service officiel du canton de Zurich. Les questions sont publiées par le Gemeindeamt du canton ; les explications et les traductions font partie de ce projet.",
-      "foot_license": "Licence : libre pour un usage privé et non lucratif"
+      "foot_license": "Licence : libre pour un usage privé et non lucratif",
+      "foot_learn": "Apprendre",
+      "foot_project": "Projet",
+      "foot_legal": "Informations légales"
     },
     "ui": {
       "home": "Accueil",

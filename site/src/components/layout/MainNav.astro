@@ -1,6 +1,7 @@
 ---
-// The pages of the site, in the masthead: one column on tablets, beside the name on wide screens.
-import { questionsPath, guidePath, methodPath, connectPath, curriculumPath } from "../../data.ts";
+// The pages of the site, in the masthead: one column on tablets, beside the name on wide screens. The page the
+// reader is on (or below, like a question below all questions) is set in bold and underlined in red.
+import { menu, ariaCurrent } from "../../data.ts";
 import { texts } from "../../i18n.ts";
 
 interface Props {
@@ -8,20 +9,14 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const ui = texts(lang).site.ui;
-const pages = [
-  ["/learn/", texts(lang).site.home.nav_learn],
-  [connectPath(lang), texts(lang).site.connect.nav],
-  [questionsPath(lang), ui.nav_questions],
-  [curriculumPath(lang), texts(lang).site.curriculum.nav],
-  [guidePath(lang), texts(lang).site.guide.nav],
-  [methodPath(lang), texts(lang).site.method.nav],
-];
+const path = Astro.url.pathname;
 ---
 
-<nav class="nav" aria-label={ui.nav_main}>
-  {pages.map(([href, name]) => (
-    <a href={href}>{name}</a>
+<nav class="nav" aria-label={texts(lang).site.ui.nav_main}>
+  {menu(lang).map(({ href, label }) => (
+    <a href={href} aria-current={ariaCurrent(href, path)}>
+      {label}
+    </a>
   ))}
 </nav>
 
@@ -33,6 +28,14 @@ const pages = [
   }
   .nav a {
     text-decoration: none;
+  }
+  /* Where the reader is: bold like the current language, and the red of the flag as the signal. */
+  .nav a[aria-current] {
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3em;
   }
   @media (min-width: 40rem) {
     .nav {

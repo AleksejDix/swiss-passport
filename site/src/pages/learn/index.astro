@@ -47,9 +47,13 @@ const WEBMCP_TRIAL =
     <p class="page">This page needs JavaScript.</p>
   </noscript>
   <Footer
-    links={[
-      { href: "/impressum/", label: "Impressum", lang: "de" },
-      { href: "/datenschutz/", label: "Datenschutz", lang: "de" },
+    groups={[
+      {
+        links: [
+          { href: "/impressum/", label: "Impressum", lang: "de" },
+          { href: "/datenschutz/", label: "Datenschutz", lang: "de" },
+        ],
+      },
     ]}
   />
 </Document>
