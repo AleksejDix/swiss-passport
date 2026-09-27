@@ -30,6 +30,10 @@ export interface Done {
   voice: boolean;
 }
 
+/** For a learner without a code: where the code comes from. A fact, not an order (see CARD_NOTE in server.ts). */
+const NO_CODE_YET =
+  "This learner has no learner code yet. start_lesson, start_reviews and start_mock_exam create one with their first step.";
+
 const stepOut = (p: Progress, lang: Lang): Out => {
   const step = engine.currentStep(p.session!, lang);
   return { data: step, questionId: step.question.id };
@@ -41,7 +45,12 @@ const stepOut = (p: Progress, lang: Lang): Out => {
  * with POST /learners).
  */
 export function createLearning(store: Store, { online }: { online: boolean }) {
-  async function forLearner(who: Learner, fn: (p: Progress, lang: Lang) => Out, create = true): Promise<Done> {
+  async function forLearner(
+    who: Learner,
+    fn: (p: Progress, lang: Lang) => Out,
+    create = true,
+    save = true,
+  ): Promise<Done> {
     let id = "local";
     let created = false;
     let p: Progress | undefined;
@@ -71,13 +80,26 @@ export function createLearning(store: Store, { online }: { online: boolean }) {
     if (who.language) p.language = who.language;
     const lang = (p.language ?? LANGUAGES[0]) as Lang; // only languages of the catalog are ever stored
     const out = fn(p, lang);
-    await store.save(id, p);
+    if (save) await store.save(id, p);
     return { out, lang, ...(online && { learnerCode: id }), created, voice: Boolean(p.session?.voice) };
   }
 
   return {
     progress: (who: Learner, create = true) =>
       forLearner(who, (p, lang) => ({ data: engine.progress(p, lang) }), create),
+
+    /**
+     * Progress without changing anything (MCP get_progress, marked read-only so that Claude does not list it with the
+     * tools that write): no new learner code and nothing saved. A learner without a code gets the empty progress.
+     */
+    readProgress: async (who: Learner): Promise<Done> => {
+      if (online && !who.learner_code) {
+        const lang = (who.language ?? LANGUAGES[0]) as Lang;
+        const data = { no_learner_code_yet: NO_CODE_YET, ...engine.progress(emptyProgress(), lang) };
+        return { out: { data }, lang, created: false, voice: false };
+      }
+      return forLearner(who, (p, lang) => ({ data: engine.progress(p, lang) }), false, false);
+    },
 
     startLesson: (who: Learner, { lesson_id, voice = false }: { lesson_id?: string; voice?: boolean }, create = true) =>
       forLearner(

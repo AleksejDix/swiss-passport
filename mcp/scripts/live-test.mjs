@@ -26,9 +26,11 @@ const connect = async () => {
 const call = async (c, name, args = {}) => JSON.parse((await c.callTool({ name, arguments: args })).content[0].text);
 
 let c = await connect();
-const { learner_code: code } = await call(c, "get_progress", { language: "en" });
-assert(code, `new learner code ${code}`);
-let step = await call(c, "start_lesson", { learner_code: code });
+const fresh = await call(c, "get_progress", { language: "en" });
+assert(!fresh.learner_code && fresh.lessons_done === 0, "get_progress creates no learner code");
+let step = await call(c, "start_lesson", { language: "en" });
+const code = step.learner_code;
+assert(code, `the first lesson creates the learner code ${code}`);
 const r = await call(c, "answer", { learner_code: code, answer: key[step.question.id] });
 assert(r.feedback?.correct && r.next?.step === "2/9", "answer checked, next step served");
 await c.close();

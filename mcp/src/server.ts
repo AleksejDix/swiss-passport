@@ -52,8 +52,9 @@ const ONLINE_INSTRUCTIONS = `
 
 Learner code (online version, no login):
 - Progress is saved under a personal learner code, e.g. "BERG-7K2Q". At the start, ask whether the learner has one.
-- Pass it as "learner_code" in EVERY tool call. If the learner has none, leave it empty in the first call: the result
-  contains a new "learner_code". Tell the learner to write it down: they need it to continue on another day.
+- Pass it as "learner_code" in EVERY tool call. If the learner has none, leave it empty: the first start_lesson,
+  start_reviews or start_mock_exam returns a new "learner_code" (get_progress only reads and creates none).
+  Tell the learner to write it down: they need it to continue on another day.
 - If you can remember things between conversations, remember the learner's code.`;
 
 const WEBSITE = "https://swiss-passport.com";
@@ -172,14 +173,17 @@ export function createServer(store: Store, { online, assets }: { online: boolean
   );
 
   const common = {
-    language: z.enum(LANGUAGES).optional().describe("Learner's language. Remembered for next time."),
+    language: z
+      .enum(LANGUAGES)
+      .optional()
+      .describe("Learner's language. The start tools and answer remember it for next time."),
     ...(online && {
       // ChatGPT called the code an "access token" and asked the learner before sharing it with the app that issued it.
       learner_code: z
         .string()
         .optional()
         .describe(
-          "Progress code this app gave the learner, e.g. BERG-7K2Q. Not a password or account token: it only points to quiz progress, which holds no personal data. Empty on first use: a new code is created.",
+          "Progress code this app gave the learner, e.g. BERG-7K2Q. Not a password or account token: it only points to quiz progress, which holds no personal data. Empty on first use: the first start_lesson, start_reviews or start_mock_exam creates a new code.",
         ),
     }),
   };
@@ -219,10 +223,11 @@ export function createServer(store: Store, { online, assets }: { online: boolean
         `Use this first when the user wants to learn for ${exam.name} (Swiss citizenship, Einbürgerung, Swiss passport). ` +
         "Returns lessons done, reviews due, unfinished session, readiness per topic and recent mock exams.",
       inputSchema: common,
-      // Locally it only reads; online it may create a new learner code.
-      annotations: { ...changesProgress, readOnlyHint: !online, idempotentHint: !online },
+      // Only reads, also online: learner codes come from the start tools. Claude listed it with the tools that
+      // write while it could create a code.
+      annotations: { ...changesProgress, readOnlyHint: true, idempotentHint: true },
     },
-    (args, request) => run(request, () => learning.progress(args)),
+    (args, request) => run(request, () => learning.readProgress(args)),
   );
 
   server.registerTool(

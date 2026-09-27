@@ -65,7 +65,7 @@ assert(
   "fresh learner: one lesson per open unit to choose from (unit 3 needs unit 2 first)",
 );
 
-let { json: step } = await call("start_lesson", {});
+let { json: step } = await call("start_lesson", { language: "en" });
 assert(
   step.lesson?.position === "1/37" && step.explain_first && step.step === "1/9",
   "lesson starts with one concept and one question",
