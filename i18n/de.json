@@ -7648,7 +7648,8 @@
           "steps": [
             "Customize → Connectors → + → Add custom connector.",
             "Name: Swiss Passport. Adresse einfügen, dann Add und Connect.",
-            "Im Chat: + → Connectors → Swiss Passport einschalten und sagen, dass du lernen willst."
+            "Im Chat: + → Connectors → Swiss Passport einschalten und sagen, dass du lernen willst.",
+            "Fragt Claude vor einem Schritt nach Erlaubnis? Wähle Always allow, sonst fragt Claude bei jeder Antwort und jedem Klick auf der Quizkarte."
           ]
         },
         {

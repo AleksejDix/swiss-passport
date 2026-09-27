@@ -7648,7 +7648,8 @@
           "steps": [
             "Customize → Connectors → + → Add custom connector.",
             "Name: Swiss Passport. Paste the address, then Add and Connect.",
-            "In a chat: + → Connectors → turn on Swiss Passport and say that you want to learn."
+            "In a chat: + → Connectors → turn on Swiss Passport and say that you want to learn.",
+            "Claude asks for permission before a step? Choose Always allow, otherwise it asks at every answer and every click on the quiz card."
           ]
         },
         {

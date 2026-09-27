@@ -1,5 +1,6 @@
 // The page on adding Swiss Passport to an AI app (/<lang>/connect/). Steps checked on 2026-09-26 against the help
-// pages of Claude, ChatGPT, Grok, Mistral Vibe and Perplexity; the ChatGPT steps also in a real account.
+// pages of Claude, ChatGPT, Grok, Mistral Vibe and Perplexity; the ChatGPT steps also in a real account, the Claude
+// steps on 2026-09-27 (Claude asks before every tool call and every click on the card until "Always allow").
 // Menu names stay in English, as the apps show them. Check them again when an app changes its settings.
 // Logos: LobeHub Icons (@lobehub/icons-static-svg 1.95.1, MIT), in currentColor. The marks are trademarks of their owners.
 import { byLang } from "../../i18n/index.js";

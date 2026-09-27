@@ -7648,7 +7648,8 @@
           "steps": [
             "Customize → Connectors → + → Add custom connector.",
             "Название: Swiss Passport. Вставь адрес, затем Add и Connect.",
-            "В чате: + → Connectors → включи Swiss Passport и скажи, что хочешь учиться."
+            "В чате: + → Connectors → включи Swiss Passport и скажи, что хочешь учиться.",
+            "Claude спрашивает разрешение перед шагом? Выбери Always allow, иначе он будет спрашивать при каждом ответе и каждом нажатии на карточку теста."
           ]
         },
         {
