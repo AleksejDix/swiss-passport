@@ -35,6 +35,7 @@ export const questionPath = (lang: string, q: { slug: string }) => `${prefix(lan
 export const topicPath = (lang: string, c: { id: string }) => `${prefix(lang)}/topics/${c.id.replace(/_/g, "-")}/`;
 export const guidePath = (lang: string) => `${prefix(lang)}/grundkenntnistest/`;
 export const aboutPath = (lang: string) => `${prefix(lang)}/about/`;
+export const sponsorsPath = (lang: string) => `${prefix(lang)}/sponsors/`;
 export const methodPath = (lang: string) => `${prefix(lang)}/method/`;
 export const curriculumPath = (lang: string) => `${prefix(lang)}/curriculum/`;
 export const connectPath = (lang: string) => `${prefix(lang)}/connect/`;

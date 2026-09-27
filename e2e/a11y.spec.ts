@@ -11,6 +11,7 @@ const PAGES = [
   "/de/grundkenntnistest/",
   "/de/method/",
   "/de/about/",
+  "/de/sponsors/",
   "/de/connect/",
   "/de/curriculum/",
   "/de/topics/parliament-chambers/",

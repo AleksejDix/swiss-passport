@@ -7557,6 +7557,21 @@
         ]
       ]
     },
+    "sponsors": {
+      "nav": "Sponsorët",
+      "title": "Mbështet Swiss Passport",
+      "desc": "Swiss Passport është falas, pa reklama dhe pa llogari. Firmat dhe organizatat mund ta mbështesin projektin si sponsorë.",
+      "sections": [
+        [
+          "Sponsorizimi",
+          [
+            "Swiss Passport është një projekt falas për të gjithë ata që aplikojnë për shtetësi në kantonin e Cyrihut. Nxënësit nuk kanë nevojë për llogari dhe nuk shohin reklama. Që të mbetet kështu, kërkojmë sponsorë: firma dhe organizata të cilave u intereson integrimi në Cyrih.",
+            "Sponsorët i përmendim këtu në faqe, me emër dhe lidhje. Aplikacionet për ChatGPT dhe Claude nuk kanë as sponsorë, as reklama.",
+            "Kontakt: <a href=\"mailto:{email}\">{email}</a>"
+          ]
+        ]
+      ]
+    },
     "method": {
       "nav": "Metoda e të mësuarit",
       "link": "Pse funksionon kjo metodë",

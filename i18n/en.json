@@ -7557,6 +7557,21 @@
         ]
       ]
     },
+    "sponsors": {
+      "nav": "Sponsors",
+      "title": "Support Swiss Passport",
+      "desc": "Swiss Passport is free, with no ads and no account. Companies and organisations can support the project as sponsors.",
+      "sections": [
+        [
+          "Sponsoring",
+          [
+            "Swiss Passport is a free project for everyone applying for Swiss citizenship in the Canton of Zurich. Learners need no account and see no ads. To keep it that way, we are looking for sponsors: companies and organisations that care about integration in Zurich.",
+            "We name our sponsors here on the website, with their name and a link. The apps for ChatGPT and Claude have no sponsors and no ads.",
+            "Contact: <a href=\"mailto:{email}\">{email}</a>"
+          ]
+        ]
+      ]
+    },
     "method": {
       "nav": "Learning method",
       "link": "Why this method works",

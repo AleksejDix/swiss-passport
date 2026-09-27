@@ -1,0 +1,37 @@
+---
+import type { InferGetStaticPropsType } from "astro";
+// Sponsors: how companies and organisations can support the free project. Website only, never in the AI apps.
+import Base from "../../../layouts/Base.astro";
+import PageHead from "../../../components/ui/PageHead.astro";
+import Section from "../../../components/ui/Section.astro";
+import Prose from "../../../components/ui/Prose.astro";
+import { OPERATOR } from "../../../legal.ts";
+import { sponsorsPath } from "../../../data.ts";
+import { texts, LANGUAGES } from "../../../i18n.ts";
+
+export function getStaticPaths() {
+  return LANGUAGES.map((lang) => ({ params: { lang }, props: { lang } }));
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { lang } = Astro.props;
+const s = texts(lang).site.sponsors;
+const fill = (html: string) => html.replaceAll("{email}", OPERATOR.email);
+const alternates = Object.fromEntries(LANGUAGES.map((id) => [id, sponsorsPath(id)]));
+---
+
+<Base lang={lang} title={s.title} description={s.desc} alternates={alternates}>
+  <main class="page">
+    <PageHead title={s.title} lede={s.desc} lang={lang} crumbs={[[s.nav, sponsorsPath(lang)]]} />
+    {s.sections.map(([heading, paragraphs], i) => (
+      <Section title={heading} id={`s${i}`}>
+        <Prose>
+          {paragraphs.map((html) => (
+            <p set:html={fill(html)} />
+          ))}
+        </Prose>
+      </Section>
+    ))}
+  </main>
+</Base>

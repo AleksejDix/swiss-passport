@@ -7557,6 +7557,21 @@
         ]
       ]
     },
+    "sponsors": {
+      "nav": "Sponsors",
+      "title": "Soutenir Swiss Passport",
+      "desc": "Swiss Passport est gratuit, sans publicité et sans compte. Les entreprises et les organisations peuvent soutenir le projet en tant que sponsors.",
+      "sections": [
+        [
+          "Sponsoring",
+          [
+            "Swiss Passport est un projet gratuit pour toutes les personnes qui demandent la naturalisation dans le canton de Zurich. Les apprenants n'ont pas besoin de compte et ne voient aucune publicité. Pour que cela reste ainsi, nous cherchons des sponsors : des entreprises et des organisations à qui l'intégration à Zurich tient à cœur.",
+            "Nous citons nos sponsors ici, sur le site, avec leur nom et un lien. Les apps pour ChatGPT et Claude n'ont ni sponsors ni publicité.",
+            "Contact : <a href=\"mailto:{email}\">{email}</a>"
+          ]
+        ]
+      ]
+    },
     "method": {
       "nav": "Méthode d'apprentissage",
       "link": "Pourquoi cette méthode fonctionne",

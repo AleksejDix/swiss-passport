@@ -27,9 +27,10 @@ export interface ConceptText {
 export type Section = [heading: string, paragraphs: string[]];
 
 type Site = (typeof German)["site"];
-type SiteTexts = Omit<Site, "about" | "method"> & {
+type SiteTexts = Omit<Site, "about" | "method" | "sponsors"> & {
   about: Omit<Site["about"], "sections"> & { sections: Section[] };
   method: Omit<Site["method"], "sections"> & { sections: Section[] };
+  sponsors: Omit<Site["sponsors"], "sections"> & { sections: Section[] };
 };
 
 /** All texts of one language: i18n/<code>.json. */

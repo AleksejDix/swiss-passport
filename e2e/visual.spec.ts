@@ -26,7 +26,9 @@ const PAGES = [
   "/terms/",
   "/learn/",
   ...["de", "en", "ru"].flatMap((l) =>
-    ["", "questions/", "grundkenntnistest/", "method/", "about/", "connect/", "curriculum/"].map((p) => `/${l}/${p}`),
+    ["", "questions/", "grundkenntnistest/", "method/", "about/", "sponsors/", "connect/", "curriculum/"].map(
+      (p) => `/${l}/${p}`,
+    ),
   ),
   // Every topic in German: the figures (parliament, maps, timeline, ...) sit on these pages.
   ...curriculum.concepts.map((c) => `/de/topics/${c.id.replace(/_/g, "-")}/`),
