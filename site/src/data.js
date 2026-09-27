@@ -12,6 +12,11 @@ export const TEXT = { de, en, fr, it, ru, uk };
 export const LANG_IDS = Object.keys(TEXT);
 export const { units, lessons, concepts } = curriculum;
 
+// When the explanations were last checked against the official sources, shown as "Last checked" on question and
+// topic pages. Change it only after a real check (see content/review_flags.md), never to the build date.
+const CHECKED = new Date(Date.UTC(2026, 8, 26));
+export const checkedMonth = (lang) => new Intl.DateTimeFormat(lang, { month: "long", year: "numeric", timeZone: "UTC" }).format(CHECKED);
+
 // Every language has its own prefix (/de/, /en/, ...); / is the language picker.
 export const prefix = (lang) => `/${lang}`;
 export const homePath = (lang) => `${prefix(lang)}/`;

@@ -6,7 +6,7 @@ import TopicVisual from "../../../components/topics/TopicVisual.astro";
 import { visualFor, visualTitle } from "../../../viz/topic-visuals.js";
 import { UI } from "../../../ui.js";
 import { SITE } from "../../../site.js";
-import { TEXT, LANG_IDS, topics, questionPath, questionsPath, topicPath } from "../../../data.js";
+import { TEXT, LANG_IDS, topics, questionPath, questionsPath, topicPath, checkedMonth } from "../../../data.js";
 
 export function getStaticPaths() {
   return LANG_IDS.flatMap((lang) =>
@@ -91,6 +91,7 @@ const jsonLd = {
       <ul class="sources">
         {c.sources.map((src) => <li><a href={src} rel="noopener">{new URL(src).hostname.replace(/^www\./, "")}</a></li>)}
       </ul>
+      <p class="note">{ui.checked.replace("{date}", checkedMonth(lang))}</p>
     </section>
   )}
 

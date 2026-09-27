@@ -5,7 +5,7 @@ import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import TopicVisual from "../../../components/topics/TopicVisual.astro";
 import { visualFor } from "../../../viz/topic-visuals.js";
 import { UI } from "../../../ui.js";
-import { TEXT, LANG_IDS, lessons, questions, questionPath, questionsPath, topicPath } from "../../../data.js";
+import { TEXT, LANG_IDS, lessons, questions, questionPath, questionsPath, topicPath, checkedMonth } from "../../../data.js";
 import { LINKS } from "../../../guide.js";
 import { OPERATOR } from "../../../legal.js";
 import { SITE } from "../../../site.js";
@@ -122,6 +122,7 @@ const jsonLd = {
           <ul class="sources">
             {q.concept.sources.map((src) => <li><a href={src} rel="noopener">{new URL(src).hostname.replace(/^www\./, "")}</a></li>)}
           </ul>
+          <p class="note">{ui.checked.replace("{date}", checkedMonth(lang))}</p>
         </>
       )}
       <p class="note" set:html={credit} />
