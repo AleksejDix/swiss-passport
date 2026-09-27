@@ -41,10 +41,29 @@ test("a whole lesson: wrong answers come back, right ones count, the summary end
   await expect(page.getByRole("heading", { level: 1, name: s.doneLesson })).toBeVisible();
   await expect(page.getByText(s.firstTry)).toBeVisible();
 
-  // The overview now counts one lesson.
+  // The overview now counts one lesson, and the question map shows the first answer red and the others black.
   await page.getByRole("button", { name: s.overview }).click();
   await expect(page.getByText(s.lessonsDone)).toBeVisible();
   await expect(page.getByRole("cell", { name: /^1\/\d+$/ })).toBeVisible();
+  await expect(page.locator(".qmap-lesson i.wrong")).toHaveCount(1);
+  await expect(page.locator(".qmap-lesson i.right").first()).toBeVisible();
+});
+
+test("the question map on the home page and in the curriculum shows the answers of the remembered code", async ({
+  page,
+}) => {
+  await page.goto("/learn/");
+  await page.getByRole("button", { name: s.recommended }).click();
+  await page.locator(`[data-choices] [data-letter="${await rightLetter(page)}"]`).click();
+  await expect(page.getByText(s.right, { exact: true })).toBeVisible();
+  for (const path of ["/en/", "/en/curriculum/"]) {
+    await page.goto(path);
+    const map = page.locator(".qmap");
+    await map.scrollIntoViewIfNeeded();
+    await expect(map).toHaveClass(/has-results/);
+    await expect(map.locator(".qmap-lesson i.right")).toHaveCount(1);
+    await expect(map.locator(".qmap-lesson i:not(.right)").first()).toBeVisible();
+  }
 });
 
 test("a new topic comes with its explanation, closed until the learner opens it", async ({ page }) => {

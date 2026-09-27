@@ -79,7 +79,9 @@ export function createLearning(store: Store, { learners }: { learners: Learners 
      * tools that write): no new learner code and nothing saved. A learner without a code gets the empty progress.
      */
     readProgress: async (who: Learner): Promise<Done> => {
-      if (!online || who.learner_code) return run(who, steps.progress(), { create: false, save: false });
+      // Without every question's result: up to 350 entries the models do not need.
+      if (!online || who.learner_code)
+        return run(who, steps.progress({ results: false }), { create: false, save: false });
       const data = { no_learner_code_yet: NO_CODE_YET, ...engine.progress(emptyProgress(), languageOf(who)) };
       return withoutLearner({ data }, who);
     },

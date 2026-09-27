@@ -7834,7 +7834,10 @@
           "one": "question",
           "other": "questions"
         },
-        "hint": "Un point par question, groupé par leçon. Choisis une leçon pour voir ses questions."
+        "hint": "Un point par question, groupé par leçon. Choisis une leçon pour voir ses questions.",
+        "right": "Juste",
+        "wrong": "Faux",
+        "open": "Pas encore répondu"
       },
       "parliament": {
         "title": "L'Assemblée fédérale",
@@ -7902,7 +7905,6 @@
     "examSub": "50 questions, sans aide",
     "allDone": "Toutes les leçons sont faites",
     "lessonsDone": "leçons faites",
-    "ready": "prêt pour l'examen, par thème",
     "examsDone": "Examens blancs",
     "yourCode": "Ton code d'apprentissage",
     "codeHelp": "Avec ce code, tu continues sur n'importe quel appareil, aussi dans Claude ou ChatGPT.",

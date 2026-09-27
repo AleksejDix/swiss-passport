@@ -41,7 +41,15 @@ function currentStep(p: Progress, lang: Lang, notes: Record<string, unknown> = {
 const openLesson = (p: Progress, voice: boolean) =>
   p.session?.kind === "lesson" && !!p.session.voice === voice ? p.session.lesson : undefined;
 
-export const progress = (): Step => (p, lang) => ({ data: engine.progress(p, lang) });
+/** The learner's overview. `results: false` leaves out the result of every answered question (for the models). */
+export const progress =
+  ({ results = true } = {}): Step =>
+  (p, lang) => {
+    const data = engine.progress(p, lang);
+    if (results) return { data };
+    const { question_results: _, ...brief } = data;
+    return { data: brief };
+  };
 
 /** A learner who has not answered any question yet. */
 const isNew = (p: Progress) => Object.keys(p.answered).length === 0;

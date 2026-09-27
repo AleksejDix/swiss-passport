@@ -370,6 +370,11 @@ export function createEngine(catalog: Catalog) {
         category: categoryTitle(id, lang),
         percent: percent(c.known, c.total),
       })),
+      // The result of every question answered in lessons and reviews as the schedule counts it (a retry in the same
+      // round is practice and changes nothing), e.g. for a map of all questions.
+      question_results: Object.fromEntries(
+        Object.entries(p.answered).map(([qid, a]) => [qid, a.correct ? "right" : "wrong"]),
+      ) as Record<string, "right" | "wrong">,
       last_exams: p.exams.slice(-3),
       units: curriculum.units.map((u) => ({
         title: unitTitle(u.id, lang),

@@ -172,3 +172,17 @@ test("readiness shows at least 1% for any progress", () => {
   engine.answer(p, "a", "en");
   assert.equal(engine.progress(p, "en").readiness_percent, 1, "1/3 of 1 question in 200 rounds to 0, shown as 1");
 });
+
+test("progress names the last result of every answered question", () => {
+  const engine = createEngine(course());
+  const p = emptyProgress();
+  assert.deepEqual(engine.progress(p, "en").question_results, {});
+  engine.startLesson(p, "l1", false);
+  engine.answer(p, "b", "en");
+  engine.answer(p, "a", "en");
+  assert.deepEqual(engine.progress(p, "en").question_results, { q1: "wrong", q2: "right" });
+  engine.answer(p, "a", "en"); // q1 comes back in the same round: practice, the schedule keeps the first answer
+  assert.deepEqual(engine.progress(p, "en").question_results, { q1: "wrong", q2: "right" });
+  review(engine, p, "a");
+  assert.deepEqual(engine.progress(p, "en").question_results, { q1: "right", q2: "right" }, "right in a review");
+});

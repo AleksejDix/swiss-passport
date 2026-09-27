@@ -7834,7 +7834,10 @@
           "one": "domanda",
           "other": "domande"
         },
-        "hint": "Un punto per domanda, raggruppato per lezione. Scegli una lezione per vederne le domande."
+        "hint": "Un punto per domanda, raggruppato per lezione. Scegli una lezione per vederne le domande.",
+        "right": "Giusta",
+        "wrong": "Sbagliata",
+        "open": "Ancora da fare"
       },
       "parliament": {
         "title": "L'Assemblea federale",
@@ -7902,7 +7905,6 @@
     "examSub": "50 domande, senza aiuto",
     "allDone": "Tutte le lezioni fatte",
     "lessonsDone": "lezioni fatte",
-    "ready": "pronto per l'esame, per tema",
     "examsDone": "Esami di prova",
     "yourCode": "Il tuo codice",
     "codeHelp": "Con questo codice continui su qualsiasi dispositivo, anche in Claude o ChatGPT.",

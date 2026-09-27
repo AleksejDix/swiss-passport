@@ -3,6 +3,7 @@
 // the page (the app and the language buttons in the masthead) share it, because they import the same module.
 // Progress lives on the server under the learner code, which the browser remembers.
 import type { Text } from "../i18n.ts";
+import type { QuestionMapData } from "../viz/overview.ts";
 import {
   ROUTES,
   request,
@@ -20,7 +21,7 @@ import {
 import { storage } from "./storage.ts";
 
 /** The interface texts of every language (i18n/<code>.json, key learn), with the language's own name. */
-export type LearnTexts = Record<string, Text["learn"] & { name: string }>;
+export type LearnTexts = Record<string, Text["learn"] & { name: string; map: QuestionMapData }>;
 export type Kind = "lesson" | "review" | "exam";
 
 /** What follows the feedback: the next step, or the end of the round. */

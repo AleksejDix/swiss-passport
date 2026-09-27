@@ -9,9 +9,16 @@ import LearnApp from "../../learn/LearnApp.svelte";
 import LearnLanguages from "../../learn/LearnLanguages.svelte";
 import { SITE } from "../../site.ts";
 import { byLang, LANGUAGE_NAMES } from "../../i18n.ts";
+import { questionMap } from "../../viz/overview.ts";
 
 // The interface texts of every language (i18n/<code>.json, key learn), so the app switches without reloading.
-const TEXT = byLang((t) => ({ name: t.name, ...t.learn }));
+// With the question map of each language, which shows the learner's results on the overview.
+const TEXT = Object.fromEntries(
+  Object.entries(byLang((t) => ({ name: t.name, ...t.learn }))).map(([lang, t]) => [
+    lang,
+    { ...t, map: questionMap(lang) },
+  ]),
+);
 const LABELS = byLang((t) => t.learn.langs);
 
 // Chrome origin trial: turns on WebMCP (the page tools in learn/webmcp.ts) for https://swiss-passport.com

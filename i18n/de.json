@@ -7834,7 +7834,10 @@
           "one": "Frage",
           "other": "Fragen"
         },
-        "hint": "Ein Punkt pro Frage, geordnet nach Lektionen. Wähl eine Lektion, um ihre Fragen zu sehen."
+        "hint": "Ein Punkt pro Frage, geordnet nach Lektionen. Wähl eine Lektion, um ihre Fragen zu sehen.",
+        "right": "Richtig",
+        "wrong": "Falsch",
+        "open": "Noch offen"
       },
       "parliament": {
         "title": "Die Bundesversammlung",
@@ -7902,7 +7905,6 @@
     "examSub": "50 Fragen, ohne Hilfe",
     "allDone": "Alle Lektionen erledigt",
     "lessonsDone": "Lektionen erledigt",
-    "ready": "bereit für die Prüfung, nach Thema",
     "examsDone": "Probeprüfungen",
     "yourCode": "Dein Lerncode",
     "codeHelp": "Mit diesem Code lernst du auf jedem Gerät weiter, auch in Claude oder ChatGPT.",

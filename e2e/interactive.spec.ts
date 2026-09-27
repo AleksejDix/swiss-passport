@@ -15,6 +15,9 @@ test("home: the connector address is copied to the clipboard", async ({ page, co
 test("home: the question map names the lesson under the pointer", async ({ page }) => {
   await page.goto("/en/");
   const lesson = page.locator("[data-qmap] a").first();
+  // The map comes alive when it scrolls into view (client:visible): Astro then drops the island's ssr attribute.
+  await lesson.scrollIntoViewIfNeeded();
+  await expect(page.locator("astro-island:has([data-qmap])")).not.toHaveAttribute("ssr");
   await lesson.hover();
   await expect(page.locator("[data-readout]")).toHaveText((await lesson.getAttribute("aria-label"))!);
 });

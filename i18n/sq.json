@@ -7834,7 +7834,10 @@
           "one": "pyetje",
           "other": "pyetje"
         },
-        "hint": "Një pikë për çdo pyetje, sipas mësimeve. Zgjidh një mësim për të parë pyetjet e tij."
+        "hint": "Një pikë për çdo pyetje, sipas mësimeve. Zgjidh një mësim për të parë pyetjet e tij.",
+        "right": "Saktë",
+        "wrong": "Gabim",
+        "open": "Pa përgjigje ende"
       },
       "parliament": {
         "title": "Kuvendi Federal",
@@ -7902,7 +7905,6 @@
     "examSub": "50 pyetje, pa ndihmë",
     "allDone": "Të gjitha mësimet janë kryer",
     "lessonsDone": "mësime të kryera",
-    "ready": "gati për provimin, sipas temës",
     "examsDone": "Provime prove",
     "yourCode": "Kodi yt mësimor",
     "codeHelp": "Me këtë kod vazhdon të mësosh në çdo pajisje, edhe në Claude ose ChatGPT.",

@@ -38,7 +38,14 @@ export default ts.config(
   { languageOptions: { globals: globals.node } },
   // Code that runs in the browser: the site's scripts, the quiz card, the e2e page helpers and the slide decks.
   {
-    files: ["site/src/scripts/**", "site/src/**/*.astro", "site/src/learn/**", "mcp/src/view/**", "slides/**"],
+    files: [
+      "site/src/scripts/**",
+      "site/src/**/*.astro",
+      "site/src/**/*.svelte",
+      "site/src/learn/**",
+      "mcp/src/view/**",
+      "slides/**",
+    ],
     languageOptions: { globals: globals.browser },
   },
   {

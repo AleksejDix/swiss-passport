@@ -43,10 +43,13 @@ Every response for a learner also carries their `learner_code`.
   "unfinished_session": { "kind": "lesson", "step": "4/9" },
   "readiness_percent": 12,
   "readiness_by_category": [{ "category": "Democracy and federalism", "percent": 20 }],
+  "question_results": { "q001": "right", "q002": "wrong" },
   "last_exams": [{ "at": "2026-09-27T08:00:00.000Z", "score": 41, "total": 50 }],
   "units": [{ "title": "Switzerland at a glance", "lessons_done": 1, "lessons_total": 4 }]
 }
 ```
+
+`readiness_percent` and `readiness_by_category` grow with every lesson and review: a topic counts a third after its lesson, two thirds after its first review and fully from its second. `question_results` has the result of every question answered in lessons and reviews (a retry in the same round does not change it); questions not in it are not answered yet. The website shows them on the map of all questions.
 
 Offer the learner `lesson_choices` (one open lesson per unit; the first one is recommended) and start the chosen one with `POST /lessons { "learner_code": "BERG-7K2Q", "lesson_id": "l05" }`. `open_lessons` lists every lesson that can be started now (its prerequisites are done), unit by unit, for learners who want to start somewhere else: any of them can be passed as `lesson_id`. Without `lesson_id`, an unfinished lesson continues (`continued_unfinished_lesson: true`), otherwise the recommended lesson starts.
 

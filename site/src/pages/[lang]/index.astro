@@ -2,7 +2,8 @@
 import type { InferGetStaticPropsType } from "astro";
 // Homepage in one language, at /de/, /en/, /fr/ and so on. The language picker is at /.
 import Base from "../../layouts/Base.astro";
-import QuestionMap from "../../components/home/QuestionMap.astro";
+import QuestionMap from "../../components/ui/QuestionMap.svelte";
+import { questionMap } from "../../viz/overview.ts";
 import ChatDemo from "../../components/home/ChatDemo.astro";
 import AppLinks from "../../components/ui/AppLinks.astro";
 import Button from "../../components/ui/Button.astro";
@@ -123,7 +124,7 @@ const jsonLd = {
             [50, s.f5],
           ]}
         />
-        <QuestionMap lang={lang} />
+        <QuestionMap client:visible {...questionMap(lang)} stored intro />
         <p class="note">{s.contents_note}</p>
       </div>
     </Section>

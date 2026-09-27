@@ -22,6 +22,8 @@ export interface Progress {
   open_lessons: LessonChoice[];
   reviews_due: number;
   readiness_by_category: { category: string; percent: number }[];
+  /** The result of every answered question as the schedule counts it, e.g. { q001: "right", q017: "wrong" }. */
+  question_results: Record<string, "right" | "wrong">;
   last_exams: { at: string; score: number; total: number }[];
 }
 

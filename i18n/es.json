@@ -7834,7 +7834,10 @@
           "one": "pregunta",
           "other": "preguntas"
         },
-        "hint": "Un punto por pregunta, ordenados por lección. Elige una lección para ver sus preguntas."
+        "hint": "Un punto por pregunta, ordenados por lección. Elige una lección para ver sus preguntas.",
+        "right": "Correcta",
+        "wrong": "Incorrecta",
+        "open": "Sin responder"
       },
       "parliament": {
         "title": "La Asamblea Federal",
@@ -7902,7 +7905,6 @@
     "examSub": "50 preguntas, sin ayuda",
     "allDone": "Todas las lecciones completadas",
     "lessonsDone": "lecciones completadas",
-    "ready": "preparación para el examen, por tema",
     "examsDone": "Exámenes de prueba",
     "yourCode": "Tu código de estudio",
     "codeHelp": "Con este código sigues aprendiendo en cualquier dispositivo, también en Claude o ChatGPT.",

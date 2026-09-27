@@ -8,6 +8,8 @@ import Section from "../../../components/ui/Section.astro";
 import Facts from "../../../components/ui/Facts.svelte";
 import PageNav from "../../../components/ui/PageNav.astro";
 import CurriculumMap from "../../../components/curriculum/CurriculumMap.astro";
+import QuestionMap from "../../../components/ui/QuestionMap.svelte";
+import { questionMap } from "../../../viz/overview.ts";
 import { units, lessons, concepts, questions, curriculumPath, methodPath, questionsPath } from "../../../data.ts";
 import { texts, LANGUAGES } from "../../../i18n.ts";
 
@@ -34,6 +36,7 @@ const figures = [units.length, lessons.length, concepts.length, questions.length
         {c.built_text.map((p) => (
           <p>{p}</p>
         ))}
+        <QuestionMap client:visible {...questionMap(lang)} stored />
       </div>
     </Section>
 

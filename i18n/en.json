@@ -7834,7 +7834,10 @@
           "one": "question",
           "other": "questions"
         },
-        "hint": "One dot per question, grouped by lesson. Choose a lesson to see its questions."
+        "hint": "One dot per question, grouped by lesson. Choose a lesson to see its questions.",
+        "right": "Right",
+        "wrong": "Wrong",
+        "open": "Not answered yet"
       },
       "parliament": {
         "title": "The Federal Assembly",
@@ -7902,7 +7905,6 @@
     "examSub": "50 questions, no help",
     "allDone": "All lessons done",
     "lessonsDone": "lessons done",
-    "ready": "ready for the exam, by topic",
     "examsDone": "Mock exams",
     "yourCode": "Your learner code",
     "codeHelp": "Use this code to continue on any device, also in Claude or ChatGPT.",
