@@ -41,14 +41,14 @@ assert(
   "all tools declared non-destructive and closed-world",
 );
 assert(
-  toolList.filter((t) => t._meta?.ui?.resourceUri === "ui://swiss-passport/card-v7.html").length === 4,
+  toolList.filter((t) => t._meta?.ui?.resourceUri === "ui://swiss-passport/card-v8.html").length === 4,
   "4 question tools show the quiz card",
 );
 assert(
   toolList.find((t) => t.name === "answer")._meta.ui.visibility.includes("app"),
   "the quiz card may call answer itself",
 );
-const card = await client.readResource({ uri: "ui://swiss-passport/card-v7.html" });
+const card = await client.readResource({ uri: "ui://swiss-passport/card-v8.html" });
 assert(
   card.contents[0].mimeType === "text/html;profile=mcp-app" && card.contents[0].text.includes('<div id="root">'),
   "quiz card resource readable",
@@ -65,7 +65,28 @@ assert(
   "fresh learner: one lesson per open unit to choose from (unit 3 needs unit 2 first)",
 );
 
-let { json: step } = await call("start_lesson", { language: "en" });
+// A new learner without lesson_id chooses where to start: every learner used to begin with l01.
+const { json: choices } = await call("start_lesson", { language: "en" });
+assert(
+  choices.choose_a_lesson &&
+    !choices.question &&
+    choices.lesson_choices.map((c) => c.id).join() === "l01,l05,l16,l22,l27,l34",
+  "a new learner without lesson_id gets the lessons to choose from",
+);
+const choicesViaChatGPT = await client.callTool({
+  name: "start_lesson",
+  arguments: {},
+  _meta: { "openai/userAgent": "smoke-test" },
+});
+assert(
+  JSON.parse(choicesViaChatGPT.content[0].text).lesson_choices?.length === 6 &&
+    choicesViaChatGPT._meta?.card?.data?.lesson_choices?.length === 6,
+  "ChatGPT: the model and the card both get the choices",
+);
+({ json: p } = await call("get_progress", {}));
+assert(!p.unfinished_session && p.lessons_done === 0, "choosing starts nothing");
+
+let { json: step } = await call("start_lesson", { lesson_id: "l01" });
 assert(
   step.lesson?.position === "1/37" && step.explain_first && step.step === "1/9",
   "lesson starts with one concept and one question",

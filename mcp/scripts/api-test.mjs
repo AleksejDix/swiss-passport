@@ -101,6 +101,11 @@ for (const code of ["BERG-2222", "not a code"]) {
   );
 }
 
+// v1 unchanged: over REST, /lessons without lesson_id starts a new learner's recommended lesson right away.
+const fresh = await (await post("/learners", {}, "7.7.7.7")).json();
+const started = await (await post("/lessons", { learner_code: fresh.learner_code }, "7.7.7.7")).json();
+assert(started.lesson?.position === "1/37" && started.question, "REST: a new learner's lesson starts without a choice");
+
 // Something breaks: 500 without details, and the log holds no learner code.
 const logged = [];
 const consoleError = console.error;

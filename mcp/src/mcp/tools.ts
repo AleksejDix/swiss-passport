@@ -64,7 +64,8 @@ export function registerTools(
       annotations: changesProgress,
       description:
         "Starts a lesson and returns its first step: a concept explanation and one question. Pick lesson_id from lesson_choices of get_progress." +
-        " Without lesson_id an unfinished lesson continues where it stopped." +
+        " Without lesson_id an unfinished lesson continues where it stopped, and a new learner gets lesson_choices to pick from" +
+        " (nothing starts yet)." +
         CARD_NOTE,
       inputSchema: {
         ...common,
@@ -73,12 +74,12 @@ export function registerTools(
           .string()
           .optional()
           .describe(
-            "e.g. l05, one of lesson_choices from get_progress. Default: the unfinished lesson, otherwise the recommended next lesson.",
+            "e.g. l05, one of lesson_choices from get_progress. Default: the unfinished lesson; for a new learner the choices; otherwise the recommended next lesson.",
           ),
       },
     },
     ({ voice, lesson_id, ...args }, request) =>
-      run(request, args, () => learning.startLesson(args, { lesson_id, voice })),
+      run(request, args, () => learning.startLesson(args, { lesson_id, voice, newLearnerChooses: true })),
   );
 
   server.registerTool(

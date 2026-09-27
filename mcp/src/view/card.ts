@@ -1,6 +1,7 @@
 // Quiz card shown inside the chat (MCP Apps view): concept, question and clickable options with pictures.
 // Where the host lets views call tools, a click answers right here (answer tool) and the card updates in place,
 // so the chat does not grow with every question. Otherwise a click sends the letter as a chat message.
+// A new learner first gets the lessons to choose from: a click sends the lesson's title as a chat message.
 import { App, type ToolResult } from "./bridge.js";
 
 type Letter = "a" | "b" | "c" | "d";
@@ -20,6 +21,11 @@ interface Step {
   };
   step: string;
   question: Question;
+}
+interface LessonChoice {
+  id: string;
+  title: string;
+  unit: string;
 }
 interface Feedback {
   correct?: boolean;
@@ -62,11 +68,15 @@ const el = (tag: string, cls = "", text = "") => {
   return e;
 };
 
+/** The step the data shows: the step itself, or the next one after an answer. */
+const stepOf = (data: Card["data"]) =>
+  ("question" in data ? data : "next" in data ? data.next : undefined) as Step | undefined;
+
 function render({ labels: label, data, images }: Card) {
   learnerCode = data.learner_code ?? learnerCode;
   root.replaceChildren();
   const feedback = "feedback" in data ? (data.feedback as Feedback) : undefined;
-  const step = ("question" in data ? data : "next" in data ? data.next : undefined) as Step | undefined;
+  const step = stepOf(data);
   const finished = "finished" in data ? (data.finished as Record<string, unknown>) : undefined;
 
   if (feedback && !feedback.recorded) {
@@ -98,6 +108,25 @@ function render({ labels: label, data, images }: Card) {
     return;
   }
   if (step) showStep(step, images);
+  else if ("lesson_choices" in data) showChoices(data.lesson_choices as LessonChoice[]);
+}
+
+/** The lessons to start with. A click sends the title to the chat, and the tutor starts that lesson. */
+function showChoices(choices: LessonChoice[]) {
+  const list = el("div", "options");
+  for (const choice of choices) {
+    const b = el("button", "option") as HTMLButtonElement;
+    const text = el("span", "text");
+    text.append(el("span", "choice-title", choice.title), el("span", "choice-unit", choice.unit));
+    b.append(text);
+    b.onclick = async () => {
+      list.querySelectorAll("button").forEach((x) => ((x as HTMLButtonElement).disabled = true));
+      b.classList.add("chosen");
+      await app.sendMessage({ role: "user", content: [{ type: "text", text: choice.title }] });
+    };
+    list.append(b);
+  }
+  root.append(list);
 }
 
 function showStep(step: Step, images: Card["images"]) {
@@ -181,7 +210,7 @@ async function choose(letter: Letter, q: Question) {
 /** Lets the tutor know what happened on the card, without a chat message. */
 async function tellModel(letter: Letter, q: Question, { data }: Card) {
   const feedback = "feedback" in data ? (data.feedback as Feedback) : undefined;
-  const now = ("question" in data ? data : "next" in data ? data.next : undefined) as Step | undefined;
+  const now = stepOf(data);
   const result = feedback?.recorded ? "" : feedback ? (feedback.correct ? " (correct)" : " (wrong)") : "";
   const text =
     `Quiz card: the learner answered ${letter.toUpperCase()} to "${q.question}"${result}. ` +

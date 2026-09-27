@@ -18,6 +18,11 @@ export interface StartOptions {
 }
 export interface LessonOptions extends StartOptions {
   lesson_id?: string;
+  /**
+   * A new learner without lesson_id gets the lessons to choose from instead of the recommended one (MCP: the model
+   * often starts without asking, and every learner began with the same lesson).
+   */
+  newLearnerChooses?: boolean;
 }
 export interface AnswerOptions {
   answer: Letter;
@@ -38,14 +43,30 @@ const openLesson = (p: Progress, voice: boolean) =>
 
 export const progress = (): Step => (p, lang) => ({ data: engine.progress(p, lang) });
 
-/** The lesson asked for; without one, the unfinished lesson or else the recommended next one. */
+/** A learner who has not answered any question yet. */
+const isNew = (p: Progress) => Object.keys(p.answered).length === 0;
+
+/** The lessons a learner can start now, one per unit, to pick from. Nothing starts. */
+const lessonChoices = (p: Progress, lang: Lang): Out => ({
+  data: {
+    choose_a_lesson: true,
+    message: "The learner picks where to start. start_lesson with one of these lesson_id values starts that lesson.",
+    lesson_choices: engine.progress(p, lang).lesson_choices,
+  },
+});
+
+/**
+ * The lesson asked for; without one, the unfinished lesson or else the recommended next one (or, with
+ * newLearnerChooses, the choices for a new learner).
+ */
 export const lesson =
-  ({ lesson_id, voice = false }: LessonOptions): Step =>
+  ({ lesson_id, voice = false, newLearnerChooses = false }: LessonOptions): Step =>
   (p, lang) => {
     const open = openLesson(p, voice);
     // "Let's continue" in a new chat: ChatGPT called start_lesson and the learner lost their place in the lesson.
     // Said explicitly: without it ChatGPT started the same lesson a second time, and two cards showed the same step.
     if (open && (lesson_id ?? open) === open) return currentStep(p, lang, { continued_unfinished_lesson: true });
+    if (!lesson_id && newLearnerChooses && isNew(p)) return lessonChoices(p, lang);
     const id = lesson_id ?? engine.nextLessonId(p);
     if (!id) return { data: { done: true, message: "All lessons done. Continue with reviews and mock exams." } };
     if (!engine.lessons.includes(id))

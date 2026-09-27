@@ -2,14 +2,17 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 import { build } from "esbuild";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 const client = new Client({ name: "preview", version: "0" });
 await client.connect(
   new StdioClientTransport({
     command: "node",
     args: ["dist/index.js"],
-    env: { ...process.env, PROGRESS_FILE: "/tmp/spz-preview.json" },
+    // A new learner every run: the first sample is what a new learner sees.
+    env: { ...process.env, PROGRESS_FILE: join(mkdtempSync(join(tmpdir(), "spz-preview-")), "progress.json") },
   }),
 );
 const call = (name, args) => client.callTool({ name, arguments: args });
@@ -19,7 +22,9 @@ const key = Object.fromEntries(
 
 // Walk lesson l01 (Russian) until the flag question, answering the question before it wrong.
 const samples = [];
-let r = await call("start_lesson", { language: "ru", lesson_id: "l01" });
+let r = await call("start_lesson", { language: "en" });
+samples.push({ label: "New learner (en): lessons to choose from", result: r });
+r = await call("start_lesson", { language: "ru", lesson_id: "l01" });
 samples.push({ label: "Lesson start (ru): concept + first question", result: r });
 // ChatGPT gets the card's data in _meta (the "openai/..." key marks a ChatGPT call).
 const viaChatGPT = await client.callTool({

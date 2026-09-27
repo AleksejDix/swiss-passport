@@ -57,13 +57,15 @@ assert(
   "get_progress creates no code for a new learner",
 );
 
-let step = await call(c, "start_lesson", { language: "en" });
-const code = step.learner_code;
+const first = await call(c, "start_lesson", { language: "en" });
+const code = first.learner_code;
 assert(
-  /^[A-Z]+-[2-9A-Z]{4}$/.test(code) && step.new_learner_code,
-  `the first lesson creates the learner code: ${code}`,
+  /^[A-Z]+-[2-9A-Z]{4}$/.test(code) && first.new_learner_code,
+  `the first start_lesson creates the learner code: ${code}`,
 );
-assert(step.step === "1/9", "lesson started for this learner");
+assert(first.lesson_choices?.length > 1 && !first.question, "a new learner gets the lessons to choose from");
+let step = await call(c, "start_lesson", { learner_code: code, lesson_id: "l01" });
+assert(step.step === "1/9" && !step.new_learner_code, "the chosen lesson starts for this learner");
 for (let i = 0; i < 3; i++)
   step =
     (
@@ -89,7 +91,7 @@ r = await call(c, "get_progress", { learner_code: "NOPE-0000" });
 assert(r.error?.includes("Unknown learner code"), "unknown code is rejected");
 const other = await call(c, "start_lesson", {});
 assert(
-  other.learner_code && other.learner_code !== code && other.step === "1/9",
+  other.learner_code && other.learner_code !== code && other.lesson_choices,
   "a second learner gets their own code",
 );
 const before = await call(c, "get_progress", { learner_code: code });
@@ -97,7 +99,7 @@ await call(c, "get_progress", { learner_code: code, language: "de" });
 const after = await call(c, "get_progress", { learner_code: code });
 assert(JSON.stringify(after) === JSON.stringify(before), "get_progress changes nothing, not even the language");
 
-const card = await c.readResource({ uri: "ui://swiss-passport/card-v7.html" });
+const card = await c.readResource({ uri: "ui://swiss-passport/card-v8.html" });
 assert(card.contents[0].mimeType === "text/html;profile=mcp-app", "quiz card available online");
 
 const home = await fetch(`http://localhost:${PORT}/`);
