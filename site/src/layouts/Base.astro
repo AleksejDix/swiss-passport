@@ -9,6 +9,7 @@ import LanguageNav from "../components/layout/LanguageNav.svelte";
 import Footer from "../components/layout/Footer.astro";
 import { homePath, aboutPath, sponsorsPath } from "../data.ts";
 import { texts, LANGUAGE_NAMES } from "../i18n.ts";
+import { COFFEE } from "../site.ts";
 
 interface Props {
   lang: string;
@@ -70,6 +71,7 @@ const REPO = "https://github.com/AleksejDix/swiss-passport";
   <slot />
 
   <Footer
+    support={{ text: texts(lang).site.sponsors.footer, label: texts(lang).site.sponsors.button, href: COFFEE }}
     text={s.foot}
     links={[
       { href: aboutPath(lang), label: texts(lang).site.about.nav },

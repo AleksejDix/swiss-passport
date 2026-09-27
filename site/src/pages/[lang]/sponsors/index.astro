@@ -7,6 +7,7 @@ import Section from "../../../components/ui/Section.astro";
 import Prose from "../../../components/ui/Prose.astro";
 import { OPERATOR } from "../../../legal.ts";
 import { sponsorsPath } from "../../../data.ts";
+import { COFFEE } from "../../../site.ts";
 import { texts, LANGUAGES } from "../../../i18n.ts";
 
 export function getStaticPaths() {
@@ -17,7 +18,6 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { lang } = Astro.props;
 const s = texts(lang).site.sponsors;
-const COFFEE = "https://buymeacoffee.com/swisspassport";
 const fill = (html: string) => html.replaceAll("{email}", OPERATOR.email).replaceAll("{coffee}", COFFEE);
 const alternates = Object.fromEntries(LANGUAGES.map((id) => [id, sponsorsPath(id)]));
 ---

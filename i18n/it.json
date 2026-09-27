@@ -7578,7 +7578,9 @@
             "Contatto: <a href=\"mailto:{email}\">{email}</a>"
           ]
         ]
-      ]
+      ],
+      "footer": "Swiss Passport è gratuito e senza pubblicità. Aiutaci a mantenerlo così.",
+      "button": "Offrici un caffè"
     },
     "method": {
       "nav": "Metodo di studio",

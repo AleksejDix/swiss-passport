@@ -7578,7 +7578,9 @@
             "Contact: <a href=\"mailto:{email}\">{email}</a>"
           ]
         ]
-      ]
+      ],
+      "footer": "Swiss Passport is free and has no ads. Help keep it that way.",
+      "button": "Buy us a coffee"
     },
     "method": {
       "nav": "Learning method",

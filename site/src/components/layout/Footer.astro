@@ -1,6 +1,9 @@
 ---
-// The footer: an optional line of text and the links. On tablets and wide screens the links stand in the
-// first columns, one per line, and the text beside them.
+// The footer: an optional support band (a sentence and a button, in the reading size), then an optional line of
+// text and the links. On tablets and wide screens the links stand in the first columns, one per line, and the
+// text beside them; the support band lines up with the text.
+import Button from "../ui/Button.astro";
+
 interface Link {
   href: string;
   label: string;
@@ -9,14 +12,21 @@ interface Link {
 }
 
 interface Props {
+  support?: { text: string; label: string; href: string };
   text?: string;
   links: Link[];
 }
 
-const { text, links } = Astro.props;
+const { support, text, links } = Astro.props;
 ---
 
 <footer class="page">
+  {support && (
+    <div class="support">
+      <p>{support.text}</p>
+      <Button href={support.href}>{support.label}</Button>
+    </div>
+  )}
   <div class="footer">
     {text && <p>{text}</p>}
     <p>
@@ -33,6 +43,32 @@ const { text, links } = Astro.props;
 </footer>
 
 <style>
+  .support {
+    display: grid;
+    grid-template-columns: var(--grid);
+    column-gap: var(--gutter);
+    justify-items: start;
+    row-gap: var(--line);
+    border-top: 1px solid var(--ink);
+    padding-block: calc(var(--line) - 1px) calc(2 * var(--line));
+  }
+  .support > * {
+    grid-column: 1 / -1;
+  }
+  .support > p {
+    margin: 0;
+    font-weight: 700;
+  }
+  @media (min-width: 40rem) {
+    .support > * {
+      grid-column: 4 / span 5;
+    }
+  }
+  @media (min-width: 64rem) {
+    .support > * {
+      grid-column: 4 / span 6;
+    }
+  }
   .footer {
     display: grid;
     grid-template-columns: var(--grid);
