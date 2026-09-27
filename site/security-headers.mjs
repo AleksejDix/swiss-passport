@@ -62,6 +62,9 @@ export default function securityHeaders() {
           "  X-Frame-Options: DENY",
           "  Referrer-Policy: strict-origin-when-cross-origin",
           "  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+          // Files in /_astro/ carry a hash of their content in the name, so they never change: cache them for a year.
+          "/_astro/*",
+          "  Cache-Control: public, max-age=31536000, immutable",
           "",
         ];
         await writeFile(join(out, "_headers"), rules.join("\n"));

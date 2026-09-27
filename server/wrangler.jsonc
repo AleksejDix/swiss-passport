@@ -11,7 +11,9 @@
     "directory": "./public",
     "binding": "ASSETS",
     // Everything else is served as static files without running the Worker.
-    "run_worker_first": ["/mcp"]
+    "run_worker_first": ["/mcp"],
+    // Unknown addresses get /404.html with status 404.
+    "not_found_handling": "404-page"
   },
   "d1_databases": [
     {

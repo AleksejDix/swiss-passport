@@ -3,3 +3,23 @@
 /topics/* /en/topics/:splat 301
 /grundkenntnistest/* /en/grundkenntnistest/:splat 301
 /about/* /en/about/:splat 301
+
+# Addresses without the closing slash: a permanent redirect to the page (Cloudflare's own redirect is
+# temporary, 307). Per language, so that files such as /og/de.png or /maps/ch-size.svg never match.
+/de /de/ 301
+/en /en/ 301
+/fr /fr/ 301
+/it /it/ 301
+/ru /ru/ 301
+/uk /uk/ 301
+/de/:page /de/:page/ 301
+/en/:page /en/:page/ 301
+/fr/:page /fr/:page/ 301
+/it/:page /it/:page/ 301
+/ru/:page /ru/:page/ 301
+/uk/:page /uk/:page/ 301
+/:lang/questions/:slug /:lang/questions/:slug/ 301
+/:lang/topics/:topic /:lang/topics/:topic/ 301
+/impressum /impressum/ 301
+/datenschutz /datenschutz/ 301
+/learn /learn/ 301

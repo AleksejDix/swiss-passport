@@ -1,0 +1,52 @@
+---
+// The page for addresses that do not exist (Cloudflare serves it with status 404). No language is known,
+// so it says so in all six and links to each language's questions and home page.
+import "@fontsource-variable/inter/opsz.css";
+import "../styles/styles.css";
+import { LANGS } from "../scripts/i18n.js";
+import { UI } from "../ui.js";
+import { homePath, questionsPath } from "../data.js";
+
+const MISSING = {
+  de: "Diese Seite gibt es nicht.",
+  en: "This page does not exist.",
+  fr: "Cette page n'existe pas.",
+  it: "Questa pagina non esiste.",
+  ru: "Такой страницы нет.",
+  uk: "Такої сторінки немає.",
+};
+---
+<!doctype html>
+<html lang="mul">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>404 | Swiss Passport</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<header class="page masthead">
+  <a class="brand" href="/" aria-label="Swiss Passport">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" fill="var(--red)"/>
+      <rect x="6" y="13" width="20" height="6" fill="#fff"/>
+      <rect x="13" y="6" width="6" height="20" fill="#fff"/>
+    </svg>
+    <span>Swiss Passport</span>
+  </a>
+</header>
+
+<main class="page">
+  <header class="qhead">
+    <h1>404</h1>
+  </header>
+  {Object.keys(LANGS).map((id) => (
+    <section class="row" lang={id}>
+      <h2>{MISSING[id]}</h2>
+      <p><a href={questionsPath(id)}>{UI[id].nav_questions}</a> <a href={homePath(id)}>{UI[id].home}</a></p>
+    </section>
+  ))}
+</main>
+</body>
+</html>
