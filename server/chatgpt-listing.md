@@ -51,7 +51,7 @@ Long description (max. 4000):
 | Transport | Streamable HTTP |
 | Authentication | No authentication |
 
-The quiz card (`ui://swiss-passport/card-v6.html`) declares an empty CSP (`connectDomains` and `resourceDomains` are
+The quiz card (`ui://swiss-passport/card-v7.html`) declares an empty CSP (`connectDomains` and `resourceDomains` are
 empty: its script is inline, pictures arrive as `data:` URIs in the tool result) and `openai/widgetDomain`
 `https://swiss-passport.com`. It opens no external links.
 

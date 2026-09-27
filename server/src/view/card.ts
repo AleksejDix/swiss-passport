@@ -38,7 +38,7 @@ interface Card {
 const root = document.getElementById("root")!;
 const app = new App({ name: "swiss-passport-card", version: "1.0.0" });
 /** ChatGPT's own card API, next to the standard one. */
-const openai = (window as { openai?: { setWidgetState?(state: unknown): void } }).openai;
+const openai = () => (window as { openai?: { setWidgetState?(state: unknown): void; toolResponseMetadata?: { card?: Card } } }).openai;
 let learnerCode: string | undefined;
 
 const el = (tag: string, cls = "", text = "") => {
@@ -168,18 +168,32 @@ async function tellModel(letter: Letter, q: Question, { data }: Card) {
         ? `The round is finished: ${JSON.stringify(data.finished)}`
         : "");
   // ChatGPT shows ui/update-model-context as raw JSON above the chat box; its widget state reaches the model unseen.
-  if (openai?.setWidgetState) return openai.setWidgetState({ modelContent: text });
+  const chatgpt = openai();
+  if (chatgpt?.setWidgetState) return chatgpt.setWidgetState({ modelContent: text });
   if (!app.getHostCapabilities()?.updateModelContext) return;
   await app.updateModelContext({ content: [{ type: "text", text }] }).catch(() => {});
 }
 
-/** The card's data: in _meta where only the card sees it (ChatGPT), otherwise in structuredContent. */
-const cardOf = (result: ToolResult) => (result._meta?.card ?? result.structuredContent) as Card | undefined;
+/**
+ * The card's data: in structuredContent, or for a step the model started in ChatGPT in _meta, which only the card sees.
+ * ChatGPT hands that _meta over as window.openai.toolResponseMetadata, not with the tool result.
+ */
+function cardOf(result: ToolResult) {
+  const card = result.structuredContent as Card | undefined;
+  return card?.data ? card : ((result._meta?.card ?? openai()?.toolResponseMetadata?.card) as Card | undefined);
+}
 
-app.ontoolresult = (params) => {
-  const card = cardOf(params);
-  if (card?.data) render(card);
+let shown = false;
+const show = (card?: Card) => {
+  if (!card?.data) return;
+  shown = true;
+  render(card);
 };
+app.ontoolresult = (params) => show(cardOf(params));
+// ChatGPT may set its globals after the tool result arrived: then the first step comes from there.
+window.addEventListener("openai:set_globals", () => {
+  if (!shown) show(openai()?.toolResponseMetadata?.card);
+});
 app.onhostcontextchanged = (ctx) => {
   if (ctx.theme) document.documentElement.dataset.theme = ctx.theme;
 };

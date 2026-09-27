@@ -29,9 +29,9 @@ assert(tools.length === 5, `5 tools: ${tools.join(", ")}`);
 
 const toolList = (await client.listTools()).tools;
 assert(toolList.every((t) => t.annotations?.destructiveHint === false && t.annotations?.openWorldHint === false), "all tools declared non-destructive and closed-world");
-assert(toolList.filter((t) => t._meta?.ui?.resourceUri === "ui://swiss-passport/card-v6.html").length === 4, "4 question tools show the quiz card");
+assert(toolList.filter((t) => t._meta?.ui?.resourceUri === "ui://swiss-passport/card-v7.html").length === 4, "4 question tools show the quiz card");
 assert(toolList.find((t) => t.name === "answer")._meta.ui.visibility.includes("app"), "the quiz card may call answer itself");
-const card = await client.readResource({ uri: "ui://swiss-passport/card-v6.html" });
+const card = await client.readResource({ uri: "ui://swiss-passport/card-v7.html" });
 assert(card.contents[0].mimeType === "text/html;profile=mcp-app" && card.contents[0].text.includes("<div id=\"root\">"), "quiz card resource readable");
 assert(card.contents[0]._meta?.ui?.csp && card.contents[0]._meta["openai/widgetDomain"] === "https://swiss-passport.com", "quiz card declares its CSP and domain");
 
@@ -50,6 +50,8 @@ const viaChatGPT = await client.callTool({ name: "start_lesson", arguments: {}, 
 const brief = JSON.parse(viaChatGPT.content[0].text);
 assert(brief.shown_on_card && brief.question.question && !brief.question.options && !brief.explain_first && viaChatGPT.structuredContent.shown_on_card, "ChatGPT: the model gets the step without the card's texts");
 assert(viaChatGPT._meta?.card?.data?.question?.options?.a && viaChatGPT._meta.card.data.explain_first && viaChatGPT._meta.card.labels, "ChatGPT: the card gets the whole step in _meta");
+const click = await client.callTool({ name: "answer", arguments: { answer: "a", question_id: "q000" }, _meta: { "openai/userAgent": "smoke-test" } });
+assert(click.structuredContent?.data?.question?.options && !click._meta, "ChatGPT: a click on the card gets the whole step in structuredContent");
 
 // Lesson: the first question wrong. It must come back at the end until answered correctly.
 let r, concepts = 1, images = 0, answered = 0;

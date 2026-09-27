@@ -64,7 +64,7 @@ const ICONS = [
 ];
 
 // Hosts cache the card by this URI (ChatGPT): give it a new version when the card changes.
-const CARD_URI = "ui://swiss-passport/card-v6.html";
+const CARD_URI = "ui://swiss-passport/card-v7.html";
 // The card loads nothing from the network: its script is inline and pictures come as data: URIs in the tool result.
 // ChatGPT reads its own keys (widgetDomain is required in its plugin directory). The standard ui.domain is left out:
 // Claude expects a hash of the server URL there, not the site's origin.
@@ -310,7 +310,8 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       },
     },
     ({ answer, question_id, ...args }, request) =>
-      run(request, args, (p, lang) => {
+      // A click on the card (only the card sends question_id) gets the whole step back in structuredContent, as before.
+      run(question_id ? {} : request, args, (p, lang) => {
         if (!p.session) return { data: { error: "No active session. Call start_lesson, start_reviews or start_mock_exam." } };
         // A card still showing an earlier question: answer nothing and bring the card to the current step.
         if (question_id && question_id !== p.session.questions[p.session.pos]) {
