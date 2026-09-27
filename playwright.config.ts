@@ -9,7 +9,7 @@ import { defineConfig, devices } from "@playwright/test";
 const PORT = Number(process.env.E2E_PORT ?? 8787);
 const visual = (name: string, width: number, height: number) => ({
   name: `visual-${name}`,
-  testMatch: "visual.spec.ts",
+  testMatch: /visual.*\.spec\.ts$/,
   use: { ...devices["Desktop Chrome"], viewport: { width, height }, reducedMotion: "reduce" as const },
 });
 
@@ -23,7 +23,7 @@ export default defineConfig({
   expect: { toHaveScreenshot: { maxDiffPixels: 0 } },
   use: { baseURL: `http://localhost:${PORT}`, trace: "retain-on-failure", locale: "en-GB" },
   projects: [
-    { name: "e2e", testIgnore: "visual.spec.ts", use: { ...devices["Desktop Chrome"] } },
+    { name: "e2e", testIgnore: /visual.*\.spec\.ts$/, use: { ...devices["Desktop Chrome"] } },
     visual("phone", 390, 844),
     visual("tablet", 820, 1180),
     visual("desktop", 1280, 900),

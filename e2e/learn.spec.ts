@@ -1,30 +1,10 @@
 // /learn: the browser client of the REST API /api/v1, against the real Worker and a local D1 database.
 // Every test starts as a new learner (new browser context, new learner code).
 import type { Page } from "@playwright/test";
-import { test, expect, TEXTS } from "./fixtures";
-import quiz from "../quiz.json" with { type: "json" };
+import { test, expect, TEXTS, LEARNER_CODE, rightLetter, wrongLetter } from "./fixtures";
 
 const s = TEXTS.en.learn;
-const LETTERS = ["a", "b", "c", "d"] as const;
-const CODE = /^[A-Z]+-[A-Z0-9]{4}$/;
-
-/** The right letter for the question on the screen, found by its English wording (and options, where texts repeat). */
-async function rightLetter(page: Page) {
-  // The question arrives from the API after the click: wait for its four open options.
-  await expect(page.locator("[data-choices] button:enabled")).toHaveCount(4);
-  const question = await page.getByRole("heading", { level: 1 }).textContent();
-  const options = await page
-    .locator("[data-choices] button")
-    .evaluateAll((bs) => bs.map((b) => b.querySelector("span")?.textContent ?? null));
-  const matches = quiz.questions.filter((q) => {
-    const t = TEXTS.en.questions[q.id];
-    return t.question === question && (options[0] === null || LETTERS.every((l, i) => t.options[l] === options[i]));
-  });
-  expect(matches.length, `question "${question}" found once`).toBe(1);
-  return matches[0].answer;
-}
-const wrongLetter = (right: string) => LETTERS.find((l) => l !== right)!;
-const learnerCode = (page: Page) => page.getByText(CODE);
+const learnerCode = (page: Page) => page.getByText(LEARNER_CODE);
 
 test("a new learner gets a code that survives a reload", async ({ page }) => {
   await page.goto("/learn/");
