@@ -5,7 +5,7 @@ The content written for this project is licensed under
 https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
 
 This covers the curriculum (`curriculum.json`), the concept and answer explanations, key terms, notes and
-the translations of questions and options into English, French, Italian, Russian and Ukrainian (`i18n/`).
+the translations of questions and options into English, French, Italian, Russian, Ukrainian, Spanish and Albanian (`i18n/`).
 
 - **Attribution:** credit "Swiss Passport: Zurich Knowledge Test by Aleksej Dix" with a link to this repository.
 - **NonCommercial:** no commercial use.

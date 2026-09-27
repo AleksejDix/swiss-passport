@@ -28,7 +28,8 @@
   <a href="https://swiss-passport.com/it/">Italiano</a> &nbsp;
   <a href="https://swiss-passport.com/ru/">Русский</a> &nbsp;
   <a href="https://swiss-passport.com/uk/">Українська</a> &nbsp;
-  <a href="https://swiss-passport.com/es/">Español</a>
+  <a href="https://swiss-passport.com/es/">Español</a> &nbsp;
+  <a href="https://swiss-passport.com/sq/">Shqip</a>
 </p>
 
 > [!NOTE]
@@ -42,7 +43,7 @@ Learn in the browser at [swiss-passport.com/learn](https://swiss-passport.com/le
 https://swiss-passport.com/mcp
 ```
 
-All ways share one learner code, so you can start in the browser and continue in an AI app. Step by step, in seven languages: [swiss-passport.com/en/connect](https://swiss-passport.com/en/connect/).
+All ways share one learner code, so you can start in the browser and continue in an AI app. Step by step, in eight languages: [swiss-passport.com/en/connect](https://swiss-passport.com/en/connect/).
 
 | App | Plans | Steps |
 |---|---|---|
@@ -82,7 +83,7 @@ The method follows [Execute Program](https://www.executeprogram.com/why-ep). The
 | **350** | official questions of the Canton of Zurich |
 | **37** | lessons in 7 units, from the basics to your municipality |
 | **96** | topics, each explained in simple language |
-| **7** | languages, always with the German original |
+| **8** | languages, always with the German original |
 | **50** | questions per mock exam |
 
 Every question, with its answer and explanation, is also on the website: [all questions](https://swiss-passport.com/en/questions/) and [about the test](https://swiss-passport.com/en/grundkenntnistest/).
