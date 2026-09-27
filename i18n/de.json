@@ -4099,13 +4099,13 @@
       "options": {
         "a": "Karte: Kanton Waadt markiert",
         "b": "Karte: Kanton Zürich markiert",
-        "c": "Karte: Kanton Zug markiert",
+        "c": "Karte: Kanton Glarus markiert",
         "d": "Karte: Kanton Wallis markiert"
       },
       "why": "Die richtige Karte zeigt einen Kanton im Norden der Schweiz, an der Grenze zu Deutschland, etwas östlich der Mitte. Dort liegt Zürich, am Nordende des Zürichsees.",
       "distractors": {
         "a": "Die Waadt liegt ganz im Westen, am Genfersee.",
-        "c": "Zug ist ein sehr kleiner Kanton südlich von Zürich, nicht an der Landesgrenze.",
+        "c": "Glarus ist ein Bergkanton im Osten der Schweiz, südlich des Walensees, nicht an der Landesgrenze.",
         "d": "Das Wallis liegt im Süden in den Alpen, an der Grenze zu Italien und Frankreich."
       }
     },

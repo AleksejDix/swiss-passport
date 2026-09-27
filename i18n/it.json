@@ -4099,13 +4099,13 @@
       "options": {
         "a": "Cartina: Cantone di Vaud evidenziato",
         "b": "Cartina: Cantone di Zurigo evidenziato",
-        "c": "Cartina: Cantone di Zugo evidenziato",
+        "c": "Cartina: Cantone di Glarona evidenziato",
         "d": "Cartina: Cantone del Vallese evidenziato"
       },
       "why": "La cartina giusta mostra un Cantone nel nord della Svizzera, al confine con la Germania, un po' a est del centro. Lì si trova Zurigo, all'estremità nord del lago di Zurigo.",
       "distractors": {
         "a": "Il Cantone di Vaud si trova all'estremo ovest, sul lago Lemano.",
-        "c": "Zugo è un Cantone molto piccolo a sud di Zurigo, non al confine nazionale.",
+        "c": "Glarona è un Cantone di montagna nella Svizzera orientale, a sud del lago di Walenstadt, non al confine nazionale.",
         "d": "Il Vallese si trova al sud nelle Alpi, al confine con l'Italia e la Francia."
       }
     },

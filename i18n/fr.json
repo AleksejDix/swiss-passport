@@ -4099,13 +4099,13 @@
       "options": {
         "a": "Carte : canton de Vaud en surbrillance",
         "b": "Carte : canton de Zurich en surbrillance",
-        "c": "Carte : canton de Zoug en surbrillance",
+        "c": "Carte : canton de Glaris en surbrillance",
         "d": "Carte : canton du Valais en surbrillance"
       },
       "why": "La bonne carte montre un canton au nord de la Suisse, à la frontière avec l'Allemagne, un peu à l'est du centre. C'est là que se trouve Zurich, à l'extrémité nord du lac de Zurich.",
       "distractors": {
         "a": "Le canton de Vaud se trouve tout à l'ouest, au bord du lac Léman.",
-        "c": "Zoug est un très petit canton au sud de Zurich, pas à la frontière nationale.",
+        "c": "Glaris est un canton de montagne dans l'est de la Suisse, au sud du lac de Walenstadt, pas à la frontière nationale.",
         "d": "Le Valais se trouve au sud, dans les Alpes, à la frontière avec l'Italie et la France."
       }
     },

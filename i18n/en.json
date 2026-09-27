@@ -4099,13 +4099,13 @@
       "options": {
         "a": "Map: canton of Vaud highlighted",
         "b": "Map: canton of Zurich highlighted",
-        "c": "Map: canton of Zug highlighted",
+        "c": "Map: canton of Glarus highlighted",
         "d": "Map: canton of Valais highlighted"
       },
       "why": "The correct map shows a canton in the north of Switzerland, on the border with Germany, a little east of the centre. That is where Zurich lies, at the northern end of Lake Zurich.",
       "distractors": {
         "a": "Vaud lies in the far west, on Lake Geneva.",
-        "c": "Zug is a very small canton south of Zurich, not on the national border.",
+        "c": "Glarus is a mountain canton in eastern Switzerland, south of the Walensee, not on the national border.",
         "d": "Valais lies in the south in the Alps, on the border with Italy and France."
       }
     },
