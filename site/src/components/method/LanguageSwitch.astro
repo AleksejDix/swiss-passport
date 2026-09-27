@@ -3,8 +3,8 @@
 // All six translations are in the page; scripts/method-viz.js swaps them.
 import Figure from "./Figure.astro";
 import Toggle from "./Toggle.astro";
-import AnswerList from "../ui/AnswerList.astro";
-import AnswerRow from "../ui/AnswerRow.astro";
+import AnswerList from "../ui/AnswerList.svelte";
+import AnswerRow from "../ui/AnswerRow.svelte";
 import Prompt from "../ui/Prompt.astro";
 import { VIZ } from "../../method.ts";
 import { LANGS } from "../../scripts/i18n.ts";
@@ -35,7 +35,7 @@ const de = texts.de;
     choices={Object.entries(LANGS).map(([l, name]) => ({ value: l, label: name, lang: l }))}
   />
   <Prompt question={t.q} lang={lang} german={de.q} germanHidden={lang === "de"} switchable />
-  <AnswerList class="options">
+  <AnswerList>
     {letters.map((l) => (
       <AnswerRow letter={l} right={l === q.answer}>
         <span data-o={l} lang={lang}>
@@ -50,7 +50,7 @@ const de = texts.de;
 </Figure>
 
 <style>
-  .options {
+  .langs :global(.answers) {
     margin-top: var(--line);
   }
 </style>

@@ -1,6 +1,6 @@
 <script lang="ts">
   // The explanation of the topic, closed: learners try the question first and open it when they want.
-  import Mnemonic from "./Mnemonic.svelte";
+  import Mnemonic from "../components/ui/Mnemonic.svelte";
   import type { Concept } from "./api.ts";
 
   let { concept: c, label }: { concept: Concept; label: string } = $props();
@@ -21,6 +21,9 @@
 </details>
 
 <style>
+  .explain-body :global(.mnemonic) {
+    margin-top: var(--line);
+  }
   summary {
     display: inline-flex;
     align-items: center;

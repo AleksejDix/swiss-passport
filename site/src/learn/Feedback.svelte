@@ -1,7 +1,7 @@
 <script lang="ts">
   // After an answer, in the information column: why the right answer is right, why the chosen one is not, what applies
   // today where the official answer is outdated, and the source.
-  import Mnemonic from "./Mnemonic.svelte";
+  import Mnemonic from "../components/ui/Mnemonic.svelte";
   import type { Feedback } from "./api.ts";
 
   let { feedback: f, sourceLabel }: { feedback: Feedback; sourceLabel: string } = $props();
@@ -18,6 +18,9 @@
 </section>
 
 <style>
+  .feedback :global(.mnemonic) {
+    margin-top: var(--line);
+  }
   .feedback {
     margin-bottom: var(--line);
   }
