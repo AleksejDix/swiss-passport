@@ -7648,7 +7648,8 @@
           "steps": [
             "Customize → Connectors → + → Add custom connector.",
             "Emri: Swiss Passport. Ngjit adresën, pastaj Add dhe Connect.",
-            "Në bisedë: + → Connectors → aktivizo Swiss Passport dhe thuaj që do të mësosh."
+            "Në bisedë: + → Connectors → aktivizo Swiss Passport dhe thuaj që do të mësosh.",
+            "Claude kërkon leje para një hapi? Zgjidh Always allow, përndryshe Claude pyet për çdo përgjigje dhe për çdo klikim në kartelën e kuizit."
           ]
         },
         {
