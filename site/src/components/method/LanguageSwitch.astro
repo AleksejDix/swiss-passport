@@ -1,6 +1,9 @@
 ---
 // One exam question with a language switch; the German wording of the real test stays visible.
 // All six translations are in the page; scripts/method-viz.js swaps them.
+import AnswerList from "../ui/AnswerList.astro";
+import AnswerRow from "../ui/AnswerRow.astro";
+import Prompt from "../ui/Prompt.astro";
 import { VIZ } from "../../method.ts";
 import { LANGS } from "../../scripts/i18n.ts";
 import { TEXT, question } from "../../data.ts";
@@ -30,25 +33,23 @@ const de = texts.de;
       </button>
     ))}
   </div>
-  <p class="hq" data-q lang={lang}>
-    {t.q}
-  </p>
-  <p class="htr" data-q-de lang="de" hidden={lang === "de"}>
-    {de.q}
-  </p>
-  <ol class="qoptions">
+  <Prompt question={t.q} lang={lang} german={de.q} germanHidden={lang === "de"} switchable />
+  <AnswerList class="options">
     {letters.map((l) => (
-      <li class={l === q.answer ? "is-right" : undefined}>
-        <b>{l.toUpperCase()}</b>
-        <span>
-          <span data-o={l} lang={lang}>
-            {t.o[l]}
-          </span>
-          <small lang="de" data-o-de hidden={lang === "de"}>
-            {de.o[l]}
-          </small>
+      <AnswerRow letter={l} right={l === q.answer}>
+        <span data-o={l} lang={lang}>
+          {t.o[l]}
         </span>
-      </li>
+        <small lang="de" data-o-de hidden={lang === "de"}>
+          {de.o[l]}
+        </small>
+      </AnswerRow>
     ))}
-  </ol>
+  </AnswerList>
 </figure>
+
+<style>
+  .options {
+    margin-top: var(--line);
+  }
+</style>

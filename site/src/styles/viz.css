@@ -250,10 +250,3 @@
 }
 
 /* ---- Try a question and the language switch reuse the question styles of the homepage */
-.try .hq,
-.langs .hq {
-  margin-top: 0.375rem;
-}
-.langs .qoptions {
-  margin-top: var(--line);
-}

@@ -1,0 +1,26 @@
+---
+// The four answers of a question as a list of AnswerRow items, the first without a rule above it.
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<ol class:list={["answers", className]}>
+  <slot />
+</ol>
+
+<style>
+  .answers > :global(:first-child) {
+    border-top: 0;
+    padding-top: 0;
+  }
+  /* Answers that are pictures (flags, maps, coats of arms). */
+  .answers :global(img) {
+    display: block;
+    max-width: 10rem;
+    max-height: 8rem;
+    margin-bottom: 0.375rem;
+  }
+</style>

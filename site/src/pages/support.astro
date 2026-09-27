@@ -1,6 +1,9 @@
 ---
 // Support in English, for readers and app directories (ChatGPT, Claude): contact and the common problems.
 import Base from "../layouts/Base.astro";
+import PageHead from "../components/ui/PageHead.astro";
+import Section from "../components/ui/Section.astro";
+import Prose from "../components/ui/Prose.astro";
 import { OPERATOR } from "../legal.ts";
 import { connectPath } from "../data.ts";
 
@@ -51,18 +54,15 @@ const sections: [heading: string, paragraphs: string[]][] = [
   alternates={{ en: "/support/" }}
 >
   <main class="page">
-    <header class="qhead">
-      <h1>Support</h1>
-    </header>
+    <PageHead title="Support" />
     {sections.map(([heading, paragraphs], i) => (
-      <section class="row" aria-labelledby={`s${i}`}>
-        <h2 id={`s${i}`}>{heading}</h2>
-        <div class="prose">
+      <Section title={heading} id={`s${i}`}>
+        <Prose>
           {paragraphs.map((html) => (
             <p set:html={html} />
           ))}
-        </div>
-      </section>
+        </Prose>
+      </Section>
     ))}
   </main>
 </Base>

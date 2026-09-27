@@ -1,6 +1,9 @@
 ---
 // Impressum: who operates the site and how to reach them (German only).
 import Base from "../layouts/Base.astro";
+import PageHead from "../components/ui/PageHead.astro";
+import Section from "../components/ui/Section.astro";
+import Prose from "../components/ui/Prose.astro";
 import { OPERATOR } from "../legal.ts";
 ---
 
@@ -12,13 +15,10 @@ import { OPERATOR } from "../legal.ts";
   alternates={{ de: "/impressum/" }}
 >
   <main class="page">
-    <header class="qhead">
-      <h1>Impressum</h1>
-    </header>
+    <PageHead title="Impressum" />
 
-    <section class="row" aria-labelledby="betreiber">
-      <h2 id="betreiber">Betreiber</h2>
-      <div class="prose">
+    <Section title="Betreiber" id="betreiber">
+      <Prose>
         <p>
           {OPERATOR.name}
           <br />
@@ -31,24 +31,22 @@ import { OPERATOR } from "../legal.ts";
           Swiss Passport ist ein privates, nicht kommerzielles Projekt. Es ist kein Angebot des Kantons Zürich oder
           einer Gemeinde.
         </p>
-      </div>
-    </section>
+      </Prose>
+    </Section>
 
-    <section class="row" aria-labelledby="haftung">
-      <h2 id="haftung">Haftung</h2>
-      <div class="prose">
+    <Section title="Haftung" id="haftung">
+      <Prose>
         <p>
           Die Inhalte werden sorgfältig erstellt und mit offiziellen Quellen geprüft. Für Richtigkeit, Vollständigkeit
           und Aktualität wird keine Gewähr übernommen. Massgebend sind die Angaben des Kantons Zürich und deiner
           Gemeinde.
         </p>
         <p>Für die Inhalte verlinkter Websites sind ausschliesslich deren Betreiber verantwortlich.</p>
-      </div>
-    </section>
+      </Prose>
+    </Section>
 
-    <section class="row" aria-labelledby="rechte">
-      <h2 id="rechte">Urheberrecht</h2>
-      <div class="prose">
+    <Section title="Urheberrecht" id="rechte">
+      <Prose>
         <p>
           Die offiziellen Fragen, Antworten und Bilder des Grundkenntnistests stammen vom Kanton Zürich (Gemeindeamt,
           Abteilung Einbürgerungen). Erklärungen und Übersetzungen:{" "}
@@ -56,7 +54,7 @@ import { OPERATOR } from "../legal.ts";
           <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE">PolyForm Noncommercial</a>. Karte:
           Bundesamt für Statistik (BFS), GEOSTAT.
         </p>
-      </div>
-    </section>
+      </Prose>
+    </Section>
   </main>
 </Base>

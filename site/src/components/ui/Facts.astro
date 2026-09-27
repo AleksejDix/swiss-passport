@@ -1,0 +1,50 @@
+---
+// Figures and what they count: the figures right-aligned in a large size, so units stand under units.
+interface Props {
+  /** [figure, label] */
+  rows: [figure: string | number, label: string][];
+}
+
+const { rows } = Astro.props;
+---
+
+<table class="facts">
+  <tbody>
+    {rows.map(([figure, label]) => (
+      <tr>
+        <td>{figure}</td>
+        <th scope="row">{label}</th>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+<style>
+  .facts {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  .facts tr {
+    border-top: 1px solid var(--rule);
+  }
+  .facts tr:first-child {
+    border-top: 0;
+  }
+  .facts td {
+    width: 1%;
+    white-space: nowrap;
+    padding: 0.375rem var(--gutter) 0.375rem 0;
+    text-align: right;
+    vertical-align: baseline;
+    font-size: var(--l);
+    line-height: var(--l-lh);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+  .facts th {
+    text-align: left;
+    font-weight: 400;
+    vertical-align: baseline;
+  }
+</style>

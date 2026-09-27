@@ -1,0 +1,35 @@
+---
+// The official sources of a page: links, each with an optional citation before it.
+interface Source {
+  href: string;
+  /** The link text; without it, the host name (bj.admin.ch). */
+  label?: string;
+  /** A citation before the link. */
+  text?: string;
+  lang?: string;
+}
+
+interface Props {
+  items: Source[];
+}
+
+const { items } = Astro.props;
+const host = (href: string) => new URL(href).hostname.replace(/^www\./, "");
+---
+
+<ul class="sources">
+  {items.map((s) => (
+    <li lang={s.lang}>
+      {s.text && `${s.text} `}
+      <a href={s.href} rel="noopener">
+        {s.label ?? host(s.href)}
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .sources li + li {
+    margin-top: 0.375rem;
+  }
+</style>

@@ -1,0 +1,69 @@
+---
+// The head of a page: the way here (breadcrumbs), the title, a line of small print, the lead and what to do
+// next. The lead and the actions stand in the text column; other content (the default slot) places itself.
+import Breadcrumbs from "./Breadcrumbs.astro";
+
+interface Props {
+  title: string;
+  lede?: string;
+  lang?: string;
+  /** [name, path] after Home; the last one is this page. */
+  crumbs?: [name: string, path: string][];
+}
+
+const { title, lede, lang, crumbs } = Astro.props;
+---
+
+<header class="head">
+  {crumbs && lang && <Breadcrumbs lang={lang} items={crumbs} />}
+  <h1>{title}</h1>
+  {Astro.slots.has("meta") && (
+    <p class="small meta">
+      <slot name="meta" />
+    </p>
+  )}
+  <slot />
+  {lede && <p class="lede">{lede}</p>}
+  {Astro.slots.has("actions") && (
+    <div class="actions">
+      <slot name="actions" />
+    </div>
+  )}
+</header>
+
+<style>
+  .head {
+    display: grid;
+    grid-template-columns: var(--grid);
+    column-gap: var(--gutter);
+    row-gap: 0;
+    padding-bottom: calc(3 * var(--line));
+  }
+  :where(.head) > :global(*) {
+    grid-column: 1 / -1;
+  }
+  .meta {
+    margin-top: var(--line);
+  }
+  .lede {
+    margin-top: calc(2 * var(--line));
+  }
+  .actions {
+    margin-top: var(--line);
+  }
+  @media (min-width: 40rem) {
+    .lede,
+    .actions {
+      grid-column: 1 / span 6;
+    }
+  }
+  @media (min-width: 64rem) {
+    h1 {
+      grid-column: 1 / span 10;
+    }
+    .lede,
+    .actions {
+      grid-column: 4 / span 6;
+    }
+  }
+</style>

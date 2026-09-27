@@ -2,7 +2,13 @@
 import type { InferGetStaticPropsType } from "astro";
 // One page per topic and language: the explanation, key terms, a memory aid, and the exam questions on it.
 import Base from "../../../layouts/Base.astro";
-import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PageHead from "../../../components/ui/PageHead.astro";
+import Section from "../../../components/ui/Section.astro";
+import Prose from "../../../components/ui/Prose.astro";
+import Pairs from "../../../components/ui/Pairs.astro";
+import Mnemonic from "../../../components/ui/Mnemonic.astro";
+import Sources from "../../../components/ui/Sources.astro";
+import PageNav from "../../../components/ui/PageNav.astro";
 import TopicVisual from "../../../components/topics/TopicVisual.astro";
 import { visualFor, visualTitle } from "../../../viz/topic-visuals.ts";
 import { UI } from "../../../ui.ts";
@@ -42,57 +48,51 @@ const jsonLd = {
 ---
 
 <Base lang={lang} title={title} description={description} alternates={alternates} jsonLd={jsonLd}>
-  <main class="page question">
-    <header class="qhead">
-      <Breadcrumbs
-        lang={lang}
-        items={[
-          [ui.nav_questions, questionsPath(lang)],
-          [topic.title, topicPath(lang, c)],
-        ]}
-      />
-      <h1>{topic.title}</h1>
-    </header>
+  <main class="page">
+    <PageHead
+      title={topic.title}
+      lang={lang}
+      crumbs={[
+        [ui.nav_questions, questionsPath(lang)],
+        [topic.title, topicPath(lang, c)],
+      ]}
+    />
 
-    <section class="row" aria-labelledby="intro">
-      <h2 id="intro">{ui.topic}</h2>
-      <div class="prose">
+    <Section title={ui.topic} id="intro">
+      <Prose>
         {topic.intro.map((p) => (
           <p>{p}</p>
         ))}
         {topic.mnemonic && (
-          <p class="mnemonic">
+          <Mnemonic>
             <strong>{ui.mnemonic}:</strong> {topic.mnemonic}
-          </p>
+          </Mnemonic>
         )}
-      </div>
-    </section>
+      </Prose>
+    </Section>
 
     {visualFor(c.id) && (
-      <section class="row" aria-labelledby="visual">
-        <h2 id="visual">{visualTitle(c.id, lang)}</h2>
+      <Section title={visualTitle(c.id, lang)} id="visual">
         <div>
           <TopicVisual lang={lang} topic={c.id} caption={false} />
         </div>
-      </section>
+      </Section>
     )}
 
     {topic.key_terms?.length > 0 && (
-      <section class="row" aria-labelledby="terms">
-        <h2 id="terms">{ui.key_terms}</h2>
-        <dl class="pairs">
+      <Section title={ui.key_terms} id="terms">
+        <Pairs as="dl">
           {topic.key_terms.map((k) => (
             <>
               <dt lang="de">{k.term}</dt>
               <dd>{k.definition}</dd>
             </>
           ))}
-        </dl>
-      </section>
+        </Pairs>
+      </Section>
     )}
 
-    <section class="row" aria-labelledby="questions">
-      <h2 id="questions">{ui.topic_questions}</h2>
+    <Section title={ui.topic_questions} id="questions">
       <ol class="tq">
         {c.questions.map((q) => (
           <li>
@@ -103,43 +103,46 @@ const jsonLd = {
           </li>
         ))}
       </ol>
-    </section>
+    </Section>
 
     {c.sources?.length > 0 && (
-      <section class="row" aria-labelledby="sources">
-        <h2 id="sources">{ui.sources}</h2>
-        <ul class="sources">
-          {c.sources.map((src) => (
-            <li>
-              <a href={src} rel="noopener">
-                {new URL(src).hostname.replace(/^www\./, "")}
-              </a>
-            </li>
-          ))}
-        </ul>
+      <Section title={ui.sources} id="sources">
+        <Sources items={c.sources.map((href) => ({ href }))} />
         <p class="note">{ui.checked.replace("{date}", checkedMonth(lang))}</p>
-      </section>
+      </Section>
     )}
 
-    <nav class="row qnav" aria-label={ui.topic}>
-      <p class="cta">
-        <a class="button" href="/learn/">
-          {ui.practise}
-        </a>
-      </p>
-      <p>
-        {prev && (
-          <a rel="prev" href={topicPath(lang, prev)}>
-            ← {ui.prev_topic}
-          </a>
-        )}
-        {next && (
-          <a rel="next" href={topicPath(lang, next)}>
-            {ui.next_topic} →
-          </a>
-        )}
-        <a href={questionsPath(lang)}>{ui.nav_questions}</a>
-      </p>
-    </nav>
+    <PageNav
+      label={ui.topic}
+      action={ui.practise}
+      links={[
+        ...(prev ? [{ href: topicPath(lang, prev), label: `← ${ui.prev_topic}`, rel: "prev" as const }] : []),
+        ...(next ? [{ href: topicPath(lang, next), label: `${ui.next_topic} →`, rel: "next" as const }] : []),
+        { href: questionsPath(lang), label: ui.nav_questions },
+      ]}
+    />
   </main>
 </Base>
+
+<style>
+  /* The questions of the topic, each with its answer. */
+  .tq li {
+    border-top: 1px solid var(--rule);
+    padding-block: 0.75rem;
+  }
+  .tq li:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .tq .small {
+    display: block;
+    margin-top: 0.1875rem;
+  }
+  /* In a list where every line is a link, the underline only marks the one under the pointer. */
+  .tq a {
+    text-decoration: none;
+  }
+  .tq a:hover {
+    text-decoration: underline;
+  }
+</style>

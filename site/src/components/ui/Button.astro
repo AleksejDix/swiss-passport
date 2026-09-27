@@ -1,0 +1,28 @@
+---
+// The main action of a page or section, as a black block that turns red. Placement comes from the parent.
+interface Props {
+  href: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+---
+
+<a class:list={["button", className]} href={href}>
+  <slot />
+</a>
+
+<style>
+  .button {
+    display: inline-block;
+    padding: 0.75rem 1.25rem;
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .button:hover {
+    background: var(--red);
+    color: var(--paper);
+  }
+</style>

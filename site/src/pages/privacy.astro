@@ -2,6 +2,9 @@
 // Privacy policy in English, for readers and app directories (ChatGPT, Claude). A translation of datenschutz.astro:
 // change both together. The German version is binding.
 import Base from "../layouts/Base.astro";
+import PageHead from "../components/ui/PageHead.astro";
+import Section from "../components/ui/Section.astro";
+import Prose from "../components/ui/Prose.astro";
 import { OPERATOR, PRIVACY_DATE_EN } from "../legal.ts";
 
 const sections: [heading: string, paragraphs: string[]][] = [
@@ -83,25 +86,20 @@ const sections: [heading: string, paragraphs: string[]][] = [
   alternates={{ en: "/privacy/" }}
 >
   <main class="page">
-    <header class="qhead">
-      <h1>Privacy policy</h1>
-      <p class="small">
-        Translation of the{" "}
-        <a href="/datenschutz/" hreflang="de" lang="de">
-          Datenschutzerklärung
-        </a>
-        , which is binding. Last changed: {PRIVACY_DATE_EN}.
-      </p>
-    </header>
+    <PageHead title="Privacy policy">
+      <Fragment
+        slot="meta"
+        set:html={`Translation of the <a href="/datenschutz/" hreflang="de" lang="de">Datenschutzerklärung</a>, which is binding. Last changed: ${PRIVACY_DATE_EN}.`}
+      />
+    </PageHead>
     {sections.map(([heading, paragraphs], i) => (
-      <section class="row" aria-labelledby={`p${i}`}>
-        <h2 id={`p${i}`}>{heading}</h2>
-        <div class="prose">
+      <Section title={heading} id={`p${i}`}>
+        <Prose>
           {paragraphs.map((html) => (
             <p set:html={html} />
           ))}
-        </div>
-      </section>
+        </Prose>
+      </Section>
     ))}
   </main>
 </Base>

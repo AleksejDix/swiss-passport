@@ -1,9 +1,9 @@
 ---
 // The path from the home page to this page (issue #12): visible above the title and, from the same list,
 // as a schema.org BreadcrumbList for search results. `items` are [name, path] after Home; the last is this page.
-import { SITE } from "../site.ts";
-import { UI } from "../ui.ts";
-import { homePath } from "../data.ts";
+import { SITE } from "../../site.ts";
+import { UI } from "../../ui.ts";
+import { homePath } from "../../data.ts";
 
 interface Props {
   lang: string;
@@ -33,3 +33,24 @@ const jsonLd = {
   </ol>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 </nav>
+
+<style>
+  /* Links 24px high for touch; with the smaller margin the trail keeps the height of one line of text.
+     The slash ends a line, so a wrapped trail does not start with one. */
+  .crumbs {
+    margin-bottom: calc(var(--line) - 0.375rem);
+  }
+  .crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .crumbs :is(a, span) {
+    display: inline-block;
+    padding-block: 0.1875rem;
+  }
+  .crumbs li:not(:last-child)::after {
+    content: "/";
+    content: "/" / "";
+    margin-inline: 0.5em;
+  }
+</style>

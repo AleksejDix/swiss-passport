@@ -2,7 +2,11 @@
 import type { InferGetStaticPropsType } from "astro";
 // The test guide: who takes the Grundkenntnistest, which questions, where, and what it costs. Official facts only.
 import Base from "../../../layouts/Base.astro";
-import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PageHead from "../../../components/ui/PageHead.astro";
+import Section from "../../../components/ui/Section.astro";
+import Prose from "../../../components/ui/Prose.astro";
+import Sources from "../../../components/ui/Sources.astro";
+import PageNav from "../../../components/ui/PageNav.astro";
 import SelfCheck from "../../../components/guide/SelfCheck.astro";
 import TestOrder from "../../../components/guide/TestOrder.astro";
 import { UI } from "../../../ui.ts";
@@ -47,51 +51,28 @@ const sources = [
 
 <Base lang={lang} title={g.title} description={g.desc} alternates={alternates} jsonLd={jsonLd}>
   <main class="page">
-    <header class="qhead">
-      <Breadcrumbs lang={lang} items={[[g.nav, guidePath(lang)]]} />
-      <h1>{g.title}</h1>
-      <p class="lede">{g.lede}</p>
-    </header>
+    <PageHead title={g.title} lede={g.lede} lang={lang} crumbs={[[g.nav, guidePath(lang)]]} />
 
     {g.faq.map((f, i) => (
-      <section class="row" aria-labelledby={`f${i}`}>
-        <h2 id={`f${i}`}>{f.q}</h2>
-        <div class="prose">
+      <Section title={f.q} id={`f${i}`}>
+        <Prose>
           {f.a.map((html) =>
             html.startsWith("<ul>") ? <Fragment set:html={fill(html)} /> : <p set:html={fill(html)} />,
           )}
           {i === 1 && <SelfCheck lang={lang} />}
           {i === 3 && <TestOrder lang={lang} />}
-        </div>
-      </section>
+        </Prose>
+      </Section>
     ))}
 
-    <section class="row" aria-labelledby="sources">
-      <h2 id="sources">{g.sources}</h2>
+    <Section title={g.sources} id="sources">
       <div>
-        <ul class="sources">
-          {sources.map(([name, href]) => (
-            <li>
-              <a href={href} rel="noopener">
-                {name}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <Sources items={sources.map(([name, href]) => ({ href, label: name }))} />
         <p class="note">{g.disclaimer}</p>
       </div>
-    </section>
+    </Section>
 
-    <nav class="row qnav" aria-label={g.nav}>
-      <p class="cta">
-        <a class="button" href="/learn/">
-          {ui.practise}
-        </a>
-      </p>
-      <p>
-        <a href={questionsPath(lang)}>{ui.nav_questions}</a>
-      </p>
-    </nav>
+    <PageNav label={g.nav} action={ui.practise} links={[{ href: questionsPath(lang), label: ui.nav_questions }]} />
   </main>
 </Base>
 

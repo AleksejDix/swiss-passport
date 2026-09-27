@@ -3,7 +3,13 @@ import type { InferGetStaticPropsType } from "astro";
 import type { Letter } from "@aleksejdix/learning-engine";
 // One page per official question and language: the question, the correct answer, why, and the German original.
 import Base from "../../../layouts/Base.astro";
-import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PageHead from "../../../components/ui/PageHead.astro";
+import Section from "../../../components/ui/Section.astro";
+import AnswerList from "../../../components/ui/AnswerList.astro";
+import AnswerRow from "../../../components/ui/AnswerRow.astro";
+import Mnemonic from "../../../components/ui/Mnemonic.astro";
+import Sources from "../../../components/ui/Sources.astro";
+import PageNav from "../../../components/ui/PageNav.astro";
 import TopicVisual from "../../../components/topics/TopicVisual.astro";
 import { visualFor } from "../../../viz/topic-visuals.ts";
 import { UI } from "../../../ui.ts";
@@ -88,49 +94,41 @@ const jsonLd = {
 ---
 
 <Base lang={lang} title={title} description={description} alternates={alternates} jsonLd={jsonLd}>
-  <main class="page question">
-    <header class="qhead">
-      <Breadcrumbs
-        lang={lang}
-        items={[
-          [ui.nav_questions, questionsPath(lang)],
-          [concept.title, topicPath(lang, q.concept)],
-          [ui.question_n.replace("{n}", String(q.n)), questionPath(lang, q)],
-        ]}
-      />
-      <h1>{text.question}</h1>
+  <main class="page">
+    <PageHead
+      title={text.question}
+      lang={lang}
+      crumbs={[
+        [ui.nav_questions, questionsPath(lang)],
+        [concept.title, topicPath(lang, q.concept)],
+        [ui.question_n.replace("{n}", String(q.n)), questionPath(lang, q)],
+      ]}
+    >
       {lang !== "de" && (
         <p class="qde" lang="de">
           {de.question}
         </p>
       )}
       {q.image && <img class="qpicture" src={img(q.image)} alt={text.question} loading="lazy" />}
-    </header>
+    </PageHead>
 
-    <section class="row" aria-labelledby="answer">
-      <h2 id="answer">
-        {ui.answer}: {right.toUpperCase()}
-      </h2>
-      <ol class="qoptions">
+    <Section title={`${ui.answer}: ${right.toUpperCase()}`} id="answer">
+      <AnswerList>
         {q.options.map((o) => (
-          <li class={o.id === right ? "is-right" : undefined}>
-            <b>{o.id.toUpperCase()}</b>
-            <span>
-              {o.image && <img src={img(o.image)} alt={text.options[o.id]} loading="lazy" />}
-              {text.options[o.id]}
-              {lang !== "de" && <small lang="de">{de.options[o.id]}</small>}
-            </span>
-          </li>
+          <AnswerRow letter={o.id} right={o.id === right}>
+            {o.image && <img src={img(o.image)} alt={text.options[o.id]} loading="lazy" />}
+            {text.options[o.id]}
+            {lang !== "de" && <small lang="de">{de.options[o.id]}</small>}
+          </AnswerRow>
         ))}
-      </ol>
-    </section>
+      </AnswerList>
+    </Section>
 
-    <section class="row" aria-labelledby="why">
-      <h2 id="why">{ui.why}</h2>
+    <Section title={ui.why} id="why">
       <div>
         <p>{text.why}</p>
         {/* Where the official answer is outdated or simplified: what applies today. */}
-        {text.note && <p class="mnemonic">{text.note}</p>}
+        {text.note && <Mnemonic>{text.note}</Mnemonic>}
         {text.distractors && Object.keys(text.distractors).length > 0 && (
           <>
             <h3>{ui.mistakes}</h3>
@@ -147,10 +145,9 @@ const jsonLd = {
           </>
         )}
       </div>
-    </section>
+    </Section>
 
-    <section class="row" aria-labelledby="topic">
-      <h2 id="topic">{ui.topic}</h2>
+    <Section title={ui.topic} id="topic">
       <div>
         <p>
           <strong>
@@ -167,15 +164,7 @@ const jsonLd = {
         {q.concept.sources?.length > 0 && (
           <>
             <h3>{ui.sources}</h3>
-            <ul class="sources">
-              {q.concept.sources.map((src) => (
-                <li>
-                  <a href={src} rel="noopener">
-                    {new URL(src).hostname.replace(/^www\./, "")}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <Sources items={q.concept.sources.map((href) => ({ href }))} />
             <p class="note">{ui.checked.replace("{date}", checkedMonth(lang))}</p>
           </>
         )}
@@ -184,27 +173,44 @@ const jsonLd = {
           <a href={report}>{ui.report}</a>
         </p>
       </div>
-    </section>
+    </Section>
 
-    <nav class="row qnav" aria-label={ui.nav_questions}>
-      <p class="cta">
-        <a class="button" href="/learn/">
-          {ui.practise}
-        </a>
-      </p>
-      <p>
-        {prev && (
-          <a rel="prev" href={questionPath(lang, prev)}>
-            ← {ui.prev}
-          </a>
-        )}
-        {next && (
-          <a rel="next" href={questionPath(lang, next)}>
-            {ui.next} →
-          </a>
-        )}
-        <a href={questionsPath(lang)}>{ui.nav_questions}</a>
-      </p>
-    </nav>
+    <PageNav
+      label={ui.nav_questions}
+      action={ui.practise}
+      links={[
+        ...(prev ? [{ href: questionPath(lang, prev), label: `← ${ui.prev}`, rel: "prev" as const }] : []),
+        ...(next ? [{ href: questionPath(lang, next), label: `${ui.next} →`, rel: "next" as const }] : []),
+        { href: questionsPath(lang), label: ui.nav_questions },
+      ]}
+    />
   </main>
 </Base>
+
+<style>
+  /* The question in German, the wording of the real test. */
+  .qde {
+    font-size: var(--m);
+    line-height: var(--m-lh);
+    letter-spacing: -0.012em;
+    color: var(--grey);
+    margin-top: var(--line);
+  }
+  .qpicture {
+    display: block;
+    max-height: 24rem;
+    width: auto;
+    margin-top: calc(2 * var(--line));
+  }
+  .mistakes dt {
+    margin-top: 0.75rem;
+  }
+  .mistakes dt:first-child {
+    margin-top: 0;
+  }
+  @media (min-width: 64rem) {
+    .qde {
+      grid-column: 1 / span 8;
+    }
+  }
+</style>

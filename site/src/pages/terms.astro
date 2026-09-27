@@ -2,6 +2,9 @@
 // Terms of use in English, for readers and app directories (ChatGPT, Claude). Keep them in line with the
 // privacy policy (retention, learner code) and the Impressum (liability, copyright).
 import Base from "../layouts/Base.astro";
+import PageHead from "../components/ui/PageHead.astro";
+import Section from "../components/ui/Section.astro";
+import Prose from "../components/ui/Prose.astro";
 import { OPERATOR, TERMS_DATE } from "../legal.ts";
 
 const sections: [heading: string, paragraphs: string[]][] = [
@@ -60,19 +63,17 @@ const sections: [heading: string, paragraphs: string[]][] = [
   alternates={{ en: "/terms/" }}
 >
   <main class="page">
-    <header class="qhead">
-      <h1>Terms of use</h1>
-      <p class="small">Last changed: {TERMS_DATE}</p>
-    </header>
+    <PageHead title="Terms of use">
+      <Fragment slot="meta">Last changed: {TERMS_DATE}</Fragment>
+    </PageHead>
     {sections.map(([heading, paragraphs], i) => (
-      <section class="row" aria-labelledby={`t${i}`}>
-        <h2 id={`t${i}`}>{heading}</h2>
-        <div class="prose">
+      <Section title={heading} id={`t${i}`}>
+        <Prose>
           {paragraphs.map((html) => (
             <p set:html={html} />
           ))}
-        </div>
-      </section>
+        </Prose>
+      </Section>
     ))}
   </main>
 </Base>

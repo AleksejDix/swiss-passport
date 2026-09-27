@@ -2,9 +2,12 @@
 import type { InferGetStaticPropsType } from "astro";
 // Adding Swiss Passport to an AI app: the MCP address, then numbered steps per app (texts in connect.js).
 import Base from "../../../layouts/Base.astro";
-import AppLinks from "../../../components/AppLinks.astro";
-import Breadcrumbs from "../../../components/Breadcrumbs.astro";
-import { CONNECT, LOGOS } from "../../../connect.ts";
+import AppLinks from "../../../components/ui/AppLinks.astro";
+import CopyUrl from "../../../components/ui/CopyUrl.astro";
+import Logo from "../../../components/ui/Logo.astro";
+import PageHead from "../../../components/ui/PageHead.astro";
+import Section from "../../../components/ui/Section.astro";
+import { CONNECT } from "../../../connect.ts";
 import { STRINGS } from "../../../scripts/i18n.ts";
 import { SITE } from "../../../site.ts";
 import { LANG_IDS, connectPath } from "../../../data.ts";
@@ -36,39 +39,23 @@ const jsonLd = {
 
 <Base lang={lang} title={c.title} description={c.desc} alternates={alternates} jsonLd={jsonLd}>
   <main class="page">
-    <header class="qhead">
-      <Breadcrumbs lang={lang} items={[[c.nav, connectPath(lang)]]} />
-      <h1>{c.title}</h1>
-      <p class="lede">{c.desc}</p>
-      <AppLinks lang={lang} here />
-    </header>
+    <PageHead title={c.title} lede={c.desc} lang={lang} crumbs={[[c.nav, connectPath(lang)]]}>
+      <AppLinks slot="actions" lang={lang} here />
+    </PageHead>
 
-    <section class="row" aria-labelledby="address">
-      <h2 id="address">{c.address}</h2>
+    <Section title={c.address} id="address">
       <div>
         <p>{s.s_connector_p}</p>
-        <div class="url">
-          <code data-url>{new URL("/mcp", SITE).href}</code>
-          <button type="button" data-copy data-copied={s.copied} aria-live="polite">
-            {s.copy}
-          </button>
-        </div>
+        <CopyUrl url={new URL("/mcp", SITE).href} copy={s.copy} copied={s.copied} />
       </div>
-    </section>
+    </Section>
 
     {c.apps.map((app) => (
-      <section class="row" id={app.id} aria-labelledby={`${app.id}-title`}>
-        <h2 id={`${app.id}-title`}>
-          <svg
-            class="logo"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            fill-rule="evenodd"
-            aria-hidden="true"
-            set:html={LOGOS[app.id]}
-          />
+      <Section id={`${app.id}-title`} anchor={app.id}>
+        <Fragment slot="heading">
+          <Logo app={app.id} large />
           {app.name}
-        </h2>
+        </Fragment>
         <div>
           <p>{app.note}</p>
           <ol class="howto">
@@ -77,26 +64,41 @@ const jsonLd = {
             ))}
           </ol>
         </div>
-      </section>
+      </Section>
     ))}
 
-    <section class="row" aria-labelledby="other">
-      <h2 id="other">{c.other}</h2>
+    <Section title={c.other} id="other">
       <div>
         <p>{c.other_p}</p>
       </div>
-    </section>
+    </Section>
 
-    <section class="row" aria-labelledby="progress">
-      <h2 id="progress">{s.s_progress}</h2>
+    <Section title={s.s_progress} id="progress">
       <div>
         <p>{s.s_progress_p}</p>
         <p class="note">{c.logos}</p>
       </div>
-    </section>
+    </Section>
   </main>
 </Base>
 
-<script>
-  import "../../../scripts/copy.js";
-</script>
+<style>
+  /* The steps in each AI app, numbered in red like the steps of "How it works". */
+  .howto {
+    list-style: decimal;
+    padding-left: 1.25rem;
+    margin-top: 0.375rem;
+  }
+  .howto li + li {
+    margin-top: 0.375rem;
+  }
+  /* The steps name English menu items: no German hyphenation inside them. */
+  .howto li {
+    hyphens: manual;
+  }
+  .howto li::marker {
+    color: var(--red);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+</style>

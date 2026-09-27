@@ -2,6 +2,9 @@
 // Privacy policy. It describes exactly what the site and the /mcp server store; update it when that changes,
 // together with the English translation in privacy.astro. This German version is binding.
 import Base from "../layouts/Base.astro";
+import PageHead from "../components/ui/PageHead.astro";
+import Section from "../components/ui/Section.astro";
+import Prose from "../components/ui/Prose.astro";
 import { OPERATOR, PRIVACY_DATE } from "../legal.ts";
 
 const sections: [heading: string, paragraphs: string[]][] = [
@@ -83,24 +86,22 @@ const sections: [heading: string, paragraphs: string[]][] = [
   alternates={{ de: "/datenschutz/" }}
 >
   <main class="page">
-    <header class="qhead">
-      <h1>Datenschutzerklärung</h1>
-      <p class="small">
+    <PageHead title="Datenschutzerklärung">
+      <Fragment slot="meta">
         Stand: {PRIVACY_DATE}.{" "}
         <a href="/privacy/" hreflang="en" lang="en">
           English translation
         </a>
-      </p>
-    </header>
+      </Fragment>
+    </PageHead>
     {sections.map(([heading, paragraphs], i) => (
-      <section class="row" aria-labelledby={`d${i}`}>
-        <h2 id={`d${i}`}>{heading}</h2>
-        <div class="prose">
+      <Section title={heading} id={`d${i}`}>
+        <Prose>
           {paragraphs.map((html) => (
             <p set:html={html} />
           ))}
-        </div>
-      </section>
+        </Prose>
+      </Section>
     ))}
   </main>
 </Base>

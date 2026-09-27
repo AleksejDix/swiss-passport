@@ -1,6 +1,8 @@
 ---
 // A real exam question to try: after an answer, why it is right, and why a tempting wrong answer is wrong.
 // Same look as the question on the homepage; scripts/method-viz.js reacts to the choice.
+import AnswerRow from "../ui/AnswerRow.astro";
+import Prompt from "../ui/Prompt.astro";
 import { VIZ } from "../../method.ts";
 import { STRINGS } from "../../scripts/i18n.ts";
 import { TEXT, question } from "../../data.ts";
@@ -31,24 +33,53 @@ const data = {
 
 <figure class="viz try" data-try data-question={JSON.stringify(data)}>
   <p class="small">{v.tryIt}</p>
-  <p class="hq" lang={lang}>
-    {t.question}
-  </p>
-  {lang !== "de" && (
-    <p class="htr" lang="de">
-      {de.question}
-    </p>
-  )}
-  <div class="hchoices">
+  <Prompt question={t.question} lang={lang} german={lang !== "de" ? de.question : undefined} />
+  <div class="choices">
     {letters.map((l) => (
-      <button class="hchoice" type="button" data-letter={l}>
-        <b>{l.toUpperCase()}</b>
-        <span lang={lang}>
-          {t.options[l]}
-          {lang !== "de" && <small lang="de">{de.options[l]}</small>}
-        </span>
-      </button>
+      <AnswerRow as="button" letter={l} lang={lang}>
+        {t.options[l]}
+        {lang !== "de" && <small lang="de">{de.options[l]}</small>}
+      </AnswerRow>
     ))}
   </div>
-  <div class="hfeedback" data-feedback aria-live="polite"></div>
+  <div class="feedback" data-feedback aria-live="polite"></div>
 </figure>
+
+<style>
+  .choices {
+    margin-top: var(--line);
+    border-bottom: 1px solid var(--rule);
+  }
+  /* After an answer (scripts/method-viz.js): right or wrong, why, and a button to try again. */
+  .feedback {
+    margin-top: var(--line);
+  }
+  .feedback > :global(div > * + *) {
+    margin-top: 0.75rem;
+  }
+  .feedback :global(.verdict) {
+    font-weight: 700;
+  }
+  .feedback :global(.verdict.ok) {
+    color: var(--red);
+  }
+  .feedback :global(p:last-child) {
+    margin-top: var(--line);
+  }
+  .feedback :global(.again) {
+    font: inherit;
+    letter-spacing: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    margin-left: 1.25rem;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+  .feedback :global(.again:hover) {
+    color: var(--red);
+  }
+</style>

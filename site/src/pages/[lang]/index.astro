@@ -5,7 +5,13 @@ import Base from "../../layouts/Base.astro";
 import QuestionMap from "../../components/home/QuestionMap.astro";
 import ChatDemo from "../../components/home/ChatDemo.astro";
 import { STRINGS } from "../../scripts/i18n.ts";
-import AppLinks from "../../components/AppLinks.astro";
+import AppLinks from "../../components/ui/AppLinks.astro";
+import Button from "../../components/ui/Button.astro";
+import CopyUrl from "../../components/ui/CopyUrl.astro";
+import Facts from "../../components/ui/Facts.astro";
+import Pairs from "../../components/ui/Pairs.astro";
+import Section from "../../components/ui/Section.astro";
+import ReviewTimeline from "../../components/home/ReviewTimeline.astro";
 import { LANG_IDS, homePath, methodPath, connectPath } from "../../data.ts";
 import { METHOD } from "../../method.ts";
 import { CONNECT } from "../../connect.ts";
@@ -41,19 +47,16 @@ const jsonLd = {
         <p class="lede">{s.lede}</p>
         <p class="note">{s.unofficial}</p>
         <p class="cta">
-          <a class="button" href={connectPath(lang)}>
-            {s.cta}
-          </a>
+          <Button href={connectPath(lang)}>{s.cta}</Button>
         </p>
-        <AppLinks lang={lang} />
+        <AppLinks lang={lang} class="apps" />
         <p class="note">
           <a href="/learn/">{s.cta_browser} →</a>
         </p>
       </div>
     </section>
 
-    <section class="row" aria-labelledby="how">
-      <h2 id="how">{s.how}</h2>
+    <Section title={s.how} id="how">
       <ol class="steps">
         <li>
           <span class="n">1</span>
@@ -69,10 +72,9 @@ const jsonLd = {
         </li>
       </ol>
       <ChatDemo lang={lang} />
-    </section>
+    </Section>
 
-    <section class="row" aria-labelledby="method">
-      <h2 id="method">{s.method}</h2>
+    <Section title={s.method} id="method">
       <dl class="method">
         <div>
           <dt>{s.m1t}</dt>
@@ -102,67 +104,39 @@ const jsonLd = {
       <p class="note">
         <a href={methodPath(lang)}>{METHOD[lang].link} →</a>
       </p>
-    </section>
+    </Section>
 
-    <section class="row" aria-labelledby="reviews">
-      <h2 id="reviews">{s.reviews}</h2>
+    <Section title={s.reviews} id="reviews">
       <div>
         <p>{s.reviews_p}</p>
-        <div class="timeline" data-timeline aria-hidden="true">
-          <div class="axis"></div>
-          <span style="--d:1">1</span>
-          <span style="--d:3">3</span>
-          <span style="--d:7">7</span>
-          <span style="--d:14">14</span>
-          <span style="--d:30">30</span>
-        </div>
+        <ReviewTimeline />
         <p class="small">{s.reviews_caption}</p>
       </div>
-    </section>
+    </Section>
 
-    <section class="row" aria-labelledby="contents">
-      <h2 id="contents">{s.contents}</h2>
+    <Section title={s.contents} id="contents">
       <div>
-        <table class="facts">
-          <tr>
-            <td>350</td>
-            <th scope="row">{s.f1}</th>
-          </tr>
-          <tr>
-            <td>37</td>
-            <th scope="row">{s.f2}</th>
-          </tr>
-          <tr>
-            <td>96</td>
-            <th scope="row">{s.f3}</th>
-          </tr>
-          <tr>
-            <td>{LANG_IDS.length}</td>
-            <th scope="row">{s.f4}</th>
-          </tr>
-          <tr>
-            <td>50</td>
-            <th scope="row">{s.f5}</th>
-          </tr>
-        </table>
+        <Facts
+          rows={[
+            [350, s.f1],
+            [37, s.f2],
+            [96, s.f3],
+            [LANG_IDS.length, s.f4],
+            [50, s.f5],
+          ]}
+        />
         <QuestionMap lang={lang} />
         <p class="note">{s.contents_note}</p>
       </div>
-    </section>
+    </Section>
 
-    <section class="row" id="start" aria-labelledby="start-title">
-      <h2 id="start-title">{s.start}</h2>
-      <div class="pairs">
+    <Section title={s.start} id="start-title" anchor="start">
+      <Pairs>
         <h3>{s.s_connector}</h3>
         <p>{s.s_connector_p}</p>
-        <div class="url">
-          <code data-url>{new URL("/mcp", SITE).href}</code>
-          <button type="button" data-copy data-copied={s.copied} aria-live="polite">
-            {s.copy}
-          </button>
-        </div>
+        <CopyUrl url={new URL("/mcp", SITE).href} copy={s.copy} copied={s.copied} />
         <div>
-          <AppLinks lang={lang} />
+          <AppLinks lang={lang} class="apps" />
           <p class="note">
             <a href={connectPath(lang)}>{CONNECT[lang].link} →</a>
           </p>
@@ -171,14 +145,108 @@ const jsonLd = {
         <p set:html={s.s_browser_p} />
         <h3>{s.s_progress}</h3>
         <p>{s.s_progress_p}</p>
-      </div>
-    </section>
+      </Pairs>
+    </Section>
   </main>
 </Base>
 
 <script>
   import "../../scripts/main.js";
-  import "../../scripts/copy.js";
   import "../../scripts/question-map.js";
   import "../../scripts/chat-demo.js";
 </script>
+
+<style>
+  /* The headline, as large as the longest word allows, then the lead and the ways to start in the text column. */
+  .hero {
+    padding-bottom: calc(3 * var(--line));
+  }
+  .hero-head {
+    display: grid;
+    grid-template-columns: var(--grid);
+    column-gap: var(--gutter);
+  }
+  .hero-head > * {
+    grid-column: 1 / -1;
+  }
+  .hero h1 {
+    font-size: var(--xxl);
+    line-height: 0.94;
+    letter-spacing: var(--xxl-track);
+    margin-inline-start: -0.054em;
+    hyphens: manual; /* sized so that the longest word fits */
+  }
+  .hero .lede {
+    margin-top: calc(2 * var(--line));
+  }
+  .cta,
+  .apps {
+    margin-top: var(--line);
+  }
+  @media (min-width: 40rem) {
+    .hero .lede,
+    .hero .cta,
+    .hero .apps,
+    .hero-head .note {
+      grid-column: 1 / span 6;
+    }
+  }
+  @media (min-width: 64rem) {
+    .hero .lede,
+    .hero .cta,
+    .hero .apps,
+    .hero-head .note {
+      grid-column: 4 / span 6;
+    }
+  }
+  /* Display leading snaps to the 6px unit. */
+  @supports (line-height: round(1em, 1px)) {
+    .hero h1 {
+      line-height: round(0.94em, 0.375rem);
+    }
+  }
+
+  /* How it works: three steps, three columns. */
+  .steps {
+    row-gap: var(--line);
+  }
+  .steps .n {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: var(--l);
+    line-height: var(--l-lh);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--red);
+    font-variant-numeric: tabular-nums;
+  }
+  @media (min-width: 40rem) {
+    :global(.row) .steps > li {
+      grid-column: span 4;
+    }
+    :global(.row) .steps > li:last-child {
+      grid-column: 1 / span 4;
+    }
+  }
+  @media (min-width: 64rem) {
+    :global(.row) .steps > li,
+    :global(.row) .steps > li:last-child {
+      grid-column: span 3;
+    }
+  }
+
+  /* The method: six principles in three columns. */
+  .method {
+    row-gap: var(--line);
+  }
+  @media (min-width: 40rem) {
+    :global(.row) .method > div {
+      grid-column: span 4;
+    }
+  }
+  @media (min-width: 64rem) {
+    :global(.row) .method > div {
+      grid-column: span 3;
+    }
+  }
+</style>

@@ -4,7 +4,8 @@
 import Document from "../layouts/Document.astro";
 import Masthead from "../components/layout/Masthead.astro";
 import Brand from "../components/layout/Brand.astro";
-import "../styles/styles.css";
+import PageHead from "../components/ui/PageHead.astro";
+import Section from "../components/ui/Section.astro";
 import { LANGS } from "../scripts/i18n.ts";
 import { UI } from "../ui.ts";
 import { homePath, questionsPath } from "../data.ts";
@@ -19,16 +20,22 @@ const MISSING = byLang((t) => t.site.not_found);
   </Masthead>
 
   <main class="page">
-    <header class="qhead">
-      <h1>404</h1>
-    </header>
+    <PageHead title="404" />
     {Object.keys(LANGS).map((id) => (
-      <section class="row" lang={id}>
-        <h2>{MISSING[id]}</h2>
+      <Section title={MISSING[id]} lang={id}>
         <p class="links">
           <a href={questionsPath(id)}>{UI[id].nav_questions}</a> <a href={homePath(id)}>{UI[id].home}</a>
         </p>
-      </section>
+      </Section>
     ))}
   </main>
 </Document>
+
+<style>
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem var(--gutter);
+    align-items: baseline;
+  }
+</style>

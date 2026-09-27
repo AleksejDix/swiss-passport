@@ -1,0 +1,31 @@
+---
+// Running text from the language files (paragraphs and lists, often with links): the guide, topics, about, the
+// method and the legal pages. Lists are set with dashes.
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={["prose", className]}>
+  <slot />
+</div>
+
+<style>
+  .prose :global(p + p),
+  .prose :global(p + ul),
+  .prose :global(ul + p) {
+    margin-top: 0.75rem;
+  }
+  .prose :global(ul) {
+    list-style: "\2013\2002";
+    padding-left: 1.25rem;
+  }
+  .prose :global(li + li) {
+    margin-top: 0.375rem;
+  }
+  .prose :global(.mnemonic) {
+    margin-top: var(--line);
+  }
+</style>

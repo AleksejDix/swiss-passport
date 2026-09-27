@@ -1,0 +1,60 @@
+---
+// An address to copy (the connector URL), with a button that says "Copied" for two seconds.
+interface Props {
+  url: string;
+  copy: string;
+  copied: string;
+}
+
+const { url, copy, copied } = Astro.props;
+---
+
+<div class="url">
+  <code data-url>{url}</code>
+  <button type="button" data-copy data-copied={copied} aria-live="polite">
+    {copy}
+  </button>
+</div>
+
+<script>
+  import "../../scripts/copy.js";
+</script>
+
+<style>
+  .url {
+    display: flex;
+    border: 1px solid var(--ink);
+    margin-top: 0.75rem;
+  }
+  .url code {
+    flex: 1;
+    min-width: 0;
+    font: inherit;
+    letter-spacing: inherit;
+    padding: 0.6875rem 0.75rem;
+    overflow-wrap: anywhere;
+  }
+  .url button {
+    font: inherit;
+    letter-spacing: inherit;
+    font-weight: 700;
+    border: 0;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0 1.25rem;
+    cursor: pointer;
+    min-width: 7rem;
+  }
+  .url button:hover {
+    background: var(--red);
+  }
+  /* Phones: the whole address on one line, the button under it. */
+  @media (max-width: 39.99rem) {
+    .url {
+      flex-direction: column;
+    }
+    .url button {
+      padding-block: 0.75rem;
+    }
+  }
+</style>

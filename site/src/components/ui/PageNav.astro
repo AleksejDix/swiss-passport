@@ -1,0 +1,61 @@
+---
+// The last row of a page: the button to practise, and where to go from here.
+import Section from "./Section.astro";
+import Button from "./Button.astro";
+
+interface Link {
+  href: string;
+  label: string;
+  rel?: "prev" | "next";
+}
+
+interface Props {
+  /** Accessible name of the navigation. */
+  label: string;
+  /** The text of the practise button. */
+  action: string;
+  links: Link[];
+}
+
+const { label, action, links } = Astro.props;
+---
+
+<Section as="nav" class="qnav" label={label}>
+  <p class="action">
+    <Button href="/learn/">{action}</Button>
+  </p>
+  <p class="links">
+    {links.map((l, i) => (
+      <>
+        {i > 0 && " "}
+        <a rel={l.rel} href={l.href}>
+          {l.label}
+        </a>
+      </>
+    ))}
+  </p>
+</Section>
+
+<style>
+  .qnav p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem var(--gutter);
+    align-items: baseline;
+  }
+  .row.qnav > .links {
+    margin-top: var(--line);
+  }
+  @media (min-width: 64rem) {
+    .row.qnav {
+      align-items: center;
+    }
+    .row.qnav > .action {
+      grid-column: 1 / span 3;
+    }
+    .row.qnav > .links {
+      grid-column: 4 / -1;
+      margin-top: 0;
+    }
+  }
+</style>
