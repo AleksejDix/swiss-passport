@@ -5,56 +5,102 @@ import Base from "../layouts/Base.astro";
 import { OPERATOR, PRIVACY_DATE } from "../legal.ts";
 
 const sections: [heading: string, paragraphs: string[]][] = [
-  ["In Kürze", [
-    "Kein Konto, keine Cookies, keine Werbung und kein Tracking einzelner Personen. Besuche werden anonym gezählt. Gespeichert wird nur, was für das Lernen nötig ist, und ohne Namen oder E-Mail-Adresse.",
-  ]],
-  ["Verantwortlich", [
-    `${OPERATOR.name}, ${OPERATOR.region}. E-Mail: <a href="mailto:${OPERATOR.email}">${OPERATOR.email}</a>`,
-    "Diese Erklärung richtet sich nach dem Schweizer Datenschutzgesetz (DSG) und, soweit anwendbar, nach der Datenschutz-Grundverordnung der EU (DSGVO).",
-  ]],
-  ["Aufruf der Website", [
-    'Die Website läuft bei Cloudflare, Inc. (USA). Beim Aufruf einer Seite verarbeitet Cloudflare technisch nötige Daten: IP-Adresse, Datum und Uhrzeit, aufgerufene Adresse, Browser und Betriebssystem. Das dient dem Betrieb und der Sicherheit (DSGVO Art. 6 Abs. 1 lit. f). Wie lange diese Daten aufbewahrt werden, legt Cloudflare fest. Siehe die <a href="https://www.cloudflare.com/privacypolicy/">Datenschutzerklärung von Cloudflare</a>. Protokolle der Aufrufe des Lernservers (/mcp) bewahren wir zur Fehlersuche 3 Tage auf; sie enthalten weder deinen Lerncode noch deine Antworten.',
-    "Die Schrift wird von dieser Website selbst ausgeliefert. Nachgeladen wird nur das Zählskript von Cloudflare Web Analytics (siehe Besuchsstatistik), keine Inhalte von Google oder anderen Dritten.",
-  ]],
-  ["Besuchsstatistik", [
-    "Um zu sehen, welche Seiten genutzt werden, zählen wir Besuche mit Cloudflare Web Analytics. Dazu lädt die Seite ein kleines Skript von Cloudflare (static.cloudflareinsights.com). Es übermittelt die aufgerufene Seite, die Seite, von der du kommst, Browser, Betriebssystem, Gerätetyp, Land und die Ladezeit der Seite.",
-    'Cloudflare Web Analytics setzt keine Cookies und speichert nichts in deinem Browser. Laut Cloudflare werden dafür keine personenbezogenen Daten verwendet und Besucher nicht über IP-Adresse oder Browsermerkmale wiedererkannt. Wir sehen nur zusammengefasste Zahlen. Das dient dazu, das Angebot zu verbessern (DSGVO Art. 6 Abs. 1 lit. f). Siehe die <a href="https://www.cloudflare.com/privacypolicy/">Datenschutzerklärung von Cloudflare</a>.',
-  ]],
-  ["Online lernen und in KI-Apps", [
-    "Wenn du online lernst oder Swiss Passport in einer KI-App nutzt, bekommst du einen zufälligen Lerncode (zum Beispiel BERG-7K2Q). Unter diesem Code speichern wir deinen Lernfortschritt: gewählte Sprache, beantwortete Fragen mit richtig oder falsch und Zeitpunkt, Stand der Themen und Resultate der Probeprüfungen.",
-    'Gespeichert wird in einer Datenbank von Cloudflare (Cloudflare D1, Standort Westeuropa). Zweck ist, dass du auf jedem Gerät weiterlernen kannst (DSGVO Art. 6 Abs. 1 lit. b). Der Fortschritt wird 12 Monate nach deiner letzten Aktivität automatisch gelöscht. Wer deinen Lerncode kennt, kann deinen Fortschritt sehen und fortsetzen, gib ihn deshalb nicht weiter.',
-    "Nutzt du Swiss Passport in einer KI-App (zum Beispiel Claude, ChatGPT, Grok, Mistral Vibe oder Perplexity), bekommt dieser Server nur die Aufrufe der Lernwerkzeuge (Lerncode, Sprache, gewählte Antworten), nicht deinen Chatverlauf. Technische Angaben, die die App mitschickt, etwa eine anonyme Kennung, speichern wir nicht. Für den Chat selbst gelten die Datenschutzbestimmungen des Anbieters der App, zum Beispiel Anthropic oder OpenAI.",
-  ]],
-  ["E-Mail", [
-    "E-Mails an die oben genannte Adresse empfängt und speichert unser E-Mail-Anbieter Migadu (Migadu-Mail GmbH, Schweiz) in Rechenzentren in Frankreich. Wir verwenden deine Nachricht nur, um dir zu antworten.",
-  ]],
-  ["Speicher im Browser", [
-    "Die Website speichert im Browser (localStorage) deine gewählte Sprache und, beim Online-Lernen, deinen Lerncode. Diese Angaben bleiben auf deinem Gerät und werden nicht für Tracking verwendet. Du kannst sie jederzeit in den Browsereinstellungen löschen.",
-  ]],
-  ["Bekanntgabe ins Ausland", [
-    "Cloudflare hat seinen Sitz in den USA. Daten können deshalb in den USA oder in anderen Ländern verarbeitet werden. Cloudflare ist nach dem Swiss-U.S. und dem EU-U.S. Data Privacy Framework zertifiziert. Für so zertifizierte Unternehmen hat der Bundesrat den Datenschutz in den USA als angemessen anerkannt (Anhang 1 der Datenschutzverordnung), ebenso die EU-Kommission. Wo das nicht greift, stützt sich die Übermittlung auf die Standardvertragsklauseln der EU-Kommission, die auch der Eidgenössische Datenschutz- und Öffentlichkeitsbeauftragte (EDÖB) anerkennt.",
-    "E-Mails an uns speichert Migadu in Rechenzentren in Frankreich. Für Frankreich hat der Bundesrat den Datenschutz als angemessen anerkannt (Anhang 1 der Datenschutzverordnung).",
-  ]],
-  ["Links", [
-    "Links zu anderen Websites (zum Beispiel zh.ch, admin.ch oder GitHub) führen zu Angeboten, für deren Datenschutz deren Betreiber verantwortlich sind.",
-  ]],
-  ["Deine Rechte", [
-    "Du kannst Auskunft über deine Daten verlangen, sie berichtigen oder löschen lassen, die Bearbeitung einschränken lassen und ihr widersprechen. Du kannst deine Daten auch in einem gängigen elektronischen Format erhalten oder an einen anderen Anbieter übertragen lassen (DSG Art. 28, DSGVO Art. 20). Schreib dazu an die oben genannte E-Mail-Adresse und nenne deinen Lerncode, sonst können wir deine Daten nicht finden.",
-    'Du kannst dich ausserdem beim <a href="https://www.edoeb.admin.ch">EDÖB</a> oder, wenn du in der EU wohnst, bei der Datenschutzbehörde deines Landes beschweren.',
-  ]],
+  [
+    "In Kürze",
+    [
+      "Kein Konto, keine Cookies, keine Werbung und kein Tracking einzelner Personen. Besuche werden anonym gezählt. Gespeichert wird nur, was für das Lernen nötig ist, und ohne Namen oder E-Mail-Adresse.",
+    ],
+  ],
+  [
+    "Verantwortlich",
+    [
+      `${OPERATOR.name}, ${OPERATOR.region}. E-Mail: <a href="mailto:${OPERATOR.email}">${OPERATOR.email}</a>`,
+      "Diese Erklärung richtet sich nach dem Schweizer Datenschutzgesetz (DSG) und, soweit anwendbar, nach der Datenschutz-Grundverordnung der EU (DSGVO).",
+    ],
+  ],
+  [
+    "Aufruf der Website",
+    [
+      'Die Website läuft bei Cloudflare, Inc. (USA). Beim Aufruf einer Seite verarbeitet Cloudflare technisch nötige Daten: IP-Adresse, Datum und Uhrzeit, aufgerufene Adresse, Browser und Betriebssystem. Das dient dem Betrieb und der Sicherheit (DSGVO Art. 6 Abs. 1 lit. f). Wie lange diese Daten aufbewahrt werden, legt Cloudflare fest. Siehe die <a href="https://www.cloudflare.com/privacypolicy/">Datenschutzerklärung von Cloudflare</a>. Protokolle der Aufrufe des Lernservers (/mcp) bewahren wir zur Fehlersuche 3 Tage auf; sie enthalten weder deinen Lerncode noch deine Antworten.',
+      "Die Schrift wird von dieser Website selbst ausgeliefert. Nachgeladen wird nur das Zählskript von Cloudflare Web Analytics (siehe Besuchsstatistik), keine Inhalte von Google oder anderen Dritten.",
+    ],
+  ],
+  [
+    "Besuchsstatistik",
+    [
+      "Um zu sehen, welche Seiten genutzt werden, zählen wir Besuche mit Cloudflare Web Analytics. Dazu lädt die Seite ein kleines Skript von Cloudflare (static.cloudflareinsights.com). Es übermittelt die aufgerufene Seite, die Seite, von der du kommst, Browser, Betriebssystem, Gerätetyp, Land und die Ladezeit der Seite.",
+      'Cloudflare Web Analytics setzt keine Cookies und speichert nichts in deinem Browser. Laut Cloudflare werden dafür keine personenbezogenen Daten verwendet und Besucher nicht über IP-Adresse oder Browsermerkmale wiedererkannt. Wir sehen nur zusammengefasste Zahlen. Das dient dazu, das Angebot zu verbessern (DSGVO Art. 6 Abs. 1 lit. f). Siehe die <a href="https://www.cloudflare.com/privacypolicy/">Datenschutzerklärung von Cloudflare</a>.',
+    ],
+  ],
+  [
+    "Online lernen und in KI-Apps",
+    [
+      "Wenn du online lernst oder Swiss Passport in einer KI-App nutzt, bekommst du einen zufälligen Lerncode (zum Beispiel BERG-7K2Q). Unter diesem Code speichern wir deinen Lernfortschritt: gewählte Sprache, beantwortete Fragen mit richtig oder falsch und Zeitpunkt, Stand der Themen und Resultate der Probeprüfungen.",
+      "Gespeichert wird in einer Datenbank von Cloudflare (Cloudflare D1, Standort Westeuropa). Zweck ist, dass du auf jedem Gerät weiterlernen kannst (DSGVO Art. 6 Abs. 1 lit. b). Der Fortschritt wird 12 Monate nach deiner letzten Aktivität automatisch gelöscht. Wer deinen Lerncode kennt, kann deinen Fortschritt sehen und fortsetzen, gib ihn deshalb nicht weiter.",
+      "Nutzt du Swiss Passport in einer KI-App (zum Beispiel Claude, ChatGPT, Grok, Mistral Vibe oder Perplexity), bekommt dieser Server nur die Aufrufe der Lernwerkzeuge (Lerncode, Sprache, gewählte Antworten), nicht deinen Chatverlauf. Technische Angaben, die die App mitschickt, etwa eine anonyme Kennung, speichern wir nicht. Für den Chat selbst gelten die Datenschutzbestimmungen des Anbieters der App, zum Beispiel Anthropic oder OpenAI.",
+    ],
+  ],
+  [
+    "E-Mail",
+    [
+      "E-Mails an die oben genannte Adresse empfängt und speichert unser E-Mail-Anbieter Migadu (Migadu-Mail GmbH, Schweiz) in Rechenzentren in Frankreich. Wir verwenden deine Nachricht nur, um dir zu antworten.",
+    ],
+  ],
+  [
+    "Speicher im Browser",
+    [
+      "Die Website speichert im Browser (localStorage) deine gewählte Sprache und, beim Online-Lernen, deinen Lerncode. Diese Angaben bleiben auf deinem Gerät und werden nicht für Tracking verwendet. Du kannst sie jederzeit in den Browsereinstellungen löschen.",
+    ],
+  ],
+  [
+    "Bekanntgabe ins Ausland",
+    [
+      "Cloudflare hat seinen Sitz in den USA. Daten können deshalb in den USA oder in anderen Ländern verarbeitet werden. Cloudflare ist nach dem Swiss-U.S. und dem EU-U.S. Data Privacy Framework zertifiziert. Für so zertifizierte Unternehmen hat der Bundesrat den Datenschutz in den USA als angemessen anerkannt (Anhang 1 der Datenschutzverordnung), ebenso die EU-Kommission. Wo das nicht greift, stützt sich die Übermittlung auf die Standardvertragsklauseln der EU-Kommission, die auch der Eidgenössische Datenschutz- und Öffentlichkeitsbeauftragte (EDÖB) anerkennt.",
+      "E-Mails an uns speichert Migadu in Rechenzentren in Frankreich. Für Frankreich hat der Bundesrat den Datenschutz als angemessen anerkannt (Anhang 1 der Datenschutzverordnung).",
+    ],
+  ],
+  [
+    "Links",
+    [
+      "Links zu anderen Websites (zum Beispiel zh.ch, admin.ch oder GitHub) führen zu Angeboten, für deren Datenschutz deren Betreiber verantwortlich sind.",
+    ],
+  ],
+  [
+    "Deine Rechte",
+    [
+      "Du kannst Auskunft über deine Daten verlangen, sie berichtigen oder löschen lassen, die Bearbeitung einschränken lassen und ihr widersprechen. Du kannst deine Daten auch in einem gängigen elektronischen Format erhalten oder an einen anderen Anbieter übertragen lassen (DSG Art. 28, DSGVO Art. 20). Schreib dazu an die oben genannte E-Mail-Adresse und nenne deinen Lerncode, sonst können wir deine Daten nicht finden.",
+      'Du kannst dich ausserdem beim <a href="https://www.edoeb.admin.ch">EDÖB</a> oder, wenn du in der EU wohnst, bei der Datenschutzbehörde deines Landes beschweren.',
+    ],
+  ],
 ];
 ---
-<Base lang="de" remember={false} title="Datenschutzerklärung | Swiss Passport" description="Welche Daten Swiss Passport verarbeitet: keine Cookies, anonyme Besuchsstatistik, Lernfortschritt nur unter einem anonymen Lerncode." alternates={{ de: "/datenschutz/" }}>
-<main class="page">
-  <header class="qhead">
-    <h1>Datenschutzerklärung</h1>
-    <p class="small">Stand: {PRIVACY_DATE}. <a href="/privacy/" hreflang="en" lang="en">English translation</a></p>
-  </header>
-  {sections.map(([heading, paragraphs], i) => (
-    <section class="row" aria-labelledby={`d${i}`}>
-      <h2 id={`d${i}`}>{heading}</h2>
-      <div class="prose">{paragraphs.map((html) => <p set:html={html} />)}</div>
-    </section>
-  ))}
-</main>
+
+<Base
+  lang="de"
+  remember={false}
+  title="Datenschutzerklärung | Swiss Passport"
+  description="Welche Daten Swiss Passport verarbeitet: keine Cookies, anonyme Besuchsstatistik, Lernfortschritt nur unter einem anonymen Lerncode."
+  alternates={{ de: "/datenschutz/" }}
+>
+  <main class="page">
+    <header class="qhead">
+      <h1>Datenschutzerklärung</h1>
+      <p class="small">
+        Stand: {PRIVACY_DATE}.{" "}
+        <a href="/privacy/" hreflang="en" lang="en">
+          English translation
+        </a>
+      </p>
+    </header>
+    {sections.map(([heading, paragraphs], i) => (
+      <section class="row" aria-labelledby={`d${i}`}>
+        <h2 id={`d${i}`}>{heading}</h2>
+        <div class="prose">
+          {paragraphs.map((html) => (
+            <p set:html={html} />
+          ))}
+        </div>
+      </section>
+    ))}
+  </main>
 </Base>

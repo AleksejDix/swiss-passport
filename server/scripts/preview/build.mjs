@@ -5,16 +5,28 @@ import { build } from "esbuild";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 const client = new Client({ name: "preview", version: "0" });
-await client.connect(new StdioClientTransport({ command: "node", args: ["dist/index.js"], env: { ...process.env, PROGRESS_FILE: "/tmp/spz-preview.json" } }));
+await client.connect(
+  new StdioClientTransport({
+    command: "node",
+    args: ["dist/index.js"],
+    env: { ...process.env, PROGRESS_FILE: "/tmp/spz-preview.json" },
+  }),
+);
 const call = (name, args) => client.callTool({ name, arguments: args });
-const key = Object.fromEntries(JSON.parse(readFileSync("data/quiz.json", "utf8")).questions.map((q) => [q.id, q.answer]));
+const key = Object.fromEntries(
+  JSON.parse(readFileSync("data/quiz.json", "utf8")).questions.map((q) => [q.id, q.answer]),
+);
 
 // Walk lesson l01 (Russian) until the flag question, answering the question before it wrong.
 const samples = [];
 let r = await call("start_lesson", { language: "ru", lesson_id: "l01" });
 samples.push({ label: "Lesson start (ru): concept + first question", result: r });
 // ChatGPT gets the card's data in _meta (the "openai/..." key marks a ChatGPT call).
-const viaChatGPT = await client.callTool({ name: "start_lesson", arguments: { lesson_id: "l01" }, _meta: { "openai/userAgent": "preview" } });
+const viaChatGPT = await client.callTool({
+  name: "start_lesson",
+  arguments: { lesson_id: "l01" },
+  _meta: { "openai/userAgent": "preview" },
+});
 samples.push({ label: "ChatGPT: same step, card data in _meta", result: viaChatGPT });
 for (;;) {
   const step = JSON.parse(r.content[0].text);
@@ -37,8 +49,11 @@ await client.close();
 const safe = (v) => JSON.stringify(v).replaceAll("</", "<\\/");
 const host = await build({ entryPoints: ["scripts/preview/host.ts"], bundle: true, format: "esm", write: false });
 mkdirSync("scripts/preview/out", { recursive: true });
-writeFileSync("scripts/preview/out/index.html", `<!doctype html><meta charset="utf-8"><title>Card preview</title>
+writeFileSync(
+  "scripts/preview/out/index.html",
+  `<!doctype html><meta charset="utf-8"><title>Card preview</title>
 <style>body{font-family:sans-serif;background:#ddd;display:flex;flex-wrap:wrap;gap:16px;padding:16px}section{background:#fff;padding:8px;border-radius:8px}iframe{width:420px;height:560px;border:1px solid #ccc;border-radius:8px}pre{font-size:11px;white-space:pre-wrap;width:420px}</style>
 <script>const CARD_HTML=${safe(readFileSync("data/card.html", "utf8"))};const SAMPLES=${safe(samples)};</script>
-<script type="module">${host.outputFiles[0].text}</script>`);
+<script type="module">${host.outputFiles[0].text}</script>`,
+);
 console.log("preview written");

@@ -20,7 +20,12 @@ const g = GUIDE[lang];
 const ui = UI[lang];
 const links = { ...LINKS, questions: questionsPath(lang), learn: "/learn/", method: methodPath(lang) };
 const fill = (html: string) => html.replace(/\{(\w+)\}/g, (_, k: string) => (links as Record<string, string>)[k]);
-const plain = (html: string) => html.replace(/<li>/g, " ").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+const plain = (html: string) =>
+  html
+    .replace(/<li>/g, " ")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, guidePath(id)]));
 const jsonLd = {
   "@context": "https://schema.org",
@@ -39,40 +44,55 @@ const sources = [
   ["zh.ch: KBüV (LS 141.11)", LINKS.kbuev],
 ];
 ---
-<Base lang={lang} title={g.title} description={g.desc} alternates={alternates} jsonLd={jsonLd}>
-<main class="page">
-  <header class="qhead">
-    <Breadcrumbs lang={lang} items={[[g.nav, guidePath(lang)]]} />
-    <h1>{g.title}</h1>
-    <p class="lede">{g.lede}</p>
-  </header>
 
-  {g.faq.map((f, i) => (
-    <section class="row" aria-labelledby={`f${i}`}>
-      <h2 id={`f${i}`}>{f.q}</h2>
-      <div class="prose">
-        {f.a.map((html) => (html.startsWith("<ul>") ? <Fragment set:html={fill(html)} /> : <p set:html={fill(html)} />))}
-        {i === 1 && <SelfCheck lang={lang} />}
-        {i === 3 && <TestOrder lang={lang} />}
+<Base lang={lang} title={g.title} description={g.desc} alternates={alternates} jsonLd={jsonLd}>
+  <main class="page">
+    <header class="qhead">
+      <Breadcrumbs lang={lang} items={[[g.nav, guidePath(lang)]]} />
+      <h1>{g.title}</h1>
+      <p class="lede">{g.lede}</p>
+    </header>
+
+    {g.faq.map((f, i) => (
+      <section class="row" aria-labelledby={`f${i}`}>
+        <h2 id={`f${i}`}>{f.q}</h2>
+        <div class="prose">
+          {f.a.map((html) =>
+            html.startsWith("<ul>") ? <Fragment set:html={fill(html)} /> : <p set:html={fill(html)} />,
+          )}
+          {i === 1 && <SelfCheck lang={lang} />}
+          {i === 3 && <TestOrder lang={lang} />}
+        </div>
+      </section>
+    ))}
+
+    <section class="row" aria-labelledby="sources">
+      <h2 id="sources">{g.sources}</h2>
+      <div>
+        <ul class="sources">
+          {sources.map(([name, href]) => (
+            <li>
+              <a href={href} rel="noopener">
+                {name}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="note">{g.disclaimer}</p>
       </div>
     </section>
-  ))}
 
-  <section class="row" aria-labelledby="sources">
-    <h2 id="sources">{g.sources}</h2>
-    <div>
-      <ul class="sources">
-        {sources.map(([name, href]) => <li><a href={href} rel="noopener">{name}</a></li>)}
-      </ul>
-      <p class="note">{g.disclaimer}</p>
-    </div>
-  </section>
-
-  <nav class="row qnav" aria-label={g.nav}>
-    <p class="cta"><a class="button" href="/learn/">{ui.practise}</a></p>
-    <p><a href={questionsPath(lang)}>{ui.nav_questions}</a></p>
-  </nav>
-</main>
+    <nav class="row qnav" aria-label={g.nav}>
+      <p class="cta">
+        <a class="button" href="/learn/">
+          {ui.practise}
+        </a>
+      </p>
+      <p>
+        <a href={questionsPath(lang)}>{ui.nav_questions}</a>
+      </p>
+    </nav>
+  </main>
 </Base>
 
 <script>

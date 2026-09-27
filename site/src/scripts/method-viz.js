@@ -24,11 +24,14 @@ function h(tag, attrs = {}, ...children) {
 
 /** Runs `play` once, when enough of the element is on screen. */
 function whenVisible(el, play, threshold = 0.4) {
-  const observer = new IntersectionObserver(([entry]) => {
-    if (!entry.isIntersecting) return;
-    observer.disconnect();
-    play();
-  }, { threshold });
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      play();
+    },
+    { threshold },
+  );
   observer.observe(el);
 }
 
@@ -50,7 +53,14 @@ for (const fig of document.querySelectorAll("[data-curve]")) {
     tip.replaceChildren(
       h("p", { class: "tip-day" }, `${L.day} ${day}`, review && ` · ${L.review}`),
       ...["spaced", "cram"].map((plan) =>
-        h("p", {}, h("i", { class: `key key-${plan}` }), h("strong", {}, L.levels[level(recall(plan, day))]), " ", h("span", {}, L[plan])),
+        h(
+          "p",
+          {},
+          h("i", { class: `key key-${plan}` }),
+          h("strong", {}, L.levels[level(recall(plan, day))]),
+          " ",
+          h("span", {}, L[plan]),
+        ),
       ),
     );
     tip.hidden = false;
@@ -89,11 +99,18 @@ for (const fig of document.querySelectorAll("[data-curve]")) {
       run(reveal, [{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }], { duration: ms, easing: "linear" });
       // Each review dot appears when the line reaches it.
       for (const dot of dots) {
-        run(dot, [{ opacity: 0, transform: "scale(0.3)" }, { opacity: 1, transform: "scale(1)" }], {
-          duration: 300,
-          delay: (x(Number(dot.dataset.day)) / W) * ms,
-          easing: "cubic-bezier(0.3, 1.6, 0.5, 1)",
-        });
+        run(
+          dot,
+          [
+            { opacity: 0, transform: "scale(0.3)" },
+            { opacity: 1, transform: "scale(1)" },
+          ],
+          {
+            duration: 300,
+            delay: (x(Number(dot.dataset.day)) / W) * ms,
+            easing: "cubic-bezier(0.3, 1.6, 0.5, 1)",
+          },
+        );
       }
     });
   }
@@ -123,14 +140,28 @@ for (const fig of document.querySelectorAll("[data-try]")) {
         else if (o === b) o.classList.add("is-wrong");
       }
       out.replaceChildren(
-        h("div", {},
-          h("p", { class: `verdict${correct ? " ok" : ""}` }, correct ? d.right : `${d.wrong} ${d.answer.toUpperCase()}: ${d.options[d.answer]}`),
+        h(
+          "div",
+          {},
+          h(
+            "p",
+            { class: `verdict${correct ? " ok" : ""}` },
+            correct ? d.right : `${d.wrong} ${d.answer.toUpperCase()}: ${d.options[d.answer]}`,
+          ),
           !correct && d.distractors[letter] && h("p", {}, d.distractors[letter]),
           h("p", {}, d.why),
           h("p", {}, h("button", { class: "again", type: "button", onclick: reset }, d.again)),
         ),
       );
-      if (motion) run(out, [{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 350 });
+      if (motion)
+        run(
+          out,
+          [
+            { opacity: 0, transform: "translateY(6px)" },
+            { opacity: 1, transform: "none" },
+          ],
+          { duration: 350 },
+        );
     });
   }
 }
@@ -156,7 +187,11 @@ for (const fig of document.querySelectorAll("[data-mix]")) {
       const dx = before.get(el).left - el.getBoundingClientRect().left;
       if (!dx) return;
       el.animate(
-        [{ transform: `translate(${dx}px, 0)` }, { transform: `translate(${dx / 2}px, -0.75rem)` }, { transform: "none" }],
+        [
+          { transform: `translate(${dx}px, 0)` },
+          { transform: `translate(${dx / 2}px, -0.75rem)` },
+          { transform: "none" },
+        ],
         { duration: 700, easing: ease, delay: k * 30 },
       );
     });

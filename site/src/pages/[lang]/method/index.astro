@@ -38,39 +38,55 @@ const jsonLd = {
   citation: SOURCES.map((s) => ({ "@type": "ScholarlyArticle", name: s.cite, url: doi(s.doi) })),
 };
 ---
+
 <Base lang={lang} title={m.title} description={m.desc} alternates={alternates} jsonLd={jsonLd}>
-<main class="page">
-  <header class="qhead">
-    <Breadcrumbs lang={lang} items={[[m.nav, methodPath(lang)]]} />
-    <h1>{m.title}</h1>
-    <p class="lede">{m.lede}</p>
-  </header>
+  <main class="page">
+    <header class="qhead">
+      <Breadcrumbs lang={lang} items={[[m.nav, methodPath(lang)]]} />
+      <h1>{m.title}</h1>
+      <p class="lede">{m.lede}</p>
+    </header>
 
-  {m.sections.map(([heading, paragraphs], i) => (
-    <section class="row" aria-labelledby={`m${i}`}>
-      <h2 id={`m${i}`}>{heading}</h2>
-      <div class="prose">
-        {paragraphs.map((p) => <p>{p}</p>)}
-        {i === 1 && <ForgettingCurve lang={lang} />}
-        {i === 2 && <TryQuestion lang={lang} id="q001" />}
-        {i === 3 && <MixedPractice lang={lang} />}
-        {i === 4 && <LanguageSwitch lang={lang} id="q002" />}
-      </div>
+    {m.sections.map(([heading, paragraphs], i) => (
+      <section class="row" aria-labelledby={`m${i}`}>
+        <h2 id={`m${i}`}>{heading}</h2>
+        <div class="prose">
+          {paragraphs.map((p) => (
+            <p>{p}</p>
+          ))}
+          {i === 1 && <ForgettingCurve lang={lang} />}
+          {i === 2 && <TryQuestion lang={lang} id="q001" />}
+          {i === 3 && <MixedPractice lang={lang} />}
+          {i === 4 && <LanguageSwitch lang={lang} id="q002" />}
+        </div>
+      </section>
+    ))}
+
+    <section class="row" aria-labelledby="sources">
+      <h2 id="sources">{ui.sources}</h2>
+      <ul class="sources">
+        {SOURCES.map((s) => (
+          <li lang="en">
+            {s.cite}{" "}
+            <a href={doi(s.doi)} rel="noopener">
+              doi:{s.doi}
+            </a>
+          </li>
+        ))}
+      </ul>
     </section>
-  ))}
 
-  <section class="row" aria-labelledby="sources">
-    <h2 id="sources">{ui.sources}</h2>
-    <ul class="sources">
-      {SOURCES.map((s) => <li lang="en">{s.cite} <a href={doi(s.doi)} rel="noopener">doi:{s.doi}</a></li>)}
-    </ul>
-  </section>
-
-  <nav class="row qnav" aria-label={m.link}>
-    <p class="cta"><a class="button" href="/learn/">{ui.practise}</a></p>
-    <p><a href={questionsPath(lang)}>{ui.nav_questions}</a></p>
-  </nav>
-</main>
+    <nav class="row qnav" aria-label={m.link}>
+      <p class="cta">
+        <a class="button" href="/learn/">
+          {ui.practise}
+        </a>
+      </p>
+      <p>
+        <a href={questionsPath(lang)}>{ui.nav_questions}</a>
+      </p>
+    </nav>
+  </main>
 </Base>
 
 <script>

@@ -54,7 +54,8 @@ export default function securityHeaders() {
           "frame-ancestors 'none'",
         ].join("; ");
         // Cloudflare ignores header lines longer than 2000 characters: fail the build instead.
-        if (csp.length > 1900) throw new Error(`Content-Security-Policy is ${csp.length} characters; move inline scripts into files`);
+        if (csp.length > 1900)
+          throw new Error(`Content-Security-Policy is ${csp.length} characters; move inline scripts into files`);
         const name = process.env.CSP_REPORT_ONLY ? "Content-Security-Policy-Report-Only" : "Content-Security-Policy";
         const rules = [
           "/*",

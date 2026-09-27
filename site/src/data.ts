@@ -22,7 +22,8 @@ export const { units, lessons, concepts } = curriculum;
 // When the explanations were last checked against the official sources, shown as "Last checked" on question and
 // topic pages. Change it only after a real check (see content/review_flags.md), never to the build date.
 const CHECKED = new Date(Date.UTC(2026, 8, 26));
-export const checkedMonth = (lang: string) => new Intl.DateTimeFormat(lang, { month: "long", year: "numeric", timeZone: "UTC" }).format(CHECKED);
+export const checkedMonth = (lang: string) =>
+  new Intl.DateTimeFormat(lang, { month: "long", year: "numeric", timeZone: "UTC" }).format(CHECKED);
 
 // Every language has its own prefix (/de/, /en/, ...); / is the language picker.
 export const prefix = (lang: string) => `/${lang}`;
@@ -40,9 +41,14 @@ export const connectPath = (lang: string) => `${prefix(lang)}/connect/`;
 function slugify(text: string) {
   const slug = text
     .toLowerCase()
-    .replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss")
-    .normalize("NFD").replace(/[̀-ͯ]/g, "")
-    .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    .replace(/ä/g, "ae")
+    .replace(/ö/g, "oe")
+    .replace(/ü/g, "ue")
+    .replace(/ß/g, "ss")
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
   if (slug.length <= 60) return slug;
   return slug.slice(0, 61).replace(/-[^-]*$/, "");
 }

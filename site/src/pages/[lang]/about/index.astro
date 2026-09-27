@@ -38,30 +38,35 @@ const jsonLd = {
   },
 };
 ---
+
 <Base lang={lang} title={a.title} description={a.desc} alternates={alternates} jsonLd={jsonLd}>
-<main class="page">
-  <header class="qhead">
-    <Breadcrumbs lang={lang} items={[[a.nav, aboutPath(lang)]]} />
-    <h1>{a.title}</h1>
-    <p class="lede">{a.desc}</p>
-  </header>
-  {a.sections.map(([heading, paragraphs], i) => (
-    <section class="row" aria-labelledby={`a${i}`}>
-      <h2 id={`a${i}`}>{heading}</h2>
-      <div class="prose">
-        {paragraphs.map((html) => <p set:html={fill(html)} />)}
-        {i === 0 && (
-          <div class="makers">
-            {makers.map((m) => (
-              <figure>
-                <img src={PHOTOS[m.name].src} width={PHOTOS[m.name].width} height={PHOTOS[m.name].height} alt="">
-                <figcaption><a href={m.url}>{m.name}</a></figcaption>
-              </figure>
-            ))}
-          </div>
-        )}
-      </div>
-    </section>
-  ))}
-</main>
+  <main class="page">
+    <header class="qhead">
+      <Breadcrumbs lang={lang} items={[[a.nav, aboutPath(lang)]]} />
+      <h1>{a.title}</h1>
+      <p class="lede">{a.desc}</p>
+    </header>
+    {a.sections.map(([heading, paragraphs], i) => (
+      <section class="row" aria-labelledby={`a${i}`}>
+        <h2 id={`a${i}`}>{heading}</h2>
+        <div class="prose">
+          {paragraphs.map((html) => (
+            <p set:html={fill(html)} />
+          ))}
+          {i === 0 && (
+            <div class="makers">
+              {makers.map((m) => (
+                <figure>
+                  <img src={PHOTOS[m.name].src} width={PHOTOS[m.name].width} height={PHOTOS[m.name].height} alt="" />
+                  <figcaption>
+                    <a href={m.url}>{m.name}</a>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    ))}
+  </main>
 </Base>

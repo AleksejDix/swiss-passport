@@ -20,7 +20,9 @@ createHttpServer(async (req, res) => {
   const path = new URL(req.url ?? "/", "http://localhost").pathname;
   if (path !== "/mcp") {
     res.writeHead(path === "/" ? 200 : 404, { "content-type": "text/plain; charset=utf-8" });
-    res.end(path === "/" ? `Swiss Passport quiz MCP server ${VERSION}. Connector URL: this address + /mcp\n` : "Not found\n");
+    res.end(
+      path === "/" ? `Swiss Passport quiz MCP server ${VERSION}. Connector URL: this address + /mcp\n` : "Not found\n",
+    );
     return;
   }
   try {

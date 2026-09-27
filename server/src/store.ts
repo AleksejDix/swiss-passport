@@ -13,7 +13,9 @@ export interface Store {
 }
 
 /** Single learner on this computer. */
-export function fileStore(file = process.env.PROGRESS_FILE || join(homedir(), ".swiss-passport-quiz", "progress.json")): Store {
+export function fileStore(
+  file = process.env.PROGRESS_FILE || join(homedir(), ".swiss-passport-quiz", "progress.json"),
+): Store {
   return {
     async load() {
       return existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : emptyProgress();

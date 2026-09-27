@@ -20,6 +20,7 @@ interface Props {
 const { lang, topic, caption = true } = Astro.props;
 const kind = visualFor(topic);
 ---
+
 {kind === "history" && <HistoryTimeline lang={lang} current={topic} caption={caption} />}
 {kind === "parliament" && <Parliament lang={lang} caption={caption} />}
 {kind === "federalCouncil" && <FederalCouncil lang={lang} caption={caption} />}

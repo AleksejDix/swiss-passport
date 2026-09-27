@@ -21,7 +21,10 @@ export default {
       },
       card: async () => card,
     };
-    const transport = new WebStandardStreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });
+    const transport = new WebStandardStreamableHTTPServerTransport({
+      sessionIdGenerator: undefined,
+      enableJsonResponse: true,
+    });
     await createServer(d1Store(env.DB), { online: true, assets }).connect(transport);
     return transport.handleRequest(request);
   },

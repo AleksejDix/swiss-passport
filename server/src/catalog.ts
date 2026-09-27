@@ -12,7 +12,13 @@ export type Lang = (typeof LANGUAGES)[number];
 
 /** The quiz card's labels in each language (i18n/<code>.json, key card), sent along with every card. */
 export const CARD_LABELS = byLang((t) => t.card as CardLabels);
-export interface CardLabels { right: string; wrongIs: string; again: string; next: string; done: string }
+export interface CardLabels {
+  right: string;
+  wrongIs: string;
+  again: string;
+  next: string;
+  done: string;
+}
 
 export const catalog: Catalog = {
   exam: {

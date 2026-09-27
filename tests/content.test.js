@@ -13,7 +13,8 @@ const de = TEXTS.de;
 // Words that change with a number are objects of plural forms ({ one, other } in German, { one, few, many, other }
 // in Russian). Each language has its own forms, so such an object counts as one text.
 const PLURAL = new Set(["zero", "one", "two", "few", "many", "other"]);
-const isPlural = (value) => value && typeof value === "object" && !Array.isArray(value) && Object.keys(value).every((k) => PLURAL.has(k));
+const isPlural = (value) =>
+  value && typeof value === "object" && !Array.isArray(value) && Object.keys(value).every((k) => PLURAL.has(k));
 
 /** Every path to a text in a JSON tree, arrays included: "site.home.h1", "concepts.x.intro.0". */
 function paths(value, prefix = "") {
@@ -22,8 +23,7 @@ function paths(value, prefix = "") {
   }
   return [prefix];
 }
-const placeholders = (text) =>
-  [...new Set([...JSON.stringify(text).matchAll(/\{[a-z_]+\}/g)].map((m) => m[0]))].sort();
+const placeholders = (text) => [...new Set([...JSON.stringify(text).matchAll(/\{[a-z_]+\}/g)].map((m) => m[0]))].sort();
 const get = (obj, path) => path.split(".").reduce((o, k) => o?.[k], obj);
 
 test("German comes first: the exam is in German", () => {
@@ -34,8 +34,16 @@ for (const lang of LANGUAGES.slice(1)) {
   test(`${lang}.json has exactly the keys of de.json`, () => {
     const own = new Set(paths(TEXTS[lang]));
     const german = new Set(paths(de));
-    assert.deepEqual([...german].filter((p) => !own.has(p)), [], "missing in this language");
-    assert.deepEqual([...own].filter((p) => !german.has(p)), [], "only in this language");
+    assert.deepEqual(
+      [...german].filter((p) => !own.has(p)),
+      [],
+      "missing in this language",
+    );
+    assert.deepEqual(
+      [...own].filter((p) => !german.has(p)),
+      [],
+      "only in this language",
+    );
   });
 
   test(`${lang}.json keeps every {placeholder} of de.json`, () => {
@@ -49,13 +57,23 @@ for (const lang of LANGUAGES) {
     // The site counts questions, seats and members, never millions; a missing form falls back to "other".
     const rules = new Intl.PluralRules(TEXTS[lang].language);
     const needed = [...new Set(["other", ...Array.from({ length: 1001 }, (_, n) => rules.select(n))])];
-    const forms = paths(TEXTS[lang]).map((p) => [p, get(TEXTS[lang], p)]).filter(([, v]) => isPlural(v));
+    const forms = paths(TEXTS[lang])
+      .map((p) => [p, get(TEXTS[lang], p)])
+      .filter(([, v]) => isPlural(v));
     assert.ok(forms.length > 0);
-    for (const [p, v] of forms) assert.deepEqual(needed.filter((c) => !(c in v)), [], p);
+    for (const [p, v] of forms)
+      assert.deepEqual(
+        needed.filter((c) => !(c in v)),
+        [],
+        p,
+      );
   });
 
   test(`${lang}.json has no empty texts`, () => {
-    assert.deepEqual(paths(TEXTS[lang]).filter((p) => get(TEXTS[lang], p) === ""), []);
+    assert.deepEqual(
+      paths(TEXTS[lang]).filter((p) => get(TEXTS[lang], p) === ""),
+      [],
+    );
   });
 
   test(`${lang}.json translates every question with all four options and an explanation`, () => {
@@ -73,7 +91,11 @@ test("quiz.json: ids are unique, four options a to d, the answer is one of them"
   assert.equal(quiz.questions.length, quiz.count);
   assert.equal(new Set(quiz.questions.map((q) => q.id)).size, quiz.questions.length);
   for (const q of quiz.questions) {
-    assert.deepEqual(q.options.map((o) => o.id), ["a", "b", "c", "d"], q.id);
+    assert.deepEqual(
+      q.options.map((o) => o.id),
+      ["a", "b", "c", "d"],
+      q.id,
+    );
     assert.ok(["a", "b", "c", "d"].includes(q.answer), q.id);
   }
 });
@@ -87,13 +109,17 @@ test("quiz.json: every picture exists", () => {
 test("curriculum.json: every question belongs to exactly one topic", () => {
   const counts = new Map(quiz.questions.map((q) => [q.id, 0]));
   for (const c of concepts) for (const id of c.questions) counts.set(id, (counts.get(id) ?? 0) + 1);
-  assert.deepEqual([...counts].filter(([, n]) => n !== 1), []);
+  assert.deepEqual(
+    [...counts].filter(([, n]) => n !== 1),
+    [],
+  );
 });
 
 test("curriculum.json: units, lessons and topics point at each other", () => {
   const lessonIds = new Set(lessons.map((l) => l.id));
   const conceptIds = new Set(concepts.map((c) => c.id));
-  for (const u of units) for (const id of u.lessons) assert.equal(lessons.find((l) => l.id === id)?.unit, u.id, `${u.id} -> ${id}`);
+  for (const u of units)
+    for (const id of u.lessons) assert.equal(lessons.find((l) => l.id === id)?.unit, u.id, `${u.id} -> ${id}`);
   for (const l of lessons) {
     for (const id of l.concepts) assert.equal(concepts.find((c) => c.id === id)?.lesson, l.id, `${l.id} -> ${id}`);
     for (const id of l.requires ?? []) assert.ok(lessonIds.has(id), `${l.id} requires ${id}`);

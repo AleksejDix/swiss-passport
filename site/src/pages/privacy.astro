@@ -5,56 +5,103 @@ import Base from "../layouts/Base.astro";
 import { OPERATOR, PRIVACY_DATE_EN } from "../legal.ts";
 
 const sections: [heading: string, paragraphs: string[]][] = [
-  ["In short", [
-    "No account, no cookies, no advertising and no tracking of individuals. Visits are counted anonymously. We store only what learning needs, without names or email addresses.",
-  ]],
-  ["Controller", [
-    `${OPERATOR.name}, Canton of Zurich, Switzerland. Email: <a href="mailto:${OPERATOR.email}">${OPERATOR.email}</a>`,
-    "This policy follows the Swiss Federal Act on Data Protection (FADP) and, where it applies, the EU General Data Protection Regulation (GDPR).",
-  ]],
-  ["Visiting the website", [
-    'The website runs on Cloudflare, Inc. (USA). When you open a page, Cloudflare processes technically necessary data: IP address, date and time, the address requested, browser and operating system. This serves operation and security (GDPR Art. 6(1)(f)). Cloudflare decides how long it keeps this data. See the <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare privacy policy</a>. Logs of calls to the learning server (/mcp) are kept for 3 days to find errors; they contain neither your learner code nor your answers.',
-    "The font is served by this website itself. The only thing loaded from elsewhere is the Cloudflare Web Analytics counting script (see Visitor statistics), no content from Google or other third parties.",
-  ]],
-  ["Visitor statistics", [
-    "To see which pages are used, we count visits with Cloudflare Web Analytics. The page loads a small script from Cloudflare (static.cloudflareinsights.com). It sends the page visited, the page you came from, browser, operating system, device type, country and the page's loading time.",
-    'Cloudflare Web Analytics sets no cookies and stores nothing in your browser. According to Cloudflare, it uses no personal data and does not recognise visitors by IP address or browser features. We only see totals. This serves to improve the service (GDPR Art. 6(1)(f)). See the <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare privacy policy</a>.',
-  ]],
-  ["Learning online and in AI apps", [
-    "When you learn online or use Swiss Passport in an AI app, you get a random learner code (for example BERG-7K2Q). Under this code we store your learning progress: chosen language, answered questions with right or wrong and the time, the state of the topics and the results of mock exams.",
-    "It is stored in a Cloudflare database (Cloudflare D1, located in Western Europe). The purpose is that you can continue on any device (GDPR Art. 6(1)(b)). Your progress is deleted automatically 12 months after your last activity. Anyone who knows your learner code can see and continue your progress, so do not share it.",
-    "If you use Swiss Passport in an AI app (for example Claude, ChatGPT, Grok, Mistral Vibe or Perplexity), this server only receives the calls of the learning tools (learner code, language, chosen answers), not your chat history. Technical data the app sends along, such as an anonymous identifier, is not stored. The chat itself is governed by the privacy policy of the app's provider, for example Anthropic or OpenAI.",
-  ]],
-  ["Email", [
-    "Email to the address above is received and stored by our email provider Migadu (Migadu-Mail GmbH, Switzerland) in data centres in France. We use your message only to answer you.",
-  ]],
-  ["Storage in your browser", [
-    "The website stores your chosen language in your browser (localStorage) and, when you learn online, your learner code. This stays on your device and is not used for tracking. You can delete it at any time in your browser settings.",
-  ]],
-  ["Transfers abroad", [
-    "Cloudflare is based in the USA, so data may be processed in the USA or other countries. Cloudflare is certified under the Swiss-U.S. and the EU-U.S. Data Privacy Framework. For companies certified in this way, the Swiss Federal Council has recognised data protection in the USA as adequate (Annex 1 of the Data Protection Ordinance), and so has the EU Commission. Where this does not apply, transfers rely on the EU Commission's standard contractual clauses, which the Swiss Federal Data Protection and Information Commissioner (FDPIC) also recognises.",
-    "Migadu stores email sent to us in data centres in France. The Swiss Federal Council has recognised data protection in France as adequate (Annex 1 of the Data Protection Ordinance).",
-  ]],
-  ["Links", [
-    "Links to other websites (for example zh.ch, admin.ch or GitHub) lead to services whose operators are responsible for their privacy.",
-  ]],
-  ["Your rights", [
-    "You can ask what data we hold about you, have it corrected or deleted, have its processing restricted and object to it. You can also receive your data in a common electronic format or have it transferred to another provider (Swiss FADP Art. 28, GDPR Art. 20). Write to the email address above and include your learner code; without it we cannot find your data.",
-    'You can also complain to the <a href="https://www.edoeb.admin.ch">FDPIC</a> or, if you live in the EU, to the data protection authority of your country.',
-  ]],
+  [
+    "In short",
+    [
+      "No account, no cookies, no advertising and no tracking of individuals. Visits are counted anonymously. We store only what learning needs, without names or email addresses.",
+    ],
+  ],
+  [
+    "Controller",
+    [
+      `${OPERATOR.name}, Canton of Zurich, Switzerland. Email: <a href="mailto:${OPERATOR.email}">${OPERATOR.email}</a>`,
+      "This policy follows the Swiss Federal Act on Data Protection (FADP) and, where it applies, the EU General Data Protection Regulation (GDPR).",
+    ],
+  ],
+  [
+    "Visiting the website",
+    [
+      'The website runs on Cloudflare, Inc. (USA). When you open a page, Cloudflare processes technically necessary data: IP address, date and time, the address requested, browser and operating system. This serves operation and security (GDPR Art. 6(1)(f)). Cloudflare decides how long it keeps this data. See the <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare privacy policy</a>. Logs of calls to the learning server (/mcp) are kept for 3 days to find errors; they contain neither your learner code nor your answers.',
+      "The font is served by this website itself. The only thing loaded from elsewhere is the Cloudflare Web Analytics counting script (see Visitor statistics), no content from Google or other third parties.",
+    ],
+  ],
+  [
+    "Visitor statistics",
+    [
+      "To see which pages are used, we count visits with Cloudflare Web Analytics. The page loads a small script from Cloudflare (static.cloudflareinsights.com). It sends the page visited, the page you came from, browser, operating system, device type, country and the page's loading time.",
+      'Cloudflare Web Analytics sets no cookies and stores nothing in your browser. According to Cloudflare, it uses no personal data and does not recognise visitors by IP address or browser features. We only see totals. This serves to improve the service (GDPR Art. 6(1)(f)). See the <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare privacy policy</a>.',
+    ],
+  ],
+  [
+    "Learning online and in AI apps",
+    [
+      "When you learn online or use Swiss Passport in an AI app, you get a random learner code (for example BERG-7K2Q). Under this code we store your learning progress: chosen language, answered questions with right or wrong and the time, the state of the topics and the results of mock exams.",
+      "It is stored in a Cloudflare database (Cloudflare D1, located in Western Europe). The purpose is that you can continue on any device (GDPR Art. 6(1)(b)). Your progress is deleted automatically 12 months after your last activity. Anyone who knows your learner code can see and continue your progress, so do not share it.",
+      "If you use Swiss Passport in an AI app (for example Claude, ChatGPT, Grok, Mistral Vibe or Perplexity), this server only receives the calls of the learning tools (learner code, language, chosen answers), not your chat history. Technical data the app sends along, such as an anonymous identifier, is not stored. The chat itself is governed by the privacy policy of the app's provider, for example Anthropic or OpenAI.",
+    ],
+  ],
+  [
+    "Email",
+    [
+      "Email to the address above is received and stored by our email provider Migadu (Migadu-Mail GmbH, Switzerland) in data centres in France. We use your message only to answer you.",
+    ],
+  ],
+  [
+    "Storage in your browser",
+    [
+      "The website stores your chosen language in your browser (localStorage) and, when you learn online, your learner code. This stays on your device and is not used for tracking. You can delete it at any time in your browser settings.",
+    ],
+  ],
+  [
+    "Transfers abroad",
+    [
+      "Cloudflare is based in the USA, so data may be processed in the USA or other countries. Cloudflare is certified under the Swiss-U.S. and the EU-U.S. Data Privacy Framework. For companies certified in this way, the Swiss Federal Council has recognised data protection in the USA as adequate (Annex 1 of the Data Protection Ordinance), and so has the EU Commission. Where this does not apply, transfers rely on the EU Commission's standard contractual clauses, which the Swiss Federal Data Protection and Information Commissioner (FDPIC) also recognises.",
+      "Migadu stores email sent to us in data centres in France. The Swiss Federal Council has recognised data protection in France as adequate (Annex 1 of the Data Protection Ordinance).",
+    ],
+  ],
+  [
+    "Links",
+    [
+      "Links to other websites (for example zh.ch, admin.ch or GitHub) lead to services whose operators are responsible for their privacy.",
+    ],
+  ],
+  [
+    "Your rights",
+    [
+      "You can ask what data we hold about you, have it corrected or deleted, have its processing restricted and object to it. You can also receive your data in a common electronic format or have it transferred to another provider (Swiss FADP Art. 28, GDPR Art. 20). Write to the email address above and include your learner code; without it we cannot find your data.",
+      'You can also complain to the <a href="https://www.edoeb.admin.ch">FDPIC</a> or, if you live in the EU, to the data protection authority of your country.',
+    ],
+  ],
 ];
 ---
-<Base lang="en" remember={false} title="Privacy policy | Swiss Passport" description="What data Swiss Passport processes: no cookies, anonymous visitor statistics, learning progress only under an anonymous learner code." alternates={{ en: "/privacy/" }}>
-<main class="page">
-  <header class="qhead">
-    <h1>Privacy policy</h1>
-    <p class="small">Translation of the <a href="/datenschutz/" hreflang="de" lang="de">Datenschutzerklärung</a>, which is binding. Last changed: {PRIVACY_DATE_EN}.</p>
-  </header>
-  {sections.map(([heading, paragraphs], i) => (
-    <section class="row" aria-labelledby={`p${i}`}>
-      <h2 id={`p${i}`}>{heading}</h2>
-      <div class="prose">{paragraphs.map((html) => <p set:html={html} />)}</div>
-    </section>
-  ))}
-</main>
+
+<Base
+  lang="en"
+  remember={false}
+  title="Privacy policy | Swiss Passport"
+  description="What data Swiss Passport processes: no cookies, anonymous visitor statistics, learning progress only under an anonymous learner code."
+  alternates={{ en: "/privacy/" }}
+>
+  <main class="page">
+    <header class="qhead">
+      <h1>Privacy policy</h1>
+      <p class="small">
+        Translation of the{" "}
+        <a href="/datenschutz/" hreflang="de" lang="de">
+          Datenschutzerklärung
+        </a>
+        , which is binding. Last changed: {PRIVACY_DATE_EN}.
+      </p>
+    </header>
+    {sections.map(([heading, paragraphs], i) => (
+      <section class="row" aria-labelledby={`p${i}`}>
+        <h2 id={`p${i}`}>{heading}</h2>
+        <div class="prose">
+          {paragraphs.map((html) => (
+            <p set:html={html} />
+          ))}
+        </div>
+      </section>
+    ))}
+  </main>
 </Base>

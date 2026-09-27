@@ -4,15 +4,31 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { createEngine, emptyProgress, lessonStages } from "../dist/index.js";
 
-const q = (id, category) => ({ id, category, level: "basic", options: ["a", "b", "c", "d"].map((l) => ({ id: l })), answer: "a" });
+const q = (id, category) => ({
+  id,
+  category,
+  level: "basic",
+  options: ["a", "b", "c", "d"].map((l) => ({ id: l })),
+  answer: "a",
+});
 const text = (question) => ({ question, options: { a: "right", b: "wrong", c: "wrong", d: "wrong" }, why: "Because." });
 const IDS = ["q1", "q2", "q3", "q4", "q5", "q6"];
 const catalog = {
   exam: { name: "a test course", size: 4, pass_mark: "not set" },
   languages: ["en"],
-  questions: [q("q1", "privacy"), q("q2", "privacy"), q("q3", "privacy"), q("q4", "privacy"), q("q5", "gifts"), q("q6", "gifts")],
+  questions: [
+    q("q1", "privacy"),
+    q("q2", "privacy"),
+    q("q3", "privacy"),
+    q("q4", "privacy"),
+    q("q5", "gifts"),
+    q("q6", "gifts"),
+  ],
   curriculum: {
-    units: [{ id: "u1", lessons: ["l1", "l2"] }, { id: "u2", lessons: ["l3"] }],
+    units: [
+      { id: "u1", lessons: ["l1", "l2"] },
+      { id: "u2", lessons: ["l3"] },
+    ],
     lessons: [
       { id: "l1", unit: "u1", requires: [], concepts: ["c1"] },
       { id: "l2", unit: "u1", requires: ["l1"], concepts: ["c2"] },
@@ -53,7 +69,10 @@ test("stages follow the prerequisites", () => {
 
 test("a new learner may start in every unit; the first unit is recommended", () => {
   const p = emptyProgress();
-  assert.deepEqual(engine.progress(p, "en").lesson_choices.map((c) => c.id), ["l1", "l3"]);
+  assert.deepEqual(
+    engine.progress(p, "en").lesson_choices.map((c) => c.id),
+    ["l1", "l3"],
+  );
   assert.equal(engine.nextLessonId(p), "l1");
 });
 
@@ -63,7 +82,10 @@ test("after a lesson the other unit comes first, and the next lesson of the unit
   finish(p);
   const progress = engine.progress(p, "en");
   assert.equal(progress.lessons_done, 1);
-  assert.deepEqual(progress.lesson_choices.map((c) => c.id), ["l3", "l2"]);
+  assert.deepEqual(
+    progress.lesson_choices.map((c) => c.id),
+    ["l3", "l2"],
+  );
   assert.equal(progress.next_lesson.id, "l3");
 });
 

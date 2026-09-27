@@ -6,7 +6,9 @@ import { dirname, join } from "node:path";
 import type { Progress } from "@aleksejdix/learning-engine";
 import type { Store } from "./store.js";
 
-export function sqliteStore(file = process.env.DB_FILE || join(homedir(), ".swiss-passport-quiz", "learners.db")): Store {
+export function sqliteStore(
+  file = process.env.DB_FILE || join(homedir(), ".swiss-passport-quiz", "learners.db"),
+): Store {
   mkdirSync(dirname(file), { recursive: true });
   const db = new DatabaseSync(file);
   db.exec(`CREATE TABLE IF NOT EXISTS learners (

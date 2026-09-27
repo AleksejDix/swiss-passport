@@ -7,7 +7,16 @@ import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import TopicVisual from "../../../components/topics/TopicVisual.astro";
 import { visualFor } from "../../../viz/topic-visuals.ts";
 import { UI } from "../../../ui.ts";
-import { TEXT, LANG_IDS, lessons, questions, questionPath, questionsPath, topicPath, checkedMonth } from "../../../data.ts";
+import {
+  TEXT,
+  LANG_IDS,
+  lessons,
+  questions,
+  questionPath,
+  questionsPath,
+  topicPath,
+  checkedMonth,
+} from "../../../data.ts";
 import { LINKS } from "../../../guide.ts";
 import { OPERATOR } from "../../../legal.ts";
 import { SITE } from "../../../site.ts";
@@ -53,96 +62,149 @@ const jsonLd = {
   inLanguage: lang,
   about: { "@type": "Thing", name: t.title },
   educationalLevel: "Grundkenntnistest Kanton Zürich",
-  hasPart: [{
-    "@type": "Question",
-    eduQuestionType: "Multiple choice",
-    learningResourceType: "Practice problem",
-    name: text.question,
-    text: text.question,
-    suggestedAnswer: letters.filter((l) => l !== right).map((l) => ({
-      "@type": "Answer", position: letters.indexOf(l), text: text.options[l],
-    })),
-    acceptedAnswer: {
-      "@type": "Answer", position: letters.indexOf(right), text: text.options[right],
-      answerExplanation: { "@type": "Comment", text: text.why },
+  hasPart: [
+    {
+      "@type": "Question",
+      eduQuestionType: "Multiple choice",
+      learningResourceType: "Practice problem",
+      name: text.question,
+      text: text.question,
+      suggestedAnswer: letters
+        .filter((l) => l !== right)
+        .map((l) => ({
+          "@type": "Answer",
+          position: letters.indexOf(l),
+          text: text.options[l],
+        })),
+      acceptedAnswer: {
+        "@type": "Answer",
+        position: letters.indexOf(right),
+        text: text.options[right],
+        answerExplanation: { "@type": "Comment", text: text.why },
+      },
     },
-  }],
+  ],
 };
 ---
+
 <Base lang={lang} title={title} description={description} alternates={alternates} jsonLd={jsonLd}>
-<main class="page question">
-  <header class="qhead">
-    <Breadcrumbs lang={lang} items={[[ui.nav_questions, questionsPath(lang)], [concept.title, topicPath(lang, q.concept)], [ui.question_n.replace("{n}", String(q.n)), questionPath(lang, q)]]} />
-    <h1>{text.question}</h1>
-    {lang !== "de" && <p class="qde" lang="de">{de.question}</p>}
-    {q.image && <img class="qpicture" src={img(q.image)} alt={text.question} loading="lazy">}
-  </header>
-
-  <section class="row" aria-labelledby="answer">
-    <h2 id="answer">{ui.answer}: {right.toUpperCase()}</h2>
-    <ol class="qoptions">
-      {q.options.map((o) => (
-        <li class={o.id === right ? "is-right" : undefined}>
-          <b>{o.id.toUpperCase()}</b>
-          <span>
-            {o.image && <img src={img(o.image)} alt={text.options[o.id]} loading="lazy">}
-            {text.options[o.id]}{lang !== "de" && <small lang="de">{de.options[o.id]}</small>}
-          </span>
-        </li>
-      ))}
-    </ol>
-  </section>
-
-  <section class="row" aria-labelledby="why">
-    <h2 id="why">{ui.why}</h2>
-    <div>
-      <p>{text.why}</p>
-      {/* Where the official answer is outdated or simplified: what applies today. */}
-      {text.note && <p class="mnemonic">{text.note}</p>}
-      {text.distractors && Object.keys(text.distractors).length > 0 && (
-        <>
-          <h3>{ui.mistakes}</h3>
-          <dl class="mistakes">
-            {Object.entries(text.distractors).map(([l, why]) => (
-              <>
-                <dt>{l.toUpperCase()}: {text.options[l as Letter]}</dt>
-                <dd>{why}</dd>
-              </>
-            ))}
-          </dl>
-        </>
+  <main class="page question">
+    <header class="qhead">
+      <Breadcrumbs
+        lang={lang}
+        items={[
+          [ui.nav_questions, questionsPath(lang)],
+          [concept.title, topicPath(lang, q.concept)],
+          [ui.question_n.replace("{n}", String(q.n)), questionPath(lang, q)],
+        ]}
+      />
+      <h1>{text.question}</h1>
+      {lang !== "de" && (
+        <p class="qde" lang="de">
+          {de.question}
+        </p>
       )}
-    </div>
-  </section>
+      {q.image && <img class="qpicture" src={img(q.image)} alt={text.question} loading="lazy" />}
+    </header>
 
-  <section class="row" aria-labelledby="topic">
-    <h2 id="topic">{ui.topic}</h2>
-    <div>
-      <p><strong><a href={topicPath(lang, q.concept)}>{concept.title}</a></strong></p>
-      <p>{concept.intro[0]}</p>
-      {visualFor(q.concept.id) && <TopicVisual lang={lang} topic={q.concept.id} />}
-      <p class="small">{t.units[unit].title}<br>{lesson.title}</p>
-      {q.concept.sources?.length > 0 && (
-        <>
-          <h3>{ui.sources}</h3>
-          <ul class="sources">
-            {q.concept.sources.map((src) => <li><a href={src} rel="noopener">{new URL(src).hostname.replace(/^www\./, "")}</a></li>)}
-          </ul>
-          <p class="note">{ui.checked.replace("{date}", checkedMonth(lang))}</p>
-        </>
-      )}
-      <p class="note" set:html={credit} />
-      <p class="note"><a href={report}>{ui.report}</a></p>
-    </div>
-  </section>
+    <section class="row" aria-labelledby="answer">
+      <h2 id="answer">
+        {ui.answer}: {right.toUpperCase()}
+      </h2>
+      <ol class="qoptions">
+        {q.options.map((o) => (
+          <li class={o.id === right ? "is-right" : undefined}>
+            <b>{o.id.toUpperCase()}</b>
+            <span>
+              {o.image && <img src={img(o.image)} alt={text.options[o.id]} loading="lazy" />}
+              {text.options[o.id]}
+              {lang !== "de" && <small lang="de">{de.options[o.id]}</small>}
+            </span>
+          </li>
+        ))}
+      </ol>
+    </section>
 
-  <nav class="row qnav" aria-label={ui.nav_questions}>
-    <p class="cta"><a class="button" href="/learn/">{ui.practise}</a></p>
-    <p>
-      {prev && <a rel="prev" href={questionPath(lang, prev)}>← {ui.prev}</a>}
-      {next && <a rel="next" href={questionPath(lang, next)}>{ui.next} →</a>}
-      <a href={questionsPath(lang)}>{ui.nav_questions}</a>
-    </p>
-  </nav>
-</main>
+    <section class="row" aria-labelledby="why">
+      <h2 id="why">{ui.why}</h2>
+      <div>
+        <p>{text.why}</p>
+        {/* Where the official answer is outdated or simplified: what applies today. */}
+        {text.note && <p class="mnemonic">{text.note}</p>}
+        {text.distractors && Object.keys(text.distractors).length > 0 && (
+          <>
+            <h3>{ui.mistakes}</h3>
+            <dl class="mistakes">
+              {Object.entries(text.distractors).map(([l, why]) => (
+                <>
+                  <dt>
+                    {l.toUpperCase()}: {text.options[l as Letter]}
+                  </dt>
+                  <dd>{why}</dd>
+                </>
+              ))}
+            </dl>
+          </>
+        )}
+      </div>
+    </section>
+
+    <section class="row" aria-labelledby="topic">
+      <h2 id="topic">{ui.topic}</h2>
+      <div>
+        <p>
+          <strong>
+            <a href={topicPath(lang, q.concept)}>{concept.title}</a>
+          </strong>
+        </p>
+        <p>{concept.intro[0]}</p>
+        {visualFor(q.concept.id) && <TopicVisual lang={lang} topic={q.concept.id} />}
+        <p class="small">
+          {t.units[unit].title}
+          <br />
+          {lesson.title}
+        </p>
+        {q.concept.sources?.length > 0 && (
+          <>
+            <h3>{ui.sources}</h3>
+            <ul class="sources">
+              {q.concept.sources.map((src) => (
+                <li>
+                  <a href={src} rel="noopener">
+                    {new URL(src).hostname.replace(/^www\./, "")}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p class="note">{ui.checked.replace("{date}", checkedMonth(lang))}</p>
+          </>
+        )}
+        <p class="note" set:html={credit} />
+        <p class="note">
+          <a href={report}>{ui.report}</a>
+        </p>
+      </div>
+    </section>
+
+    <nav class="row qnav" aria-label={ui.nav_questions}>
+      <p class="cta">
+        <a class="button" href="/learn/">
+          {ui.practise}
+        </a>
+      </p>
+      <p>
+        {prev && (
+          <a rel="prev" href={questionPath(lang, prev)}>
+            ← {ui.prev}
+          </a>
+        )}
+        {next && (
+          <a rel="next" href={questionPath(lang, next)}>
+            {ui.next} →
+          </a>
+        )}
+        <a href={questionsPath(lang)}>{ui.nav_questions}</a>
+      </p>
+    </nav>
+  </main>
 </Base>

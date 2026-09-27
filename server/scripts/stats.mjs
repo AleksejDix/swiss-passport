@@ -27,7 +27,9 @@ const QUERIES = {
     FROM learners, json_each(learners.progress, '$.exams') AS e`,
 };
 
-const sql = Object.values(QUERIES).map((q) => q.replace(/\s+/g, " ")).join("; ");
+const sql = Object.values(QUERIES)
+  .map((q) => q.replace(/\s+/g, " "))
+  .join("; ");
 const output = execFileSync("npx", ["wrangler", "d1", "execute", "swiss-passport", where, "--json", "--command", sql], {
   cwd: new URL("..", import.meta.url),
   encoding: "utf8",

@@ -18,17 +18,35 @@ const q = question(id);
 const t = TEXT[lang].questions[id];
 const de = TEXT.de.questions[id];
 const letters = q.options.map((o) => o.id);
-const data = { answer: q.answer, options: t.options, why: t.why, distractors: t.distractors ?? {}, right: s.hero_right, wrong: s.hero_wrong, again: s.hero_again };
+const data = {
+  answer: q.answer,
+  options: t.options,
+  why: t.why,
+  distractors: t.distractors ?? {},
+  right: s.hero_right,
+  wrong: s.hero_wrong,
+  again: s.hero_again,
+};
 ---
+
 <figure class="viz try" data-try data-question={JSON.stringify(data)}>
   <p class="small">{v.tryIt}</p>
-  <p class="hq" lang={lang}>{t.question}</p>
-  {lang !== "de" && <p class="htr" lang="de">{de.question}</p>}
+  <p class="hq" lang={lang}>
+    {t.question}
+  </p>
+  {lang !== "de" && (
+    <p class="htr" lang="de">
+      {de.question}
+    </p>
+  )}
   <div class="hchoices">
     {letters.map((l) => (
       <button class="hchoice" type="button" data-letter={l}>
         <b>{l.toUpperCase()}</b>
-        <span lang={lang}>{t.options[l]}{lang !== "de" && <small lang="de">{de.options[l]}</small>}</span>
+        <span lang={lang}>
+          {t.options[l]}
+          {lang !== "de" && <small lang="de">{de.options[l]}</small>}
+        </span>
       </button>
     ))}
   </div>

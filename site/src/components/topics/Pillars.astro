@@ -18,6 +18,7 @@ const name = (topic: string, term: string) => termName(c, lang, topic, term);
 const text = (topic: string, term: string) => termText(c, lang, topic, term);
 const pillars = ["Erste Säule", "Zweite Säule", "Dritte Säule"];
 ---
+
 <figure class="plr">
   {caption && <figcaption class="plr-title">{c.three_pillars.title}</figcaption>}
   <div class="plr-house">
@@ -25,14 +26,22 @@ const pillars = ["Erste Säule", "Zweite Säule", "Dritte Säule"];
     <div class="plr-cols">
       {pillars.map((term, i) => (
         <div class="plr-col" style={`--i:${i}`}>
-          <div class="plr-pillar" aria-hidden="true"><span>{i + 1}</span></div>
+          <div class="plr-pillar" aria-hidden="true">
+            <span>{i + 1}</span>
+          </div>
           <p class="plr-name">{name("three_pillars", term)}</p>
-          {lang !== "de" && <p class="plr-de" lang="de">{term}</p>}
+          {lang !== "de" && (
+            <p class="plr-de" lang="de">
+              {term}
+            </p>
+          )}
           <p class="plr-def">{text("three_pillars", term)}</p>
         </div>
       ))}
     </div>
   </div>
   <p class="plr-note">{c.three_pillars.mnemonic}</p>
-  <p class="plr-el"><b>{name("ahv_iv", "Ergänzungsleistungen (EL)")}</b> {text("ahv_iv", "Ergänzungsleistungen (EL)")}</p>
+  <p class="plr-el">
+    <b>{name("ahv_iv", "Ergänzungsleistungen (EL)")}</b> {text("ahv_iv", "Ergänzungsleistungen (EL)")}
+  </p>
 </figure>

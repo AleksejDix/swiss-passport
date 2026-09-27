@@ -17,10 +17,14 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: trail.map(([name, path], i) => ({
-    "@type": "ListItem", position: i + 1, name, item: new URL(path, SITE).href,
+    "@type": "ListItem",
+    position: i + 1,
+    name,
+    item: new URL(path, SITE).href,
   })),
 };
 ---
+
 <nav class="small crumbs" aria-label={UI[lang].breadcrumb}>
   <ol>
     {trail.map(([name, path], i) => (

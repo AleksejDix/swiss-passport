@@ -12,8 +12,21 @@ interface Props {
 const { lang, here = false } = Astro.props;
 const base = here ? "" : connectPath(lang);
 ---
+
 <ul class="apps">
   {CONNECT[lang].apps.map((app) => (
-    <li><a href={`${base}#${app.id}`}><svg class="logo" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true" set:html={LOGOS[app.id]} />{app.name}</a></li>
+    <li>
+      <a href={`${base}#${app.id}`}>
+        <svg
+          class="logo"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          fill-rule="evenodd"
+          aria-hidden="true"
+          set:html={LOGOS[app.id]}
+        />
+        {app.name}
+      </a>
+    </li>
   ))}
 </ul>

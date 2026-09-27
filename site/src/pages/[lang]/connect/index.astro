@@ -33,49 +33,68 @@ const jsonLd = {
   })),
 };
 ---
+
 <Base lang={lang} title={c.title} description={c.desc} alternates={alternates} jsonLd={jsonLd}>
-<main class="page">
-  <header class="qhead">
-    <Breadcrumbs lang={lang} items={[[c.nav, connectPath(lang)]]} />
-    <h1>{c.title}</h1>
-    <p class="lede">{c.desc}</p>
-    <AppLinks lang={lang} here />
-  </header>
+  <main class="page">
+    <header class="qhead">
+      <Breadcrumbs lang={lang} items={[[c.nav, connectPath(lang)]]} />
+      <h1>{c.title}</h1>
+      <p class="lede">{c.desc}</p>
+      <AppLinks lang={lang} here />
+    </header>
 
-  <section class="row" aria-labelledby="address">
-    <h2 id="address">{c.address}</h2>
-    <div>
-      <p>{s.s_connector_p}</p>
-      <div class="url">
-        <code data-url>{new URL("/mcp", SITE).href}</code>
-        <button type="button" data-copy data-copied={s.copied} aria-live="polite">{s.copy}</button>
-      </div>
-    </div>
-  </section>
-
-  {c.apps.map((app) => (
-    <section class="row" id={app.id} aria-labelledby={`${app.id}-title`}>
-      <h2 id={`${app.id}-title`}><svg class="logo" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true" set:html={LOGOS[app.id]} />{app.name}</h2>
+    <section class="row" aria-labelledby="address">
+      <h2 id="address">{c.address}</h2>
       <div>
-        <p>{app.note}</p>
-        <ol class="howto">{app.steps.map((step) => <li>{step}</li>)}</ol>
+        <p>{s.s_connector_p}</p>
+        <div class="url">
+          <code data-url>{new URL("/mcp", SITE).href}</code>
+          <button type="button" data-copy data-copied={s.copied} aria-live="polite">
+            {s.copy}
+          </button>
+        </div>
       </div>
     </section>
-  ))}
 
-  <section class="row" aria-labelledby="other">
-    <h2 id="other">{c.other}</h2>
-    <div><p>{c.other_p}</p></div>
-  </section>
+    {c.apps.map((app) => (
+      <section class="row" id={app.id} aria-labelledby={`${app.id}-title`}>
+        <h2 id={`${app.id}-title`}>
+          <svg
+            class="logo"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            fill-rule="evenodd"
+            aria-hidden="true"
+            set:html={LOGOS[app.id]}
+          />
+          {app.name}
+        </h2>
+        <div>
+          <p>{app.note}</p>
+          <ol class="howto">
+            {app.steps.map((step) => (
+              <li>{step}</li>
+            ))}
+          </ol>
+        </div>
+      </section>
+    ))}
 
-  <section class="row" aria-labelledby="progress">
-    <h2 id="progress">{s.s_progress}</h2>
-    <div>
-      <p>{s.s_progress_p}</p>
-      <p class="note">{c.logos}</p>
-    </div>
-  </section>
-</main>
+    <section class="row" aria-labelledby="other">
+      <h2 id="other">{c.other}</h2>
+      <div>
+        <p>{c.other_p}</p>
+      </div>
+    </section>
+
+    <section class="row" aria-labelledby="progress">
+      <h2 id="progress">{s.s_progress}</h2>
+      <div>
+        <p>{s.s_progress_p}</p>
+        <p class="note">{c.logos}</p>
+      </div>
+    </section>
+  </main>
 </Base>
 
 <script>

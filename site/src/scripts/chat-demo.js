@@ -27,14 +27,23 @@ for (const chat of document.querySelectorAll("[data-chat]")) {
         await wait(600);
       }
       m.classList.remove("pending");
-      m.animate([{ opacity: 0, transform: "translateY(0.375rem)" }, { opacity: 1, transform: "none" }], { duration: 300, easing: "ease-out" });
+      m.animate(
+        [
+          { opacity: 0, transform: "translateY(0.375rem)" },
+          { opacity: 1, transform: "none" },
+        ],
+        { duration: 300, easing: "ease-out" },
+      );
       if (m === confirm) right?.classList.add("is-right");
     }
   };
-  const observer = new IntersectionObserver(([entry]) => {
-    if (!entry.isIntersecting) return;
-    observer.disconnect();
-    play();
-  }, { threshold: 0.4 });
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      play();
+    },
+    { threshold: 0.4 },
+  );
   observer.observe(chat);
 }

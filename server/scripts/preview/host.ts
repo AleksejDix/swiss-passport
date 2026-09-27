@@ -15,7 +15,11 @@ for (const sample of SAMPLES) {
   document.body.append(box);
 
   // Like ChatGPT and Claude: the card may call tools and update the model's context. A click gets the next sample.
-  const bridge = new AppBridge(null, { name: "preview-host", version: "0" }, { openLinks: {}, logging: {}, serverTools: {}, updateModelContext: {} });
+  const bridge = new AppBridge(
+    null,
+    { name: "preview-host", version: "0" },
+    { openLinks: {}, logging: {}, serverTools: {}, updateModelContext: {} },
+  );
   bridge.oninitialized = () => bridge.sendToolResult(sample.result as never);
   bridge.onmessage = async (params) => {
     log.textContent += `chat message from card: ${JSON.stringify(params.content)}\n`;

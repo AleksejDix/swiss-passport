@@ -40,71 +40,106 @@ const jsonLd = {
   citation: c.sources,
 };
 ---
+
 <Base lang={lang} title={title} description={description} alternates={alternates} jsonLd={jsonLd}>
-<main class="page question">
-  <header class="qhead">
-    <Breadcrumbs lang={lang} items={[[ui.nav_questions, questionsPath(lang)], [topic.title, topicPath(lang, c)]]} />
-    <h1>{topic.title}</h1>
-  </header>
+  <main class="page question">
+    <header class="qhead">
+      <Breadcrumbs
+        lang={lang}
+        items={[
+          [ui.nav_questions, questionsPath(lang)],
+          [topic.title, topicPath(lang, c)],
+        ]}
+      />
+      <h1>{topic.title}</h1>
+    </header>
 
-  <section class="row" aria-labelledby="intro">
-    <h2 id="intro">{ui.topic}</h2>
-    <div class="prose">
-      {topic.intro.map((p) => <p>{p}</p>)}
-      {topic.mnemonic && <p class="mnemonic"><strong>{ui.mnemonic}:</strong> {topic.mnemonic}</p>}
-    </div>
-  </section>
-
-  {visualFor(c.id) && (
-    <section class="row" aria-labelledby="visual">
-      <h2 id="visual">{visualTitle(c.id, lang)}</h2>
-      <div><TopicVisual lang={lang} topic={c.id} caption={false} /></div>
-    </section>
-  )}
-
-  {topic.key_terms?.length > 0 && (
-    <section class="row" aria-labelledby="terms">
-      <h2 id="terms">{ui.key_terms}</h2>
-      <dl class="pairs">
-        {topic.key_terms.map((k) => (
-          <>
-            <dt lang="de">{k.term}</dt>
-            <dd>{k.definition}</dd>
-          </>
+    <section class="row" aria-labelledby="intro">
+      <h2 id="intro">{ui.topic}</h2>
+      <div class="prose">
+        {topic.intro.map((p) => (
+          <p>{p}</p>
         ))}
-      </dl>
+        {topic.mnemonic && (
+          <p class="mnemonic">
+            <strong>{ui.mnemonic}:</strong> {topic.mnemonic}
+          </p>
+        )}
+      </div>
     </section>
-  )}
 
-  <section class="row" aria-labelledby="questions">
-    <h2 id="questions">{ui.topic_questions}</h2>
-    <ol class="tq">
-      {c.questions.map((q) => (
-        <li>
-          <a href={questionPath(lang, q)}>{t.questions[q.id].question}</a>
-          <span class="small">{ui.answer}: {q.answer.toUpperCase()}, {t.questions[q.id].options[q.answer]}</span>
-        </li>
-      ))}
-    </ol>
-  </section>
+    {visualFor(c.id) && (
+      <section class="row" aria-labelledby="visual">
+        <h2 id="visual">{visualTitle(c.id, lang)}</h2>
+        <div>
+          <TopicVisual lang={lang} topic={c.id} caption={false} />
+        </div>
+      </section>
+    )}
 
-  {c.sources?.length > 0 && (
-    <section class="row" aria-labelledby="sources">
-      <h2 id="sources">{ui.sources}</h2>
-      <ul class="sources">
-        {c.sources.map((src) => <li><a href={src} rel="noopener">{new URL(src).hostname.replace(/^www\./, "")}</a></li>)}
-      </ul>
-      <p class="note">{ui.checked.replace("{date}", checkedMonth(lang))}</p>
+    {topic.key_terms?.length > 0 && (
+      <section class="row" aria-labelledby="terms">
+        <h2 id="terms">{ui.key_terms}</h2>
+        <dl class="pairs">
+          {topic.key_terms.map((k) => (
+            <>
+              <dt lang="de">{k.term}</dt>
+              <dd>{k.definition}</dd>
+            </>
+          ))}
+        </dl>
+      </section>
+    )}
+
+    <section class="row" aria-labelledby="questions">
+      <h2 id="questions">{ui.topic_questions}</h2>
+      <ol class="tq">
+        {c.questions.map((q) => (
+          <li>
+            <a href={questionPath(lang, q)}>{t.questions[q.id].question}</a>
+            <span class="small">
+              {ui.answer}: {q.answer.toUpperCase()}, {t.questions[q.id].options[q.answer]}
+            </span>
+          </li>
+        ))}
+      </ol>
     </section>
-  )}
 
-  <nav class="row qnav" aria-label={ui.topic}>
-    <p class="cta"><a class="button" href="/learn/">{ui.practise}</a></p>
-    <p>
-      {prev && <a rel="prev" href={topicPath(lang, prev)}>← {ui.prev_topic}</a>}
-      {next && <a rel="next" href={topicPath(lang, next)}>{ui.next_topic} →</a>}
-      <a href={questionsPath(lang)}>{ui.nav_questions}</a>
-    </p>
-  </nav>
-</main>
+    {c.sources?.length > 0 && (
+      <section class="row" aria-labelledby="sources">
+        <h2 id="sources">{ui.sources}</h2>
+        <ul class="sources">
+          {c.sources.map((src) => (
+            <li>
+              <a href={src} rel="noopener">
+                {new URL(src).hostname.replace(/^www\./, "")}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="note">{ui.checked.replace("{date}", checkedMonth(lang))}</p>
+      </section>
+    )}
+
+    <nav class="row qnav" aria-label={ui.topic}>
+      <p class="cta">
+        <a class="button" href="/learn/">
+          {ui.practise}
+        </a>
+      </p>
+      <p>
+        {prev && (
+          <a rel="prev" href={topicPath(lang, prev)}>
+            ← {ui.prev_topic}
+          </a>
+        )}
+        {next && (
+          <a rel="next" href={topicPath(lang, next)}>
+            {ui.next_topic} →
+          </a>
+        )}
+        <a href={questionsPath(lang)}>{ui.nav_questions}</a>
+      </p>
+    </nav>
+  </main>
 </Base>

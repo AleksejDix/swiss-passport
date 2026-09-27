@@ -29,8 +29,12 @@ for (const path of PAGES) {
   test(`${path} meets WCAG 2.1 AA`, async ({ page }) => {
     await page.goto(path);
     if (path === "/learn/") await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    const { violations } = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
-    const found = violations.map((v) => `${v.id} (${v.impact}): ${v.help}: ${v.nodes.map((n) => n.target.join(" ")).join(", ")}`);
+    const { violations } = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+      .analyze();
+    const found = violations.map(
+      (v) => `${v.id} (${v.impact}): ${v.help}: ${v.nodes.map((n) => n.target.join(" ")).join(", ")}`,
+    );
     expect(found).toEqual([]);
   });
 }

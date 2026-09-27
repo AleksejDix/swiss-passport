@@ -23,8 +23,18 @@ function shuffle<T>(items: T[]): T[] {
 /** The learning engine for one catalog. */
 export function createEngine(catalog: Catalog) {
   const {
-    conceptById, conceptOfQuestion, conceptText, curriculum, explanation, lessonById, lessonOrder,
-    lessonTitle, questionText, questions, unitTitle, categoryTitle,
+    conceptById,
+    conceptOfQuestion,
+    conceptText,
+    curriculum,
+    explanation,
+    lessonById,
+    lessonOrder,
+    lessonTitle,
+    questionText,
+    questions,
+    unitTitle,
+    categoryTitle,
   } = indexCatalog(catalog);
 
   /** Questions that need a picture cannot be asked in voice conversations. */
@@ -40,8 +50,7 @@ export function createEngine(catalog: Catalog) {
       .filter((q) => !(voice && needsPicture(q)));
 
   // Picture questions are optional for completing a lesson, so voice learners can finish every lesson.
-  const isLessonDone = (p: Progress, lessonId: string) =>
-    lessonQuestions(lessonId, true).every((q) => p.answered[q]);
+  const isLessonDone = (p: Progress, lessonId: string) => lessonQuestions(lessonId, true).every((q) => p.answered[q]);
 
   /** Lessons that are not done and whose prerequisites are done. */
   const isAvailable = (p: Progress, lessonId: string) =>
@@ -85,17 +94,25 @@ export function createEngine(catalog: Catalog) {
   // ---- Starting sessions --------------------------------------------------------------
 
   function startLesson(p: Progress, lessonId: string, voice: boolean) {
-    p.session = { kind: "lesson", lesson: lessonId, questions: lessonQuestions(lessonId, voice), pos: 0, answers: {}, voice };
+    p.session = {
+      kind: "lesson",
+      lesson: lessonId,
+      questions: lessonQuestions(lessonId, voice),
+      pos: 0,
+      answers: {},
+      voice,
+    };
   }
 
   function startReviews(p: Progress, voice: boolean): boolean {
     const lastSeen = (q: string) => p.answered[q]?.at ?? "";
     const picked = dueConcepts(p)
-      .map((cid) =>
-        conceptById
-          .get(cid)!
-          .questions.filter((q) => !(voice && needsPicture(q)))
-          .sort((a, b) => lastSeen(a).localeCompare(lastSeen(b)))[0],
+      .map(
+        (cid) =>
+          conceptById
+            .get(cid)!
+            .questions.filter((q) => !(voice && needsPicture(q)))
+            .sort((a, b) => lastSeen(a).localeCompare(lastSeen(b)))[0],
       )
       .filter(Boolean)
       .slice(0, REVIEW_SIZE);
@@ -118,13 +135,24 @@ export function createEngine(catalog: Catalog) {
     const retry = earlier.includes(qid);
     const header =
       s.kind === "lesson" && s.pos === 0
-        ? { lesson: { title: lessonTitle(s.lesson!, lang), unit: unitTitle(lessonById.get(s.lesson!)!.unit, lang), position: `${lessonOrder.indexOf(s.lesson!) + 1}/${lessonOrder.length}` } }
+        ? {
+            lesson: {
+              title: lessonTitle(s.lesson!, lang),
+              unit: unitTitle(lessonById.get(s.lesson!)!.unit, lang),
+              position: `${lessonOrder.indexOf(s.lesson!) + 1}/${lessonOrder.length}`,
+            },
+          }
         : {};
     const t = conceptText(cid, lang);
     return {
       ...header,
       ...(newConcept && {
-        explain_first: { title: t.title, intro: t.intro, key_terms: t.key_terms, ...(t.mnemonic && { mnemonic: t.mnemonic }) },
+        explain_first: {
+          title: t.title,
+          intro: t.intro,
+          key_terms: t.key_terms,
+          ...(t.mnemonic && { mnemonic: t.mnemonic }),
+        },
       }),
       step: `${s.pos + 1}/${s.questions.length}`,
       concept: t.title,
@@ -233,9 +261,15 @@ export function createEngine(catalog: Catalog) {
       lessons_total: lessonOrder.length,
       next_lesson: next ? { id: next, title: lessonTitle(next, lang) } : null,
       // Offer these as a choice: one lesson per unit, the recommended one (next_lesson) first.
-      lesson_choices: lessonChoices(p).map((id) => ({ id, title: lessonTitle(id, lang), unit: unitTitle(lessonById.get(id)!.unit, lang) })),
+      lesson_choices: lessonChoices(p).map((id) => ({
+        id,
+        title: lessonTitle(id, lang),
+        unit: unitTitle(lessonById.get(id)!.unit, lang),
+      })),
       reviews_due: dueConcepts(p).length,
-      unfinished_session: p.session ? { kind: p.session.kind, step: `${p.session.pos + 1}/${p.session.questions.length}` } : null,
+      unfinished_session: p.session
+        ? { kind: p.session.kind, step: `${p.session.pos + 1}/${p.session.questions.length}` }
+        : null,
       readiness_percent: Math.round((100 * [...questions.keys()].filter(known).length) / questions.size),
       readiness_by_category: [...byCategory].map(([id, c]) => ({
         category: categoryTitle(id, lang),
@@ -254,7 +288,13 @@ export function createEngine(catalog: Catalog) {
     catalog,
     lessons: lessonOrder,
     question: (id: string) => questions.get(id),
-    nextLessonId, startLesson, startReviews, startExam, currentStep, answer, progress,
+    nextLessonId,
+    startLesson,
+    startReviews,
+    startExam,
+    currentStep,
+    answer,
+    progress,
   };
 }
 

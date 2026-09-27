@@ -24,28 +24,50 @@ const S = W / M.cols; // spacing of the municipality dots
 const cantons = Array.from({ length: 26 }, (_, i) => ({ x: 6 + i * 12, half: i >= 20 }));
 const numberFmt = new Intl.NumberFormat(lang === "de" ? "de-CH" : lang);
 ---
+
 <figure class="lvl">
   {caption && <figcaption class="lvl-title">{LEVELS_TEXT[lang].title}</figcaption>}
   <div class="lvl-rows">
     <div class="lvl-row" style="--i:0">
       <p class="lvl-name">{name("three_levels", "Bund")}</p>
       <p class="lvl-num">1</p>
-      <svg viewBox={`0 0 ${W} 12`} aria-hidden="true"><circle cx="6" cy="6" r="4.5" /></svg>
+      <svg viewBox={`0 0 ${W} 12`} aria-hidden="true">
+        <circle cx="6" cy="6" r="4.5" />
+      </svg>
       <p class="lvl-tasks">{tasks.join(" · ")}</p>
     </div>
     <div class="lvl-row" style="--i:1">
       <p class="lvl-name">{name("three_levels", "Kanton")}</p>
-      <p class="lvl-num">26 <span>= 20 + 6</span></p>
+      <p class="lvl-num">
+        26 <span>= 20 + 6</span>
+      </p>
       <svg viewBox={`0 0 ${W} 12`} aria-hidden="true">
-        {cantons.map((k) => k.half
-          ? <g><circle class="ring" cx={k.x} cy="6" r="4" /><path d={`M${k.x} 1.5 A4.5 4.5 0 0 0 ${k.x} 10.5 Z`} /></g>
-          : <circle cx={k.x} cy="6" r="4.5" />)}
+        {cantons.map((k) =>
+          k.half ? (
+            <g>
+              <circle class="ring" cx={k.x} cy="6" r="4" />
+              <path d={`M${k.x} 1.5 A4.5 4.5 0 0 0 ${k.x} 10.5 Z`} />
+            </g>
+          ) : (
+            <circle cx={k.x} cy="6" r="4.5" />
+          ),
+        )}
       </svg>
-      <p class="lvl-key"><svg viewBox="0 0 12 12" aria-hidden="true"><circle class="ring" cx="6" cy="6" r="4" /><path d="M6 1.5 A4.5 4.5 0 0 0 6 10.5 Z" /></svg><span><span lang="de">Halbkanton</span>: {halfText}</span></p>
+      <p class="lvl-key">
+        <svg viewBox="0 0 12 12" aria-hidden="true">
+          <circle class="ring" cx="6" cy="6" r="4" />
+          <path d="M6 1.5 A4.5 4.5 0 0 0 6 10.5 Z" />
+        </svg>
+        <span>
+          <span lang="de">Halbkanton</span>: {halfText}
+        </span>
+      </p>
     </div>
     <div class="lvl-row" style="--i:2">
       <p class="lvl-name">{name("three_levels", "Gemeinde")}</p>
-      <p class="lvl-num">≈ {numberFmt.format(M.count)} <span>({M.year})</span></p>
+      <p class="lvl-num">
+        ≈ {numberFmt.format(M.count)} <span>({M.year})</span>
+      </p>
       <svg viewBox={`0 0 ${W} ${(M.rows * S).toFixed(2)}`} aria-hidden="true">
         <defs>
           <pattern id="lvl-municipality" width={S.toFixed(3)} height={S.toFixed(3)} patternUnits="userSpaceOnUse">

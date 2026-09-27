@@ -35,7 +35,10 @@ const topo = JSON.parse(readFileSync(createRequire(import.meta.url).resolve("swi
 /** BFS language region of every municipality: 1 German, 2 French, 3 Italian, 4 Romansh. */
 async function languageRegions() {
   const csv = await cached("levels-2026.csv", "https://www.agvchapp.bfs.admin.ch/api/communes/levels?date=01-01-2026");
-  const [head, ...rows] = csv.trim().split("\n").map((l) => l.split(","));
+  const [head, ...rows] = csv
+    .trim()
+    .split("\n")
+    .map((l) => l.split(","));
   const bfs = head.indexOf("BfsCode");
   const lang = head.indexOf("SPRGEB2020");
   if (bfs < 0 || lang < 0) throw new Error("levels CSV: BfsCode or SPRGEB2020 missing");
@@ -54,12 +57,24 @@ function wgs84(e, n) {
 /** All features of a geo.admin layer inside an LV95 envelope, 200 per page, in WGS84. */
 async function identify(layer, [x0, y0, x1, y1]) {
   const corners = [wgs84(x0, y0), wgs84(x1, y0), wgs84(x0, y1), wgs84(x1, y1)];
-  const env = [Math.min(...corners.map((c) => c[0])), Math.min(...corners.map((c) => c[1])), Math.max(...corners.map((c) => c[0])), Math.max(...corners.map((c) => c[1]))];
+  const env = [
+    Math.min(...corners.map((c) => c[0])),
+    Math.min(...corners.map((c) => c[1])),
+    Math.max(...corners.map((c) => c[0])),
+    Math.max(...corners.map((c) => c[1])),
+  ];
   const out = [];
   for (let offset = 0; ; offset += 200) {
     const q = new URLSearchParams({
-      layers: `all:${layer}`, geometryType: "esriGeometryEnvelope", geometry: env.join(","), sr: "4326",
-      tolerance: "0", returnGeometry: "true", geometryFormat: "geojson", limit: "200", offset: String(offset),
+      layers: `all:${layer}`,
+      geometryType: "esriGeometryEnvelope",
+      geometry: env.join(","),
+      sr: "4326",
+      tolerance: "0",
+      returnGeometry: "true",
+      geometryFormat: "geojson",
+      limit: "200",
+      offset: String(offset),
     });
     const page = await json(`${layer}-${x0}-${y0}-${x1}-${y1}-${offset}.json`, `${api}/MapServer/identify?${q}`);
     out.push(...page.results);
@@ -69,7 +84,15 @@ async function identify(layer, [x0, y0, x1, y1]) {
 
 /** Features of a layer whose name is exactly `name` (the service stops at 201). */
 async function find(layer, name) {
-  const q = new URLSearchParams({ layer, searchText: name, searchField: "name", contains: "false", returnGeometry: "true", geometryFormat: "geojson", sr: "4326" });
+  const q = new URLSearchParams({
+    layer,
+    searchText: name,
+    searchField: "name",
+    contains: "false",
+    returnGeometry: "true",
+    geometryFormat: "geojson",
+    sr: "4326",
+  });
   return (await json(`find-${layer}-${name}.json`, `${api}/MapServer/find?${q}`)).results;
 }
 
@@ -79,9 +102,15 @@ const RIVERS = "ch.bafu.vec25-gewaessernetz_2000";
 async function river(name, envelopes = []) {
   const byId = new Map();
   for (const f of await find(RIVERS, name)) byId.set(f.id, f);
-  for (const env of envelopes) for (const f of await identify(RIVERS, env)) if (f.properties.name === name) byId.set(f.id, f);
+  for (const env of envelopes)
+    for (const f of await identify(RIVERS, env)) if (f.properties.name === name) byId.set(f.id, f);
   const lines = [...byId.values()].filter((f) => !/Seeachse|_U$/.test(f.properties.objectval));
-  return { type: "MultiLineString", coordinates: lines.flatMap((f) => f.geometry.type === "LineString" ? [f.geometry.coordinates] : f.geometry.coordinates) };
+  return {
+    type: "MultiLineString",
+    coordinates: lines.flatMap((f) =>
+      f.geometry.type === "LineString" ? [f.geometry.coordinates] : f.geometry.coordinates,
+    ),
+  };
 }
 
 /** A point from swissNAMES3D: the first search hit of the given object type in the given canton. */
@@ -116,7 +145,10 @@ function thin(points, tolerance = 0.5) {
     const [x, y] = points[i];
     const dx = b[0] - a[0];
     const dy = b[1] - a[1];
-    const d = dx || dy ? Math.abs(dy * x - dx * y + b[0] * a[1] - b[1] * a[0]) / Math.hypot(dx, dy) : Math.hypot(x - a[0], y - a[1]);
+    const d =
+      dx || dy
+        ? Math.abs(dy * x - dx * y + b[0] * a[1] - b[1] * a[0]) / Math.hypot(dx, dy)
+        : Math.hypot(x - a[0], y - a[1]);
     if (d > max) [max, index] = [d, i];
   }
   if (max <= tolerance) return [a, b];
@@ -125,16 +157,32 @@ function thin(points, tolerance = 0.5) {
 
 /** SVG path data of a GeoJSON geometry, thinned; rings smaller than `minArea` square units are dropped. */
 function draw(projection, geometry, { closed = true, minArea = 0 } = {}) {
-  const lines = { Polygon: [geometry.coordinates], MultiPolygon: geometry.coordinates, LineString: [[geometry.coordinates]], MultiLineString: [geometry.coordinates] }[geometry.type];
+  const lines = {
+    Polygon: [geometry.coordinates],
+    MultiPolygon: geometry.coordinates,
+    LineString: [[geometry.coordinates]],
+    MultiLineString: [geometry.coordinates],
+  }[geometry.type];
   const parts = [];
   for (const shape of lines) {
     for (const ring of shape) {
       const pts = thin(ring.map((p) => projection(p)));
       if (closed) {
-        const area = Math.abs(pts.reduce((s, [x, y], i) => { const [u, v] = pts[(i + 1) % pts.length]; return s + x * v - u * y; }, 0)) / 2;
+        const area =
+          Math.abs(
+            pts.reduce((s, [x, y], i) => {
+              const [u, v] = pts[(i + 1) % pts.length];
+              return s + x * v - u * y;
+            }, 0),
+          ) / 2;
         if (pts.length < 4 || area < minArea) continue;
       }
-      parts.push(pts.map(([x, y], i) => `${i ? "L" : "M"}${Math.round(x)} ${Math.round(y)}`).join("").replace(/L(-?\d+ -?\d+)(?=L\1)/g, "") + (closed ? "Z" : ""));
+      parts.push(
+        pts
+          .map(([x, y], i) => `${i ? "L" : "M"}${Math.round(x)} ${Math.round(y)}`)
+          .join("")
+          .replace(/L(-?\d+ -?\d+)(?=L\1)/g, "") + (closed ? "Z" : ""),
+      );
     }
   }
   return parts.join("");
@@ -144,7 +192,34 @@ const point = (projection, lonlat) => projection(lonlat).map((n) => Math.round(n
 
 // ---- Switzerland ----------------------------------------------------------------------------
 
-const ABBR = ["ZH", "BE", "LU", "UR", "SZ", "OW", "NW", "GL", "ZG", "FR", "SO", "BS", "BL", "SH", "AR", "AI", "SG", "GR", "AG", "TG", "TI", "VD", "VS", "NE", "GE", "JU"];
+const ABBR = [
+  "ZH",
+  "BE",
+  "LU",
+  "UR",
+  "SZ",
+  "OW",
+  "NW",
+  "GL",
+  "ZG",
+  "FR",
+  "SO",
+  "BS",
+  "BL",
+  "SH",
+  "AR",
+  "AI",
+  "SG",
+  "GR",
+  "AG",
+  "TG",
+  "TI",
+  "VD",
+  "VS",
+  "NE",
+  "GE",
+  "JU",
+];
 const simple = simplify(presimplify(topo), 1e-4);
 const country = feature(simple, simple.objects.country);
 const ch = frame(country);
@@ -154,8 +229,13 @@ const muniCentre = (() => {
   return (id) => all.find((f) => f.id === id);
 })();
 
-const cantons = feature(simple, simple.objects.cantons).features.map((f) => ({ abbr: ABBR[f.id - 1], d: draw(pCH, f.geometry, { minArea: 4 }) }));
-const lakes = feature(simple, simple.objects.lakes).features.map((f) => draw(pCH, f.geometry, { minArea: 40 })).filter(Boolean);
+const cantons = feature(simple, simple.objects.cantons).features.map((f) => ({
+  abbr: ABBR[f.id - 1],
+  d: draw(pCH, f.geometry, { minArea: 4 }),
+}));
+const lakes = feature(simple, simple.objects.lakes)
+  .features.map((f) => draw(pCH, f.geometry, { minArea: 40 }))
+  .filter(Boolean);
 
 // Language regions: the municipalities of each region merged into one outline.
 const langOf = await languageRegions();
@@ -171,8 +251,19 @@ for (const g of missing) {
   langOf.set(g.id, top);
 }
 const LANG_CODES = { de: 1, fr: 2, it: 3, rm: 4 };
-const languages = Object.fromEntries(Object.entries(LANG_CODES).map(([id, code]) =>
-  [id, draw(pCH, merge(simple, munis.filter((g) => langOf.get(g.id) === code)), { minArea: 4 })]));
+const languages = Object.fromEntries(
+  Object.entries(LANG_CODES).map(([id, code]) => [
+    id,
+    draw(
+      pCH,
+      merge(
+        simple,
+        munis.filter((g) => langOf.get(g.id) === code),
+      ),
+      { minArea: 4 },
+    ),
+  ]),
+);
 
 // Jura, Plateau, Alps: the BAFU regions, the four Alpine regions together.
 const bio = await identify("ch.bafu.biogeographische_regionen", [2480000, 1070000, 2840000, 1300000]);
@@ -184,28 +275,39 @@ const regionShares = (() => {
 })();
 const ALPS = ["Alpennordflanke", "Westliche Zentralalpen", "Östliche Zentralalpen", "Alpensüdflanke"];
 const regions = {
-  jura: area(["Jura"]).map((f) => draw(pCH, f.geometry, { minArea: 4 })).join(""),
-  alps: area(ALPS).map((f) => draw(pCH, f.geometry, { minArea: 4 })).join(""),
+  jura: area(["Jura"])
+    .map((f) => draw(pCH, f.geometry, { minArea: 4 }))
+    .join(""),
+  alps: area(ALPS)
+    .map((f) => draw(pCH, f.geometry, { minArea: 4 }))
+    .join(""),
 };
 
 // Rhine and Rhone: the name search stops at 201 pieces and large envelopes are cut off without notice,
 // so the valleys are read in tiles of 10 km (LV95). The Vorderrhein is named "Rhein" in this data.
 const tiles = ([x0, y0, x1, y1], size = 10000) => {
   const out = [];
-  for (let x = x0; x < x1; x += size) for (let y = y0; y < y1; y += size) out.push([x, y, Math.min(x + size, x1), Math.min(y + size, y1)]);
+  for (let x = x0; x < x1; x += size)
+    for (let y = y0; y < y1; y += size) out.push([x, y, Math.min(x + size, x1), Math.min(y + size, y1)]);
   return out;
 };
-const rhine = await river("Rhein", [
-  [2690000, 1160000, 2750000, 1192000], // Vorderrhein, from the source to Reichenau
-  [2745000, 1180000, 2780000, 1270000], // Chur to Lake Constance
-  [2605000, 1255000, 2710000, 1300000], // Stein am Rhein to Basel
-].flatMap((c) => tiles(c)));
-const rhone = await river("Rhône", [
-  [2485000, 1105000, 2505000, 1125000], // Geneva
-  [2550000, 1100000, 2575000, 1140000], // Lake Geneva to Martigny
-  [2570000, 1100000, 2645000, 1135000], // Martigny to Brig
-  [2640000, 1125000, 2675000, 1162000], // Brig to the Rhone Glacier
-].flatMap((c) => tiles(c)));
+const rhine = await river(
+  "Rhein",
+  [
+    [2690000, 1160000, 2750000, 1192000], // Vorderrhein, from the source to Reichenau
+    [2745000, 1180000, 2780000, 1270000], // Chur to Lake Constance
+    [2605000, 1255000, 2710000, 1300000], // Stein am Rhein to Basel
+  ].flatMap((c) => tiles(c)),
+);
+const rhone = await river(
+  "Rhône",
+  [
+    [2485000, 1105000, 2505000, 1125000], // Geneva
+    [2550000, 1100000, 2575000, 1140000], // Lake Geneva to Martigny
+    [2570000, 1100000, 2645000, 1135000], // Martigny to Brig
+    [2640000, 1125000, 2675000, 1162000], // Brig to the Rhone Glacier
+  ].flatMap((c) => tiles(c)),
+);
 
 const cityCentre = (id) => point(pCH, geoCentroid(muniCentre(id)));
 /** Scale and translation of a d3 Mercator projection, so the site can place labels by longitude and latitude. */
@@ -221,7 +323,11 @@ const CH = {
   regions,
   rivers: { rhine: draw(pCH, rhine, { closed: false }), rhone: draw(pCH, rhone, { closed: false }) },
   points: {
-    zurich: cityCentre(261), geneva: cityCentre(6621), basel: cityCentre(2701), lausanne: cityCentre(5586), bern: cityCentre(351),
+    zurich: cityCentre(261),
+    geneva: cityCentre(6621),
+    basel: cityCentre(2701),
+    lausanne: cityCentre(5586),
+    bern: cityCentre(351),
     dufour: point(pCH, await place("Dufourspitze", "Alpiner Gipfel", "VS")),
     gotthard: point(pCH, await place("Gotthardpass", "Pass", "TI")),
     simplon: point(pCH, await place("Simplonpass", "Pass", "VS")),
@@ -237,16 +343,36 @@ const [[lon0, lat0], [lon1, lat1]] = geoBounds(zhFeature);
 const padX = (lon1 - lon0) * 0.1;
 const padY = (lat1 - lat0) * 0.1;
 // Clockwise, as d3 reads rings on the sphere; the other direction would be the whole world outside.
-const view = { type: "Polygon", coordinates: [[[lon0 - padX, lat0 - padY], [lon0 - padX, lat1 + padY], [lon1 + padX, lat1 + padY], [lon1 + padX, lat0 - padY], [lon0 - padX, lat0 - padY]]] };
+const view = {
+  type: "Polygon",
+  coordinates: [
+    [
+      [lon0 - padX, lat0 - padY],
+      [lon0 - padX, lat1 + padY],
+      [lon1 + padX, lat1 + padY],
+      [lon1 + padX, lat0 - padY],
+      [lon0 - padX, lat0 - padY],
+    ],
+  ],
+};
 const zh = frame(view);
 const pZH = zh.projection;
-const inView = (f) => { const [[a, b], [c, d]] = geoBounds(f); return a < lon1 + padX && c > lon0 - padX && b < lat1 + padY && d > lat0 - padY; };
-const zhCantons = feature(fine, fine.objects.cantons).features.filter(inView).map((f) => ({ abbr: ABBR[f.id - 1], d: draw(pZH, f.geometry, { minArea: 2 }) }));
+const inView = (f) => {
+  const [[a, b], [c, d]] = geoBounds(f);
+  return a < lon1 + padX && c > lon0 - padX && b < lat1 + padY && d > lat0 - padY;
+};
+const zhCantons = feature(fine, fine.objects.cantons)
+  .features.filter(inView)
+  .map((f) => ({ abbr: ABBR[f.id - 1], d: draw(pZH, f.geometry, { minArea: 2 }) }));
 // The BFS lakes stop at Lake Greifen; Lake Pfäffikon (3.3 km²) comes from the BAFU lakes, under the same lake number.
-const pfaeffikon = (await identify("ch.bafu.vec25-seen", [2695000, 1240000, 2705000, 1250000])).find((f) => f.properties.name === "Pfäffikersee");
+const pfaeffikon = (await identify("ch.bafu.vec25-seen", [2695000, 1240000, 2705000, 1250000])).find(
+  (f) => f.properties.name === "Pfäffikersee",
+);
 if (!pfaeffikon) throw new Error("BAFU: Pfäffikersee not found");
-const zhLakes = [...feature(fine, fine.objects.lakes).features.filter(inView), { id: pfaeffikon.properties.gewaesserkennzahl, geometry: pfaeffikon.geometry, type: "Feature" }]
-  .map((f) => draw(pZH, f.geometry, { minArea: 20 }));
+const zhLakes = [
+  ...feature(fine, fine.objects.lakes).features.filter(inView),
+  { id: pfaeffikon.properties.gewaesserkennzahl, geometry: pfaeffikon.geometry, type: "Feature" },
+].map((f) => draw(pZH, f.geometry, { minArea: 20 }));
 const zhCentre = (id) => point(pZH, geoCentroid(muniCentre(id)));
 const ZH = {
   width: W,
@@ -261,7 +387,10 @@ const ZH = {
     toss: draw(pZH, await river("Töss"), { closed: false }),
   },
   points: {
-    zurich: zhCentre(261), winterthur: zhCentre(230), uster: zhCentre(198), kloten: zhCentre(62),
+    zurich: zhCentre(261),
+    winterthur: zhCentre(230),
+    uster: zhCentre(198),
+    kloten: zhCentre(62),
     uetliberg: point(pZH, await place("Uetliberg", "Huegel", "ZH")),
     albis: point(pZH, await place("Albishorn", "Haupthuegel", "ZH")),
     pfannenstiel: point(pZH, await place("Pfannenstiel", "Turm", "ZH")),
@@ -274,6 +403,8 @@ export const CH = ${JSON.stringify(CH)};
 export const ZH = ${JSON.stringify(ZH)};
 `;
 writeFileSync(new URL("../../site/src/viz/geo-data.js", import.meta.url), out);
-console.log(`geo-data.js: CH ${CH.width}x${CH.height}, ZH ${ZH.width}x${ZH.height}, ${(out.length / 1024).toFixed(0)} KB;`,
+console.log(
+  `geo-data.js: CH ${CH.width}x${CH.height}, ZH ${ZH.width}x${ZH.height}, ${(out.length / 1024).toFixed(0)} KB;`,
   `${zhLakes.length} lakes in the Zurich view; filled from neighbours: ${missing.map((g) => `${g.id}=${langOf.get(g.id)}`).join(" ") || "none"};`,
-  `Jura ${(regionShares.jura * 100).toFixed(1)} %, Plateau ${(regionShares.plateau * 100).toFixed(1)} %`);
+  `Jura ${(regionShares.jura * 100).toFixed(1)} %, Plateau ${(regionShares.plateau * 100).toFixed(1)} %`,
+);

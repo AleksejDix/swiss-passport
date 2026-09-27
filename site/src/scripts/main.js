@@ -22,11 +22,14 @@ async function playCross() {
 
 /** Runs `play` once, when at least `threshold` of the element is on screen. */
 function whenVisible(el, threshold, play) {
-  const observer = new IntersectionObserver(([entry]) => {
-    if (!entry.isIntersecting) return;
-    observer.disconnect();
-    play();
-  }, { threshold });
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      play();
+    },
+    { threshold },
+  );
   observer.observe(el);
 }
 
@@ -38,10 +41,14 @@ function watchTimeline() {
     $$("span", tl).forEach((mark) => {
       const day = Number(getComputedStyle(mark).getPropertyValue("--d"));
       const base = mark === tl.lastElementChild ? "translateX(-100%)" : "translateX(-50%)";
-      run(mark, [
-        { opacity: 0, transform: `${base} scale(0.4)` },
-        { opacity: 1, transform: `${base} scale(1)` },
-      ], { duration: 350, delay: Math.sqrt(day / 30) * drawMs, easing: "cubic-bezier(0.3, 1.6, 0.5, 1)" });
+      run(
+        mark,
+        [
+          { opacity: 0, transform: `${base} scale(0.4)` },
+          { opacity: 1, transform: `${base} scale(1)` },
+        ],
+        { duration: 350, delay: Math.sqrt(day / 30) * drawMs, easing: "cubic-bezier(0.3, 1.6, 0.5, 1)" },
+      );
     });
   });
 }

@@ -42,28 +42,41 @@ const RED = "#da291c";
 export function mapSvg(name: string) {
   const g = geometry(name);
   const fill = (d: string | undefined, color: string) => (d ? `<path d="${d}" fill="${color}"/>` : "");
-  const line = (d: string, color: string, width: number) => `<path d="${d}" fill="none" stroke="${color}" stroke-width="${width}" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`;
+  const line = (d: string, color: string, width: number) =>
+    `<path d="${d}" fill="none" stroke="${color}" stroke-width="${width}" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`;
   const canton = (abbr: string) => g.cantons.find((c) => c.abbr === abbr)!.d;
   const borders = (color: string, width: number) => line(g.cantons.map((c) => c.d).join(""), color, width);
   const lakes = g.lakes.map((d) => fill(d, "#fff")).join("");
   let body;
   if (g === CH) {
-    const layer = ({
-      "ch-regions": fill(CH.regions.jura, LIGHT) + fill(CH.regions.alps, DARK),
-      "ch-languages": fill(CH.languages.fr, LIGHT) + fill(CH.languages.it, DARK) + fill(CH.languages.rm, RED),
-      "ch-size": fill(canton("GR"), RED),
-      "ch-mountains": ["VS", "GR", "UR", "TI"].map((a) => fill(canton(a), LIGHT)).join(""),
-    } as Record<string, string>)[name] ?? "";
-    const top = ({
-      "ch-rivers": line(CH.rivers.rhine, "#000", 2) + line(CH.rivers.rhone, "#000", 2),
-      "ch-neighbours": line(CH.outline, "#000", 2),
-    } as Record<string, string>)[name] ?? "";
+    const layer =
+      (
+        {
+          "ch-regions": fill(CH.regions.jura, LIGHT) + fill(CH.regions.alps, DARK),
+          "ch-languages": fill(CH.languages.fr, LIGHT) + fill(CH.languages.it, DARK) + fill(CH.languages.rm, RED),
+          "ch-size": fill(canton("GR"), RED),
+          "ch-mountains": ["VS", "GR", "UR", "TI"].map((a) => fill(canton(a), LIGHT)).join(""),
+        } as Record<string, string>
+      )[name] ?? "";
+    const top =
+      (
+        {
+          "ch-rivers": line(CH.rivers.rhine, "#000", 2) + line(CH.rivers.rhone, "#000", 2),
+          "ch-neighbours": line(CH.outline, "#000", 2),
+        } as Record<string, string>
+      )[name] ?? "";
     body = fill(CH.outline, FIELD) + layer + borders("#fff", 1) + lakes + top;
   } else {
     const zh = name === "zh-location" ? RED : LIGHT;
     const cantons = ZH.cantons.map((c) => fill(c.d, c.abbr === "ZH" ? zh : FIELD)).join("");
-    const rivers = name === "zh-waters" ? Object.values(ZH.rivers).map((d) => line(d, "#000", 1.5)).join("")
-      : name === "zh-location" ? line(ZH.rivers.rhine, "#000", 1.5) : "";
+    const rivers =
+      name === "zh-waters"
+        ? Object.values(ZH.rivers)
+            .map((d) => line(d, "#000", 1.5))
+            .join("")
+        : name === "zh-location"
+          ? line(ZH.rivers.rhine, "#000", 1.5)
+          : "";
     body = cantons + borders("#fff", 1) + lakes + rivers;
   }
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${g.width} ${g.height}">${body}</svg>`;
@@ -77,38 +90,69 @@ export function mapSvg(name: string) {
 type Mark = [kind: string, at: Point | { point: string }, key: string, side: string, strong?: boolean, rank?: number];
 const P = (key: string) => ({ point: key });
 const MARKS: Record<string, Mark[]> = {
-  "ch-regions": [["area", [6.72, 46.93], "jura", "c"], ["area", [7.55, 47.13], "plateau", "c"], ["area", [8.55, 46.62], "alps", "c"]],
+  "ch-regions": [
+    ["area", [6.72, 46.93], "jura", "c"],
+    ["area", [7.55, 47.13], "plateau", "c"],
+    ["area", [8.55, 46.62], "alps", "c"],
+  ],
   "ch-neighbours": [
-    ["place", [8.08, 47.74], "de", "c"], ["place", [6.25, 47.2], "fr", "c"], ["place", [8.05, 45.92], "it", "c"],
-    ["place", [10.2, 47.52], "at", "c"], ["dot", [9.55, 47.14], "li", "s"],
+    ["place", [8.08, 47.74], "de", "c"],
+    ["place", [6.25, 47.2], "fr", "c"],
+    ["place", [8.05, 45.92], "it", "c"],
+    ["place", [10.2, 47.52], "at", "c"],
+    ["dot", [9.55, 47.14], "li", "s"],
   ],
   "ch-size": [["area", [9.6, 46.68], "GR", "c", true]],
   "ch-cities": [
-    ["dot", P("zurich"), "zurich", "e", true, 1], ["dot", P("geneva"), "geneva", "e", false, 2], ["dot", P("basel"), "basel", "e", false, 3],
-    ["dot", P("lausanne"), "lausanne", "n", false, 4], ["square", P("bern"), "bern", "e", false, 5],
+    ["dot", P("zurich"), "zurich", "e", true, 1],
+    ["dot", P("geneva"), "geneva", "e", false, 2],
+    ["dot", P("basel"), "basel", "e", false, 3],
+    ["dot", P("lausanne"), "lausanne", "n", false, 4],
+    ["square", P("bern"), "bern", "e", false, 5],
   ],
   "ch-mountains": [
-    ["area", [7.65, 46.35], "VS", "c"], ["area", [9.65, 46.72], "GR", "c"], ["area", [8.63, 46.82], "UR", "c"], ["area", [9.02, 46.12], "TI", "c"],
-    ["diamond", P("gotthard"), "gotthard", "e"], ["diamond", P("simplon"), "simplon", "ne"], ["diamond", P("bernhard"), "bernhard", "n wrap"],
+    ["area", [7.65, 46.35], "VS", "c"],
+    ["area", [9.65, 46.72], "GR", "c"],
+    ["area", [8.63, 46.82], "UR", "c"],
+    ["area", [9.02, 46.12], "TI", "c"],
+    ["diamond", P("gotthard"), "gotthard", "e"],
+    ["diamond", P("simplon"), "simplon", "ne"],
+    ["diamond", P("bernhard"), "bernhard", "n wrap"],
     ["peak", P("dufour"), "dufour", "e", true],
   ],
   "ch-rivers": [
-    ["place", [8.25, 47.62], "rhine", "s"], ["place", [7.59, 47.57], "northSea", "w", true],
-    ["place", [7.5, 46.25], "rhone", "s"], ["place", [5.97, 46.16], "mediterranean", "se", true],
+    ["place", [8.25, 47.62], "rhine", "s"],
+    ["place", [7.59, 47.57], "northSea", "w", true],
+    ["place", [7.5, 46.25], "rhone", "s"],
+    ["place", [5.97, 46.16], "mediterranean", "se", true],
   ],
   "ch-languages": [],
   "zh-location": [
-    ["area", [8.67, 47.43], "ZH", "c", true], ["place", [8.62, 47.715], "SH", "c"], ["place", [8.97, 47.6], "TG", "c"], ["place", [8.93, 47.24], "SG", "c"],
-    ["place", [8.77, 47.14], "SZ", "c"], ["place", [8.5, 47.14], "ZG", "c"], ["place", [8.36, 47.42], "AG", "c"], ["place", [8.36, 47.66], "de", "c"],
+    ["area", [8.67, 47.43], "ZH", "c", true],
+    ["place", [8.62, 47.715], "SH", "c"],
+    ["place", [8.97, 47.6], "TG", "c"],
+    ["place", [8.93, 47.24], "SG", "c"],
+    ["place", [8.77, 47.14], "SZ", "c"],
+    ["place", [8.5, 47.14], "ZG", "c"],
+    ["place", [8.36, 47.42], "AG", "c"],
+    ["place", [8.36, 47.66], "de", "c"],
   ],
   "zh-cities": [
-    ["square", P("zurich"), "zurich", "e", true, 1], ["dot", P("winterthur"), "winterthur", "e", false, 2], ["dot", P("uster"), "uster", "e", false, 3],
+    ["square", P("zurich"), "zurich", "e", true, 1],
+    ["dot", P("winterthur"), "winterthur", "e", false, 2],
+    ["dot", P("uster"), "uster", "e", false, 3],
     ["dot", P("kloten"), "kloten", "e"],
   ],
   "zh-waters": [
-    ["place", [8.7, 47.225], "lakeZurich", "c", true], ["place", [8.68, 47.378], "lakeGreifen", "n", true], ["place", [8.8, 47.36], "lakePfaeffikon", "e", true],
-    ["place", [8.4, 47.425], "limmat", "n", true], ["place", [8.535, 47.3], "sihl", "w", true], ["place", [8.86, 47.43], "toss", "e", true],
-    ["peak", P("uetliberg"), "uetliberg", "w"], ["peak", P("albis"), "albis", "w"], ["peak", P("pfannenstiel"), "pfannenstiel", "e"],
+    ["place", [8.7, 47.225], "lakeZurich", "c", true],
+    ["place", [8.68, 47.378], "lakeGreifen", "n", true],
+    ["place", [8.8, 47.36], "lakePfaeffikon", "e", true],
+    ["place", [8.4, 47.425], "limmat", "n", true],
+    ["place", [8.535, 47.3], "sihl", "w", true],
+    ["place", [8.86, 47.43], "toss", "e", true],
+    ["peak", P("uetliberg"), "uetliberg", "w"],
+    ["peak", P("albis"), "albis", "w"],
+    ["peak", P("pfannenstiel"), "pfannenstiel", "e"],
     ["peak", P("schnebelhorn"), "schnebelhorn", "w"],
   ],
 };
@@ -132,7 +176,15 @@ export function mapMarks(name: string, lang: string) {
 // Legends: the shape or fill, and its name. Names of fills and marks are key terms of the topic.
 export const MAP_LEGEND: Record<string, [key: string, text: string, term?: string][]> = {
   "ch-cities": [["square", "cities", "Bundesstadt"]],
-  "ch-mountains": [["diamond", "mountains", "Alpenpass"], ["light", "mountains", "Bergkanton"]],
-  "ch-languages": [["field", "german"], ["light", "french"], ["dark", "italian"], ["red", "romansh"]],
+  "ch-mountains": [
+    ["diamond", "mountains", "Alpenpass"],
+    ["light", "mountains", "Bergkanton"],
+  ],
+  "ch-languages": [
+    ["field", "german"],
+    ["light", "french"],
+    ["dark", "italian"],
+    ["red", "romansh"],
+  ],
   "zh-cities": [["square", "zh_cities", "Hauptort"]],
 };

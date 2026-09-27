@@ -32,7 +32,10 @@ type SiteTexts = Omit<Site, "about" | "method"> & {
 };
 
 /** All texts of one language: i18n/<code>.json. */
-export type Text = Omit<typeof German, "questions" | "concepts" | "lessons" | "units" | "categories" | "levels" | "site"> & {
+export type Text = Omit<
+  typeof German,
+  "questions" | "concepts" | "lessons" | "units" | "categories" | "levels" | "site"
+> & {
   site: SiteTexts;
   questions: Record<string, QuestionText>;
   concepts: Record<string, ConceptText>;

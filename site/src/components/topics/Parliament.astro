@@ -36,38 +36,64 @@ const chamber = (h: ReturnType<typeof hemicycle>, outer: number, half = 0) => {
 };
 const nc = chamber(national, OUTER);
 const cs = chamber(states, outerStates, HALF_CANTON_SEATS);
-const seat = (c: ReturnType<typeof chamber>, s: Seat & { i: number }) => ({ cx: (s.x * c.outer).toFixed(1), cy: (s.y * c.outer).toFixed(1), r: dot.toFixed(2), half: s.i >= c.total - c.half });
+const seat = (c: ReturnType<typeof chamber>, s: Seat & { i: number }) => ({
+  cx: (s.x * c.outer).toFixed(1),
+  cy: (s.y * c.outer).toFixed(1),
+  r: dot.toFixed(2),
+  half: s.i >= c.total - c.half,
+});
 ---
-<figure class="parl" style={`--nc:${nc.width.toFixed(1)};--cs:${cs.width.toFixed(1)};--nc-col:${nc.width.toFixed(1)}fr;--cs-col:${cs.width.toFixed(1)}fr`}>
+
+<figure
+  class="parl"
+  style={`--nc:${nc.width.toFixed(1)};--cs:${cs.width.toFixed(1)};--nc-col:${nc.width.toFixed(1)}fr;--cs-col:${cs.width.toFixed(1)}fr`}
+>
   {caption && <figcaption class="parl-title">{p.title}</figcaption>}
   <div class="parl-chambers">
     {[nc, cs].map((c, k) => (
       <svg class={`parl-seats ${k ? "parl-cs" : "parl-nc"}`} viewBox={c.view} aria-hidden="true">
         {c.rows.map((row, i) => (
           <g class="parl-row" style={`--i:${i}`}>
-            {row.map((s) => { const d = seat(c, s); return <circle class={d.half ? "half" : undefined} cx={d.cx} cy={d.cy} r={d.r} />; })}
+            {row.map((s) => {
+              const d = seat(c, s);
+              return <circle class={d.half ? "half" : undefined} cx={d.cx} cy={d.cy} r={d.r} />;
+            })}
           </g>
         ))}
       </svg>
     ))}
     <div class="parl-label parl-nc-label">
       <p class="parl-num">200</p>
-      <p class="parl-term" lang="de">Nationalrat</p>
+      <p class="parl-term" lang="de">
+        Nationalrat
+      </p>
       <p class="parl-def">{def("Nationalrat")}</p>
     </div>
     <div class="parl-label parl-cs-label">
       <p class="parl-num">46</p>
-      <p class="parl-term" lang="de">Ständerat</p>
+      <p class="parl-term" lang="de">
+        Ständerat
+      </p>
       <p class="parl-def">{def("Ständerat")}</p>
       <ul class="parl-legend">
-        <li><i class="seat"></i>{p.cantons}</li>
-        <li><i class="seat half"></i>{p.halves}</li>
+        <li>
+          <i class="seat"></i>
+          {p.cantons}
+        </li>
+        <li>
+          <i class="seat half"></i>
+          {p.halves}
+        </li>
       </ul>
     </div>
   </div>
   <div class="parl-united">
     <p class="parl-num">200 + 46 = 246</p>
-    <p class="parl-term" lang="de">Vereinigte Bundesversammlung</p>
-    <p class="parl-def">{def("Vereinigte Bundesversammlung")} {tasks}</p>
+    <p class="parl-term" lang="de">
+      Vereinigte Bundesversammlung
+    </p>
+    <p class="parl-def">
+      {def("Vereinigte Bundesversammlung")} {tasks}
+    </p>
   </div>
 </figure>

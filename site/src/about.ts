@@ -6,7 +6,12 @@ import { byLang } from "../../i18n/index.js";
 
 // The makers, for the structured data of the about and method pages.
 export const MAKERS = [
-  { "@type": "Person", name: "Aleksej Dix", url: "https://www.linkedin.com/in/aleksejdix/", sameAs: ["https://github.com/AleksejDix"] },
+  {
+    "@type": "Person",
+    name: "Aleksej Dix",
+    url: "https://www.linkedin.com/in/aleksejdix/",
+    sameAs: ["https://github.com/AleksejDix"],
+  },
   { "@type": "Person", name: "Lidia Dix", url: "https://www.linkedin.com/in/lidiadix/" },
 ];
 

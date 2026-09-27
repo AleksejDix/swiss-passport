@@ -77,7 +77,8 @@ test.describe("test guide: do I have to take the test?", () => {
   test("four times no: the test is needed", async ({ page }) => {
     await page.goto("/en/grundkenntnistest/");
     const check = page.locator("[data-check]");
-    for (let i = 0; i < c.qs.length; i++) await check.getByRole("button", { name: c.no, exact: true }).locator("visible=true").click();
+    for (let i = 0; i < c.qs.length; i++)
+      await check.getByRole("button", { name: c.no, exact: true }).locator("visible=true").click();
     await expect(check.getByText(c.resultYes)).toBeVisible();
     await expect(check.getByRole("button", { name: c.again })).toBeFocused();
   });

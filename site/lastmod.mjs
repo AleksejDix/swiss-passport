@@ -65,10 +65,15 @@ export function lastmodFor(langs) {
   const { concepts } = JSON.parse(readFileSync(new URL("curriculum.json", `file://${ROOT}`), "utf8"));
   const quiz = partDates("quiz.json", (j) => j.questions.map((q) => [q.id, q]));
   const curriculum = partDates("curriculum.json", (j) => j.concepts.map((c) => [c.id, c]));
-  const text = Object.fromEntries(langs.map((lang) => [lang, partDates(`i18n/${lang}.json`, (j) => [
-    ...Object.entries(j.questions).map(([id, v]) => [`q:${id}`, v]),
-    ...Object.entries(j.concepts).map(([id, v]) => [`c:${id}`, v]),
-  ])]));
+  const text = Object.fromEntries(
+    langs.map((lang) => [
+      lang,
+      partDates(`i18n/${lang}.json`, (j) => [
+        ...Object.entries(j.questions).map(([id, v]) => [`q:${id}`, v]),
+        ...Object.entries(j.concepts).map(([id, v]) => [`c:${id}`, v]),
+      ]),
+    ]),
+  );
   const conceptOf = new Map(concepts.flatMap((c) => c.questions.map((id) => [id, c])));
 
   // A question page shows the question, its topic's title, first paragraph and sources.
@@ -79,16 +84,26 @@ export function lastmodFor(langs) {
   // A topic page shows the topic and the text and answer of each of its questions.
   const topic = (lang, id) => {
     const c = concepts.find((k) => k.id === id);
-    return c && latest(text[lang].get(`c:${id}`), curriculum.get(id), ...c.questions.map((q) => latest(text[lang].get(`q:${q}`), quiz.get(q))));
+    return (
+      c &&
+      latest(
+        text[lang].get(`c:${id}`),
+        curriculum.get(id),
+        ...c.questions.map((q) => latest(text[lang].get(`q:${q}`), quiz.get(q))),
+      )
+    );
   };
 
   const fileDates = new Map();
   return (path) => {
     let m;
     // Question slugs start with the number of the question: /de/questions/17-welche-pflichten-.../
-    if ((m = path.match(/^\/([a-z]{2})\/questions\/(\d+)-/)) && text[m[1]]) return question(m[1], `q${m[2].padStart(3, "0")}`);
-    if ((m = path.match(/^\/([a-z]{2})\/topics\/([a-z0-9-]+)\/$/)) && text[m[1]]) return topic(m[1], m[2].replace(/-/g, "_"));
-    if ((m = path.match(/^\/([a-z]{2})\/questions\/$/)) && text[m[1]]) return latest(...concepts.map((c) => topic(m[1], c.id)));
+    if ((m = path.match(/^\/([a-z]{2})\/questions\/(\d+)-/)) && text[m[1]])
+      return question(m[1], `q${m[2].padStart(3, "0")}`);
+    if ((m = path.match(/^\/([a-z]{2})\/topics\/([a-z0-9-]+)\/$/)) && text[m[1]])
+      return topic(m[1], m[2].replace(/-/g, "_"));
+    if ((m = path.match(/^\/([a-z]{2})\/questions\/$/)) && text[m[1]])
+      return latest(...concepts.map((c) => topic(m[1], c.id)));
     const files = PAGES.find(([re]) => re.test(path))?.[1];
     if (!files) return undefined;
     const key = files.join(" ");

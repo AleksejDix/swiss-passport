@@ -5,8 +5,19 @@ import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/
 
 const base = process.argv[2]?.replace(/\/$/, "");
 if (!base) throw new Error("usage: node scripts/live-test.mjs https://<host>");
-const key = Object.fromEntries(JSON.parse(readFileSync(new URL("../data/quiz.json", import.meta.url), "utf8")).questions.map((q) => [q.id, q.answer]));
-const assert = (ok, msg) => { if (!ok) { console.error("FAIL:", msg); process.exit(1); } console.log("ok:", msg); };
+const key = Object.fromEntries(
+  JSON.parse(readFileSync(new URL("../data/quiz.json", import.meta.url), "utf8")).questions.map((q) => [
+    q.id,
+    q.answer,
+  ]),
+);
+const assert = (ok, msg) => {
+  if (!ok) {
+    console.error("FAIL:", msg);
+    process.exit(1);
+  }
+  console.log("ok:", msg);
+};
 const connect = async () => {
   const c = new Client({ name: "live-test", version: "0" });
   await c.connect(new StreamableHTTPClientTransport(new URL(`${base}/mcp`)));

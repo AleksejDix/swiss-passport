@@ -34,7 +34,11 @@ export class App {
   }
 
   async connect() {
-    const init = await this.request("ui/initialize", { appCapabilities: {}, appInfo: this.appInfo, protocolVersion: PROTOCOL_VERSION });
+    const init = await this.request("ui/initialize", {
+      appCapabilities: {},
+      appInfo: this.appInfo,
+      protocolVersion: PROTOCOL_VERSION,
+    });
     this.hostCapabilities = init.hostCapabilities ?? {};
     this.hostContext = init.hostContext ?? {};
     this.post({ method: "ui/notifications/initialized" });
@@ -43,7 +47,8 @@ export class App {
 
   getHostCapabilities = () => this.hostCapabilities;
   getHostContext = () => this.hostContext;
-  callServerTool = (params: { name: string; arguments: Json }): Promise<ToolResult> => this.request("tools/call", params);
+  callServerTool = (params: { name: string; arguments: Json }): Promise<ToolResult> =>
+    this.request("tools/call", params);
   sendMessage = (params: { role: "user"; content: Json[] }) => this.request("ui/message", params);
   updateModelContext = (params: { content: Json[] }) => this.request("ui/update-model-context", params);
 
@@ -56,8 +61,14 @@ export class App {
     const id = this.nextId++;
     this.post({ id, method, params });
     return new Promise((resolve, reject) => {
-      const timer = setTimeout(() => this.settle(id, { error: { message: `${method}: no answer from the host` } }), TIMEOUT_MS);
-      this.pending.set(id, { resolve: (r) => (clearTimeout(timer), resolve(r)), reject: (e) => (clearTimeout(timer), reject(e)) });
+      const timer = setTimeout(
+        () => this.settle(id, { error: { message: `${method}: no answer from the host` } }),
+        TIMEOUT_MS,
+      );
+      this.pending.set(id, {
+        resolve: (r) => (clearTimeout(timer), resolve(r)),
+        reject: (e) => (clearTimeout(timer), reject(e)),
+      });
     });
   }
 
@@ -73,7 +84,11 @@ export class App {
     if ("id" in message) {
       // Requests from the host: answer the ones the protocol expects, refuse the rest.
       const known = message.method === "ping" || message.method === "ui/resource-teardown";
-      return this.post(known ? { id: message.id, result: {} } : { id: message.id, error: { code: -32601, message: `Method not found: ${message.method}` } });
+      return this.post(
+        known
+          ? { id: message.id, result: {} }
+          : { id: message.id, error: { code: -32601, message: `Method not found: ${message.method}` } },
+      );
     }
     if (message.method === "ui/notifications/tool-result") this.ontoolresult?.(message.params);
     if (message.method === "ui/notifications/host-context-changed") {

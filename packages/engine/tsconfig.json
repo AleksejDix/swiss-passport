@@ -10,7 +10,5 @@
     "skipLibCheck": true,
     "types": []
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

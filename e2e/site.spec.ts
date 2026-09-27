@@ -5,7 +5,9 @@ import quiz from "../quiz.json" with { type: "json" };
 
 /** The question pages linked from the page, in order. */
 const questionLinks = (page: Page) =>
-  page.locator("main a").evaluateAll((as) => as.map((a) => a.getAttribute("href")!).filter((h) => /\/questions\/\d+-/.test(h)));
+  page
+    .locator("main a")
+    .evaluateAll((as) => as.map((a) => a.getAttribute("href")!).filter((h) => /\/questions\/\d+-/.test(h)));
 
 test.describe("language picker at /", () => {
   test("lists every language with its headline", async ({ page }) => {
@@ -43,7 +45,10 @@ test.describe("masthead", () => {
 
   test("the language menu opens the same page in another language", async ({ page }) => {
     await page.goto("/de/method/");
-    await page.getByRole("navigation", { name: TEXTS.de.site.ui.nav_langs }).getByRole("link", { name: "English" }).click();
+    await page
+      .getByRole("navigation", { name: TEXTS.de.site.ui.nav_langs })
+      .getByRole("link", { name: "English" })
+      .click();
     await expect(page).toHaveURL("/en/method/");
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
   });
@@ -65,7 +70,9 @@ test.describe("question pages", () => {
 
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(en.question);
     await expect(page.locator('main [lang="de"]').first()).toHaveText(TEXTS.de.questions[q.id].question);
-    await expect(page.getByRole("heading", { level: 2, name: `${TEXTS.en.site.ui.answer}: ${q.answer.toUpperCase()}` })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 2, name: `${TEXTS.en.site.ui.answer}: ${q.answer.toUpperCase()}` }),
+    ).toBeVisible();
     await expect(page.getByText(en.why)).toBeVisible();
 
     // The first question of the curriculum has no previous one.

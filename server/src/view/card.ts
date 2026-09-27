@@ -12,7 +12,12 @@ interface Question {
 }
 interface Step {
   lesson?: { title: string; unit: string; position: string };
-  explain_first?: { title: string; intro: string[]; key_terms: { term: string; definition: string }[]; mnemonic?: string };
+  explain_first?: {
+    title: string;
+    intro: string[];
+    key_terms: { term: string; definition: string }[];
+    mnemonic?: string;
+  };
   step: string;
   question: Question;
 }
@@ -26,19 +31,28 @@ interface Feedback {
   note?: string;
   comes_again_later_in_this_round?: boolean;
 }
-interface Labels { right: string; wrongIs: string; again: string; next: string; done: string }
+interface Labels {
+  right: string;
+  wrongIs: string;
+  again: string;
+  next: string;
+  done: string;
+}
 interface Card {
   lang?: string;
   /** The card's labels in the learner's language, from the server (i18n/<code>.json, key card). */
   labels: Labels;
-  data: { learner_code?: string } & (Step | { feedback: Feedback; next?: Step; finished?: Record<string, unknown> } | Record<string, unknown>);
+  data: { learner_code?: string } & (
+    Step | { feedback: Feedback; next?: Step; finished?: Record<string, unknown> } | Record<string, unknown>
+  );
   images: Partial<Record<"question" | Letter, string>>;
 }
 
 const root = document.getElementById("root")!;
 const app = new App({ name: "swiss-passport-card", version: "1.0.0" });
 /** ChatGPT's own card API, next to the standard one. */
-const openai = () => (window as { openai?: { setWidgetState?(state: unknown): void; toolResponseMetadata?: { card?: Card } } }).openai;
+const openai = () =>
+  (window as { openai?: { setWidgetState?(state: unknown): void; toolResponseMetadata?: { card?: Card } } }).openai;
 let learnerCode: string | undefined;
 
 const el = (tag: string, cls = "", text = "") => {
@@ -58,9 +72,16 @@ function render({ labels: label, data, images }: Card) {
   if (feedback && !feedback.recorded) {
     const ok = feedback.correct;
     root.append(
-      el("div", `banner ${ok ? "ok" : "bad"}`, ok ? `✓ ${label.right}` : `✗ ${label.wrongIs} ${feedback.correct_answer?.toUpperCase()}: ${feedback.correct_answer_text}`),
+      el(
+        "div",
+        `banner ${ok ? "ok" : "bad"}`,
+        ok
+          ? `✓ ${label.right}`
+          : `✗ ${label.wrongIs} ${feedback.correct_answer?.toUpperCase()}: ${feedback.correct_answer_text}`,
+      ),
     );
-    for (const text of [feedback.why, feedback.about_your_answer, feedback.note]) if (text) root.append(el("p", "para", text));
+    for (const text of [feedback.why, feedback.about_your_answer, feedback.note])
+      if (text) root.append(el("p", "para", text));
     if (feedback.comes_again_later_in_this_round) root.append(el("p", "muted", label.again));
     // The learner reads the explanation first; the next question comes on "Next".
     if (step) {
@@ -71,7 +92,8 @@ function render({ labels: label, data, images }: Card) {
     }
   }
   if (finished) {
-    const score = "score" in finished ? `${finished.score}/${finished.total}` : `${finished.correct_first_try}/${finished.total}`;
+    const score =
+      "score" in finished ? `${finished.score}/${finished.total}` : `${finished.correct_first_try}/${finished.total}`;
     root.append(el("div", "done", `🎉 ${score}`));
     return;
   }
@@ -145,7 +167,8 @@ async function choose(letter: Letter, q: Question) {
       if (!r.isError && card?.data) {
         render(card);
         await tellModel(letter, q, card);
-        if ("finished" in card.data) await app.sendMessage({ role: "user", content: [{ type: "text", text: card.labels.done }] });
+        if ("finished" in card.data)
+          await app.sendMessage({ role: "user", content: [{ type: "text", text: card.labels.done }] });
         return;
       }
     } catch {

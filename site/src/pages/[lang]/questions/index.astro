@@ -17,36 +17,47 @@ const ui = UI[lang];
 const t = TEXT[lang];
 const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, questionsPath(id)]));
 ---
-<Base lang={lang} title={ui.questions_title} description={ui.questions_desc} alternates={alternates}>
-<main class="page">
-  <header class="qhead">
-    <Breadcrumbs lang={lang} items={[[ui.nav_questions, questionsPath(lang)]]} />
-    <h1>{ui.questions_title}</h1>
-    <p class="lede">{ui.questions_lede}</p>
-    <p class="cta"><a class="button" href="/learn/">{ui.practise}</a></p>
-  </header>
 
-  {units.map((u) => (
-    <section class="row" aria-labelledby={u.id}>
-      <h2 id={u.id}>{t.units[u.id].title}</h2>
-      <div class="pairs">
-        {u.lessons.map((l) => (
-          <>
-            <h3 id={l}>{t.lessons[l].title}</h3>
-            {topics.filter((c) => c.lesson === l).map((c) => (
-              <>
-                <h4><a href={topicPath(lang, c)}>{t.concepts[c.id].title}</a></h4>
-                <ol class="qlist">
-                  {c.questions.map((q) => (
-                    <li value={q.n}><a href={questionPath(lang, q)}>{t.questions[q.id].question}</a></li>
-                  ))}
-                </ol>
-              </>
-            ))}
-          </>
-        ))}
-      </div>
-    </section>
-  ))}
-</main>
+<Base lang={lang} title={ui.questions_title} description={ui.questions_desc} alternates={alternates}>
+  <main class="page">
+    <header class="qhead">
+      <Breadcrumbs lang={lang} items={[[ui.nav_questions, questionsPath(lang)]]} />
+      <h1>{ui.questions_title}</h1>
+      <p class="lede">{ui.questions_lede}</p>
+      <p class="cta">
+        <a class="button" href="/learn/">
+          {ui.practise}
+        </a>
+      </p>
+    </header>
+
+    {units.map((u) => (
+      <section class="row" aria-labelledby={u.id}>
+        <h2 id={u.id}>{t.units[u.id].title}</h2>
+        <div class="pairs">
+          {u.lessons.map((l) => (
+            <>
+              <h3 id={l}>{t.lessons[l].title}</h3>
+              {topics
+                .filter((c) => c.lesson === l)
+                .map((c) => (
+                  <>
+                    <h4>
+                      <a href={topicPath(lang, c)}>{t.concepts[c.id].title}</a>
+                    </h4>
+                    <ol class="qlist">
+                      {c.questions.map((q) => (
+                        <li value={q.n}>
+                          <a href={questionPath(lang, q)}>{t.questions[q.id].question}</a>
+                        </li>
+                      ))}
+                    </ol>
+                  </>
+                ))}
+            </>
+          ))}
+        </div>
+      </section>
+    ))}
+  </main>
 </Base>

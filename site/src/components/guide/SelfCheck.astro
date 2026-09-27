@@ -12,6 +12,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = CHECK_TEXT[lang];
 ---
+
 <figure class="chk" data-check data-result-no={t.resultNo} data-result-yes={t.resultYes}>
   <figcaption class="chk-title">{t.caption}</figcaption>
   <ol class="chk-steps">
@@ -19,18 +20,38 @@ const t = CHECK_TEXT[lang];
       <li class="chk-step" data-step={i}>
         <span class="chk-n">{i + 1}</span>
         <p class="chk-q">{q}</p>
-        <p class="chk-yes"><b>{t.yes}</b> → {t.noTest}</p>
+        <p class="chk-yes">
+          <b>{t.yes}</b> → {t.noTest}
+        </p>
         <p class="chk-buttons">
-          <button type="button" data-answer="yes">{t.yes}</button>
-          <button type="button" data-answer="no">{t.no}</button>
+          <button type="button" data-answer="yes">
+            {t.yes}
+          </button>
+          <button type="button" data-answer="no">
+            {t.no}
+          </button>
         </p>
       </li>
     ))}
-    <li class="chk-end"><span class="chk-n">!</span><p><b>{t.allNo}</b> {t.test}</p></li>
+    <li class="chk-end">
+      <span class="chk-n">!</span>
+      <p>
+        <b>{t.allNo}</b> {t.test}
+      </p>
+    </li>
   </ol>
   <div class="chk-out" data-out aria-live="polite" hidden>
     <p class="chk-result" data-result></p>
-    <p><button type="button" class="chk-again" data-again>{t.again}</button></p>
+    <p>
+      <button type="button" class="chk-again" data-again>
+        {t.again}
+      </button>
+    </p>
   </div>
-  <p class="chk-note">{t.note} <a href={LINKS.zh} rel="noopener">{t.link}</a></p>
+  <p class="chk-note">
+    {t.note}{" "}
+    <a href={LINKS.zh} rel="noopener">
+      {t.link}
+    </a>
+  </p>
 </figure>

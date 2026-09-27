@@ -10,7 +10,10 @@ export interface D1Database {
 export function d1Store(db: D1Database): Store {
   return {
     async load(code) {
-      const row = await db.prepare("SELECT progress FROM learners WHERE code = ?").bind(code).first<{ progress: string }>();
+      const row = await db
+        .prepare("SELECT progress FROM learners WHERE code = ?")
+        .bind(code)
+        .first<{ progress: string }>();
       return row ? (JSON.parse(row.progress) as Progress) : undefined;
     },
     async save(code, p) {

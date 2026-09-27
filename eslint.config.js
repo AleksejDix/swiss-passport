@@ -27,12 +27,18 @@ export default ts.config(
   astro.configs.recommended,
   { languageOptions: { globals: globals.node } },
   // Code that runs in the browser: the site's scripts, the quiz card and the e2e page helpers.
-  { files: ["site/src/scripts/**", "site/src/**/*.astro", "server/src/view/**"], languageOptions: { globals: globals.browser } },
+  {
+    files: ["site/src/scripts/**", "site/src/**/*.astro", "server/src/view/**"],
+    languageOptions: { globals: globals.browser },
+  },
   {
     rules: {
       // `catch { /* storage unavailable */ }` is the house style for optional browser APIs.
       "no-empty": ["error", { allowEmptyCatch: true }],
-      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_", ignoreRestSiblings: true }],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_", ignoreRestSiblings: true },
+      ],
     },
   },
 );

@@ -22,11 +22,33 @@ const mediaText = lang === "de" ? media : media.replace(/^[^:,]*[:,]\s*/, "");
 // A body: its topic and German key term (or no topic and a plain name), and a detail such as the seats.
 type Body = [topic: string | null, term: string, detail: string | null];
 const powers: { term: string; does: string; federal: Body[]; canton: Body[] }[] = [
-  { term: "Legislative", does: p.make, federal: [["parliament_chambers", "Bundesversammlung", `${name("parliament_chambers", "Nationalrat")} ${200} + ${name("parliament_chambers", "Ständerat")} ${46}`]], canton: [["zh_parliament", "Kantonsrat", membersLabel(lang, 180)]] },
-  { term: "Exekutive", does: p.execute, federal: [["federal_council", "Bundesrat", membersLabel(lang, 7)]], canton: [["zh_government", "Regierungsrat", membersLabel(lang, 7)]] },
-  { term: "Judikative", does: p.judge, federal: [["justice_police", "Bundesgericht", "Lausanne"]], canton: [[null, p.courts, null]] },
+  {
+    term: "Legislative",
+    does: p.make,
+    federal: [
+      [
+        "parliament_chambers",
+        "Bundesversammlung",
+        `${name("parliament_chambers", "Nationalrat")} ${200} + ${name("parliament_chambers", "Ständerat")} ${46}`,
+      ],
+    ],
+    canton: [["zh_parliament", "Kantonsrat", membersLabel(lang, 180)]],
+  },
+  {
+    term: "Exekutive",
+    does: p.execute,
+    federal: [["federal_council", "Bundesrat", membersLabel(lang, 7)]],
+    canton: [["zh_government", "Regierungsrat", membersLabel(lang, 7)]],
+  },
+  {
+    term: "Judikative",
+    does: p.judge,
+    federal: [["justice_police", "Bundesgericht", "Lausanne"]],
+    canton: [[null, p.courts, null]],
+  },
 ];
 ---
+
 <figure class="pow">
   {caption && <figcaption class="pow-title">{p.title}</figcaption>}
   <p class="pow-control">{p.control}</p>
@@ -34,15 +56,28 @@ const powers: { term: string; does: string; federal: Body[]; canton: Body[] }[] 
     {powers.map((pw, i) => (
       <div class="pow-col" style={`--i:${i}`}>
         <p class="pow-name">{name("separation_of_powers", pw.term)}</p>
-        {lang !== "de" && <p class="pow-de" lang="de">{pw.term}</p>}
+        {lang !== "de" && (
+          <p class="pow-de" lang="de">
+            {pw.term}
+          </p>
+        )}
         <p class="pow-does">{pw.does}</p>
-        {([[p.federal, pw.federal], [p.canton, pw.canton]] as [string, Body[]][]).map(([level, bodies]) => (
+        {(
+          [
+            [p.federal, pw.federal],
+            [p.canton, pw.canton],
+          ] as [string, Body[]][]
+        ).map(([level, bodies]) => (
           <div class="pow-body">
             <p class="pow-level">{level}</p>
             {bodies.map(([topic, term, detail]) => (
               <>
                 <p class="pow-org">{topic ? name(topic, term) : term}</p>
-                {topic && lang !== "de" && <p class="pow-de" lang="de">{term}</p>}
+                {topic && lang !== "de" && (
+                  <p class="pow-de" lang="de">
+                    {term}
+                  </p>
+                )}
                 {detail && <p class="pow-detail">{detail}</p>}
               </>
             ))}
@@ -51,5 +86,10 @@ const powers: { term: string; does: string; federal: Body[]; canton: Body[] }[] 
       </div>
     ))}
   </div>
-  <p class="pow-media"><i class="dot open"></i><span><b>{name("separation_of_powers", "Vierte Gewalt")}</b> {mediaText}</span></p>
+  <p class="pow-media">
+    <i class="dot open"></i>
+    <span>
+      <b>{name("separation_of_powers", "Vierte Gewalt")}</b> {mediaText}
+    </span>
+  </p>
 </figure>

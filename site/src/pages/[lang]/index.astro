@@ -29,90 +29,151 @@ const jsonLd = {
   inLanguage: lang,
 };
 ---
+
 <Base lang={lang} title={s.title} description={s.description} alternates={alternates} jsonLd={jsonLd} xDefault="/">
-<script is:inline slot="head">if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-motion");</script>
-<main class="page">
-  <section class="hero" aria-labelledby="title">
-    <div class="hero-head">
-      <h1 id="title">{s.h1}</h1>
-      <p class="lede">{s.lede}</p>
-      <p class="note">{s.unofficial}</p>
-      <p class="cta"><a class="button" href={connectPath(lang)}>{s.cta}</a></p>
-      <AppLinks lang={lang} />
-      <p class="note"><a href="/learn/">{s.cta_browser} →</a></p>
-    </div>
-  </section>
-
-  <section class="row" aria-labelledby="how">
-    <h2 id="how">{s.how}</h2>
-    <ol class="steps">
-      <li><span class="n">1</span><p>{s.step1}</p></li>
-      <li><span class="n">2</span><p>{s.step2}</p></li>
-      <li><span class="n">3</span><p>{s.step3}</p></li>
-    </ol>
-    <ChatDemo lang={lang} />
-  </section>
-
-  <section class="row" aria-labelledby="method">
-    <h2 id="method">{s.method}</h2>
-    <dl class="method">
-      <div><dt>{s.m1t}</dt><dd>{s.m1d}</dd></div>
-      <div><dt>{s.m2t}</dt><dd>{s.m2d}</dd></div>
-      <div><dt>{s.m3t}</dt><dd>{s.m3d}</dd></div>
-      <div><dt>{s.m4t}</dt><dd>{s.m4d}</dd></div>
-      <div><dt>{s.m5t}</dt><dd>{s.m5d}</dd></div>
-      <div><dt>{s.m6t}</dt><dd>{s.m6d}</dd></div>
-    </dl>
-    <p class="note"><a href={methodPath(lang)}>{METHOD[lang].link} →</a></p>
-  </section>
-
-  <section class="row" aria-labelledby="reviews">
-    <h2 id="reviews">{s.reviews}</h2>
-    <div>
-      <p>{s.reviews_p}</p>
-      <div class="timeline" data-timeline aria-hidden="true">
-        <div class="axis"></div>
-        <span style="--d:1">1</span><span style="--d:3">3</span><span style="--d:7">7</span><span style="--d:14">14</span><span style="--d:30">30</span>
-      </div>
-      <p class="small">{s.reviews_caption}</p>
-    </div>
-  </section>
-
-  <section class="row" aria-labelledby="contents">
-    <h2 id="contents">{s.contents}</h2>
-    <div>
-    <table class="facts">
-      <tr><td>350</td><th scope="row">{s.f1}</th></tr>
-      <tr><td>37</td><th scope="row">{s.f2}</th></tr>
-      <tr><td>96</td><th scope="row">{s.f3}</th></tr>
-      <tr><td>{LANG_IDS.length}</td><th scope="row">{s.f4}</th></tr>
-      <tr><td>50</td><th scope="row">{s.f5}</th></tr>
-    </table>
-    <QuestionMap lang={lang} />
-    <p class="note">{s.contents_note}</p>
-    </div>
-  </section>
-
-  <section class="row" id="start" aria-labelledby="start-title">
-    <h2 id="start-title">{s.start}</h2>
-    <div class="pairs">
-      <h3>{s.s_connector}</h3>
-      <p>{s.s_connector_p}</p>
-      <div class="url">
-        <code data-url>{new URL("/mcp", SITE).href}</code>
-        <button type="button" data-copy data-copied={s.copied} aria-live="polite">{s.copy}</button>
-      </div>
-      <div>
+  <script is:inline slot="head">
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-motion");
+  </script>
+  <main class="page">
+    <section class="hero" aria-labelledby="title">
+      <div class="hero-head">
+        <h1 id="title">{s.h1}</h1>
+        <p class="lede">{s.lede}</p>
+        <p class="note">{s.unofficial}</p>
+        <p class="cta">
+          <a class="button" href={connectPath(lang)}>
+            {s.cta}
+          </a>
+        </p>
         <AppLinks lang={lang} />
-        <p class="note"><a href={connectPath(lang)}>{CONNECT[lang].link} →</a></p>
+        <p class="note">
+          <a href="/learn/">{s.cta_browser} →</a>
+        </p>
       </div>
-      <h3>{s.s_browser}</h3>
-      <p set:html={s.s_browser_p}></p>
-      <h3>{s.s_progress}</h3>
-      <p>{s.s_progress_p}</p>
-    </div>
-  </section>
-</main>
+    </section>
+
+    <section class="row" aria-labelledby="how">
+      <h2 id="how">{s.how}</h2>
+      <ol class="steps">
+        <li>
+          <span class="n">1</span>
+          <p>{s.step1}</p>
+        </li>
+        <li>
+          <span class="n">2</span>
+          <p>{s.step2}</p>
+        </li>
+        <li>
+          <span class="n">3</span>
+          <p>{s.step3}</p>
+        </li>
+      </ol>
+      <ChatDemo lang={lang} />
+    </section>
+
+    <section class="row" aria-labelledby="method">
+      <h2 id="method">{s.method}</h2>
+      <dl class="method">
+        <div>
+          <dt>{s.m1t}</dt>
+          <dd>{s.m1d}</dd>
+        </div>
+        <div>
+          <dt>{s.m2t}</dt>
+          <dd>{s.m2d}</dd>
+        </div>
+        <div>
+          <dt>{s.m3t}</dt>
+          <dd>{s.m3d}</dd>
+        </div>
+        <div>
+          <dt>{s.m4t}</dt>
+          <dd>{s.m4d}</dd>
+        </div>
+        <div>
+          <dt>{s.m5t}</dt>
+          <dd>{s.m5d}</dd>
+        </div>
+        <div>
+          <dt>{s.m6t}</dt>
+          <dd>{s.m6d}</dd>
+        </div>
+      </dl>
+      <p class="note">
+        <a href={methodPath(lang)}>{METHOD[lang].link} →</a>
+      </p>
+    </section>
+
+    <section class="row" aria-labelledby="reviews">
+      <h2 id="reviews">{s.reviews}</h2>
+      <div>
+        <p>{s.reviews_p}</p>
+        <div class="timeline" data-timeline aria-hidden="true">
+          <div class="axis"></div>
+          <span style="--d:1">1</span>
+          <span style="--d:3">3</span>
+          <span style="--d:7">7</span>
+          <span style="--d:14">14</span>
+          <span style="--d:30">30</span>
+        </div>
+        <p class="small">{s.reviews_caption}</p>
+      </div>
+    </section>
+
+    <section class="row" aria-labelledby="contents">
+      <h2 id="contents">{s.contents}</h2>
+      <div>
+        <table class="facts">
+          <tr>
+            <td>350</td>
+            <th scope="row">{s.f1}</th>
+          </tr>
+          <tr>
+            <td>37</td>
+            <th scope="row">{s.f2}</th>
+          </tr>
+          <tr>
+            <td>96</td>
+            <th scope="row">{s.f3}</th>
+          </tr>
+          <tr>
+            <td>{LANG_IDS.length}</td>
+            <th scope="row">{s.f4}</th>
+          </tr>
+          <tr>
+            <td>50</td>
+            <th scope="row">{s.f5}</th>
+          </tr>
+        </table>
+        <QuestionMap lang={lang} />
+        <p class="note">{s.contents_note}</p>
+      </div>
+    </section>
+
+    <section class="row" id="start" aria-labelledby="start-title">
+      <h2 id="start-title">{s.start}</h2>
+      <div class="pairs">
+        <h3>{s.s_connector}</h3>
+        <p>{s.s_connector_p}</p>
+        <div class="url">
+          <code data-url>{new URL("/mcp", SITE).href}</code>
+          <button type="button" data-copy data-copied={s.copied} aria-live="polite">
+            {s.copy}
+          </button>
+        </div>
+        <div>
+          <AppLinks lang={lang} />
+          <p class="note">
+            <a href={connectPath(lang)}>{CONNECT[lang].link} →</a>
+          </p>
+        </div>
+        <h3>{s.s_browser}</h3>
+        <p set:html={s.s_browser_p} />
+        <h3>{s.s_progress}</h3>
+        <p>{s.s_progress_p}</p>
+      </div>
+    </section>
+  </main>
 </Base>
 
 <script>

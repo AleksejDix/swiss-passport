@@ -13,7 +13,9 @@ async function rightLetter(page: Page) {
   // The question arrives from /mcp after the click: wait for its four open options.
   await expect(page.locator("[data-choices] button:enabled")).toHaveCount(4);
   const question = await page.getByRole("heading", { level: 1 }).textContent();
-  const options = await page.locator("[data-choices] button").evaluateAll((bs) => bs.map((b) => b.querySelector("span")?.textContent ?? null));
+  const options = await page
+    .locator("[data-choices] button")
+    .evaluateAll((bs) => bs.map((b) => b.querySelector("span")?.textContent ?? null));
   const matches = quiz.questions.filter((q) => {
     const t = TEXTS.en.questions[q.id];
     return t.question === question && (options[0] === null || LETTERS.every((l, i) => t.options[l] === options[i]));

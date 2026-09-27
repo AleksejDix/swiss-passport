@@ -3,34 +3,60 @@
 import Base from "../layouts/Base.astro";
 import { OPERATOR } from "../legal.ts";
 ---
-<Base lang="de" remember={false} title="Impressum | Swiss Passport" description="Impressum von Swiss Passport: Betreiber, Kontakt und Haftung." alternates={{ de: "/impressum/" }}>
-<main class="page">
-  <header class="qhead">
-    <h1>Impressum</h1>
-  </header>
 
-  <section class="row" aria-labelledby="betreiber">
-    <h2 id="betreiber">Betreiber</h2>
-    <div class="prose">
-      <p>{OPERATOR.name}<br>{OPERATOR.region}</p>
-      <p>E-Mail: <a href={`mailto:${OPERATOR.email}`}>{OPERATOR.email}</a></p>
-      <p>Swiss Passport ist ein privates, nicht kommerzielles Projekt. Es ist kein Angebot des Kantons Zürich oder einer Gemeinde.</p>
-    </div>
-  </section>
+<Base
+  lang="de"
+  remember={false}
+  title="Impressum | Swiss Passport"
+  description="Impressum von Swiss Passport: Betreiber, Kontakt und Haftung."
+  alternates={{ de: "/impressum/" }}
+>
+  <main class="page">
+    <header class="qhead">
+      <h1>Impressum</h1>
+    </header>
 
-  <section class="row" aria-labelledby="haftung">
-    <h2 id="haftung">Haftung</h2>
-    <div class="prose">
-      <p>Die Inhalte werden sorgfältig erstellt und mit offiziellen Quellen geprüft. Für Richtigkeit, Vollständigkeit und Aktualität wird keine Gewähr übernommen. Massgebend sind die Angaben des Kantons Zürich und deiner Gemeinde.</p>
-      <p>Für die Inhalte verlinkter Websites sind ausschliesslich deren Betreiber verantwortlich.</p>
-    </div>
-  </section>
+    <section class="row" aria-labelledby="betreiber">
+      <h2 id="betreiber">Betreiber</h2>
+      <div class="prose">
+        <p>
+          {OPERATOR.name}
+          <br />
+          {OPERATOR.region}
+        </p>
+        <p>
+          E-Mail: <a href={`mailto:${OPERATOR.email}`}>{OPERATOR.email}</a>
+        </p>
+        <p>
+          Swiss Passport ist ein privates, nicht kommerzielles Projekt. Es ist kein Angebot des Kantons Zürich oder
+          einer Gemeinde.
+        </p>
+      </div>
+    </section>
 
-  <section class="row" aria-labelledby="rechte">
-    <h2 id="rechte">Urheberrecht</h2>
-    <div class="prose">
-      <p>Die offiziellen Fragen, Antworten und Bilder des Grundkenntnistests stammen vom Kanton Zürich (Gemeindeamt, Abteilung Einbürgerungen). Erklärungen und Übersetzungen: <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE-CONTENT.md">CC BY-NC-SA 4.0</a>. Code: <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE">PolyForm Noncommercial</a>. Karte: Bundesamt für Statistik (BFS), GEOSTAT.</p>
-    </div>
-  </section>
-</main>
+    <section class="row" aria-labelledby="haftung">
+      <h2 id="haftung">Haftung</h2>
+      <div class="prose">
+        <p>
+          Die Inhalte werden sorgfältig erstellt und mit offiziellen Quellen geprüft. Für Richtigkeit, Vollständigkeit
+          und Aktualität wird keine Gewähr übernommen. Massgebend sind die Angaben des Kantons Zürich und deiner
+          Gemeinde.
+        </p>
+        <p>Für die Inhalte verlinkter Websites sind ausschliesslich deren Betreiber verantwortlich.</p>
+      </div>
+    </section>
+
+    <section class="row" aria-labelledby="rechte">
+      <h2 id="rechte">Urheberrecht</h2>
+      <div class="prose">
+        <p>
+          Die offiziellen Fragen, Antworten und Bilder des Grundkenntnistests stammen vom Kanton Zürich (Gemeindeamt,
+          Abteilung Einbürgerungen). Erklärungen und Übersetzungen:{" "}
+          <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE-CONTENT.md">CC BY-NC-SA 4.0</a>. Code:{" "}
+          <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE">PolyForm Noncommercial</a>. Karte:
+          Bundesamt für Statistik (BFS), GEOSTAT.
+        </p>
+      </div>
+    </section>
+  </main>
 </Base>

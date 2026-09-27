@@ -29,7 +29,8 @@ function vars(lang) {
 function fill(value, v) {
   if (typeof value === "string") return value.replace(/\{(language_count|languages_or)\}/g, (_, key) => v[key]);
   if (Array.isArray(value)) return value.map((x) => fill(x, v));
-  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([k, x]) => [k, fill(x, v)]));
+  if (value && typeof value === "object")
+    return Object.fromEntries(Object.entries(value).map(([k, x]) => [k, fill(x, v)]));
   return value;
 }
 

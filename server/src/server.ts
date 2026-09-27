@@ -140,7 +140,11 @@ async function toResult(assets: Assets, { data, questionId }: Out, lang?: Lang, 
   };
   if (cardOnly) {
     const brief = forModel(data);
-    return { content: [{ type: "text" as const, text: JSON.stringify(brief) }], structuredContent: brief, _meta: { card } };
+    return {
+      content: [{ type: "text" as const, text: JSON.stringify(brief) }],
+      structuredContent: brief,
+      _meta: { card },
+    };
   }
   return {
     content: [
@@ -169,9 +173,14 @@ export function createServer(store: Store, { online, assets }: { online: boolean
     { instructions: online ? INSTRUCTIONS + ONLINE_INSTRUCTIONS : INSTRUCTIONS },
   );
 
-  server.registerResource("Quiz card", CARD_URI, { mimeType: "text/html;profile=mcp-app", _meta: CARD_META }, async () => ({
-    contents: [{ uri: CARD_URI, mimeType: "text/html;profile=mcp-app", text: await assets.card(), _meta: CARD_META }],
-  }));
+  server.registerResource(
+    "Quiz card",
+    CARD_URI,
+    { mimeType: "text/html;profile=mcp-app", _meta: CARD_META },
+    async () => ({
+      contents: [{ uri: CARD_URI, mimeType: "text/html;profile=mcp-app", text: await assets.card(), _meta: CARD_META }],
+    }),
+  );
 
   const common = {
     language: z.enum(LANGUAGES).optional().describe("Learner's language. Remembered for next time."),
@@ -185,13 +194,20 @@ export function createServer(store: Store, { online, assets }: { online: boolean
         ),
     }),
   };
-  const voice = z.boolean().default(false).describe("true in voice conversations: leaves out questions that need pictures.");
+  const voice = z
+    .boolean()
+    .default(false)
+    .describe("true in voice conversations: leaves out questions that need pictures.");
 
   /**
    * Loads the learner's progress, runs the tool, saves the progress and returns the MCP result.
    * `request` is the tool call's context: ChatGPT sends its own "openai/..." keys in _meta.
    */
-  async function run(request: { _meta?: object }, args: { language?: Lang; learner_code?: string }, fn: (p: Progress, lang: Lang) => Out) {
+  async function run(
+    request: { _meta?: object },
+    args: { language?: Lang; learner_code?: string },
+    fn: (p: Progress, lang: Lang) => Out,
+  ) {
     let id = "local";
     let created = false;
     let p: Progress | undefined;
@@ -200,7 +216,12 @@ export function createServer(store: Store, { online, assets }: { online: boolean
     } else if (args.learner_code) {
       id = normalizeCode(args.learner_code);
       p = await store.load(id);
-      if (!p) return toResult(assets, { data: { error: `Unknown learner code "${args.learner_code}". Check it, or leave learner_code empty to start fresh.` } });
+      if (!p)
+        return toResult(assets, {
+          data: {
+            error: `Unknown learner code "${args.learner_code}". Check it, or leave learner_code empty to start fresh.`,
+          },
+        });
     } else {
       do id = newLearnerCode();
       while (await store.load(id));
@@ -212,7 +233,12 @@ export function createServer(store: Store, { online, assets }: { online: boolean
     const out = fn(p, lang);
     if (p.session?.voice && out.questionId) out.data = { voice_instructions: VOICE_STEP, ...out.data };
     await store.save(id, p);
-    if (online) out.data = { learner_code: id, ...(created && { new_learner_code: "Tell the learner to write this code down." }), ...out.data };
+    if (online)
+      out.data = {
+        learner_code: id,
+        ...(created && { new_learner_code: "Tell the learner to write this code down." }),
+        ...out.data,
+      };
     // In voice conversations the model reads the step aloud, so it needs all of it.
     const chatgpt = Object.keys(request._meta ?? {}).some((key) => key.startsWith("openai/"));
     return toResult(assets, out, lang, chatgpt && !p.session?.voice);
@@ -240,11 +266,17 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       annotations: changesProgress,
       description:
         "Starts a lesson and returns its first step: a concept explanation and one question. Pick lesson_id from lesson_choices of get_progress." +
-        " Without lesson_id an unfinished lesson continues where it stopped." + CARD_NOTE,
+        " Without lesson_id an unfinished lesson continues where it stopped." +
+        CARD_NOTE,
       inputSchema: {
         ...common,
         voice,
-        lesson_id: z.string().optional().describe("e.g. l05, one of lesson_choices from get_progress. Default: the unfinished lesson, otherwise the recommended next lesson."),
+        lesson_id: z
+          .string()
+          .optional()
+          .describe(
+            "e.g. l05, one of lesson_choices from get_progress. Default: the unfinished lesson, otherwise the recommended next lesson.",
+          ),
       },
     },
     ({ voice, lesson_id, ...args }, request) =>
@@ -258,7 +290,10 @@ export function createServer(store: Store, { online, assets }: { online: boolean
         }
         const id = lesson_id ?? engine.nextLessonId(p);
         if (!id) return { data: { done: true, message: "All lessons done. Continue with reviews and mock exams." } };
-        if (!engine.lessons.includes(id)) return { data: { error: `Unknown lesson ${id}. Lessons are ${engine.lessons[0]} to ${engine.lessons.at(-1)}.` } };
+        if (!engine.lessons.includes(id))
+          return {
+            data: { error: `Unknown lesson ${id}. Lessons are ${engine.lessons[0]} to ${engine.lessons.at(-1)}.` },
+          };
         engine.startLesson(p, id, voice);
         return stepOut(p, lang);
       }),
@@ -270,12 +305,16 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       title: "Start reviews",
       _meta: cardUi,
       annotations: changesProgress,
-      description: `Starts a review round of up to ${REVIEW_SIZE} questions whose concepts are due, and returns the first one.` + CARD_NOTE,
+      description:
+        `Starts a review round of up to ${REVIEW_SIZE} questions whose concepts are due, and returns the first one.` +
+        CARD_NOTE,
       inputSchema: { ...common, voice },
     },
     ({ voice, ...args }, request) =>
       run(request, args, (p, lang) =>
-        engine.startReviews(p, voice) ? stepOut(p, lang) : { data: { nothing_due: true, message: "No reviews due. Continue with a lesson." } },
+        engine.startReviews(p, voice)
+          ? stepOut(p, lang)
+          : { data: { nothing_due: true, message: "No reviews due. Continue with a lesson." } },
       ),
   );
 
@@ -285,7 +324,9 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       title: "Start a mock exam",
       _meta: cardUi,
       annotations: changesProgress,
-      description: `Starts a mock exam with ${exam.size} random questions like the official practice test, and returns the first one.` + CARD_NOTE,
+      description:
+        `Starts a mock exam with ${exam.size} random questions like the official practice test, and returns the first one.` +
+        CARD_NOTE,
       inputSchema: { ...common, voice },
     },
     ({ voice, ...args }, request) =>
@@ -314,7 +355,8 @@ export function createServer(store: Store, { online, assets }: { online: boolean
     ({ answer, question_id, ...args }, request) =>
       // A click on the card (only the card sends question_id) gets the whole step back in structuredContent, as before.
       run(question_id ? {} : request, args, (p, lang) => {
-        if (!p.session) return { data: { error: "No active session. Call start_lesson, start_reviews or start_mock_exam." } };
+        if (!p.session)
+          return { data: { error: "No active session. Call start_lesson, start_reviews or start_mock_exam." } };
         // A card still showing an earlier question: answer nothing and bring the card to the current step.
         if (question_id && question_id !== p.session.questions[p.session.pos]) {
           const out = stepOut(p, lang);

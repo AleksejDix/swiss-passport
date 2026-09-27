@@ -5,47 +5,74 @@ import Base from "../layouts/Base.astro";
 import { OPERATOR, TERMS_DATE } from "../legal.ts";
 
 const sections: [heading: string, paragraphs: string[]][] = [
-  ["The service", [
-    "Swiss Passport helps you learn for the naturalisation knowledge test (Grundkenntnistest) of the Canton of Zurich: on this website, and as a remote MCP server (https://swiss-passport.com/mcp) that AI apps such as Claude or ChatGPT can use. It is a free, private and non-commercial project of " + OPERATOR.name + ".",
-    "Swiss Passport is not a service of the Canton of Zurich, of a municipality or of any AI company. What the canton and your municipality say is what counts.",
-  ]],
-  ["Using it", [
-    "You may use Swiss Passport for free, for your own learning or in non-commercial teaching. No account is needed.",
-    "Your progress is saved under a learner code. Keep it to yourself: anyone who knows it can see and continue your progress. We cannot recover a lost code.",
-    "Do not overload or attack the service, and do not use it to build a commercial product. Automated access to /mcp is limited.",
-  ]],
-  ["No guarantee", [
-    "The explanations are written with care and checked against official sources, but they may contain mistakes or be out of date. We do not guarantee that they are correct or complete, or that you will pass the test.",
-    "The service may change, be interrupted or end at any time. Progress is deleted 12 months after your last activity (see the privacy policy).",
-  ]],
-  ["Liability", [
-    "As far as the law allows, the operator is not liable for damage resulting from the use of Swiss Passport. Liability for intent and gross negligence remains.",
-  ]],
-  ["Content and licences", [
-    'The official questions, answers and pictures of the test are published by the Canton of Zurich (Gemeindeamt, Abteilung Einbürgerungen). Explanations and translations: <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE-CONTENT.md">CC BY-NC-SA 4.0</a>. Code: <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE">PolyForm Noncommercial</a>.',
-  ]],
-  ["Privacy", [
-    'How your data is handled is described in the <a href="/privacy/">privacy policy</a> (binding German version: <a href="/datenschutz/" hreflang="de" lang="de">Datenschutzerklärung</a>).',
-  ]],
-  ["Law", [
-    "Swiss law applies.",
-  ]],
-  ["Contact", [
-    `<a href="mailto:${OPERATOR.email}">${OPERATOR.email}</a>. More in <a href="/support/">Support</a>.`,
-  ]],
+  [
+    "The service",
+    [
+      "Swiss Passport helps you learn for the naturalisation knowledge test (Grundkenntnistest) of the Canton of Zurich: on this website, and as a remote MCP server (https://swiss-passport.com/mcp) that AI apps such as Claude or ChatGPT can use. It is a free, private and non-commercial project of " +
+        OPERATOR.name +
+        ".",
+      "Swiss Passport is not a service of the Canton of Zurich, of a municipality or of any AI company. What the canton and your municipality say is what counts.",
+    ],
+  ],
+  [
+    "Using it",
+    [
+      "You may use Swiss Passport for free, for your own learning or in non-commercial teaching. No account is needed.",
+      "Your progress is saved under a learner code. Keep it to yourself: anyone who knows it can see and continue your progress. We cannot recover a lost code.",
+      "Do not overload or attack the service, and do not use it to build a commercial product. Automated access to /mcp is limited.",
+    ],
+  ],
+  [
+    "No guarantee",
+    [
+      "The explanations are written with care and checked against official sources, but they may contain mistakes or be out of date. We do not guarantee that they are correct or complete, or that you will pass the test.",
+      "The service may change, be interrupted or end at any time. Progress is deleted 12 months after your last activity (see the privacy policy).",
+    ],
+  ],
+  [
+    "Liability",
+    [
+      "As far as the law allows, the operator is not liable for damage resulting from the use of Swiss Passport. Liability for intent and gross negligence remains.",
+    ],
+  ],
+  [
+    "Content and licences",
+    [
+      'The official questions, answers and pictures of the test are published by the Canton of Zurich (Gemeindeamt, Abteilung Einbürgerungen). Explanations and translations: <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE-CONTENT.md">CC BY-NC-SA 4.0</a>. Code: <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE">PolyForm Noncommercial</a>.',
+    ],
+  ],
+  [
+    "Privacy",
+    [
+      'How your data is handled is described in the <a href="/privacy/">privacy policy</a> (binding German version: <a href="/datenschutz/" hreflang="de" lang="de">Datenschutzerklärung</a>).',
+    ],
+  ],
+  ["Law", ["Swiss law applies."]],
+  ["Contact", [`<a href="mailto:${OPERATOR.email}">${OPERATOR.email}</a>. More in <a href="/support/">Support</a>.`]],
 ];
 ---
-<Base lang="en" remember={false} title="Terms of use | Swiss Passport" description="Terms of use of Swiss Passport, a free and non-commercial tool to learn for the Zurich naturalisation knowledge test." alternates={{ en: "/terms/" }}>
-<main class="page">
-  <header class="qhead">
-    <h1>Terms of use</h1>
-    <p class="small">Last changed: {TERMS_DATE}</p>
-  </header>
-  {sections.map(([heading, paragraphs], i) => (
-    <section class="row" aria-labelledby={`t${i}`}>
-      <h2 id={`t${i}`}>{heading}</h2>
-      <div class="prose">{paragraphs.map((html) => <p set:html={html} />)}</div>
-    </section>
-  ))}
-</main>
+
+<Base
+  lang="en"
+  remember={false}
+  title="Terms of use | Swiss Passport"
+  description="Terms of use of Swiss Passport, a free and non-commercial tool to learn for the Zurich naturalisation knowledge test."
+  alternates={{ en: "/terms/" }}
+>
+  <main class="page">
+    <header class="qhead">
+      <h1>Terms of use</h1>
+      <p class="small">Last changed: {TERMS_DATE}</p>
+    </header>
+    {sections.map(([heading, paragraphs], i) => (
+      <section class="row" aria-labelledby={`t${i}`}>
+        <h2 id={`t${i}`}>{heading}</h2>
+        <div class="prose">
+          {paragraphs.map((html) => (
+            <p set:html={html} />
+          ))}
+        </div>
+      </section>
+    ))}
+  </main>
 </Base>

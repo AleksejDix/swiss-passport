@@ -15,13 +15,16 @@ const flows = [
   { label: t.after, steps: [t.apply, t.when, t.test] },
 ];
 ---
+
 <figure class="ord">
   <figcaption class="ord-title">{t.caption}</figcaption>
   {flows.map((f) => (
     <div class="ord-flow">
       <p class="ord-label">{f.label}</p>
       <ol class="ord-steps">
-        {f.steps.map((s) => <li class={s === t.test ? "is-test" : undefined}>{s}</li>)}
+        {f.steps.map((s) => (
+          <li class={s === t.test ? "is-test" : undefined}>{s}</li>
+        ))}
       </ol>
     </div>
   ))}

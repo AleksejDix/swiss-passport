@@ -15,21 +15,39 @@ const { lang, id } = Astro.props;
 const v = VIZ[lang];
 const q = question(id);
 const letters = q.options.map((o) => o.id);
-const texts = Object.fromEntries(Object.keys(LANGS).map((l) => [l, { q: TEXT[l].questions[id].question, o: TEXT[l].questions[id].options }]));
+const texts = Object.fromEntries(
+  Object.keys(LANGS).map((l) => [l, { q: TEXT[l].questions[id].question, o: TEXT[l].questions[id].options }]),
+);
 const t = texts[lang];
 const de = texts.de;
 ---
+
 <figure class="viz langs" data-langswitch data-texts={JSON.stringify(texts)}>
   <div class="viz-toggle" role="group" aria-label={v.showIn}>
-    {Object.entries(LANGS).map(([l, name]) => <button type="button" lang={l} data-lang-choice={l} aria-pressed={l === lang ? "true" : "false"}>{name}</button>)}
+    {Object.entries(LANGS).map(([l, name]) => (
+      <button type="button" lang={l} data-lang-choice={l} aria-pressed={l === lang ? "true" : "false"}>
+        {name}
+      </button>
+    ))}
   </div>
-  <p class="hq" data-q lang={lang}>{t.q}</p>
-  <p class="htr" data-q-de lang="de" hidden={lang === "de"}>{de.q}</p>
+  <p class="hq" data-q lang={lang}>
+    {t.q}
+  </p>
+  <p class="htr" data-q-de lang="de" hidden={lang === "de"}>
+    {de.q}
+  </p>
   <ol class="qoptions">
     {letters.map((l) => (
       <li class={l === q.answer ? "is-right" : undefined}>
         <b>{l.toUpperCase()}</b>
-        <span><span data-o={l} lang={lang}>{t.o[l]}</span><small lang="de" data-o-de hidden={lang === "de"}>{de.o[l]}</small></span>
+        <span>
+          <span data-o={l} lang={lang}>
+            {t.o[l]}
+          </span>
+          <small lang="de" data-o-de hidden={lang === "de"}>
+            {de.o[l]}
+          </small>
+        </span>
       </li>
     ))}
   </ol>

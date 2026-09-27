@@ -16,6 +16,7 @@ const { lang, current, caption = true } = Astro.props;
 const title = TIMELINE_TEXT[lang].title;
 const gap = (i: number) => (i ? Math.min(3, 0.1 * Math.sqrt(HISTORY[i].year - HISTORY[i - 1].year)) : 0).toFixed(2);
 ---
+
 <figure class="htl" aria-label={caption ? undefined : title}>
   {caption && <figcaption class="htl-title">{title}</figcaption>}
   <ol class="htl-list">
@@ -23,9 +24,19 @@ const gap = (i: number) => (i ? Math.min(3, 0.1 * Math.sqrt(HISTORY[i].year - HI
       const name = withoutYear(TEXT[lang].concepts[e.topic].title);
       const here = e.topic === current;
       return (
-        <li class={here ? "is-current" : undefined} aria-current={here ? "true" : undefined} style={`--gap:${gap(i)}rem`}>
+        <li
+          class={here ? "is-current" : undefined}
+          aria-current={here ? "true" : undefined}
+          style={`--gap:${gap(i)}rem`}
+        >
           <span class="htl-year">{yearLabel(e, lang)}</span>
-          {here ? <span class="htl-what">{name}</span> : <a class="htl-what" href={topicPath(lang, { id: e.topic })}>{name}</a>}
+          {here ? (
+            <span class="htl-what">{name}</span>
+          ) : (
+            <a class="htl-what" href={topicPath(lang, { id: e.topic })}>
+              {name}
+            </a>
+          )}
         </li>
       );
     })}

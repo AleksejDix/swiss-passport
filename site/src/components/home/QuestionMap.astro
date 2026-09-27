@@ -21,6 +21,7 @@ const lessonsOf = (u: Unit) =>
   });
 const blocks = units.map((u) => ({ id: u.id, title: t.units[u.id].title, lessons: lessonsOf(u) }));
 ---
+
 <figure class="qmap" data-qmap data-hint={o.hint}>
   <figcaption class="viz-title">{o.title}</figcaption>
   <div class="qmap-units">
@@ -29,13 +30,23 @@ const blocks = units.map((u) => ({ id: u.id, title: t.units[u.id].title, lessons
         <p class="qmap-unit-title">{u.title}</p>
         <div class="qmap-lessons">
           {u.lessons.map((l) => (
-            <a class="qmap-lesson" href={`${questionsPath(lang)}#${l.id}`} aria-label={l.label} title={l.label} data-label={l.label}>
-              {Array.from({ length: l.n }, () => <i></i>)}
+            <a
+              class="qmap-lesson"
+              href={`${questionsPath(lang)}#${l.id}`}
+              aria-label={l.label}
+              title={l.label}
+              data-label={l.label}
+            >
+              {Array.from({ length: l.n }, () => (
+                <i></i>
+              ))}
             </a>
           ))}
         </div>
       </div>
     ))}
   </div>
-  <p class="qmap-readout" data-readout aria-hidden="true">{o.hint}</p>
+  <p class="qmap-readout" data-readout aria-hidden="true">
+    {o.hint}
+  </p>
 </figure>

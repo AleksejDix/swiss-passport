@@ -20,18 +20,30 @@ const MIXED = [0, 4, 8, 1, 9, 5, 2, 6, 10, 3, 7, 11];
 const items = Array.from({ length: 12 }, (_, i) => TOPICS[Math.floor(i / 4)]);
 const name = (topic: { id: string }) => TEXT[lang].categories[topic.id];
 ---
+
 <figure class="viz mix" data-mix data-mixed={JSON.stringify(MIXED)}>
   <div class="viz-toggle" role="group" aria-label={v.order}>
-    <button type="button" data-order="blocked" aria-pressed="true">{v.blocked}</button>
-    <button type="button" data-order="mixed" aria-pressed="false">{v.mixed}</button>
+    <button type="button" data-order="blocked" aria-pressed="true">
+      {v.blocked}
+    </button>
+    <button type="button" data-order="mixed" aria-pressed="false">
+      {v.mixed}
+    </button>
   </div>
   <ol class="mix-row" data-row>
     {items.map((topic, i) => (
-      <li data-item={i} class={`shape shape-${topic.shape}`} title={name(topic)}><span class="visually-hidden">{name(topic)}</span></li>
+      <li data-item={i} class={`shape shape-${topic.shape}`} title={name(topic)}>
+        <span class="visually-hidden">{name(topic)}</span>
+      </li>
     ))}
   </ol>
   <ul class="viz-legend">
-    {TOPICS.map((topic) => <li><i class={`shape shape-${topic.shape}`}></i>{name(topic)}</li>)}
+    {TOPICS.map((topic) => (
+      <li>
+        <i class={`shape shape-${topic.shape}`}></i>
+        {name(topic)}
+      </li>
+    ))}
   </ul>
   <p class="viz-note">{v.mixNote}</p>
 </figure>

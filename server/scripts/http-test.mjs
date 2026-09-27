@@ -7,15 +7,32 @@ import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 
 const PORT = 8799;
-const env = { ...process.env, PORT: String(PORT), DB_FILE: join(mkdtempSync(join(tmpdir(), "spz-http-")), "learners.db") };
-const key = Object.fromEntries(JSON.parse(readFileSync(new URL("../data/quiz.json", import.meta.url), "utf8")).questions.map((q) => [q.id, q.answer]));
-const assert = (ok, msg) => { if (!ok) { console.error("FAIL:", msg); stop(); process.exit(1); } console.log("ok:", msg); };
+const env = {
+  ...process.env,
+  PORT: String(PORT),
+  DB_FILE: join(mkdtempSync(join(tmpdir(), "spz-http-")), "learners.db"),
+};
+const key = Object.fromEntries(
+  JSON.parse(readFileSync(new URL("../data/quiz.json", import.meta.url), "utf8")).questions.map((q) => [
+    q.id,
+    q.answer,
+  ]),
+);
+const assert = (ok, msg) => {
+  if (!ok) {
+    console.error("FAIL:", msg);
+    stop();
+    process.exit(1);
+  }
+  console.log("ok:", msg);
+};
 
 let proc;
-const start = () => new Promise((resolve) => {
-  proc = spawn("node", ["dist/http.js"], { env });
-  proc.stdout.on("data", (d) => String(d).includes("MCP server on") && resolve());
-});
+const start = () =>
+  new Promise((resolve) => {
+    proc = spawn("node", ["dist/http.js"], { env });
+    proc.stdout.on("data", (d) => String(d).includes("MCP server on") && resolve());
+  });
 const stop = () => proc?.kill();
 const connect = async () => {
   const c = new Client({ name: "http-test", version: "0" });
@@ -27,7 +44,10 @@ const call = async (c, name, args = {}) => JSON.parse((await c.callTool({ name, 
 await start();
 let c = await connect();
 assert(c.getInstructions()?.includes("learner_code"), "online instructions mention the learner code");
-assert((await c.listTools()).tools.every((t) => "learner_code" in t.inputSchema.properties), "all tools take learner_code");
+assert(
+  (await c.listTools()).tools.every((t) => "learner_code" in t.inputSchema.properties),
+  "all tools take learner_code",
+);
 
 let r = await call(c, "get_progress", { language: "en" });
 const code = r.learner_code;
@@ -35,14 +55,24 @@ assert(/^[A-Z]+-[2-9A-Z]{4}$/.test(code) && r.new_learner_code, `new learner get
 
 let step = await call(c, "start_lesson", { learner_code: code });
 assert(step.learner_code === code && step.step === "1/9", "lesson started for this learner");
-for (let i = 0; i < 3; i++) step = (await call(c, "answer", { learner_code: code.toLowerCase(), answer: key[step.question?.id ?? step.next.question.id] })).next ?? step;
+for (let i = 0; i < 3; i++)
+  step =
+    (
+      await call(c, "answer", {
+        learner_code: code.toLowerCase(),
+        answer: key[step.question?.id ?? step.next.question.id],
+      })
+    ).next ?? step;
 await c.close();
 
 stop();
 await start(); // restart: progress must come from SQLite
 c = await connect();
 r = await call(c, "get_progress", { learner_code: code });
-assert(r.unfinished_session?.step === "4/9" && r.readiness_percent === 0, "after restart: same learner continues at step 4/9");
+assert(
+  r.unfinished_session?.step === "4/9" && r.readiness_percent === 0,
+  "after restart: same learner continues at step 4/9",
+);
 r = await call(c, "answer", { learner_code: code, answer: key[step.question.id] });
 assert(r.feedback?.correct === true, "answering continues where the learner left off");
 

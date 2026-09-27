@@ -34,8 +34,16 @@ export function lessonStages(curriculum: Curriculum): Map<string, number> {
   return stages;
 }
 
-export interface KeyTerm { term: string; definition: string }
-export interface TextConcept { title: string; intro: string[]; key_terms: KeyTerm[]; mnemonic?: string }
+export interface KeyTerm {
+  term: string;
+  definition: string;
+}
+export interface TextConcept {
+  title: string;
+  intro: string[];
+  key_terms: KeyTerm[];
+  mnemonic?: string;
+}
 export interface TextQuestion {
   question: string;
   options: Record<Letter, string>;
@@ -76,15 +84,14 @@ export function indexCatalog(catalog: Catalog) {
   const original = texts[examLang];
 
   const questions = new Map(catalog.questions.map((q) => [q.id, q]));
-  const conceptOfQuestion = new Map(
-    curriculum.concepts.flatMap((c) => c.questions.map((q) => [q, c.id] as const)),
-  );
+  const conceptOfQuestion = new Map(curriculum.concepts.flatMap((c) => c.questions.map((q) => [q, c.id] as const)));
   const conceptById = new Map(curriculum.concepts.map((c) => [c.id, c]));
   const lessonById = new Map(curriculum.lessons.map((l) => [l.id, l]));
   const lessonOrder = curriculum.lessons.map((l) => l.id);
 
   const unitTitle = (id: string, lang: string): string => texts[lang].units?.[id]?.title ?? original.units![id].title;
-  const lessonTitle = (id: string, lang: string): string => texts[lang].lessons?.[id]?.title ?? original.lessons![id].title;
+  const lessonTitle = (id: string, lang: string): string =>
+    texts[lang].lessons?.[id]?.title ?? original.lessons![id].title;
   const categoryTitle = (id: string, lang: string): string => texts[lang].categories[id] ?? original.categories[id];
   const conceptText = (id: string, lang: string): TextConcept => texts[lang].concepts?.[id] ?? original.concepts![id];
 
@@ -126,7 +133,17 @@ export function indexCatalog(catalog: Catalog) {
   }
 
   return {
-    curriculum, questions, conceptOfQuestion, conceptById, lessonById, lessonOrder,
-    unitTitle, lessonTitle, categoryTitle, conceptText, questionText, explanation,
+    curriculum,
+    questions,
+    conceptOfQuestion,
+    conceptById,
+    lessonById,
+    lessonOrder,
+    unitTitle,
+    lessonTitle,
+    categoryTitle,
+    conceptText,
+    questionText,
+    explanation,
   };
 }

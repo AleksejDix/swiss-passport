@@ -23,7 +23,8 @@ export function hemicycle(n: number) {
   const counts = radii.map((r) => Math.floor((Math.PI * r) / step));
   // Seats left over go to the rows that lost the most by rounding down.
   const order = radii.map((r, i) => [(Math.PI * r) / step - counts[i], i]).sort((a, b) => b[0] - a[0]);
-  for (let rest = n - counts.reduce((a, b) => a + b, 0), k = 0; rest > 0; rest--, k = (k + 1) % order.length) counts[order[k][1]]++;
+  for (let rest = n - counts.reduce((a, b) => a + b, 0), k = 0; rest > 0; rest--, k = (k + 1) % order.length)
+    counts[order[k][1]]++;
   const seats: Seat[] = radii.flatMap((r, row) =>
     Array.from({ length: counts[row] }, (_, k) => {
       const a = Math.PI * (1 - (counts[row] === 1 ? 0.5 : k / (counts[row] - 1)));
