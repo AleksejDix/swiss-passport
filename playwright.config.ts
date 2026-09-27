@@ -29,7 +29,7 @@ export default defineConfig({
   ],
   webServer: {
     // Builds the server and the site, applies the D1 migrations locally and starts the Worker.
-    command: "npm --prefix server run dev:worker",
+    command: "npm --prefix mcp run dev:worker",
     url: `http://localhost:${PORT}/de/`,
     reuseExistingServer: !process.env.CI,
     timeout: 240_000,

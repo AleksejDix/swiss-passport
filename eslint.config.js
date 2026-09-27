@@ -10,13 +10,13 @@ export default ts.config(
       "**/node_modules/",
       "**/.astro/",
       "packages/*/dist/",
-      "server/public/",
-      "server/dist/",
-      "server/data/",
-      "server/api/",
-      "server/release/",
-      "server/.wrangler/",
-      "server/scripts/preview/out/",
+      "mcp/public/",
+      "mcp/dist/",
+      "mcp/data/",
+      "mcp/api/",
+      "mcp/release/",
+      "mcp/.wrangler/",
+      "mcp/scripts/preview/out/",
       "private/",
       // Other sessions' git worktrees (excluded from git in .git/info/exclude, which ESLint does not read).
       ".claude/",
@@ -30,7 +30,7 @@ export default ts.config(
   { languageOptions: { globals: globals.node } },
   // Code that runs in the browser: the site's scripts, the quiz card and the e2e page helpers.
   {
-    files: ["site/src/scripts/**", "site/src/**/*.astro", "server/src/view/**"],
+    files: ["site/src/scripts/**", "site/src/**/*.astro", "mcp/src/view/**"],
     languageOptions: { globals: globals.browser },
   },
   {

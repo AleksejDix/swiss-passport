@@ -6,26 +6,26 @@ sources/*.pdf
 sources/*.txt
 sources/*.html
 
-# Dependencies and build output (packages/, server/)
+# Dependencies and build output (packages/, mcp/)
 node_modules/
 packages/*/dist/
-server/dist/
-server/data/
-server/api/
-server/release/
-server/*.mcpb
-server/scripts/preview/out/
+mcp/dist/
+mcp/data/
+mcp/api/
+mcp/release/
+mcp/*.mcpb
+mcp/scripts/preview/out/
 
 # Local env files
 .env*
 
-# Website (site/): build goes into server/public, images are copied from images/
-server/public/
+# Website (site/): build goes into mcp/public, images are copied from images/
+mcp/public/
 site/public/images/
 site/.astro/
 
-# Cloudflare Worker (server/): local dev state
-server/.wrangler/
+# Cloudflare Worker (mcp/): local dev state
+mcp/.wrangler/
 
 # Private notes and issues: local only, never committed
 /private/

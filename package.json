@@ -5,7 +5,7 @@
   "description": "Swiss Passport: learn for the Zurich naturalisation knowledge test. Monorepo: the learning engine (packages/engine), the MCP server and Worker (server) and the website (site).",
   "workspaces": [
     "packages/*",
-    "server",
+    "mcp",
     "site"
   ],
   "scripts": {

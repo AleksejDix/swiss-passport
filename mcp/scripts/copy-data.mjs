@@ -1,4 +1,4 @@
-// Copies the quiz content from the repository root into server/data so the bundle is self-contained.
+// Copies the quiz content from the repository root into mcp/data so the bundle is self-contained.
 import { cpSync, rmSync } from "node:fs";
 
 const root = new URL("../../", import.meta.url);

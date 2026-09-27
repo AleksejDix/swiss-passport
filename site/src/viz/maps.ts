@@ -1,6 +1,6 @@
 // The maps of the geography topics (issues #13, #14): which topic shows which map, the map as an SVG file
 // (areas and lines only, the same in every language) and the marks and labels that the page lays over it
-// in the reader's language. Geometry: src/viz/geo-data.js (server/scripts/build-geo.mjs).
+// in the reader's language. Geometry: src/viz/geo-data.js (mcp/scripts/build-geo.mjs).
 import { CH, ZH } from "./geo-data.js";
 import { byLang } from "../../../i18n/index.js";
 

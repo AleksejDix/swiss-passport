@@ -3,13 +3,13 @@
 
 # Generated or copied files
 packages/*/dist/
-server/public/
-server/dist/
-server/data/
-server/api/
-server/release/
-server/.wrangler/
-server/scripts/preview/out/
+mcp/public/
+mcp/dist/
+mcp/data/
+mcp/api/
+mcp/release/
+mcp/.wrangler/
+mcp/scripts/preview/out/
 site/.astro/
 site/public/
 playwright-report/
@@ -27,4 +27,4 @@ private/
 *.md
 
 # The quiz card is checked by the server tests, not by the visual tests: reformat it on its own, with a real check.
-server/src/view/card.html
+mcp/src/view/card.html

@@ -60,7 +60,7 @@ On first use you get a learner code like `BERG-7K2Q`. Write it down and give it 
 
 ### Claude Desktop, fully offline
 
-Build the extension (`cd server && npm run pack`) and drag `server/swiss-passport-zh.mcpb` into Claude Desktop. Progress then stays on your computer in `~/.swiss-passport-quiz/`.
+Build the extension (`cd mcp && npm run pack`) and drag `mcp/swiss-passport-zh.mcpb` into Claude Desktop. Progress then stays on your computer in `~/.swiss-passport-quiz/`.
 
 ## How it teaches
 
@@ -113,13 +113,13 @@ The repository is an npm workspace (monorepo) with three packages. Every push to
 | Package | What it is |
 |---|---|
 | [`packages/engine/`](packages/engine/) | `@aleksejdix/learning-engine`: lessons with prerequisites, spaced reviews and mock exams, without content or dependencies. Published on GitHub Packages (tag `engine-v<version>`). |
-| `server/` | The MCP server and the Cloudflare Worker (TypeScript, Node 22+). |
+| `mcp/` | The backend: the MCP server and the Cloudflare Worker that serves it at `/mcp` next to the website (TypeScript, Node 22+). |
 | `site/` | The website (Astro). |
 
 ```sh
 npm install         # once, in the repository root: installs all three packages
 npm test -w @aleksejdix/learning-engine   # the engine's own tests
-cd server
+cd mcp
 npm test            # builds and runs the local and HTTP end-to-end tests
 npm run pack        # Claude Desktop extension (.mcpb)
 npm run deploy      # Cloudflare by hand: website + /mcp Worker (progress in D1)
@@ -149,16 +149,16 @@ npm run test:visual         # compares the site with the reference, pixel by pix
 | `src/worker.ts` | Streamable HTTP on Cloudflare Workers (swiss-passport.com) | Cloudflare D1, per learner code |
 | `src/http.ts` | Streamable HTTP, self-hosted | SQLite (`node:sqlite`), per learner code |
 
-The website (`site/`, Astro) is built into `server/public` and served by the same Worker as static files.
+The website (`site/`, Astro) is built into `mcp/public` and served by the same Worker as static files.
 
 The learning engine and the content are kept apart:
 
 | Path | What it does |
 |---|---|
 | `packages/engine/` | The learning engine: lessons, spaced reviews and mock exam. It holds no content: a catalog is passed in with `createEngine(catalog)`. |
-| `server/src/catalog.ts` | The Zurich catalog: the content files from the repository root, plus the exam name, the mock exam size and the pass mark. |
-| `server/src/server.ts` | The MCP tools and the tutoring instructions. |
-| `server/src/view/` | The quiz card shown in the chat ([MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/)). |
+| `mcp/src/catalog.ts` | The Zurich catalog: the content files from the repository root, plus the exam name, the mock exam size and the pass mark. |
+| `mcp/src/server.ts` | The MCP tools and the tutoring instructions. |
+| `mcp/src/view/` | The quiz card shown in the chat ([MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/)). |
 
 Another course with four-option questions can reuse the engine with its own catalog: see [packages/engine/README.md](packages/engine/README.md).
 
