@@ -9,7 +9,7 @@ const T = {
   de: {
     whatNext: "Wie geht es weiter", whatNextText: "Die Themen dieser Runde kommen morgen zur Wiederholung. Mach jeden Tag zuerst die fälligen Wiederholungen, dann eine neue Lektion.",
     showExplanation: "Erklärung zeigen", answerFirst: "Beantworte zuerst die Frage. Die Erklärung erscheint danach.",
-    title: "Online lernen", lede: "Kurze Lektionen, Wiederholungen zur richtigen Zeit und Probeprüfungen mit den offiziellen Fragen.",
+    title: "Online lernen", lede: "Kurze Lektionen, Wiederholungen zur richtigen Zeit und Probeprüfungen mit den offiziellen Fragen.", unofficial: "Kostenlos und unabhängig. Kein offizielles Angebot des Kantons Zürich.",
     lesson: "Lektion", continueLesson: "Weiter mit der Lektion", reviews: "Wiederholen", due: (n) => `${n} fällig`, noneDue: "nichts fällig",
     exam: "Probeprüfung", examSub: "50 Fragen, ohne Hilfe", allDone: "Alle Lektionen erledigt",
     lessonsDone: "Lektionen erledigt", ready: "bereit für die Prüfung, nach Thema", examsDone: "Probeprüfungen",
@@ -25,7 +25,7 @@ const T = {
   en: {
     whatNext: "What's next", whatNextText: "The topics of this round come back for review tomorrow. Each day, do the due reviews first, then a new lesson.",
     showExplanation: "Show explanation", answerFirst: "Answer the question first. The explanation appears afterwards.",
-    title: "Learn online", lede: "Short lessons, reviews at the right time and mock exams with the official questions.",
+    title: "Learn online", lede: "Short lessons, reviews at the right time and mock exams with the official questions.", unofficial: "Free and independent. Not an official service of the Canton of Zurich.",
     lesson: "Lesson", continueLesson: "Continue lesson", reviews: "Review", due: (n) => `${n} due`, noneDue: "nothing due",
     exam: "Mock exam", examSub: "50 questions, no help", allDone: "All lessons done",
     lessonsDone: "lessons done", ready: "ready for the exam, by topic", examsDone: "Mock exams",
@@ -41,7 +41,7 @@ const T = {
   fr: {
     whatNext: "Et ensuite", whatNextText: "Les thèmes de cette série reviendront demain pour une révision. Chaque jour, fais d'abord les révisions prévues, puis une nouvelle leçon.",
     showExplanation: "Afficher l'explication", answerFirst: "Réponds d'abord à la question. L'explication apparaît ensuite.",
-    title: "Apprendre en ligne", lede: "Des leçons courtes, des révisions au bon moment et des examens blancs avec les questions officielles.",
+    title: "Apprendre en ligne", lede: "Des leçons courtes, des révisions au bon moment et des examens blancs avec les questions officielles.", unofficial: "Gratuit et indépendant. Ce n'est pas un service officiel du canton de Zurich.",
     lesson: "Leçon", continueLesson: "Continuer la leçon", reviews: "Réviser", due: (n) => `${n} à réviser`, noneDue: "rien à réviser",
     exam: "Examen blanc", examSub: "50 questions, sans aide", allDone: "Toutes les leçons sont faites",
     lessonsDone: "leçons faites", ready: "prêt pour l'examen, par thème", examsDone: "Examens blancs",
@@ -57,7 +57,7 @@ const T = {
   it: {
     whatNext: "E adesso", whatNextText: "I temi di questo giro tornano domani per il ripasso. Ogni giorno fai prima i ripassi previsti, poi una nuova lezione.",
     showExplanation: "Mostra la spiegazione", answerFirst: "Rispondi prima alla domanda. La spiegazione appare dopo.",
-    title: "Impara online", lede: "Lezioni brevi, ripassi al momento giusto ed esami di prova con le domande ufficiali.",
+    title: "Impara online", lede: "Lezioni brevi, ripassi al momento giusto ed esami di prova con le domande ufficiali.", unofficial: "Gratuito e indipendente. Non è un servizio ufficiale del Cantone di Zurigo.",
     lesson: "Lezione", continueLesson: "Continua la lezione", reviews: "Ripassa", due: (n) => `${n} da ripassare`, noneDue: "niente da ripassare",
     exam: "Esame di prova", examSub: "50 domande, senza aiuto", allDone: "Tutte le lezioni fatte",
     lessonsDone: "lezioni fatte", ready: "pronto per l'esame, per tema", examsDone: "Esami di prova",
@@ -73,7 +73,7 @@ const T = {
   ru: {
     whatNext: "Что дальше", whatNextText: "Темы этого урока вернутся на повторение завтра. Каждый день сначала повторяй то, что пора повторить, потом проходи новый урок.",
     showExplanation: "Показать объяснение", answerFirst: "Сначала ответь на вопрос. Объяснение появится после ответа.",
-    title: "Учиться онлайн", lede: "Короткие уроки, повторение в нужный момент и пробные экзамены с официальными вопросами.",
+    title: "Учиться онлайн", lede: "Короткие уроки, повторение в нужный момент и пробные экзамены с официальными вопросами.", unofficial: "Бесплатно и независимо. Это не официальный сервис кантона Цюрих.",
     lesson: "Урок", continueLesson: "Продолжить урок", reviews: "Повторить", due: (n) => `к повторению: ${n}`, noneDue: "повторять нечего",
     exam: "Пробный экзамен", examSub: "50 вопросов, без подсказок", allDone: "Все уроки пройдены",
     lessonsDone: "уроков пройдено", ready: "готовность к экзамену по темам", examsDone: "Пробные экзамены",
@@ -89,7 +89,7 @@ const T = {
   uk: {
     whatNext: "Що далі", whatNextText: "Теми цього уроку повернуться на повторення завтра. Щодня спершу повторюй те, що час повторити, потім проходь новий урок.",
     showExplanation: "Показати пояснення", answerFirst: "Спершу дай відповідь на запитання. Пояснення з'явиться після відповіді.",
-    title: "Навчатися онлайн", lede: "Короткі уроки, повторення у правильний час і пробні іспити з офіційними запитаннями.",
+    title: "Навчатися онлайн", lede: "Короткі уроки, повторення у правильний час і пробні іспити з офіційними запитаннями.", unofficial: "Безкоштовно й незалежно. Це не офіційний сервіс кантону Цюрих.",
     lesson: "Урок", continueLesson: "Продовжити урок", reviews: "Повторити", due: (n) => `до повторення: ${n}`, noneDue: "нічого повторювати",
     exam: "Пробний іспит", examSub: "50 запитань, без підказок", allDone: "Усі уроки пройдено",
     lessonsDone: "уроків пройдено", ready: "готовність до іспиту за темами", examsDone: "Пробні іспити",
@@ -208,7 +208,7 @@ async function home() {
   const s = t();
   const exams = p.last_exams.map((e) => `${e.score}/${e.total}`).join(", ");
   show(...frame(
-    h("div", { class: "intro" }, h("h1", {}, s.title), h("p", { class: "overview-lede" }, s.lede)),
+    h("div", { class: "intro" }, h("h1", {}, s.title), h("p", { class: "overview-lede" }, s.lede), h("p", { class: "note" }, s.unofficial)),
     h("div", { class: "actions" },
       h("button", { class: "action primary", onclick: () => start("start_lesson"), disabled: !p.next_lesson },
         h("span", {}, p.next_lesson ? `${s.lesson} ${Number(p.next_lesson.id.slice(1))}: ${p.next_lesson.title}` : s.allDone),

@@ -7,10 +7,10 @@
 .intro > * { grid-column: 1 / -1; }
 .overview-lede { margin-top: calc(2 * var(--line)); font-size: var(--m); line-height: var(--m-lh); letter-spacing: -0.012em; }
 @media (min-width: 40rem) {
-  .overview-lede { grid-column: 1 / span 6; }
+  .overview-lede, .intro .note { grid-column: 1 / span 6; }
 }
 @media (min-width: 64rem) {
-  .overview-lede { grid-column: 4 / span 6; }
+  .overview-lede, .intro .note { grid-column: 4 / span 6; }
 }
 
 /* A step: where you are in the round. The rule under it fills with red as the round goes on. */

@@ -1,0 +1,5 @@
+# Security contact for swiss-passport.com (RFC 9116). Renew Expires before it passes.
+Contact: mailto:contact@swiss-passport.com
+Expires: 2027-09-27T00:00:00.000Z
+Preferred-Languages: de, en
+Canonical: https://swiss-passport.com/.well-known/security.txt

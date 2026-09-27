@@ -10,6 +10,7 @@ import LanguageSwitch from "../../../components/method/LanguageSwitch.astro";
 import "../../../styles/viz.css";
 import { UI } from "../../../ui.js";
 import { METHOD, SOURCES } from "../../../method.js";
+import { MAKERS } from "../../../about.js";
 import { SITE } from "../../../site.js";
 import { LANG_IDS, methodPath, questionsPath } from "../../../data.js";
 
@@ -29,7 +30,7 @@ const jsonLd = {
   description: m.desc,
   inLanguage: lang,
   url: new URL(methodPath(lang), SITE).href,
-  author: { "@type": "Person", name: "Aleksej Dix", url: "https://github.com/AleksejDix" },
+  author: MAKERS,
   isPartOf: { "@type": "WebSite", name: "Swiss Passport", url: SITE },
   citation: SOURCES.map((s) => ({ "@type": "ScholarlyArticle", name: s.cite, url: doi(s.doi) })),
 };

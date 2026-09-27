@@ -6,6 +6,9 @@ import TopicVisual from "../../../components/topics/TopicVisual.astro";
 import { visualFor } from "../../../viz/topic-visuals.js";
 import { UI } from "../../../ui.js";
 import { TEXT, LANG_IDS, lessons, questions, questionPath, questionsPath, topicPath } from "../../../data.js";
+import { LINKS } from "../../../guide.js";
+import { OPERATOR } from "../../../legal.js";
+import { SITE } from "../../../site.js";
 
 export function getStaticPaths() {
   return LANG_IDS.flatMap((lang) =>
@@ -34,6 +37,10 @@ const answerTitle = text.options[right].charAt(0).toUpperCase() + text.options[r
 const title = shared ? `${text.question} ${answerTitle} | ${ui.title_suffix}` : `${text.question} | ${ui.title_suffix}`;
 const description = `${ui.answer}: ${right.toUpperCase()}, ${text.options[right]}. ${text.why}`.slice(0, 300);
 const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, questionPath(id, q)]));
+// Links to the question in the official list, and an email about a mistake with the question and page filled in.
+const credit = ui.credit.replace("{n}", q.n).replace("{pdf}", LINKS.pdf);
+const subject = ui.report_subject.replace("{n}", q.n);
+const report = `mailto:${OPERATOR.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(new URL(questionPath(lang, q), SITE).href + "\n\n")}`;
 
 // schema.org Quiz with one multiple choice question (Google "Education Q&A").
 const jsonLd = {
@@ -117,7 +124,8 @@ const jsonLd = {
           </ul>
         </>
       )}
-      <p class="note">{ui.credit}</p>
+      <p class="note" set:html={credit} />
+      <p class="note"><a href={report}>{ui.report}</a></p>
     </div>
   </section>
 

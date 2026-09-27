@@ -6,8 +6,8 @@
   "description": "Learn for the naturalisation knowledge test (Grundkenntnistest) of the Canton of Zurich, in 6 languages.",
   "long_description": "Short lessons, spaced reviews and 50-question mock exams based on the 350 official questions of the Canton of Zurich. Explanations are checked against official sources. Languages: German, English, French, Italian, Russian, Ukrainian. Progress is saved only on your computer.",
   "author": {
-    "name": "Aleksej Dix",
-    "url": "https://github.com/AleksejDix"
+    "name": "Aleksej Dix and Lidia Dix",
+    "url": "https://swiss-passport.com/en/about/"
   },
   "license": "PolyForm-Noncommercial-1.0.0",
   "icon": "icon.png",

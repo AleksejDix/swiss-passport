@@ -2,7 +2,7 @@
 // About: who is behind the site, where the content comes from, how it is checked, privacy and license.
 import Base from "../../../layouts/Base.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
-import { ABOUT, ABOUT_LINKS } from "../../../about.js";
+import { ABOUT, ABOUT_LINKS, MAKERS } from "../../../about.js";
 import { SITE } from "../../../site.js";
 import { LANG_IDS, aboutPath, guidePath } from "../../../data.js";
 
@@ -25,7 +25,7 @@ const jsonLd = {
     "@type": "WebSite",
     name: "Swiss Passport",
     url: SITE,
-    author: { "@type": "Person", name: "Aleksej Dix", url: "https://github.com/AleksejDix" },
+    author: MAKERS,
     license: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
   },
 };
