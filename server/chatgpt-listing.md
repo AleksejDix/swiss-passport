@@ -37,7 +37,7 @@ Long description (max. 4000):
 > wrong one is wrong. Wrong answers come back until they are right, and every topic returns for review after 1, 3, 7,
 > 14 and 30 days. Mock exams of 50 random questions work like the canton's official practice test.
 >
-> Learn in German, English, French, Italian, Russian or Ukrainian, always with the German wording of the real test.
+> Learn in German, English, French, Italian, Russian, Ukrainian or Spanish, always with the German wording of the real test.
 > No account is needed: progress is saved under an anonymous learner code that also works on swiss-passport.com.
 >
 > Swiss Passport is a private, non-commercial project. It is not affiliated with the Canton of Zurich or any
@@ -119,7 +119,7 @@ Reviewers need no account or credentials. The first call without a learner code 
 
 - Countries: everywhere the directory is offered; Switzerland (CH) above all. Add the country codes in the Global tab.
 - Release notes: "First public release: lessons, reviews and mock exams for the Zurich naturalisation knowledge test
-  in six languages, with an interactive quiz card."
+  in seven languages, with an interactive quiz card."
 
 ## After approval
 
