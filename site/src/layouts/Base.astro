@@ -7,11 +7,8 @@ import Brand from "../components/layout/Brand.astro";
 import MainNav from "../components/layout/MainNav.astro";
 import LanguageNav from "../components/layout/LanguageNav.svelte";
 import Footer from "../components/layout/Footer.astro";
-import { LANGS, STRINGS } from "../scripts/i18n.ts";
-import { UI } from "../ui.ts";
-import { ABOUT } from "../about.ts";
-import { TEXT, homePath, aboutPath } from "../data.ts";
-import { byLang } from "../../../i18n/index.js";
+import { homePath, aboutPath } from "../data.ts";
+import { texts, LANGUAGE_NAMES } from "../i18n.ts";
 
 interface Props {
   lang: string;
@@ -28,13 +25,11 @@ interface Props {
 }
 
 const { lang, title, description, alternates, jsonLd, xDefault, remember = true } = Astro.props;
-const s = { ...STRINGS[lang], ...UI[lang] };
-// The legal pages are in German; the footer names them in the reader's language.
-const PRIVACY_LABEL = byLang((t) => t.site.privacy);
+const s = { ...texts(lang).site.home, ...texts(lang).site.ui };
 const REPO = "https://github.com/AleksejDix/swiss-passport";
 ---
 
-<Document lang={lang} title={title} description={description} cyrillic={TEXT[lang].script === "Cyrl"}>
+<Document lang={lang} title={title} description={description} cyrillic={texts(lang).script === "Cyrl"}>
   <Fragment slot="head">
     <Seo
       title={title}
@@ -60,7 +55,7 @@ const REPO = "https://github.com/AleksejDix/swiss-passport";
   <Masthead>
     <Brand href={homePath(lang)} />
     <MainNav lang={lang} />
-    <LanguageNav names={LANGS} lang={lang} label={s.nav_langs} links={alternates} />
+    <LanguageNav names={LANGUAGE_NAMES} lang={lang} label={s.nav_langs} links={alternates} />
   </Masthead>
   <script is:inline>
     // A language chosen in the masthead is remembered, so / and /learn open in it next time.
@@ -77,9 +72,9 @@ const REPO = "https://github.com/AleksejDix/swiss-passport";
   <Footer
     text={s.foot}
     links={[
-      { href: aboutPath(lang), label: ABOUT[lang].nav },
+      { href: aboutPath(lang), label: texts(lang).site.about.nav },
       { href: "/impressum/", label: "Impressum", lang: "de" },
-      { href: "/datenschutz/", label: PRIVACY_LABEL[lang] },
+      { href: "/datenschutz/", label: texts(lang).site.privacy },
       { href: REPO, label: s.nav_source },
       { href: `${REPO}/blob/main/LICENSE`, label: s.foot_license },
     ]}

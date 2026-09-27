@@ -1,14 +1,14 @@
 ---
+import { texts } from "../../i18n.ts";
 // When is the test? (issue #10) Two orders, because it depends on the municipality (zh.ch); the City of Zurich
 // tests only after the application (stadt-zuerich.ch). The test is the red step.
-import { ORDER_TEXT } from "../../viz/guide-check.ts";
 
 interface Props {
   lang: string;
 }
 
 const { lang } = Astro.props;
-const t = ORDER_TEXT[lang];
+const t = texts(lang).site.viz.order;
 const flows = [
   { label: t.before, steps: [t.when, t.test, t.apply] },
   { label: t.after, steps: [t.apply, t.when, t.test] },

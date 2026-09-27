@@ -2,9 +2,9 @@
 // The three levels of the state (issue #6): 1 Confederation, 26 cantons, about 2200 municipalities, all as dots at
 // one scale (the municipalities as an exact 100 × 22 dot pattern, so the page stays light). The Confederation
 // carries its tasks; the memory aid of federal_tasks says who does what.
-import { TEXT } from "../../data.ts";
 import { termName } from "../../viz/terms.ts";
-import { LEVELS_TEXT, MUNICIPALITIES as M } from "../../viz/levels.ts";
+import { MUNICIPALITIES as M } from "../../viz/levels.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const { lang, caption = true } = Astro.props;
-const c = TEXT[lang].concepts;
+const c = texts(lang).concepts;
 const name = (topic: string, term: string) => termName(c, lang, topic, term);
 const half = c.three_levels.key_terms.find((k) => k.term === "Halbkanton")!.definition;
 const halfText = lang === "de" ? half : half.replace(/^[^:,]*[:,]\s*/, "");
@@ -25,7 +25,7 @@ const numberFmt = new Intl.NumberFormat(lang === "de" ? "de-CH" : lang);
 ---
 
 <figure class="lvl">
-  {caption && <figcaption class="lvl-title">{LEVELS_TEXT[lang].title}</figcaption>}
+  {caption && <figcaption class="lvl-title">{texts(lang).site.viz.levels.title}</figcaption>}
   <div class="lvl-rows">
     <div class="lvl-row" style="--i:0">
       <p class="lvl-name">{name("three_levels", "Bund")}</p>

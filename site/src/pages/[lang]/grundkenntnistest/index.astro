@@ -9,19 +9,19 @@ import Sources from "../../../components/ui/Sources.astro";
 import PageNav from "../../../components/ui/PageNav.astro";
 import SelfCheck from "../../../components/guide/SelfCheck.astro";
 import TestOrder from "../../../components/guide/TestOrder.astro";
-import { UI } from "../../../ui.ts";
-import { GUIDE, LINKS } from "../../../guide.ts";
-import { LANG_IDS, guidePath, questionsPath, methodPath } from "../../../data.ts";
+import { LINKS } from "../../../guide.ts";
+import { guidePath, questionsPath, methodPath } from "../../../data.ts";
+import { texts, LANGUAGES } from "../../../i18n.ts";
 
 export function getStaticPaths() {
-  return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
+  return LANGUAGES.map((lang) => ({ params: { lang }, props: { lang } }));
 }
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { lang } = Astro.props;
-const g = GUIDE[lang];
-const ui = UI[lang];
+const g = texts(lang).site.guide;
+const ui = texts(lang).site.ui;
 const links = { ...LINKS, questions: questionsPath(lang), learn: "/learn/", method: methodPath(lang) };
 const fill = (html: string) => html.replace(/\{(\w+)\}/g, (_, k: string) => (links as Record<string, string>)[k]);
 const plain = (html: string) =>
@@ -30,7 +30,7 @@ const plain = (html: string) =>
     .replace(/<[^>]+>/g, "")
     .replace(/\s+/g, " ")
     .trim();
-const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, guidePath(id)]));
+const alternates = Object.fromEntries(LANGUAGES.map((id) => [id, guidePath(id)]));
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",

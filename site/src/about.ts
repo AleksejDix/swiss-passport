@@ -2,7 +2,6 @@
 // Links: {repo} {issues} {license} {content_license} {sources} {guide} {pdf} {email} {aleksej} {lidia} {webzurich}
 import { LINKS } from "./guide.ts";
 import { OPERATOR } from "./legal.ts";
-import { byLang } from "../../i18n/index.js";
 
 // The makers, for the structured data of the about and method pages.
 export const MAKERS = [
@@ -27,5 +26,3 @@ export const ABOUT_LINKS = {
   content_license: "https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE-CONTENT.md",
   sources: "https://github.com/AleksejDix/swiss-passport/blob/main/sources/README.md",
 };
-
-export const ABOUT = byLang((t) => t.site.about);

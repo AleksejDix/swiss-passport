@@ -1,8 +1,8 @@
 ---
 // The AI apps with their logos, each linking to its steps on the connect page. Placement comes from the parent.
 import Logo from "./Logo.astro";
-import { CONNECT } from "../../connect.ts";
 import { connectPath } from "../../data.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
@@ -16,7 +16,7 @@ const base = here ? "" : connectPath(lang);
 ---
 
 <ul class:list={["apps", className]}>
-  {CONNECT[lang].apps.map((app) => (
+  {texts(lang).site.connect.apps.map((app) => (
     <li>
       <a href={`${base}#${app.id}`}>
         <Logo app={app.id} />

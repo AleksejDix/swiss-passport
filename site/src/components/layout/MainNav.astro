@@ -1,26 +1,21 @@
 ---
 // The pages of the site, in the masthead: one column on tablets, beside the name on wide screens.
-import { UI } from "../../ui.ts";
-import { STRINGS } from "../../scripts/i18n.ts";
-import { GUIDE } from "../../guide.ts";
-import { METHOD } from "../../method.ts";
-import { CONNECT } from "../../connect.ts";
-import { CURRICULUM } from "../../curriculum.ts";
 import { questionsPath, guidePath, methodPath, connectPath, curriculumPath } from "../../data.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
 }
 
 const { lang } = Astro.props;
-const ui = UI[lang];
+const ui = texts(lang).site.ui;
 const pages = [
-  ["/learn/", STRINGS[lang].nav_learn],
-  [connectPath(lang), CONNECT[lang].nav],
+  ["/learn/", texts(lang).site.home.nav_learn],
+  [connectPath(lang), texts(lang).site.connect.nav],
   [questionsPath(lang), ui.nav_questions],
-  [curriculumPath(lang), CURRICULUM[lang].nav],
-  [guidePath(lang), GUIDE[lang].nav],
-  [methodPath(lang), METHOD[lang].nav],
+  [curriculumPath(lang), texts(lang).site.curriculum.nav],
+  [guidePath(lang), texts(lang).site.guide.nav],
+  [methodPath(lang), texts(lang).site.method.nav],
 ];
 ---
 

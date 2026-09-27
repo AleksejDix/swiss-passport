@@ -2,7 +2,7 @@
 // reviews or a mock exam, answer, go on, change the language. The components only show this state; the islands on
 // the page (the app and the language buttons in the masthead) share it, because they import the same module.
 // Progress lives on the server under the learner code, which the browser remembers.
-import type { Text } from "../../../i18n/index.js";
+import type { Text } from "../i18n.ts";
 import {
   ROUTES,
   request,

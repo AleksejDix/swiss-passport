@@ -2,9 +2,8 @@
 // The Federal Assembly (issue #3): the National Council (200 seats) and the Council of States (46 seats)
 // as semicircles at the same scale; in the Council of States the six seats of the former half-cantons are rings.
 // Labels are the key terms of parliament_chambers; the last line is the memory aid of parliament_tasks.
-import { TEXT } from "../../data.ts";
 import { hemicycle, type Seat } from "../../viz/hemicycle.ts";
-import { PARLIAMENT_TEXT } from "../../viz/parliament.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
@@ -13,10 +12,10 @@ interface Props {
 }
 
 const { lang, caption = true } = Astro.props;
-const p = PARLIAMENT_TEXT[lang];
-const terms = TEXT[lang].concepts.parliament_chambers.key_terms;
+const p = texts(lang).site.viz.parliament;
+const terms = texts(lang).concepts.parliament_chambers.key_terms;
 const def = (term: string) => terms.find((k) => k.term === term)!.definition;
-const tasks = TEXT[lang].concepts.parliament_tasks.mnemonic;
+const tasks = texts(lang).concepts.parliament_tasks.mnemonic;
 
 const national = hemicycle(200);
 const states = hemicycle(46);

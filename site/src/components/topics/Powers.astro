@@ -1,9 +1,9 @@
 ---
 // Separation of powers (issue #5): legislature, executive and judiciary, each at federal level and in the
 // Canton of Zurich, with what it does; the media as the fourth power outside the state.
-import { TEXT } from "../../data.ts";
-import { POWERS_TEXT, membersLabel } from "../../viz/powers.ts";
+import { membersLabel } from "../../viz/powers.ts";
 import { termName } from "../../viz/terms.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
@@ -12,8 +12,8 @@ interface Props {
 }
 
 const { lang, caption = true } = Astro.props;
-const p = POWERS_TEXT[lang];
-const c = TEXT[lang].concepts;
+const p = texts(lang).site.viz.powers;
+const c = texts(lang).concepts;
 const name = (topic: string, term: string) => termName(c, lang, topic, term);
 // The media line: its definition without the name in front ("Fourth power: …"), which is shown in bold.
 const media = c.separation_of_powers.key_terms.find((k) => k.term === "Vierte Gewalt")!.definition;

@@ -1,8 +1,9 @@
 ---
 // Timeline of Swiss history on the history topics and their questions (issue #1). Static HTML, no JavaScript.
 // The gap before an entry grows with the time since the previous one (square root, so centuries stay readable).
-import { TEXT, topicPath } from "../../data.ts";
-import { HISTORY, TIMELINE_TEXT, yearLabel, withoutYear } from "../../viz/history.ts";
+import { topicPath } from "../../data.ts";
+import { HISTORY, yearLabel, withoutYear } from "../../viz/history.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
@@ -12,7 +13,7 @@ interface Props {
 }
 
 const { lang, current, caption = true } = Astro.props;
-const title = TIMELINE_TEXT[lang].title;
+const title = texts(lang).site.viz.timeline.title;
 const gap = (i: number) => (i ? Math.min(3, 0.1 * Math.sqrt(HISTORY[i].year - HISTORY[i - 1].year)) : 0).toFixed(2);
 ---
 
@@ -20,7 +21,7 @@ const gap = (i: number) => (i ? Math.min(3, 0.1 * Math.sqrt(HISTORY[i].year - HI
   {caption && <figcaption class="htl-title">{title}</figcaption>}
   <ol class="htl-list">
     {HISTORY.map((e, i) => {
-      const name = withoutYear(TEXT[lang].concepts[e.topic].title);
+      const name = withoutYear(texts(lang).concepts[e.topic].title);
       const here = e.topic === current;
       return (
         <li

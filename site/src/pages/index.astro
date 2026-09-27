@@ -5,19 +5,19 @@ import Seo from "../components/layout/Seo.astro";
 import Masthead from "../components/layout/Masthead.astro";
 import Brand from "../components/layout/Brand.astro";
 import Footer from "../components/layout/Footer.astro";
-import { LANGS, STRINGS } from "../scripts/i18n.ts";
 import { homePath } from "../data.ts";
+import { texts, LANGUAGE_NAMES } from "../i18n.ts";
 
 const title = "Swiss Passport: Einbürgerungstest Zürich · Zurich citizenship test";
-const n = Object.keys(LANGS).length;
+const n = Object.keys(LANGUAGE_NAMES).length;
 const description = `Lernen für den Einbürgerungstest im Kanton Zürich, in ${n} Sprachen. Learn for the Zurich citizenship test in ${n} languages.`;
-const alternates = Object.fromEntries(Object.keys(LANGS).map((id) => [id, homePath(id)]));
+const alternates = Object.fromEntries(Object.keys(LANGUAGE_NAMES).map((id) => [id, homePath(id)]));
 ---
 
 <Document lang="mul" title={title} description={description} cyrillic>
   <Fragment slot="head">
     <Seo title={title} description={description} path="/" alternates={alternates} xDefault="/" image="/og/de.png" />
-    <script is:inline define:vars={{ langs: Object.keys(LANGS) }}>
+    <script is:inline define:vars={{ langs: Object.keys(LANGUAGE_NAMES) }}>
       // Someone who already picked a language goes straight to it.
       try {
         const saved = localStorage.getItem("sp-lang");
@@ -34,10 +34,10 @@ const alternates = Object.fromEntries(Object.keys(LANGS).map((id) => [id, homePa
 
   <main class="page">
     <nav class="picker" aria-label="Language / Sprache">
-      {Object.entries(LANGS).map(([id, name]) => (
+      {Object.entries(LANGUAGE_NAMES).map(([id, name]) => (
         <a href={homePath(id)} hreflang={id} lang={id} data-lang={id}>
           <span class="picker-name">{name}</span>
-          <span class="picker-line">{STRINGS[id].h1}</span>
+          <span class="picker-line">{texts(id).site.home.h1}</span>
         </a>
       ))}
     </nav>

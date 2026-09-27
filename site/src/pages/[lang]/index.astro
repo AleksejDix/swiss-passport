@@ -4,7 +4,6 @@ import type { InferGetStaticPropsType } from "astro";
 import Base from "../../layouts/Base.astro";
 import QuestionMap from "../../components/home/QuestionMap.astro";
 import ChatDemo from "../../components/home/ChatDemo.astro";
-import { STRINGS } from "../../scripts/i18n.ts";
 import AppLinks from "../../components/ui/AppLinks.astro";
 import Button from "../../components/ui/Button.astro";
 import CopyUrl from "../../components/ui/CopyUrl.astro";
@@ -12,20 +11,19 @@ import Facts from "../../components/ui/Facts.svelte";
 import Pairs from "../../components/ui/Pairs.astro";
 import Section from "../../components/ui/Section.astro";
 import ReviewTimeline from "../../components/home/ReviewTimeline.astro";
-import { LANG_IDS, homePath, methodPath, connectPath } from "../../data.ts";
-import { METHOD } from "../../method.ts";
-import { CONNECT } from "../../connect.ts";
+import { homePath, methodPath, connectPath } from "../../data.ts";
 import { SITE } from "../../site.ts";
+import { texts, LANGUAGES } from "../../i18n.ts";
 
 export function getStaticPaths() {
-  return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
+  return LANGUAGES.map((lang) => ({ params: { lang }, props: { lang } }));
 }
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { lang } = Astro.props;
-const s = STRINGS[lang];
-const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, homePath(id)]));
+const s = texts(lang).site.home;
+const alternates = Object.fromEntries(LANGUAGES.map((id) => [id, homePath(id)]));
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -102,7 +100,7 @@ const jsonLd = {
         </div>
       </dl>
       <p class="note">
-        <a href={methodPath(lang)}>{METHOD[lang].link} →</a>
+        <a href={methodPath(lang)}>{texts(lang).site.method.link} →</a>
       </p>
     </Section>
 
@@ -121,7 +119,7 @@ const jsonLd = {
             [350, s.f1],
             [37, s.f2],
             [96, s.f3],
-            [LANG_IDS.length, s.f4],
+            [LANGUAGES.length, s.f4],
             [50, s.f5],
           ]}
         />
@@ -138,7 +136,7 @@ const jsonLd = {
         <div>
           <AppLinks lang={lang} class="apps" />
           <p class="note">
-            <a href={connectPath(lang)}>{CONNECT[lang].link} →</a>
+            <a href={connectPath(lang)}>{texts(lang).site.connect.link} →</a>
           </p>
         </div>
         <h3>{s.s_browser}</h3>

@@ -2,8 +2,8 @@
 // The three pillars of old-age provision (issue #7): three pillars under a roof labelled with the reference age;
 // under each its key term and definition; the memory aid and supplementary benefits below. All texts are key
 // terms and memory aids of three_pillars and ahv_iv; the title is the topic title.
-import { TEXT } from "../../data.ts";
 import { termName, termText } from "../../viz/terms.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { lang, caption = true } = Astro.props;
-const c = TEXT[lang].concepts;
+const c = texts(lang).concepts;
 const name = (topic: string, term: string) => termName(c, lang, topic, term);
 const text = (topic: string, term: string) => termText(c, lang, topic, term);
 const pillars = ["Erste Säule", "Zweite Säule", "Dritte Säule"];

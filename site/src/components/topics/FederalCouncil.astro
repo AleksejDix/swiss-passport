@@ -2,8 +2,8 @@
 // The Federal Council (issue #4): seven members in one frame ("seven heads, one voice"), one of them President of
 // the Confederation for a year; each member heads one of the seven departments; the Federal Chancellery supports
 // them without being a member. Names and abbreviations come from the topic texts (src/viz/federal-council.js).
-import { TEXT } from "../../data.ts";
-import { FEDERAL_COUNCIL_TEXT, departments } from "../../viz/federal-council.ts";
+import { departments } from "../../viz/federal-council.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
@@ -12,20 +12,20 @@ interface Props {
 }
 
 const { lang, caption = true } = Astro.props;
-const c = TEXT[lang].concepts;
+const c = texts(lang).concepts;
 const term = (topic: string, name: string) => {
   const k = c[topic].key_terms.find((k) => k.term === name);
   if (!k) throw new Error(`key term ${name} missing in ${lang}/${topic}`);
   return k.definition;
 };
-const german = departments(TEXT.de.concepts.administration.intro[1]).map((d) => d.abbr);
+const german = departments(texts("de").concepts.administration.intro[1]).map((d) => d.abbr);
 const depts = departments(c.administration.intro[1]);
 if (depts.length !== 7) throw new Error(`expected 7 departments in ${lang}, found ${depts.length}`);
 const PRESIDENT = 3; // which dot is marked does not matter: the presidency changes every year
 ---
 
 <figure class="fc">
-  {caption && <figcaption class="fc-title">{FEDERAL_COUNCIL_TEXT[lang].title}</figcaption>}
+  {caption && <figcaption class="fc-title">{texts(lang).site.viz.federal_council.title}</figcaption>}
   <div class="fc-council">
     <div class="fc-seven" aria-hidden="true">
       {Array.from({ length: 7 }, (_, i) => (

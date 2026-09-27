@@ -2,7 +2,7 @@
 import type { Curriculum, Question } from "@aleksejdix/learning-engine";
 import quizFile from "../../quiz.json";
 import curriculumFile from "../../curriculum.json";
-import { TEXTS, LANGUAGES, type Letter } from "../../i18n/index.js";
+import { texts, type Letter } from "./i18n.ts";
 
 // Every question of the Zurich test has the options a to d and exactly one right answer.
 type ZurichQuestion = Omit<Question, "options" | "answer"> & {
@@ -19,9 +19,6 @@ export type PageQuestion = ZurichQuestion & { n: number; slug: string; concept: 
 /** A topic with the unit of its lesson and its questions. */
 export type Topic = Omit<Concept, "questions"> & { unit: string; questions: PageQuestion[] };
 
-// All texts per language, and the language codes (German first). Languages are added in i18n/index.js only.
-export const TEXT = TEXTS;
-export const LANG_IDS = LANGUAGES;
 export const { units, lessons, concepts } = curriculum;
 
 // When the explanations were last checked against the official sources, shown as "Last checked" on question and
@@ -73,7 +70,7 @@ export const questions: PageQuestion[] = lessons
   .map((q) => {
     const n = Number(q.id.slice(1));
     const concept = conceptOf.get(q.id)!;
-    return { ...q, n, slug: `${n}-${slugify(TEXT.de.questions[q.id].question)}`, concept, lesson: concept.lesson };
+    return { ...q, n, slug: `${n}-${slugify(texts("de").questions[q.id].question)}`, concept, lesson: concept.lesson };
   });
 
 /** The question with this id (q055), with number, slug and topic. */

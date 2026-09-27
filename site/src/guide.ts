@@ -2,7 +2,6 @@
 // Only facts from the official pages in sources/ (see sources/exam_rules.md). Nothing guessed.
 // Links: {zh} canton page, {pdf} question list, {city} City of Zurich page, {kbuev} ordinance,
 // {questions} {learn} are pages of this site.
-import { byLang } from "../../i18n/index.js";
 
 export const LINKS = {
   zh: "https://www.zh.ch/de/migration-integration/einbuergerung/grundkenntnistest.html",
@@ -10,5 +9,3 @@ export const LINKS = {
   city: "https://www.stadt-zuerich.ch/de/lebenslagen/einwohner-services/einbuergerung/grundkenntnisse.html",
   kbuev: "https://www.zh.ch/de/politik-staat/gesetze-beschluesse/gesetzessammlung/zhlex-ls/erlass-141_11-72-435.html",
 };
-
-export const GUIDE = byLang((t) => t.site.guide);

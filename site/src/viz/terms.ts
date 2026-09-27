@@ -1,6 +1,6 @@
 // Names and explanations of key terms in the page language, for the topic figures. In German the term is the
 // name; in the other languages a definition starts with the translated name: "Name: …" (or "Name, …").
-import type { ConceptText } from "../../../i18n/index.js";
+import type { ConceptText } from "../i18n.ts";
 
 type Concepts = Record<string, ConceptText>;
 

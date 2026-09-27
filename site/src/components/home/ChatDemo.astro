@@ -2,21 +2,21 @@
 // "How it works" as a short chat (issue #9): one real lesson step, as the tutor runs it in Claude or ChatGPT:
 // the learner picks a language, the tutor explains, asks a real exam question, checks the answer and says why.
 // scripts/chat-demo.js plays it once when it scrolls into view; without it the whole chat is shown.
-import { TEXT, question } from "../../data.ts";
-import { STRINGS } from "../../scripts/i18n.ts";
+import { question } from "../../data.ts";
 import { termText } from "../../viz/terms.ts";
-import { CHAT_TEXT, CHAT_TOPIC, CHAT_QUESTION } from "../../viz/chat.ts";
+import { CHAT_TOPIC, CHAT_QUESTION } from "../../viz/chat.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
 }
 
 const { lang } = Astro.props;
-const t = CHAT_TEXT[lang];
-const c = TEXT[lang].concepts;
+const t = texts(lang).site.viz.chat;
+const c = texts(lang).concepts;
 const q = question(CHAT_QUESTION);
-const text = TEXT[lang].questions[CHAT_QUESTION];
-const de = TEXT.de.questions[CHAT_QUESTION];
+const text = texts(lang).questions[CHAT_QUESTION];
+const de = texts("de").questions[CHAT_QUESTION];
 const letters = q.options.map((o) => o.id);
 ---
 
@@ -65,7 +65,7 @@ const letters = q.options.map((o) => o.id);
       <p class="who">{t.tutor}</p>
       <div class="bubble">
         <p>
-          <b class="ok">{STRINGS[lang].hero_right}</b> {text.why}
+          <b class="ok">{texts(lang).site.home.hero_right}</b> {text.why}
         </p>
       </div>
     </li>

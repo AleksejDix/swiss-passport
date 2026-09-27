@@ -7,21 +7,20 @@ import CopyUrl from "../../../components/ui/CopyUrl.astro";
 import Logo from "../../../components/ui/Logo.astro";
 import PageHead from "../../../components/ui/PageHead.astro";
 import Section from "../../../components/ui/Section.astro";
-import { CONNECT } from "../../../connect.ts";
-import { STRINGS } from "../../../scripts/i18n.ts";
 import { SITE } from "../../../site.ts";
-import { LANG_IDS, connectPath } from "../../../data.ts";
+import { connectPath } from "../../../data.ts";
+import { texts, LANGUAGES } from "../../../i18n.ts";
 
 export function getStaticPaths() {
-  return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
+  return LANGUAGES.map((lang) => ({ params: { lang }, props: { lang } }));
 }
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { lang } = Astro.props;
-const c = CONNECT[lang];
-const s = STRINGS[lang];
-const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, connectPath(id)]));
+const c = texts(lang).site.connect;
+const s = texts(lang).site.home;
+const alternates = Object.fromEntries(LANGUAGES.map((id) => [id, connectPath(id)]));
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "HowTo",

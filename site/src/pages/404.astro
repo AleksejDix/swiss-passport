@@ -6,12 +6,8 @@ import Masthead from "../components/layout/Masthead.astro";
 import Brand from "../components/layout/Brand.astro";
 import PageHead from "../components/ui/PageHead.astro";
 import Section from "../components/ui/Section.astro";
-import { LANGS } from "../scripts/i18n.ts";
-import { UI } from "../ui.ts";
 import { homePath, questionsPath } from "../data.ts";
-import { byLang } from "../../../i18n/index.js";
-
-const MISSING = byLang((t) => t.site.not_found);
+import { texts, LANGUAGE_NAMES } from "../i18n.ts";
 ---
 
 <Document lang="mul" title="404 | Swiss Passport" noindex>
@@ -21,10 +17,11 @@ const MISSING = byLang((t) => t.site.not_found);
 
   <main class="page">
     <PageHead title="404" />
-    {Object.keys(LANGS).map((id) => (
-      <Section title={MISSING[id]} lang={id}>
+    {Object.keys(LANGUAGE_NAMES).map((id) => (
+      <Section title={texts(id).site.not_found} lang={id}>
         <p class="links">
-          <a href={questionsPath(id)}>{UI[id].nav_questions}</a> <a href={homePath(id)}>{UI[id].home}</a>
+          <a href={questionsPath(id)}>{texts(id).site.ui.nav_questions}</a>{" "}
+          <a href={homePath(id)}>{texts(id).site.ui.home}</a>
         </p>
       </Section>
     ))}

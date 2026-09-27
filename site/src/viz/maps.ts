@@ -2,7 +2,7 @@
 // (areas and lines only, the same in every language) and the marks and labels that the page lays over it
 // in the reader's language. Geometry: src/viz/geo-data.js (mcp/scripts/build-geo.mjs).
 import { CH, ZH } from "./geo-data.js";
-import { byLang } from "../../../i18n/index.js";
+import { texts } from "../i18n.ts";
 
 export const MAP_OF_TOPIC: Record<string, string> = {
   regions: "ch-regions",
@@ -21,9 +21,6 @@ export const MAP_NAMES = [...new Set(Object.values(MAP_OF_TOPIC))];
 export const geometry = (name: string) => (name.startsWith("zh") ? ZH : CH);
 type Geometry = ReturnType<typeof geometry>;
 type Point = [number, number];
-
-// Names as the explanations of each language write them.
-export const MAP_TEXT = byLang((t): Record<string, string> => t.site.viz.map);
 
 /** Map units of a longitude and latitude (the Mercator projection of the build script). */
 function project(geo: Geometry, [lon, lat]: Point): Point {
@@ -160,7 +157,7 @@ const MARKS: Record<string, Mark[]> = {
 /** The marks of a map in one language, with positions in percent of the map. */
 export function mapMarks(name: string, lang: string) {
   const g = geometry(name);
-  const t = MAP_TEXT[lang];
+  const t: Record<string, string> = texts(lang).site.viz.map;
   return MARKS[name].map(([kind, at, key, side, strong = false, rank]) => {
     const [x, y] = "point" in at ? (g.points as Record<string, number[]>)[at.point] : project(g, at);
     let text = t[key];

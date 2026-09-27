@@ -1,8 +1,6 @@
 // llms.txt: a plain-text map of the site for AI assistants (https://llmstxt.org).
 import { SITE } from "../site.ts";
 import {
-  TEXT,
-  LANG_IDS,
   questions,
   topics,
   questionPath,
@@ -13,15 +11,13 @@ import {
   connectPath,
   curriculumPath,
 } from "../data.ts";
-import { GUIDE } from "../guide.ts";
-import { METHOD } from "../method.ts";
-import { CURRICULUM } from "../curriculum.ts";
+import { texts, LANGUAGES } from "../i18n.ts";
 
 export function GET() {
-  const en = TEXT.en;
+  const en = texts("en");
   const url = (path) => new URL(path, SITE).href;
   const names = new Intl.DisplayNames(["en"], { type: "language" });
-  const languages = new Intl.ListFormat("en-GB", { type: "conjunction" }).format(LANG_IDS.map((l) => names.of(l)));
+  const languages = new Intl.ListFormat("en-GB", { type: "conjunction" }).format(LANGUAGES.map((l) => names.of(l)));
   const lines = [
     "# Swiss Passport",
     "",
@@ -31,19 +27,19 @@ export function GET() {
     "",
     "## About the test",
     "",
-    ...LANG_IDS.map((lang) => `- [${GUIDE[lang].title}](${url(guidePath(lang))})`),
+    ...LANGUAGES.map((lang) => `- [${texts(lang).site.guide.title}](${url(guidePath(lang))})`),
     "",
     "## Curriculum: 37 lessons, which lesson builds on which",
     "",
-    ...LANG_IDS.map((lang) => `- [${CURRICULUM[lang].title}](${url(curriculumPath(lang))})`),
+    ...LANGUAGES.map((lang) => `- [${texts(lang).site.curriculum.title}](${url(curriculumPath(lang))})`),
     "",
     "## Learning method",
     "",
-    ...LANG_IDS.map((lang) => `- [${METHOD[lang].title}](${url(methodPath(lang))})`),
+    ...LANGUAGES.map((lang) => `- [${texts(lang).site.method.title}](${url(methodPath(lang))})`),
     "",
     "## Question lists",
     "",
-    ...LANG_IDS.map((lang) => `- [${TEXT[lang].title}](${url(questionsPath(lang))})`),
+    ...LANGUAGES.map((lang) => `- [${texts(lang).title}](${url(questionsPath(lang))})`),
     "",
     "## Learn",
     "",

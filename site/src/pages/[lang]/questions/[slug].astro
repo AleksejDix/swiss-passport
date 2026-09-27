@@ -1,6 +1,6 @@
 ---
 import type { InferGetStaticPropsType } from "astro";
-import type { Letter } from "../../../../../i18n/index.js";
+import type { Letter } from "../../../i18n.ts";
 // One page per official question and language: the question, the correct answer, why, and the German original.
 import Base from "../../../layouts/Base.astro";
 import PageHead from "../../../components/ui/PageHead.astro";
@@ -12,23 +12,14 @@ import Sources from "../../../components/ui/Sources.astro";
 import PageNav from "../../../components/ui/PageNav.astro";
 import TopicVisual from "../../../components/topics/TopicVisual.astro";
 import { visualFor } from "../../../viz/topic-visuals.ts";
-import { UI } from "../../../ui.ts";
-import {
-  TEXT,
-  LANG_IDS,
-  lessons,
-  questions,
-  questionPath,
-  questionsPath,
-  topicPath,
-  checkedMonth,
-} from "../../../data.ts";
+import { lessons, questions, questionPath, questionsPath, topicPath, checkedMonth } from "../../../data.ts";
 import { LINKS } from "../../../guide.ts";
 import { OPERATOR } from "../../../legal.ts";
 import { SITE } from "../../../site.ts";
+import { texts, LANGUAGES } from "../../../i18n.ts";
 
 export function getStaticPaths() {
-  return LANG_IDS.flatMap((lang) =>
+  return LANGUAGES.flatMap((lang) =>
     questions.map((q, i) => ({
       params: { lang, slug: q.slug },
       props: { lang, q, prev: questions[i - 1], next: questions[i + 1] },
@@ -39,10 +30,10 @@ export function getStaticPaths() {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { lang, q, prev, next } = Astro.props;
-const ui = UI[lang];
-const t = TEXT[lang];
+const ui = texts(lang).site.ui;
+const t = texts(lang);
 const text = t.questions[q.id];
-const de = TEXT.de.questions[q.id];
+const de = texts("de").questions[q.id];
 const letters = q.options.map((o) => o.id);
 const right = q.answer;
 const concept = t.concepts[q.concept.id];
@@ -55,7 +46,7 @@ const shared = questions.some((o) => o.id !== q.id && t.questions[o.id].question
 const answerTitle = text.options[right].charAt(0).toUpperCase() + text.options[right].slice(1);
 const title = shared ? `${text.question} ${answerTitle} | ${ui.title_suffix}` : `${text.question} | ${ui.title_suffix}`;
 const description = `${ui.answer}: ${right.toUpperCase()}, ${text.options[right]}. ${text.why}`.slice(0, 300);
-const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, questionPath(id, q)]));
+const alternates = Object.fromEntries(LANGUAGES.map((id) => [id, questionPath(id, q)]));
 // Links to the question in the official list, and an email about a mistake with the question and page filled in.
 const credit = ui.credit.replace("{n}", String(q.n)).replace("{pdf}", LINKS.pdf);
 const subject = ui.report_subject.replace("{n}", String(q.n));

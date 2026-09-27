@@ -8,30 +8,19 @@ import Section from "../../../components/ui/Section.astro";
 import Facts from "../../../components/ui/Facts.svelte";
 import PageNav from "../../../components/ui/PageNav.astro";
 import CurriculumMap from "../../../components/curriculum/CurriculumMap.astro";
-import { UI } from "../../../ui.ts";
-import { METHOD } from "../../../method.ts";
-import { CURRICULUM } from "../../../curriculum.ts";
-import {
-  LANG_IDS,
-  units,
-  lessons,
-  concepts,
-  questions,
-  curriculumPath,
-  methodPath,
-  questionsPath,
-} from "../../../data.ts";
+import { units, lessons, concepts, questions, curriculumPath, methodPath, questionsPath } from "../../../data.ts";
+import { texts, LANGUAGES } from "../../../i18n.ts";
 
 export function getStaticPaths() {
-  return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
+  return LANGUAGES.map((lang) => ({ params: { lang }, props: { lang } }));
 }
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { lang } = Astro.props;
-const c = CURRICULUM[lang];
-const ui = UI[lang];
-const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, curriculumPath(id)]));
+const c = texts(lang).site.curriculum;
+const ui = texts(lang).site.ui;
+const alternates = Object.fromEntries(LANGUAGES.map((id) => [id, curriculumPath(id)]));
 const figures = [units.length, lessons.length, concepts.length, questions.length];
 ---
 
@@ -63,7 +52,7 @@ const figures = [units.length, lessons.length, concepts.length, questions.length
       action={ui.practise}
       links={[
         { href: questionsPath(lang), label: ui.nav_questions },
-        { href: methodPath(lang), label: METHOD[lang].nav },
+        { href: methodPath(lang), label: texts(lang).site.method.nav },
       ]}
     />
   </main>

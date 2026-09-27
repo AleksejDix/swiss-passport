@@ -1,9 +1,9 @@
 ---
 // A map for a geography topic (issues #13, #14): the shared SVG file of the map, and over it the marks and
 // names in the reader's language. Marks keep their size on every screen; the map scales.
-import { TEXT } from "../../data.ts";
-import { MAP_OF_TOPIC, MAP_TEXT, MAP_LEGEND, geometry, mapMarks } from "../../viz/maps.ts";
+import { MAP_OF_TOPIC, MAP_LEGEND, geometry, mapMarks } from "../../viz/maps.ts";
 import { termName } from "../../viz/terms.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
@@ -15,17 +15,17 @@ interface Props {
 const { lang, topic, caption = true } = Astro.props;
 const name = MAP_OF_TOPIC[topic];
 const g = geometry(name);
-const t = MAP_TEXT[lang];
+const t: Record<string, string> = texts(lang).site.viz.map;
 const marks = mapMarks(name, lang);
 // A legend entry names a map text or a key term of a topic.
 const legend = (MAP_LEGEND[name] ?? []).map(([key, a, term]) => [
   key,
-  term ? termName(TEXT[lang].concepts, lang, a, term) : t[a],
+  term ? termName(texts(lang).concepts, lang, a, term) : t[a],
 ]);
 ---
 
 <figure class={`geo geo-${name}`}>
-  {caption && <figcaption class="geo-title">{TEXT[lang].concepts[topic].title}</figcaption>}
+  {caption && <figcaption class="geo-title">{texts(lang).concepts[topic].title}</figcaption>}
   <div class="geo-box">
     <img src={`/maps/${name}.svg`} width={g.width} height={g.height} alt="" loading="lazy" decoding="async" />
     <ul class="geo-marks">

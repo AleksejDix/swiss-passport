@@ -8,8 +8,7 @@ import Footer from "../../components/layout/Footer.astro";
 import LearnApp from "../../learn/LearnApp.svelte";
 import LearnLanguages from "../../learn/LearnLanguages.svelte";
 import { SITE } from "../../site.ts";
-import { LANGS } from "../../scripts/i18n.ts";
-import { byLang } from "../../../../i18n/index.js";
+import { byLang, LANGUAGE_NAMES } from "../../i18n.ts";
 
 // The interface texts of every language (i18n/<code>.json, key learn), so the app switches without reloading.
 const TEXT = byLang((t) => ({ name: t.name, ...t.learn }));
@@ -24,7 +23,7 @@ const WEBMCP_TRIAL =
 <Document
   lang="en"
   title="Learn online: Swiss Passport"
-  description={`Practise the 350 official questions of the Zurich naturalisation knowledge test in your browser, in ${Object.keys(LANGS).length} languages.`}
+  description={`Practise the 350 official questions of the Zurich naturalisation knowledge test in your browser, in ${Object.keys(LANGUAGE_NAMES).length} languages.`}
   bodyClass="learn"
 >
   <Fragment slot="head">
@@ -35,7 +34,7 @@ const WEBMCP_TRIAL =
   <Masthead>
     <Brand href="/" label="Swiss Passport, home" />
     <!-- Rendered on the server, so the masthead has its final height before the app marks the chosen language. -->
-    <LearnLanguages client:load names={LANGS} labels={LABELS} />
+    <LearnLanguages client:load names={LANGUAGE_NAMES} labels={LABELS} />
   </Masthead>
   <main class="page app">
     <LearnApp client:only="svelte" texts={TEXT}>

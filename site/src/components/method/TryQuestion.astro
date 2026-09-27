@@ -4,9 +4,8 @@
 import Figure from "./Figure.astro";
 import AnswerRow from "../ui/AnswerRow.svelte";
 import Prompt from "../ui/Prompt.astro";
-import { VIZ } from "../../method.ts";
-import { STRINGS } from "../../scripts/i18n.ts";
-import { TEXT, question } from "../../data.ts";
+import { question } from "../../data.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
@@ -15,11 +14,11 @@ interface Props {
 }
 
 const { lang, id } = Astro.props;
-const v = VIZ[lang];
-const s = STRINGS[lang];
+const v = texts(lang).site.method_viz;
+const s = texts(lang).site.home;
 const q = question(id);
-const t = TEXT[lang].questions[id];
-const de = TEXT.de.questions[id];
+const t = texts(lang).questions[id];
+const de = texts("de").questions[id];
 const letters = q.options.map((o) => o.id);
 const data = {
   answer: q.answer,

@@ -6,9 +6,8 @@ import Toggle from "./Toggle.astro";
 import AnswerList from "../ui/AnswerList.svelte";
 import AnswerRow from "../ui/AnswerRow.svelte";
 import Prompt from "../ui/Prompt.astro";
-import { VIZ } from "../../method.ts";
-import { LANGS } from "../../scripts/i18n.ts";
-import { TEXT, question } from "../../data.ts";
+import { question } from "../../data.ts";
+import { texts, LANGUAGE_NAMES } from "../../i18n.ts";
 
 interface Props {
   lang: string;
@@ -17,22 +16,26 @@ interface Props {
 }
 
 const { lang, id } = Astro.props;
-const v = VIZ[lang];
+const v = texts(lang).site.method_viz;
 const q = question(id);
 const letters = q.options.map((o) => o.id);
-const texts = Object.fromEntries(
-  Object.keys(LANGS).map((l) => [l, { q: TEXT[l].questions[id].question, o: TEXT[l].questions[id].options }]),
+// The question in every language, for the switch.
+const translations = Object.fromEntries(
+  Object.keys(LANGUAGE_NAMES).map((l) => [
+    l,
+    { q: texts(l).questions[id].question, o: texts(l).questions[id].options },
+  ]),
 );
-const t = texts[lang];
-const de = texts.de;
+const t = translations[lang];
+const de = translations.de;
 ---
 
-<Figure class="langs" data-langswitch data-texts={JSON.stringify(texts)}>
+<Figure class="langs" data-langswitch data-texts={JSON.stringify(translations)}>
   <Toggle
     label={v.showIn}
     name="lang-choice"
     pressed={lang}
-    choices={Object.entries(LANGS).map(([l, name]) => ({ value: l, label: name, lang: l }))}
+    choices={Object.entries(LANGUAGE_NAMES).map(([l, name]) => ({ value: l, label: name, lang: l }))}
   />
   <Prompt question={t.q} lang={lang} german={de.q} germanHidden={lang === "de"} switchable />
   <AnswerList>

@@ -1,6 +1,6 @@
 // Timeline of Swiss history for the history topics (lessons l22 to l26). One entry per topic; every year
 // is taken from that topic's explanation in i18n/*.json. The label is the topic title without its year.
-import { byLang } from "../../../i18n/index.js";
+import { texts } from "../i18n.ts";
 
 /** A topic on the timeline: its year (negative before Christ), an end year, or a century instead of a year. */
 export interface HistoryEntry {
@@ -29,11 +29,9 @@ export const HISTORY: HistoryEntry[] = [
 
 export const isHistory = (topic: string) => HISTORY.some((e) => e.topic === topic);
 
-export const TIMELINE_TEXT = byLang((t) => t.site.viz.timeline);
-
 /** The year column: "58 BC", "1291", "1939–1945", "19th c.". */
 export function yearLabel(e: HistoryEntry, lang: string) {
-  const t = TIMELINE_TEXT[lang];
+  const t = texts(lang).site.viz.timeline;
   if (e.period) return t[e.period];
   if (e.year < 0) return t.bc.replace("{year}", String(-e.year));
   return e.until ? `${e.year}–${e.until}` : String(e.year);

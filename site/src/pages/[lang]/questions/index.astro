@@ -6,19 +6,19 @@ import PageHead from "../../../components/ui/PageHead.astro";
 import Section from "../../../components/ui/Section.astro";
 import Pairs from "../../../components/ui/Pairs.astro";
 import Button from "../../../components/ui/Button.astro";
-import { UI } from "../../../ui.ts";
-import { TEXT, LANG_IDS, units, topics, questionPath, questionsPath, topicPath } from "../../../data.ts";
+import { units, topics, questionPath, questionsPath, topicPath } from "../../../data.ts";
+import { texts, LANGUAGES } from "../../../i18n.ts";
 
 export function getStaticPaths() {
-  return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
+  return LANGUAGES.map((lang) => ({ params: { lang }, props: { lang } }));
 }
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { lang } = Astro.props;
-const ui = UI[lang];
-const t = TEXT[lang];
-const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, questionsPath(id)]));
+const ui = texts(lang).site.ui;
+const t = texts(lang);
+const alternates = Object.fromEntries(LANGUAGES.map((id) => [id, questionsPath(id)]));
 ---
 
 <Base lang={lang} title={ui.questions_title} description={ui.questions_desc} alternates={alternates}>

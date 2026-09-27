@@ -3,8 +3,7 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
-import { STRINGS } from "../../scripts/i18n.ts";
-import { LANG_IDS } from "../../data.ts";
+import { texts, LANGUAGES } from "../../i18n.ts";
 
 // Satori reads static fonts only, so the image uses the static cuts of Inter, the typeface of the site.
 // The font comes in one file per script; each gets its own name so Cyrillic text falls back to it.
@@ -22,11 +21,11 @@ const RED = "#da291c"; // Pantone 485 C, the red of the Swiss flag
 const el = (type, style, ...children) => ({ type, props: { style: { display: "flex", ...style }, children } });
 
 export function getStaticPaths() {
-  return LANG_IDS.map((lang) => ({ params: { lang } }));
+  return LANGUAGES.map((lang) => ({ params: { lang } }));
 }
 
 export async function GET({ params }) {
-  const s = STRINGS[params.lang];
+  const s = texts(params.lang).site.home;
   // The flag on a 32-unit square scaled by 2: arms 12 wide and 14 long (a sixth longer than wide), 12 from the edge.
   const cross = el(
     "div",

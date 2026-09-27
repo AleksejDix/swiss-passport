@@ -2,16 +2,17 @@
 // The curriculum map (issue #15): a unit per row. Phones and tablets: the unit's lessons as a list with their stage.
 // Wide screens: the unit in the first two columns, then one pair of columns per stage. Stages come from requires in
 // curriculum.json, the same rule the learning engine uses to offer lessons.
-import { CURRICULUM, stageOf, lessonNumber } from "../../curriculum.ts";
-import { TEXT, units, lessons, questionsPath, type Lesson } from "../../data.ts";
+import { stageOf, lessonNumber } from "../../curriculum.ts";
+import { units, lessons, questionsPath, type Lesson } from "../../data.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
 }
 
 const { lang } = Astro.props;
-const c = CURRICULUM[lang];
-const t = TEXT[lang];
+const c = texts(lang).site.curriculum;
+const t = texts(lang);
 const byId = new Map(lessons.map((l) => [l.id, l]));
 const stages = Math.max(...lessons.map((l) => stageOf(l.id))) + 1;
 const list = new Intl.ListFormat(t.language, { type: "conjunction" });

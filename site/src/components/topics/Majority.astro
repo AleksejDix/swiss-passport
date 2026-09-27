@@ -2,10 +2,9 @@
 // The majority of the cantons (issue #8): the canton map with the six former half-cantons in red, their value in
 // cantonal votes and the sum 20 × 1 + 6 × ½ = 23, of which 12 are needed. The map is one shared file
 // (/cantons.svg), so the pages stay light. Texts: key terms and the homepage's vote strings.
-import { TEXT } from "../../data.ts";
-import { STRINGS } from "../../scripts/i18n.ts";
 import { MAP } from "../../scripts/map-data.js";
 import { termName, termText } from "../../viz/terms.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
@@ -14,8 +13,8 @@ interface Props {
 }
 
 const { lang, caption = true } = Astro.props;
-const c = TEXT[lang].concepts;
-const s = STRINGS[lang];
+const c = texts(lang).concepts;
+const s = texts(lang).site.home;
 const title = termName(c, lang, "double_majority", "Ständemehr");
 const full = MAP.cantons.filter((k) => !k.half).length;
 const halves = MAP.cantons.filter((k) => k.half).length;

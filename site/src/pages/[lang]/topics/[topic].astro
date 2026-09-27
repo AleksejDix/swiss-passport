@@ -11,12 +11,12 @@ import Sources from "../../../components/ui/Sources.astro";
 import PageNav from "../../../components/ui/PageNav.astro";
 import TopicVisual from "../../../components/topics/TopicVisual.astro";
 import { visualFor, visualTitle } from "../../../viz/topic-visuals.ts";
-import { UI } from "../../../ui.ts";
 import { SITE } from "../../../site.ts";
-import { TEXT, LANG_IDS, topics, questionPath, questionsPath, topicPath, checkedMonth } from "../../../data.ts";
+import { topics, questionPath, questionsPath, topicPath, checkedMonth } from "../../../data.ts";
+import { texts, LANGUAGES } from "../../../i18n.ts";
 
 export function getStaticPaths() {
-  return LANG_IDS.flatMap((lang) =>
+  return LANGUAGES.flatMap((lang) =>
     topics.map((c, i) => ({
       params: { lang, topic: c.id.replace(/_/g, "-") },
       props: { lang, c, prev: topics[i - 1], next: topics[i + 1] },
@@ -27,13 +27,13 @@ export function getStaticPaths() {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { lang, c, prev, next } = Astro.props;
-const ui = UI[lang];
-const t = TEXT[lang];
+const ui = texts(lang).site.ui;
+const t = texts(lang);
 const topic = t.concepts[c.id];
 
 const title = `${topic.title} | ${ui.title_suffix}`;
 const description = topic.intro[0].length > 300 ? `${topic.intro[0].slice(0, 297)}...` : topic.intro[0];
-const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, topicPath(id, c)]));
+const alternates = Object.fromEntries(LANGUAGES.map((id) => [id, topicPath(id, c)]));
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "LearningResource",

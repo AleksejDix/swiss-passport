@@ -1,16 +1,17 @@
 ---
 // All 350 questions at a glance (issue #2): one dot per question, grouped by lesson and unit.
 // Every lesson links to its questions. scripts/question-map.js fills the dots in and reads out the lesson.
-import { TEXT, units, questions, questionsPath, type Unit } from "../../data.ts";
-import { OVERVIEW, countLabel } from "../../viz/overview.ts";
+import { units, questions, questionsPath, type Unit } from "../../data.ts";
+import { countLabel } from "../../viz/overview.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
 }
 
 const { lang } = Astro.props;
-const o = OVERVIEW[lang];
-const t = TEXT[lang];
+const o = texts(lang).site.viz.overview;
+const t = texts(lang);
 let number = 0;
 const lessonsOf = (u: Unit) =>
   u.lessons.map((id) => {

@@ -1,7 +1,6 @@
 // The method page: how Swiss Passport teaches and why. Every claim about the app matches packages/engine/src/engine.ts
 // (intervals 1, 3, 7, 14, 30 days; a mistake moves a topic back one step) and mcp/src/learning/catalog.ts (50-question mock exams).
 // Research claims cite SOURCES below; keep them as careful as the studies themselves.
-import { byLang } from "../../i18n/index.js";
 
 export const SOURCES = [
   {
@@ -25,8 +24,3 @@ export const SOURCES = [
     doi: "10.1177/1529100612453266",
   },
 ];
-
-export const METHOD = byLang((t) => t.site.method);
-
-// Labels of the four visuals on the method page (components in src/components/method/).
-export const VIZ = byLang((t) => t.site.method_viz);

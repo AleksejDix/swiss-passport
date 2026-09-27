@@ -1,15 +1,15 @@
 ---
 // "Do I have to take the test?" (issue #10): the canton's four exemption questions as a flowchart. Without
 // JavaScript it reads as a chart (yes → no test, four times no → test); scripts/self-check.js lets you answer.
-import { CHECK_TEXT } from "../../viz/guide-check.ts";
 import { LINKS } from "../../guide.ts";
+import { texts } from "../../i18n.ts";
 
 interface Props {
   lang: string;
 }
 
 const { lang } = Astro.props;
-const t = CHECK_TEXT[lang];
+const t = texts(lang).site.viz.check;
 ---
 
 <figure class="chk" data-check data-result-no={t.resultNo} data-result-yes={t.resultYes}>
