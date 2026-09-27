@@ -1,9 +1,3 @@
-# English moved from / to /en/ (the root is now the language picker).
-/questions/* /en/questions/:splat 301
-/topics/* /en/topics/:splat 301
-/grundkenntnistest/* /en/grundkenntnistest/:splat 301
-/about/* /en/about/:splat 301
-
 # Addresses without the closing slash: a permanent redirect to the page (Cloudflare's own redirect is
 # temporary, 307). Per language, so that files such as /og/de.png or /maps/ch-size.svg never match.
 /de /de/ 301
