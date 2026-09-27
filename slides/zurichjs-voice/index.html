@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChatGPT Voice Mode Ignored My MCP Server. Here's How I Made It Listen.</title>
+<link rel="stylesheet" href="vendor/reveal/reset.css">
+<link rel="stylesheet" href="vendor/reveal/reveal.css">
+<link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- 1 Title -->
+<section>
+  <div class="middle">
+    <div class="title-row">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#da291c"/><rect x="6" y="13" width="20" height="6" fill="#fff"/><rect x="13" y="6" width="6" height="20" fill="#fff"/></svg>
+      <span class="wave red" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+    </div>
+    <h1>ChatGPT Voice Mode Ignored My MCP Server.</h1>
+    <h2 class="muted">Here's how I made it listen.</h2>
+    <p class="small">Aleksej Dix, ZurichJS<br><span class="muted">swiss-passport.com</span></p>
+  </div>
+  <aside class="notes">0:00. Hello, I'm Aleksej. I've co-organised WebZurich for ten years. Tonight is about building for AI assistants when nobody looks at a screen.</aside>
+</section>
+
+<!-- 2 Hook -->
+<section>
+  <div class="middle">
+    <h1>Who here has lived in Switzerland for ten years or more?</h1>
+    <h3 class="fragment rise">Keep your hand up if you have a C permit.</h3>
+  </div>
+  <aside class="notes">0:20. Hands up. (Next.) Keep them up if you have a C permit. Some of you can apply for a Swiss passport. In the Canton of Zurich that means a test.</aside>
+</section>
+
+<!-- 3 The test: the room answers -->
+<section>
+  <p class="kicker">The test</p>
+  <h2>50 questions out of 350. In German.</h2>
+  <div class="quiz">
+    <p class="quiz-q">Zwischen den Mitgliedern des Bundesrats gilt das Kollegialitätsprinzip. Was heisst das?</p>
+    <button type="button"><b>A</b><span>Die Mitglieder des Bundesrates müssen sich gut kennen.</span></button>
+    <button type="button"><b>B</b><span>Jeder Bundesrat vertritt seine eigenen politischen Meinungen.</span></button>
+    <button type="button" class="correct"><b>C</b><span>Alle Mitglieder müssen Entscheide des Bundesrates nach aussen gleich vertreten.</span></button>
+    <button type="button"><b>D</b><span>Der Bundesrat<span class="typo" data-note="verb missing"></span>Entscheidungen mit Abstimmung.</span></button>
+  </div>
+  <span class="fragment step" data-target=".quiz" data-add="revealed"></span>
+  <span class="fragment step" data-target=".quiz" data-add="show-typo"></span>
+  <aside class="notes">0:50. Question 5 of the canton's list, word for word. Who knows it? Click the option the room shouts. (Next.) C. (Next.) And D has no verb, in the official list. The list is German only. My wife Lidia and I are preparing for our own naturalisation. So we built something.</aside>
+</section>
+
+<!-- 4 Swiss Passport -->
+<section>
+  <p class="kicker">So we built</p>
+  <h2>Swiss Passport</h2>
+  <p class="lede"><span class="rotator" lang="en" data-words="en:Learn online|de:Online lernen|fr:Apprendre en ligne|it:Impara online|ru:Учиться онлайн|uk:Навчатися онлайн|es:Aprender en línea|sq:Mëso online">Learn online</span></p>
+  <p class="lede">The official questions in short lessons, with spaced repetition and mock exams. In the browser, inside ChatGPT and Claude, and by voice. Free, no account, no ads.</p>
+  <div class="stats">
+    <div><b data-to="350">350</b><span>official questions</span></div>
+    <div><b data-to="37">37</b><span>lessons</span></div>
+    <div><b data-to="96">96</b><span>concepts</span></div>
+    <div><b data-to="8">8</b><span>languages, next to the German</span></div>
+  </div>
+  <aside class="notes">1:40. Learning happens where people already are: in ChatGPT and Claude. Typing at the desk, talking on the tram. Every language always shows the German wording, because the test is in German.</aside>
+</section>
+
+<!-- 5 MCP in 30 seconds: the flow -->
+<section>
+  <p class="kicker">MCP in 30 seconds</p>
+  <h2>The model calls tools on your server</h2>
+  <div class="flow" data-step="0">
+    <div class="flow-row">
+      <div class="node n-learner">Learner<small>speaks</small></div>
+      <div class="wire"><span class="say wave mini" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span></div>
+      <div class="node n-model">ChatGPT<small>or Claude</small></div>
+      <div class="wire"><span class="packet pk-2">start_lesson</span><span class="packet pk-3">step 1/10</span><span class="packet pk-6">answer c</span></div>
+      <div class="node n-server">MCP server<small>Worker</small></div>
+      <div class="wire"><span class="packet pk-7">save</span></div>
+      <div class="node n-db">D1<small>progress</small></div>
+    </div>
+    <div class="captions">
+      <p class="c-0 muted">A voice lesson, one step at a time.</p>
+      <p class="c-1">«Let's do a lesson.»</p>
+      <p class="c-2">ChatGPT calls <code>start_lesson</code> with <code>voice: true</code></p>
+      <p class="c-3">The server answers with one step: a concept and one question</p>
+      <p class="c-4">ChatGPT reads the step aloud</p>
+      <p class="c-5">«National Council and Council of States.»</p>
+      <p class="c-6">ChatGPT calls <code>answer</code> with the letter c</p>
+      <p class="c-7">The server checks the answer and saves it</p>
+    </div>
+  </div>
+  <span class="fragment step" data-flow="1"></span>
+  <span class="fragment step" data-flow="2"></span>
+  <span class="fragment step" data-flow="3"></span>
+  <span class="fragment step" data-flow="4"></span>
+  <span class="fragment step" data-flow="5"></span>
+  <span class="fragment step" data-flow="6"></span>
+  <span class="fragment step" data-flow="7"></span>
+  <aside class="notes">2:20. Seven presses, one round trip each. The model never holds the lesson: it asks the server for the next step and sends the learner's letter back. Remote MCP server over streamable HTTP, a Cloudflare Worker with D1, free plan.</aside>
+</section>
+
+<!-- 6 Five tools -->
+<section>
+  <p class="kicker">MCP in 30 seconds</p>
+  <h2>Five tools do all the teaching</h2>
+  <div class="tools enter">
+    <div><code>get_progress</code><span>what is done, what is due</span></div>
+    <div><code>start_lesson</code><span>the first step of a lesson</span></div>
+    <div><code>start_reviews</code><span>questions whose topics are due</span></div>
+    <div><code>start_mock_exam</code><span>50 questions, no feedback</span></div>
+    <div><code>answer</code><span>the learner's letter: feedback and the next step</span></div>
+  </div>
+  <p class="small muted foot">One MCP server in TypeScript at swiss-passport.com/mcp. No login: a progress code.</p>
+  <aside class="notes">3:10. That's the whole surface. No login: the first lesson creates a progress code, and the learner writes it down.</aside>
+</section>
+
+<!-- 7 Rule 1 -->
+<section>
+  <p class="kicker">Rule 1</p>
+  <h2>The server owns the lesson</h2>
+  <ul class="lede">
+    <li class="fragment rise">It hands out <strong>one step at a time</strong></li>
+    <li class="fragment rise">The model <strong>never sees the next question</strong></li>
+    <li class="fragment rise">The model <strong>never judges an answer</strong>: the <code>answer</code> tool does</li>
+  </ul>
+  <p class="fragment rise muted foot">Models improvise. Learners need the official answer, every time.</p>
+  <aside class="notes">3:30. This one rule is what made voice fixable later. If the model owned the state, there would be nothing to repair.</aside>
+</section>
+
+<!-- 8 A step as the model receives it -->
+<section>
+  <h2>One step, as the model receives it</h2>
+  <pre><code class="language-json" data-trim data-line-numbers="2|3|4-9|10-11|12-17">
+{
+  "voice_instructions": "Voice conversation: the feedback (if any) fits in one or two sentences, …",
+  "lesson": { "title": "The Federal Parliament", "unit": "How the state works", "position": "8/37" },
+  "explain_first": {
+    "title": "National Council and Council of States",
+    "intro": ["The Swiss Parliament is called the Federal Assembly. It has two chambers: …", "…", "…"],
+    "key_terms": [{ "term": "Nationalrat", "definition": "National Council: the large chamber …" }, "…"],
+    "mnemonic": "200 + 46 = 246. …"
+  },
+  "step": "1/10",
+  "concept": "National Council and Council of States",
+  "question": {
+    "id": "q020",
+    "question": "What are the two «chambers» of the Swiss Parliament called?",
+    "options": { "a": "Upper House and Lower House", "b": "Senate and Congress", "c": "…", "d": "…" },
+    "german": { "question": "Wie heissen die beiden «Kammern» des Schweizer Parlaments?", … }
+  }
+}
+  </code></pre>
+  <p class="small muted">Real output of <code>start_lesson</code> with <code>voice: true</code>, shortened.</p>
+  <aside class="notes">4:10. Keep that first key in mind: voice_instructions. It wasn't there at the start. (Next, next.) The lesson, the concept to explain first, where we are, and exactly one question, with the German wording of the real test.</aside>
+</section>
+
+<!-- 9 The quiz card in a text chat -->
+<section>
+  <h2>In a text chat: the quiz card</h2>
+  <div class="split">
+    <div class="qcard" data-answer="c" data-right="Correct" data-wrong="Correct answer: National Council and Council of States">
+      <div class="qc-head"><span>The Federal Parliament</span><span>1/10</span></div>
+      <div class="qc-bar"><i></i></div>
+      <div class="qc-banner" aria-live="polite"></div>
+      <p class="qc-concept">National Council and Council of States</p>
+      <p class="qc-q">What are the two «chambers» of the Swiss Parliament called?</p>
+      <p class="qc-de">Wie heissen die beiden «Kammern» des Schweizer Parlaments?</p>
+      <div class="qc-options">
+        <button type="button" data-letter="a"><i>A</i>Upper House and Lower House</button>
+        <button type="button" data-letter="b"><i>B</i>Senate and Congress</button>
+        <button type="button" data-letter="c"><i>C</i>National Council and Council of States</button>
+        <button type="button" data-letter="d"><i>D</i>Parliamentary group and Committee</button>
+      </div>
+    </div>
+    <div>
+      <p class="lede">An MCP App: a small HTML view in the chat. It shows the step and checks the clicks itself.</p>
+      <p class="fragment rise">So the tool descriptions told the model:</p>
+      <p class="fragment rise"><span class="quote-box">Where the quiz card is shown, it displays this step and checks the answers itself: do not repeat its question, options or feedback in the chat.</span></p>
+    </div>
+  </div>
+  <aside class="notes">4:50. Click an option: the card checks it and saves it, no model involved. To stop the model from repeating the whole question under the card, the descriptions told it not to. Remember that sentence.</aside>
+</section>
+
+<!-- 10 Turning point -->
+<section class="signal" data-background-color="#da291c" data-transition="fade">
+  <div class="middle">
+    <span class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+    <h1>Then learners started talking.</h1>
+  </div>
+  <aside class="notes">5:40. Pause.</aside>
+</section>
+
+<!-- 11 The commit message, typed -->
+<section class="signal" data-background-color="#da291c" data-transition="fade">
+  <div class="middle">
+    <p class="typewriter">ChatGPT's voice mode took the card note (“do not repeat the question”) literally, asked made-up questions and never called answer, so nothing was saved.</p>
+    <p class="small muted">Commit 46c079c, 26 September 2026, 22:14</p>
+  </div>
+  <aside class="notes">5:50. Let it type. It obeyed us perfectly. "Do not repeat the question" meant: don't read our question. So it invented its own.</aside>
+</section>
+
+<!-- 12 Before: the voice lesson that sounded fine -->
+<section>
+  <h2>Before: a voice lesson that sounded fine</h2>
+  <div class="convo">
+    <div class="chat">
+      <div class="bubble me fragment msg" data-fragment-index="0"><span class="wave mini" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>Let's do the lesson on the Federal Parliament.</div>
+      <div class="tool fragment msg" data-fragment-index="1">start_lesson({ lesson_id: "l08" })</div>
+      <div class="bubble ai fragment msg" data-fragment-index="2">Great, your quiz card is ready! Let's warm up: can you name one of the two chambers?</div>
+      <div class="bubble me fragment msg" data-fragment-index="3"><span class="wave mini" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>The National Council?</div>
+      <div class="bubble ai fragment msg" data-fragment-index="4">Exactly! And how many members does it have?</div>
+      <div class="bubble me fragment msg" data-fragment-index="5"><span class="wave mini" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>Two hundred.</div>
+      <div class="bubble ai fragment msg" data-fragment-index="6">Perfect, you're doing great!</div>
+    </div>
+    <div class="server">
+      <div class="head">swiss-passport.com/mcp</div>
+      <div class="ok fragment msg" data-fragment-index="1">start_lesson l08</div>
+      <div class="ok fragment msg" data-fragment-index="1">step 1/10, shown on the card</div>
+      <div class="dim fragment msg" data-fragment-index="2">waiting for an answer</div>
+      <div class="bad fragment msg" data-fragment-index="6">answer: never called</div>
+      <div class="total bad fragment msg" data-fragment-index="6">0 answers saved</div>
+    </div>
+  </div>
+  <aside class="notes">6:20. Reconstructed from the bug, the words are illustrative. Friendly, fluent, correct facts even. And none of it counted: the model asked its own questions, judged them itself, and the server never heard an answer.</aside>
+</section>
+
+<!-- 13 Why -->
+<section>
+  <h2>Why</h2>
+  <div class="split narrow-right">
+    <ul class="lede">
+      <li class="fragment rise" data-fragment-index="0">In voice mode there is <strong>no card to look at</strong></li>
+      <li class="fragment rise" data-fragment-index="1">The note was written for text chats</li>
+      <li class="fragment rise" data-fragment-index="2">The model followed the <strong>note</strong>, not the <strong>situation</strong></li>
+      <li class="fragment rise" data-fragment-index="3">Some hosts never read the server instructions</li>
+    </ul>
+    <div class="ghost" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><p>No card to look at</p></div>
+  </div>
+  <span class="fragment step" data-target=".ghost" data-add="gone" data-fragment-index="0"></span>
+  <aside class="notes">7:10. Server instructions are the MCP place for "how to use me". ChatGPT does not read them. Tool descriptions and tool results always arrive, so that's where the rules have to live.</aside>
+</section>
+
+<!-- 14 Making it listen 1: the rule in every step -->
+<section>
+  <p class="kicker">Making it listen, 1 of 4</p>
+  <h2>The rule travels with every step</h2>
+  <pre class="big"><code class="language-ts" data-trim data-line-numbers="3-7|9-11|1-2">
+// In every step of a voice session:
+// ChatGPT's voice mode ignored the card note, asked its own questions and saved nothing.
+export const VOICE_STEP =
+  "Voice conversation: the feedback (if any) fits in one or two sentences," +
+  " explain_first (if any) in two or three. Then comes this question with its" +
+  " options A to D, read aloud. The learner's spoken answer is checked and saved" +
+  " by the answer tool with their letter; the quiz uses only these questions.";
+
+const data = voice &amp;&amp; out.questionId
+  ? { voice_instructions: VOICE_STEP, ...out.data }
+  : out.data;
+  </code></pre>
+  <p class="fragment rise">Not in a description the model read an hour ago: in the result it reads right now.</p>
+  <p class="small muted">mcp/src/mcp/texts.ts and result.ts</p>
+  <aside class="notes">8:00. First key of every voice step, every time, also after each answer. This is the second version of the text. The first one comes back in a few minutes.</aside>
+</section>
+
+<!-- 15 Making it listen 2: the voice flag -->
+<section>
+  <p class="kicker">Making it listen, 2 of 4</p>
+  <h2>A voice flag on the start tools</h2>
+  <pre class="big"><code class="language-ts" data-trim>
+const voice = z.boolean().default(false)
+  .describe("true in voice conversations: leaves out questions that need pictures.");
+  </code></pre>
+  <div class="modes">
+    <div class="switch"><button type="button" data-mode="">voice: false</button><button type="button" data-mode="voice">voice: true</button></div>
+    <div class="tiles">
+      <div class="tile pic"><b>q110</b>Which is the coat of arms of the canton of Zurich?</div>
+      <div class="tile pic"><b>q289</b>Where is the canton of Zurich located?</div>
+      <div class="tile"><b>q290</b>Geographically, the canton of Zurich belongs …</div>
+      <div class="tile"><b>q291</b>How many cantons does the canton of Zurich border on?</div>
+      <div class="tile"><b>q304</b>Which canton borders on the canton of Zurich?</div>
+      <div class="tile"><b>q292</b>What are the three largest cities in the canton of Zurich?</div>
+      <div class="tile"><b>q294</b>In which municipality is Zurich Airport located?</div>
+      <div class="tile"><b>q302</b>How many people live in the canton of Zurich (as of 2020)?</div>
+      <div class="tile"><b>q303</b>What is the capital of the canton of Zurich called?</div>
+    </div>
+    <p class="counter-line">Lesson 34: 9 questions <span class="after">→ 7 by voice. The lesson still counts as done.</span></p>
+  </div>
+  <span class="fragment step" data-target=".modes" data-add="voice"></span>
+  <aside class="notes">9:00. Nobody can answer "which is the coat of arms of Zurich" by ear. The model says it is a voice conversation, the engine leaves those questions out. Picture questions are optional for finishing a lesson, so voice learners can finish every lesson. Click the switch to show it again.</aside>
+</section>
+
+<!-- 16 Making it listen 3: design for the ear -->
+<section>
+  <p class="kicker">Making it listen, 3 of 4</p>
+  <h2>Design for the ear</h2>
+  <div class="ear">
+    <div>
+      <p class="aloud-q" data-say="What are the two chambers of the Swiss Parliament called?">What are the two «chambers» of the Swiss Parliament called?</p>
+      <div class="aloud">
+        <div data-say="A: Upper House and Lower House."><b>A</b>Upper House and Lower House</div>
+        <div data-say="B: Senate and Congress."><b>B</b>Senate and Congress</div>
+        <div class="hit" data-say="C: National Council and Council of States."><b>C</b>National Council and Council of States</div>
+        <div data-say="D: Parliamentary group and Committee."><b>D</b>Parliamentary group and Committee</div>
+      </div>
+      <div class="mapping fragment rise" data-fragment-index="1"><span class="said">«National Council and Council of States»</span><span class="arrow">→</span><span class="letter">c</span></div>
+      <button type="button" class="speak">Read aloud</button>
+    </div>
+    <ul class="fragment rise" data-fragment-index="2">
+      <li>Options as «A: …, B: …, C: …, D: …»</li>
+      <li>The letter or the words: mapped to the letter</li>
+      <li>Unclear? Ask again</li>
+      <li>Feedback in one or two sentences</li>
+      <li>No tables, lists, emoji, markdown or ids</li>
+      <li>The German key term once</li>
+    </ul>
+  </div>
+  <span class="fragment step" data-target=".aloud" data-add="reading" data-fragment-index="0"></span>
+  <span class="fragment step" data-target=".aloud" data-add="mapped" data-fragment-index="1"></span>
+  <aside class="notes">9:50. Press R (or the button) and the browser reads it, like the model does. Everything we'd put on a screen has to become something you can hold in your head for five seconds. People answer with the words, not the letter: the model maps it. From the voice section of the server instructions.</aside>
+</section>
+
+<!-- 17 Making it listen 4: two audiences -->
+<section>
+  <p class="kicker">Making it listen, 4 of 4</p>
+  <h2>Two audiences, one tool result</h2>
+  <pre><code class="language-ts" data-trim>
+const isChatGpt = (request: ToolRequest) =&gt;
+  Object.keys(request._meta ?? {}).some((key) =&gt; key.startsWith("openai/"));
+return toResult(assets, withNotes(done, online), done.lang, isChatGpt(request) &amp;&amp; !done.voice);
+  </code></pre>
+  <div class="modes">
+    <div class="switch"><button type="button" data-mode="">text chat</button><button type="button" data-mode="voice">voice</button></div>
+    <div class="lanes">
+      <div class="lane">
+        <h3>The model reads</h3>
+        <pre class="v-text">{ "lesson": { "title": "The Federal Parliament", … },
+  "step": "1/10",
+  "concept": "National Council and Council of States",
+  "question": "What are the two «chambers» …?",
+  <b class="red">"shown_on_card": true</b> }</pre>
+        <pre class="v-voice">{ <b class="red">"voice_instructions": "Voice conversation: …"</b>,
+  "lesson": { … },
+  "explain_first": { "intro": […], "key_terms": […] },
+  "step": "1/10",
+  "question": { "question": "…",
+    "options": { "a": "…", "b": "…", … },
+    "german": { … } } }</pre>
+      </div>
+      <div class="lane">
+        <h3>The quiz card gets</h3>
+        <pre class="v-text">_meta.card: the whole step, with pictures
+
+Only the card sees _meta.
+The model doesn't repeat what the
+learner already sees.</pre>
+        <pre class="v-voice">structuredContent: the whole step
+
+Nobody looks at the card.
+The model is the card:
+it reads everything aloud.</pre>
+      </div>
+    </div>
+  </div>
+  <span class="fragment step" data-target=".modes" data-add="voice"></span>
+  <aside class="notes">10:50. ChatGPT shows structuredContent to the model too, and it repeated the whole question under the card. So in text chats the texts go to the card only, in _meta. In voice, the model is the card. Flip the switch back and forth.</aside>
+</section>
+
+<!-- 18 After: the same lesson -->
+<section>
+  <h2>After: the same lesson</h2>
+  <div class="convo">
+    <div class="chat">
+      <div class="bubble me fragment msg" data-fragment-index="0"><span class="wave mini" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>Let's do the lesson on the Federal Parliament.</div>
+      <div class="tool fragment msg" data-fragment-index="1">start_lesson({ lesson_id: "l08", voice: true })</div>
+      <div class="bubble ai fragment msg" data-fragment-index="2">Parliament has two equally strong chambers: the National Council for the people, the Council of States for the cantons. First question: what are the two chambers called? A: Upper House and Lower House. B: Senate and Congress. C: National Council and Council of States. D: Parliamentary group and Committee.</div>
+      <div class="bubble me fragment msg" data-fragment-index="3"><span class="wave mini" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>National Council and Council of States.</div>
+      <div class="tool fragment msg" data-fragment-index="4">answer({ answer: "c" })</div>
+      <div class="bubble ai fragment msg" data-fragment-index="5">Correct: one chamber for the people, one for the cantons. Next: how often do voters elect the Federal Parliament? A: every 6 years…</div>
+    </div>
+    <div class="server">
+      <div class="head">swiss-passport.com/mcp</div>
+      <div class="ok fragment msg" data-fragment-index="1">start_lesson l08, voice</div>
+      <div class="ok fragment msg" data-fragment-index="1">step 1/10 with voice_instructions</div>
+      <div class="dim fragment msg" data-fragment-index="2">waiting for an answer</div>
+      <div class="ok fragment msg" data-fragment-index="4">answer c: correct</div>
+      <div class="ok fragment msg" data-fragment-index="4">saved, next review tomorrow</div>
+      <div class="total fragment msg" data-fragment-index="5">1 answer saved</div>
+    </div>
+  </div>
+  <aside class="notes">11:50. Same lesson, same model. It explains in two sentences, reads the question with A to D, maps the spoken words to c, and calls answer. The server saves it and schedules the review.</aside>
+</section>
+
+<!-- 19 Traps -->
+<section>
+  <h2>Traps on the way</h2>
+  <div class="traps">
+    <div class="trap fragment flip"><span class="what">ChatGPT flagged the tool descriptions as a suspicious instruction</span><span class="fix">and asked the learner to allow every call.</span><span class="sha">3aff855</span></div>
+    <div class="trap fragment flip"><span class="what">The learner code read like a login</span><span class="fix">ChatGPT asked before sharing an «access token». Now it's a progress code.</span><span class="sha">84288e1</span></div>
+    <div class="trap fragment flip"><span class="what">A continued lesson started a second time</span><span class="fix">Two identical cards. Now the step says it continues.</span><span class="sha">b86e422</span></div>
+    <div class="trap fragment flip"><span class="what">The model repeated the question under the card</span><span class="fix">The card's texts go to the card only, in _meta.</span><span class="sha">1ed417d</span></div>
+    <div class="trap fragment flip"><span class="what">The card was 460 KB</span><span class="fix">9 KB with our own small MCP Apps bridge.</span><span class="sha">1b07ac9</span></div>
+    <div class="trap fragment flip"><span class="what">Claude asks at every answer</span><span class="fix">unless the learner chooses «Always allow».</span><span class="sha">05e1a4c</span></div>
+  </div>
+  <aside class="notes">12:40. Each one is a commit, all in one weekend. The first one matters most for voice: your instructions are text the model judges.</aside>
+</section>
+
+<!-- 20 Facts, not orders -->
+<section>
+  <h2>Write facts, not orders</h2>
+  <p class="kicker">First version of the voice rule</p>
+  <p class="facts"><span class="struck">When the learner answers, call answer with their letter: only answers sent with answer are saved. Never ask other questions and never judge the answer yourself.</span></p>
+  <p class="red small fragment rise" data-fragment-index="0">ChatGPT: a suspicious instruction. It asked the learner to allow every call.</p>
+  <span class="fragment step" data-target=".struck" data-add="on" data-fragment-index="0"></span>
+  <div class="fragment rise" data-fragment-index="1">
+    <p class="kicker">Now</p>
+    <p class="facts"><strong>The learner's spoken answer is checked and saved by the answer tool with their letter; the quiz uses only these questions.</strong></p>
+  </div>
+  <aside class="notes">14:00. Orders in a tool result look like prompt injection, so ChatGPT asked the learner to approve every call. Facts say the same thing and let the model decide, and it decides well.</aside>
+</section>
+
+<!-- 21 Testing -->
+<section>
+  <h2>Testing a conversation you can't see</h2>
+  <div class="terminal">
+    <div class="line prompt">$ npm test --workspace mcp</div>
+    <div class="line">…</div>
+    <div class="line">ok: voice step tells the model to send answers with answer</div>
+    <div class="line">ok: voice lesson l34: 7 questions, no pictures (q110, q289 skipped)</div>
+    <div class="line">ok: voice mock exam has no picture questions</div>
+    <div class="line done">all checks passed</div>
+  </div>
+  <ul class="foot">
+    <li class="fragment rise"><strong>By hand:</strong> a real voice session in each app after every change to a description</li>
+    <li class="fragment rise"><strong>Watch:</strong> sessions that start but never save an answer</li>
+  </ul>
+  <aside class="notes">14:50. The smoke test calls the real tools over MCP, in every build. What it can't test is what the model says: that needs a phone and five minutes. And a session that starts but never saves an answer is a model that went off-script.</aside>
+</section>
+
+<!-- 22 Live demo -->
+<section>
+  <div class="middle">
+    <div class="mic" aria-hidden="true"><span></span></div>
+    <h1>Live demo</h1>
+    <h3 class="muted">A lesson, by voice.</h3>
+  </div>
+  <aside class="notes">15:40 to 20:40. See demo.md. Backup video ready. Answer once with the words, once wrong on purpose.</aside>
+</section>
+
+<!-- 23 The pattern -->
+<section>
+  <h2>The pattern</h2>
+  <div class="rules">
+    <div class="fragment rise"><b>1</b>The server owns the state and checks every answer</div>
+    <div class="fragment rise"><b>2</b>The rules travel in every result, written as facts</div>
+    <div class="fragment rise"><b>3</b>The output is designed for the ear</div>
+  </div>
+  <aside class="notes">20:40. Three things, in that order.</aside>
+</section>
+
+<!-- 24 The one sentence -->
+<section class="signal" data-background-color="#da291c" data-transition="fade">
+  <div class="middle">
+    <h1>In voice mode, your tool result is your UI.</h1>
+  </div>
+  <aside class="notes">21:20. If you remember one thing.</aside>
+</section>
+
+<!-- 25 Thank you -->
+<section>
+  <div class="middle">
+    <div class="end">
+      <div>
+        <h1>Thank you</h1>
+        <p class="links">swiss-passport.com<br>MCP: <code>https://swiss-passport.com/mcp</code><br>Code: github.com/AleksejDix/swiss-passport</p>
+        <p class="small muted">Found a mistake in one of the eight languages? Open an issue.</p>
+      </div>
+      <img src="qr.svg" alt="QR code for swiss-passport.com">
+    </div>
+  </div>
+  <aside class="notes">21:40. Questions. About three minutes left.</aside>
+</section>
+
+</div>
+</div>
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/reveal/plugin/highlight.js"></script>
+<script src="deck.js"></script>
+</body>
+</html>

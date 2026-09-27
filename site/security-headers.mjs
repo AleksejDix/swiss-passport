@@ -56,6 +56,20 @@ export default function securityHeaders() {
         // Cloudflare ignores header lines longer than 2000 characters: fail the build instead.
         if (csp.length > 1900)
           throw new Error(`Content-Security-Policy is ${csp.length} characters; move inline scripts into files`);
+        // Slide decks (/slides/, see slides.mjs): reveal.js writes its speaker view into a new window, which takes
+        // over this policy and runs one inline script there, and shows the current and next slide in frames of the
+        // deck itself. So the decks allow inline scripts (they have none of their own) and frames from this site.
+        const slidesCsp = [
+          "default-src 'self'",
+          `script-src 'self' 'unsafe-inline' ${ANALYTICS_SCRIPT}`,
+          "style-src 'self' 'unsafe-inline'",
+          "img-src 'self' data:",
+          `connect-src 'self' ${ANALYTICS_REPORT}`,
+          "object-src 'none'",
+          "base-uri 'none'",
+          "form-action 'self'",
+          "frame-ancestors 'self'",
+        ].join("; ");
         const name = process.env.CSP_REPORT_ONLY ? "Content-Security-Policy-Report-Only" : "Content-Security-Policy";
         const rules = [
           "/*",
@@ -63,6 +77,12 @@ export default function securityHeaders() {
           "  X-Frame-Options: DENY",
           "  Referrer-Policy: strict-origin-when-cross-origin",
           "  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+          // "! Name" drops the header of the rule above, so the decks get only their own policy.
+          "/slides/*",
+          `  ! ${name}`,
+          "  ! X-Frame-Options",
+          `  ${name}: ${slidesCsp}`,
+          "  X-Frame-Options: SAMEORIGIN",
           // Files in /_astro/ carry a hash of their content in the name, so they never change: cache them for a year.
           "/_astro/*",
           "  Cache-Control: public, max-age=31536000, immutable",

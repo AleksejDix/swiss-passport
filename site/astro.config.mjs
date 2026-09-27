@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import securityHeaders from "./security-headers.mjs";
+import slides from "./slides.mjs";
 import { lastmodFor } from "./lastmod.mjs";
 import { SITE } from "./src/site.ts";
 import { LANGUAGES } from "../i18n/index.js";
@@ -27,6 +28,8 @@ export default defineConfig({
         return date ? { ...item, lastmod: date } : item;
       },
     }),
+    // Talk slides from ../slides, under /slides/.
+    slides(),
     securityHeaders(),
   ],
 });
