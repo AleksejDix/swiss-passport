@@ -66,14 +66,14 @@ const PRIVACY_LABEL = { de: "Datenschutz", en: "Privacy", fr: "Protection des do
     </svg>
     <span>Swiss Passport</span>
   </a>
-  <nav class="nav">
+  <nav class="nav" aria-label={s.nav_main}>
     <a href="/learn/">{s.nav_learn}</a>
     <a href={connectPath(lang)}>{CONNECT[lang].nav}</a>
     <a href={questionsPath(lang)}>{s.nav_questions}</a>
     <a href={guidePath(lang)}>{GUIDE[lang].nav}</a>
     <a href={methodPath(lang)}>{METHOD[lang].nav}</a>
   </nav>
-  <nav class="langs-nav" aria-label="Language">
+  <nav class="langs-nav" aria-label={s.nav_langs}>
     {Object.entries(LANGS).map(([id, name]) => (
       <a href={alternates[id] ?? homePath(id)} hreflang={id} lang={id} aria-current={id === lang ? "page" : undefined} data-lang={id}>{name}</a>
     ))}
@@ -85,7 +85,7 @@ const PRIVACY_LABEL = { de: "Datenschutz", en: "Privacy", fr: "Protection des do
 <footer class="page">
   <div class="footer">
   <p>{s.foot}</p>
-  <p><a href={aboutPath(lang)}>{ABOUT[lang].nav}</a> <a href="/impressum/">Impressum</a> <a href="/datenschutz/">{PRIVACY_LABEL[lang]}</a> <a href="https://github.com/AleksejDix/swiss-passport">{s.nav_source}</a> <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE">{s.foot_license}</a></p>
+  <p><a href={aboutPath(lang)}>{ABOUT[lang].nav}</a> <a href="/impressum/" lang="de">Impressum</a> <a href="/datenschutz/">{PRIVACY_LABEL[lang]}</a> <a href="https://github.com/AleksejDix/swiss-passport">{s.nav_source}</a> <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE">{s.foot_license}</a></p>
   </div>
 </footer>
 <script is:inline>

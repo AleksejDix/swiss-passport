@@ -93,7 +93,9 @@ p + .actions { margin-top: calc(2 * var(--line)); }
 /* The question */
 .retry { font-size: var(--xs); line-height: var(--xs-lh); letter-spacing: 0; font-weight: 700; color: var(--red); }
 .retry + .question { margin-top: 0.75rem; }
-.question { font-size: var(--m); line-height: var(--m-lh); letter-spacing: -0.012em; font-weight: 700; }
+/* The question is the h1 of the screen, set and broken like the running text around it. */
+.question { font-size: var(--m); line-height: var(--m-lh); letter-spacing: -0.012em; font-weight: 700; margin-inline-start: 0; text-wrap: pretty; hyphens: manual; }
+.question:lang(de) { hyphens: auto; hyphenate-limit-chars: 12 5 5; }
 .question:focus { outline: none; }
 .german { color: var(--grey); margin-top: 0.375rem; }
 .act .qpicture { margin-top: var(--line); max-height: 20rem; }

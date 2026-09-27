@@ -7,6 +7,7 @@ const API = "/mcp";
 // Interface text. Quiz content comes translated from the server.
 const T = {
   de: {
+    langs: "Sprache",
     whatNext: "Wie geht es weiter", whatNextText: "Die Themen dieser Runde kommen morgen zur Wiederholung. Mach jeden Tag zuerst die fälligen Wiederholungen, dann eine neue Lektion.",
     showExplanation: "Erklärung zeigen", answerFirst: "Beantworte zuerst die Frage. Die Erklärung erscheint danach.",
     title: "Online lernen", lede: "Kurze Lektionen, Wiederholungen zur richtigen Zeit und Probeprüfungen mit den offiziellen Fragen.", unofficial: "Kostenlos und unabhängig. Kein offizielles Angebot des Kantons Zürich.",
@@ -23,6 +24,7 @@ const T = {
     yours: "Deine Antwort", error: "Keine Verbindung zum Server. Versuch es nochmals.", nextLesson: "Nächste Lektion",
   },
   en: {
+    langs: "Language",
     whatNext: "What's next", whatNextText: "The topics of this round come back for review tomorrow. Each day, do the due reviews first, then a new lesson.",
     showExplanation: "Show explanation", answerFirst: "Answer the question first. The explanation appears afterwards.",
     title: "Learn online", lede: "Short lessons, reviews at the right time and mock exams with the official questions.", unofficial: "Free and independent. Not an official service of the Canton of Zurich.",
@@ -39,6 +41,7 @@ const T = {
     yours: "Your answer", error: "No connection to the server. Try again.", nextLesson: "Next lesson",
   },
   fr: {
+    langs: "Langue",
     whatNext: "Et ensuite", whatNextText: "Les thèmes de cette série reviendront demain pour une révision. Chaque jour, fais d'abord les révisions prévues, puis une nouvelle leçon.",
     showExplanation: "Afficher l'explication", answerFirst: "Réponds d'abord à la question. L'explication apparaît ensuite.",
     title: "Apprendre en ligne", lede: "Des leçons courtes, des révisions au bon moment et des examens blancs avec les questions officielles.", unofficial: "Gratuit et indépendant. Ce n'est pas un service officiel du canton de Zurich.",
@@ -55,6 +58,7 @@ const T = {
     yours: "Ta réponse", error: "Pas de connexion au serveur. Réessaie.", nextLesson: "Leçon suivante",
   },
   it: {
+    langs: "Lingua",
     whatNext: "E adesso", whatNextText: "I temi di questo giro tornano domani per il ripasso. Ogni giorno fai prima i ripassi previsti, poi una nuova lezione.",
     showExplanation: "Mostra la spiegazione", answerFirst: "Rispondi prima alla domanda. La spiegazione appare dopo.",
     title: "Impara online", lede: "Lezioni brevi, ripassi al momento giusto ed esami di prova con le domande ufficiali.", unofficial: "Gratuito e indipendente. Non è un servizio ufficiale del Cantone di Zurigo.",
@@ -71,6 +75,7 @@ const T = {
     yours: "La tua risposta", error: "Nessuna connessione al server. Riprova.", nextLesson: "Prossima lezione",
   },
   ru: {
+    langs: "Язык",
     whatNext: "Что дальше", whatNextText: "Темы этого урока вернутся на повторение завтра. Каждый день сначала повторяй то, что пора повторить, потом проходи новый урок.",
     showExplanation: "Показать объяснение", answerFirst: "Сначала ответь на вопрос. Объяснение появится после ответа.",
     title: "Учиться онлайн", lede: "Короткие уроки, повторение в нужный момент и пробные экзамены с официальными вопросами.", unofficial: "Бесплатно и независимо. Это не официальный сервис кантона Цюрих.",
@@ -87,6 +92,7 @@ const T = {
     yours: "Твой ответ", error: "Нет связи с сервером. Попробуй ещё раз.", nextLesson: "Следующий урок",
   },
   uk: {
+    langs: "Мова",
     whatNext: "Що далі", whatNextText: "Теми цього уроку повернуться на повторення завтра. Щодня спершу повторюй те, що час повторити, потім проходь новий урок.",
     showExplanation: "Показати пояснення", answerFirst: "Спершу дай відповідь на запитання. Пояснення з'явиться після відповіді.",
     title: "Навчатися онлайн", lede: "Короткі уроки, повторення у правильний час і пробні іспити з офіційними запитаннями.", unofficial: "Безкоштовно й незалежно. Це не офіційний сервіс кантону Цюрих.",
@@ -169,13 +175,14 @@ function show(...nodes) {
 
 function fail() {
   view = {};
-  show(h("p", { class: "error" }, t().error), h("button", { class: "next", onclick: home }, t().overview));
+  show(h("p", { class: "error", role: "alert" }, t().error), h("button", { class: "next", onclick: home }, t().overview));
 }
 
 // ---- Language switch ------------------------------------------------------------------
 
 function renderLangs() {
   const nav = document.querySelector("[data-langs]");
+  nav.setAttribute("aria-label", t().langs);
   nav.replaceChildren(
     ...Object.entries(LANGS).map(([id, name]) =>
       h("button", { type: "button", lang: id, "aria-pressed": String(id === lang), onclick: () => setLang(id) }, name),
@@ -236,7 +243,7 @@ async function home() {
       h("form", { onsubmit: useCode },
         h("input", { name: "code", "aria-label": s.haveCode, placeholder: s.haveCode, autocomplete: "off", spellcheck: "false" }),
         h("button", { type: "submit" }, s.useCode)),
-      h("p", { class: "error", "data-code-error": true, hidden: true }, s.unknownCode),
+      h("p", { class: "error", role: "alert", "data-code-error": true, hidden: true }, s.unknownCode),
     )],
   ));
   view = {};
@@ -305,7 +312,7 @@ function renderStep(step, images, lessonTitle) {
       h("b", {}, letter.toUpperCase()),
       images[letter] ? h("img", { src: images[letter], alt: `${letter.toUpperCase()}` }) : h("span", {}, q.options[letter])),
   );
-  const heading = h("p", { class: "question", tabindex: "-1" }, q.question);
+  const heading = h("h1", { class: "question", tabindex: "-1" }, q.question);
   show(
     ...frame(
       h("div", { class: "intro-step" },
@@ -317,7 +324,8 @@ function renderStep(step, images, lessonTitle) {
         q.german && h("p", { class: "german", lang: "de" }, q.german.question),
         images.question && h("img", { class: "qpicture", src: images.question, alt: "" }),
         h("div", { class: `choices${hasPictures ? " pictures" : ""}`, "data-choices": true }, choices),
-        h("div", { "data-after": true }),
+        // Screen readers announce the verdict; focus moves on to Next.
+        h("div", { "data-after": true, "aria-live": "polite" }),
         h("p", { class: "hint" }, s.keys)],
       [
         h("h2", { class: "info-title" }, kind === "exam" ? s.exam : step.concept),
@@ -438,9 +446,10 @@ function renderExamResult(r) {
   ));
 }
 
-// Keyboard: A to D answer, Enter continues.
+// Keyboard: A to D answer, Enter continues. Only while focus is on the question screen (WCAG 2.1.4),
+// so the letters never fire from the menus or collide with screen reader and voice control keys.
 document.addEventListener("keydown", (e) => {
-  if (e.target.closest("input, textarea") || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (!e.target.closest(".cols") || e.target.closest("input, textarea") || e.metaKey || e.ctrlKey || e.altKey) return;
   const letter = e.key.toLowerCase();
   const btn = document.querySelector(`[data-choices] [data-letter="${letter}"]:not(:disabled)`);
   if (btn) { e.preventDefault(); btn.click(); return; }

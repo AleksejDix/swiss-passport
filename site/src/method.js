@@ -220,6 +220,7 @@ export const VIZ = {
     tryIt: "Probier es aus: Wähl die Antwort, die dir richtig scheint.",
     blocked: "Thema für Thema", mixed: "Gemischt, wie im Test", mixNote: "12 Fragen aus 3 Themen.",
     showIn: "Frage anzeigen auf",
+    order: "Reihenfolge der Fragen",
   },
   en: {
     curveTitle: "How much you still know", cram: "All in one evening (6 times)", spaced: "Spread out: after 1, 3, 7, 14 and 30 days",
@@ -229,6 +230,7 @@ export const VIZ = {
     tryIt: "Try it: pick the answer that seems right to you.",
     blocked: "Topic by topic", mixed: "Mixed, like in the test", mixNote: "12 questions from 3 topics.",
     showIn: "Show the question in",
+    order: "Order of the questions",
   },
   fr: {
     curveTitle: "Ce que tu sais encore", cram: "Tout en une soirée (6 fois)", spaced: "Réparti : après 1, 3, 7, 14 et 30 jours",
@@ -238,6 +240,7 @@ export const VIZ = {
     tryIt: "Essaie : choisis la réponse qui te semble juste.",
     blocked: "Thème par thème", mixed: "Mélangé, comme au test", mixNote: "12 questions de 3 thèmes.",
     showIn: "Afficher la question en",
+    order: "Ordre des questions",
   },
   it: {
     curveTitle: "Quanto ricordi ancora", cram: "Tutto in una sera (6 volte)", spaced: "Distribuito: dopo 1, 3, 7, 14 e 30 giorni",
@@ -247,6 +250,7 @@ export const VIZ = {
     tryIt: "Prova: scegli la risposta che ti sembra giusta.",
     blocked: "Un tema alla volta", mixed: "Misto, come nel test", mixNote: "12 domande da 3 temi.",
     showIn: "Mostra la domanda in",
+    order: "Ordine delle domande",
   },
   ru: {
     curveTitle: "Сколько ты ещё помнишь", cram: "Всё за один вечер (6 раз)", spaced: "Распределённо: через 1, 3, 7, 14 и 30 дней",
@@ -256,6 +260,7 @@ export const VIZ = {
     tryIt: "Попробуй: выбери ответ, который кажется тебе правильным.",
     blocked: "Тема за темой", mixed: "Вперемешку, как на тесте", mixNote: "12 вопросов из 3 тем.",
     showIn: "Показать вопрос на",
+    order: "Порядок вопросов",
   },
   uk: {
     curveTitle: "Скільки ти ще пам'ятаєш", cram: "Усе за один вечір (6 разів)", spaced: "Розподілено: через 1, 3, 7, 14 і 30 днів",
@@ -265,5 +270,6 @@ export const VIZ = {
     tryIt: "Спробуй: обери відповідь, яка здається тобі правильною.",
     blocked: "Тема за темою", mixed: "Упереміш, як на тесті", mixNote: "12 запитань із 3 тем.",
     showIn: "Показати запитання мовою",
+    order: "Порядок запитань",
   },
 };
