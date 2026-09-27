@@ -3,10 +3,10 @@
 The API behind [swiss-passport.com/learn](https://swiss-passport.com/learn/) and the mobile apps. It runs the same learning actions as the MCP tools used by ChatGPT and Claude (`src/learning.ts`), so a learner's progress is the same everywhere.
 
 - **Base URL:** `https://swiss-passport.com/api/v1`
-- **Format:** JSON in and out (`content-type: application/json`), responses are never cached.
+- **Format:** every request except `GET /api/v1` is a `POST` with a JSON body (`content-type: application/json`, at most 8 KB). Responses are JSON and never cached.
 - **Versioning:** breaking changes get a new prefix (`/api/v2`); `/api/v1` keeps working for app versions already in the stores.
-- **Learner code:** there is no login. `POST /learners` gives a code such as `BERG-7K2Q`; send it with every other request in the header `X-Learner-Code`. It is not a password: it only points to quiz progress, which holds no personal data. Show it to the learner so they can continue on another device, and keep it on the device (Keychain, Keystore).
-- **Language:** `GET /api/v1` lists the languages (`de`, `en`, `es`, …). Pass `language` (body, or query for GET); it is remembered for the learner. The exam is in German: in other languages every question also carries `german`.
+- **Learner code:** there is no login. `POST /learners` gives a code such as `BERG-7K2Q`; send it as `learner_code` in the body of every other request. Never put it in the URL or a header: those are logged, bodies are not. It is not a password: it only points to quiz progress, which holds no personal data. Show it to the learner so they can continue on another device, and keep it on the device (Keychain, Keystore). Case and spaces do not matter.
+- **Language:** `GET /api/v1` lists the languages (`de`, `en`, `es`, …). Pass `language` in the body; it is remembered for the learner. The exam is in German: in other languages every question also carries `german`.
 - **Pictures:** steps with pictures carry `images`, paths from the site root such as `/images/nationalfahne_a.png`. Put the server address in front: `https://swiss-passport.com/images/nationalfahne_a.png`.
 
 ## Endpoints
@@ -15,11 +15,11 @@ The API behind [swiss-passport.com/learn](https://swiss-passport.com/learn/) and
 |---|---|---|
 | `GET /api/v1` | | `version`, `languages`, link to this file |
 | `POST /api/v1/learners` | `{ language? }` | **201** a new `learner_code` and its progress |
-| `GET /api/v1/progress?language=en` | | progress (see below) |
-| `POST /api/v1/lessons` | `{ lesson_id?, voice?, language? }` | the first step of the lesson |
-| `POST /api/v1/reviews` | `{ voice?, language? }` | the first review step, or `nothing_due: true` |
-| `POST /api/v1/exams` | `{ voice?, language? }` | the first of 50 mock exam questions |
-| `POST /api/v1/answers` | `{ answer: "a"…"d", question_id?, language? }` | `feedback` and `next` step, or `finished` |
+| `POST /api/v1/progress` | `{ learner_code, language? }` | progress (see below) |
+| `POST /api/v1/lessons` | `{ learner_code, lesson_id?, voice?, language? }` | the first step of the lesson |
+| `POST /api/v1/reviews` | `{ learner_code, voice?, language? }` | the first review step, or `nothing_due: true` |
+| `POST /api/v1/exams` | `{ learner_code, voice?, language? }` | the first of 50 mock exam questions |
+| `POST /api/v1/answers` | `{ learner_code, answer: "a"…"d", question_id?, language? }` | `feedback` and `next` step, or `finished` |
 
 Every response for a learner also carries their `learner_code`.
 
@@ -44,7 +44,7 @@ Every response for a learner also carries their `learner_code`.
 }
 ```
 
-Offer the learner `lesson_choices` (one open lesson per unit; the first one is recommended) and start the chosen one with `POST /lessons { "lesson_id": "l05" }`. Without `lesson_id`, an unfinished lesson continues (`continued_unfinished_lesson: true`), otherwise the recommended lesson starts.
+Offer the learner `lesson_choices` (one open lesson per unit; the first one is recommended) and start the chosen one with `POST /lessons { "learner_code": "BERG-7K2Q", "lesson_id": "l05" }`. Without `lesson_id`, an unfinished lesson continues (`continued_unfinished_lesson: true`), otherwise the recommended lesson starts.
 
 ### A step
 
@@ -68,7 +68,7 @@ Offer the learner `lesson_choices` (one open lesson per unit; the first one is r
 
 ### Answering
 
-`POST /answers { "answer": "b" }` answers the current question of the running lesson, review or exam. Send `question_id` of the question on the screen: if the learner already answered it (two taps, two devices), nothing is recorded and the current step comes back with `question_already_answered: true`.
+`POST /answers { "learner_code": "BERG-7K2Q", "answer": "b" }` answers the current question of the running lesson, review or exam. Send `question_id` of the question on the screen: if the learner already answered it (two taps, two devices), nothing is recorded and the current step comes back with `question_already_answered: true`.
 
 In lessons and reviews:
 
@@ -105,10 +105,16 @@ Errors come as `{ "error": "…" }` (bad input also with `issues`).
 | Status | When |
 |---|---|
 | 400 | Invalid JSON, a value out of range (`answer: "e"`, unknown `language`), an unknown `lesson_id` |
-| 401 | `X-Learner-Code` missing |
+| 401 | `learner_code` missing |
 | 404 | Unknown learner code, or unknown path |
 | 405 | Wrong method for the path (the `Allow` header names the right one) |
 | 409 | `POST /answers` without a running lesson, review or exam |
+| 413 | Body larger than 8 KB |
+| 415 | Body not sent as `application/json` |
+| 429 | Too many requests from this IP address: more than 30 new learners a minute, more than 20 wrong learner codes a minute (then requests with a code wait 10 minutes), or more than 100 requests in 10 seconds. `Retry-After` says how long to wait. |
+| 500 | Something went wrong on the server; try again |
+
+The API sends no CORS headers: browsers only call it from swiss-passport.com itself. Native apps are not affected.
 
 ## Voice
 

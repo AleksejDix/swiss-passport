@@ -16,7 +16,7 @@
     "build:geo": "node scripts/build-geo.mjs",
     "stats": "node scripts/stats.mjs",
     "site": "npm install --workspace=swiss-passport-site --no-audit --no-fund && npm --prefix ../site run build",
-    "dev:worker": "npm run build && npm run site && wrangler d1 migrations apply swiss-passport --local && wrangler dev"
+    "dev:worker": "npm run build && npm run site && wrangler d1 migrations apply swiss-passport --local && wrangler dev --var RATE_LIMITS:off"
   },
   "license": "PolyForm-Noncommercial-1.0.0",
   "type": "module",

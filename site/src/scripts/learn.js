@@ -49,22 +49,22 @@ function h(tag, attrs = {}, ...children) {
 
 // The REST endpoint of each learning action: the same actions as the MCP tools of the AI apps (mcp/src/learning.ts).
 const ROUTES = {
-  get_progress: ["GET", "/progress"],
-  start_lesson: ["POST", "/lessons"],
-  start_reviews: ["POST", "/reviews"],
-  start_mock_exam: ["POST", "/exams"],
-  answer: ["POST", "/answers"],
+  get_progress: "/progress",
+  start_lesson: "/lessons",
+  start_reviews: "/reviews",
+  start_mock_exam: "/exams",
+  answer: "/answers",
 };
 
-/** One request to the API. Errors such as an unknown code (404) come back as JSON with "error"; only outages throw. */
-async function request(method, path, learnerCode, body) {
+/**
+ * One request to the API, always JSON by POST: the learner code travels in the body, never in the address or a header.
+ * Errors such as an unknown code (404) come back as JSON with "error"; only outages throw.
+ */
+async function request(path, body) {
   const res = await fetch(`${API}${path}`, {
-    method,
-    headers: {
-      ...(body && { "content-type": "application/json" }),
-      ...(learnerCode && { "x-learner-code": learnerCode }),
-    },
-    ...(body && { body: JSON.stringify(body) }),
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(body),
   });
   if (res.status >= 500 || !res.headers.get("content-type")?.includes("application/json")) {
     throw new Error(`HTTP ${res.status}`);
@@ -76,16 +76,10 @@ async function request(method, path, learnerCode, body) {
 async function call(name, { learner_code = code, ...args } = {}) {
   let json;
   if (!learner_code) {
-    json = await request("POST", "/learners", null, { language: lang });
+    json = await request("/learners", { language: lang });
     learner_code = json.learner_code;
   }
-  if (!(json && name === "get_progress")) {
-    const [method, path] = ROUTES[name];
-    json =
-      method === "GET"
-        ? await request(method, `${path}?language=${lang}`, learner_code)
-        : await request(method, path, learner_code, { language: lang, ...args });
-  }
+  if (!(json && name === "get_progress")) json = await request(ROUTES[name], { learner_code, language: lang, ...args });
   const { images, ...data } = json;
   if (data.learner_code && !data.error) {
     code = data.learner_code;

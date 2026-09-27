@@ -23,10 +23,18 @@
       "migrations_dir": "migrations"
     }
   ],
+  // REST API limits per client IP (src/guard.ts): new learner codes, and wrong learner codes, whose excess blocks
+  // the client for 10 minutes. A class in a course shares one IP, so requests with valid codes are not limited here
+  // (the Cloudflare rate limiting rule for /mcp and /api/ caps all requests per IP).
+  "ratelimits": [
+    { "name": "NEW_LEARNERS", "namespace_id": "1001", "simple": { "limit": 30, "period": 60 } },
+    { "name": "WRONG_CODES", "namespace_id": "1002", "simple": { "limit": 20, "period": 60 } }
+  ],
+  "vars": { "RATE_LIMITS": "on" },
   // Daily: delete progress 12 months after the last activity (see the privacy policy).
   "triggers": { "crons": ["30 3 * * *"] },
-  // Workers Logs: calls of /mcp and their errors in the dashboard, kept 3 days (privacy policy).
-  // Request bodies (learner code, answers) are not logged.
+  // Workers Logs: calls of /mcp and /api/ and their errors in the dashboard, kept 3 days (privacy policy).
+  // They keep the URL and every request header but not the body: the learner code and answers go in the body only.
   "observability": { "enabled": true },
   // www redirects to the root with a Cloudflare redirect rule (dashboard: Rules > Redirect Rules).
   "routes": [{ "pattern": "swiss-passport.com", "custom_domain": true }],

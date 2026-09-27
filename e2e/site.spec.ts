@@ -97,7 +97,8 @@ test.describe("question pages", () => {
     await expect(pictures).toHaveCount(4);
     for (const img of await pictures.all()) {
       await img.scrollIntoViewIfNeeded();
-      expect(await img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0)).toBe(true);
+      // The pictures load lazily: wait for each one instead of checking it the moment it scrolls into view.
+      await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0)).toBe(true);
     }
   });
 });
