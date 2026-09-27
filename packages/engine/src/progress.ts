@@ -1,5 +1,5 @@
 // One learner's progress: what the engine reads and changes. Where it is stored is up to the caller.
-import type { Letter } from "./catalog.js";
+import type { Answer } from "./catalog.js";
 
 export interface ConceptState {
   level: number; // 0 = needs practice, 1..5 = spaced-repetition level
@@ -11,7 +11,7 @@ export interface Session {
   lesson?: string;
   questions: string[];
   pos: number;
-  answers: Record<string, Letter>;
+  answers: Record<string, Answer>;
   voice?: boolean; // voice conversation: no picture questions
 }
 export interface Progress {

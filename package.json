@@ -16,7 +16,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc -p tsconfig.json && npm run typecheck --workspaces --if-present",
-    "test:data": "node --test \"tests/**/*.test.js\"",
+    "test:data": "npm --prefix packages/engine run build && node --test \"tests/**/*.test.js\"",
     "test:e2e": "playwright test --project=e2e",
     "test:visual": "playwright test --project=visual-phone --project=visual-tablet --project=visual-desktop",
     "test:visual:update": "playwright test --project=visual-phone --project=visual-tablet --project=visual-desktop --update-snapshots=all"

@@ -133,3 +133,28 @@ test("a mock exam asks catalog.exam.size questions without feedback and grades a
   assert.equal(end.finished.total, 4);
   assert.equal(end.finished.score, 4);
 });
+
+test("progress that mentions removed questions, topics and lessons still works", () => {
+  const p = emptyProgress();
+  const past = "2026-01-01T00:00:00.000Z";
+  p.answered.gone = { correct: true, at: past };
+  p.concepts.gone = { level: 2, due: past };
+  p.concepts.c1 = { level: 1, due: past };
+  p.session = { kind: "review", questions: ["gone", "q1", "gone"], pos: 1, answers: { gone: "a" } };
+  engine.fitToCatalog(p);
+  assert.deepEqual(p.session, { kind: "review", questions: ["q1"], pos: 0, answers: {} });
+  assert.equal(engine.currentStep(p.session, "en").question.id, "q1");
+  assert.equal(engine.progress(p, "en").reviews_due, 1);
+  assert.equal(engine.startReviews(p, false), true);
+  assert.deepEqual(p.session.questions, ["q1"]);
+});
+
+test("a session ends when its lesson or all its remaining questions are gone", () => {
+  const p = emptyProgress();
+  p.session = { kind: "lesson", lesson: "gone", questions: ["q1"], pos: 0, answers: {} };
+  engine.fitToCatalog(p);
+  assert.equal(p.session, undefined);
+  p.session = { kind: "exam", questions: ["q1", "gone"], pos: 1, answers: { q1: "a" } };
+  engine.fitToCatalog(p);
+  assert.equal(p.session, undefined);
+});

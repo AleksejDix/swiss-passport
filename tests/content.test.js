@@ -3,6 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
+import { validateCatalog } from "@aleksejdix/learning-engine";
 import { TEXTS, LANGUAGES } from "../i18n/index.js";
 
 const read = (path) => JSON.parse(readFileSync(new URL(`../${path}`, import.meta.url), "utf8"));
@@ -87,16 +88,28 @@ for (const lang of LANGUAGES) {
   });
 }
 
-test("quiz.json: ids are unique, four options a to d, the answer is one of them", () => {
+// Ids, answers, topics, lessons, units, prerequisites and titles: the engine's own checks.
+test("the catalog fits together", () => {
+  const exam = { name: "Grundkenntnistest", size: 50, pass_mark: "not published" };
+  const catalog = {
+    exam,
+    languages: LANGUAGES,
+    questions: quiz.questions,
+    curriculum: { units, lessons, concepts },
+    texts: TEXTS,
+  };
+  assert.deepEqual(validateCatalog(catalog), []);
+});
+
+test("quiz.json: four options a to d and one answer, as in the real test", () => {
   assert.equal(quiz.questions.length, quiz.count);
-  assert.equal(new Set(quiz.questions.map((q) => q.id)).size, quiz.questions.length);
   for (const q of quiz.questions) {
     assert.deepEqual(
       q.options.map((o) => o.id),
       ["a", "b", "c", "d"],
       q.id,
     );
-    assert.ok(["a", "b", "c", "d"].includes(q.answer), q.id);
+    assert.equal(typeof q.answer, "string", q.id);
   }
 });
 
@@ -106,45 +119,7 @@ test("quiz.json: every picture exists", () => {
   for (const path of images) assert.ok(existsSync(new URL(`../${path}`, import.meta.url)), path);
 });
 
-test("curriculum.json: every question belongs to exactly one topic", () => {
-  const counts = new Map(quiz.questions.map((q) => [q.id, 0]));
-  for (const c of concepts) for (const id of c.questions) counts.set(id, (counts.get(id) ?? 0) + 1);
-  assert.deepEqual(
-    [...counts].filter(([, n]) => n !== 1),
-    [],
-  );
-});
-
-test("curriculum.json: units, lessons and topics point at each other", () => {
-  const lessonIds = new Set(lessons.map((l) => l.id));
-  const conceptIds = new Set(concepts.map((c) => c.id));
-  for (const u of units)
-    for (const id of u.lessons) assert.equal(lessons.find((l) => l.id === id)?.unit, u.id, `${u.id} -> ${id}`);
-  for (const l of lessons) {
-    for (const id of l.concepts) assert.equal(concepts.find((c) => c.id === id)?.lesson, l.id, `${l.id} -> ${id}`);
-    for (const id of l.requires ?? []) assert.ok(lessonIds.has(id), `${l.id} requires ${id}`);
-  }
-  for (const c of concepts) {
-    assert.ok(lessonIds.has(c.lesson), `${c.id} is in ${c.lesson}`);
-    assert.ok(conceptIds.has(c.id));
+test("curriculum.json: every source is an https link", () => {
+  for (const c of concepts)
     for (const src of c.sources ?? []) assert.match(src, /^https:\/\//, `${c.id}: source ${src}`);
-  }
-});
-
-test("curriculum.json: prerequisites have no cycles", () => {
-  const byId = new Map(lessons.map((l) => [l.id, l]));
-  const visit = (id, seen = []) => {
-    assert.ok(!seen.includes(id), `cycle: ${[...seen, id].join(" -> ")}`);
-    for (const r of byId.get(id).requires ?? []) visit(r, [...seen, id]);
-  };
-  for (const l of lessons) visit(l.id);
-});
-
-test("every unit, lesson and topic has a title in every language", () => {
-  for (const lang of LANGUAGES) {
-    const t = TEXTS[lang];
-    for (const u of units) assert.ok(t.units[u.id]?.title, `${lang} ${u.id}`);
-    for (const l of lessons) assert.ok(t.lessons[l.id]?.title, `${lang} ${l.id}`);
-    for (const c of concepts) assert.ok(t.concepts[c.id]?.title, `${lang} ${c.id}`);
-  }
 });

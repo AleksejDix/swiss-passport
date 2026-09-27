@@ -2,15 +2,20 @@
 import type { Curriculum, Question } from "@aleksejdix/learning-engine";
 import quizFile from "../../quiz.json";
 import curriculumFile from "../../curriculum.json";
-import { TEXTS, LANGUAGES } from "../../i18n/index.js";
+import { TEXTS, LANGUAGES, type Letter } from "../../i18n/index.js";
 
-const quiz = quizFile as { questions: Question[] };
+// Every question of the Zurich test has the options a to d and exactly one right answer.
+type ZurichQuestion = Omit<Question, "options" | "answer"> & {
+  options: { id: Letter; image?: string }[];
+  answer: Letter;
+};
+const quiz = quizFile as { questions: ZurichQuestion[] };
 const curriculum: Curriculum = curriculumFile;
 export type Unit = Curriculum["units"][number];
 export type Lesson = Curriculum["lessons"][number];
 export type Concept = Curriculum["concepts"][number];
 /** A question of quiz.json with its official number, URL slug, topic and lesson. */
-export type PageQuestion = Question & { n: number; slug: string; concept: Concept; lesson: string };
+export type PageQuestion = ZurichQuestion & { n: number; slug: string; concept: Concept; lesson: string };
 /** A topic with the unit of its lesson and its questions. */
 export type Topic = Omit<Concept, "questions"> & { unit: string; questions: PageQuestion[] };
 

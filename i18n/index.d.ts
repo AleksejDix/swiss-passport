@@ -3,7 +3,8 @@
 // language has exactly the keys of de.json.
 import type German from "./de.json";
 
-type Letter = "a" | "b" | "c" | "d";
+/** The options of every question of the Zurich test. */
+export type Letter = "a" | "b" | "c" | "d";
 
 export interface QuestionText {
   question: string;

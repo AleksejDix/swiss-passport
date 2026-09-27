@@ -1,15 +1,30 @@
 // What a catalog is: the questions of one exam, the curriculum that teaches them and all texts per language.
 // The engine gets a catalog passed in and never reads content files itself.
 
-export type Letter = "a" | "b" | "c" | "d";
+/** An option's id, usually a letter: "a", "b", … */
+export type OptionId = string;
+/** One option, or a list of options for questions where the learner picks every right one. */
+export type Answer = OptionId | OptionId[];
+
+/** The options of an answer as a list. */
+export const answerList = (answer: Answer): OptionId[] => [answer].flat();
+
+/** Right when the learner picked exactly the right options, in any order. */
+export function isRight(given: Answer, answer: Answer): boolean {
+  const right = new Set(answerList(answer));
+  const picked = new Set(answerList(given));
+  return picked.size === right.size && [...picked].every((o) => right.has(o));
+}
 
 export interface Question {
   id: string;
   category: string;
   level: string;
   image?: string;
-  options: { id: Letter; image?: string }[];
-  answer: Letter;
+  /** Two or more options, e.g. a and b for true or false. */
+  options: { id: OptionId; image?: string }[];
+  /** One option, or a list (even of one) when the learner picks every right option: shown as checkboxes. */
+  answer: Answer;
 }
 export interface Curriculum {
   units: { id: string; lessons: string[] }[];
@@ -46,9 +61,10 @@ export interface TextConcept {
 }
 export interface TextQuestion {
   question: string;
-  options: Record<Letter, string>;
+  options: Record<OptionId, string>;
   why?: string;
-  distractors?: Partial<Record<Letter, string>>;
+  /** Why a wrong option is wrong, shown to a learner who picked it. */
+  distractors?: Record<OptionId, string>;
   note?: string;
 }
 export interface Texts {
@@ -70,7 +86,7 @@ export interface Catalog {
     /** Told to the learner with the mock exam result. */
     pass_mark: string;
   };
-  /** The first language is the language of the exam: the fallback for missing texts, and always shown alongside. */
+  /** The first language is the language of the exam: the fallback for missing texts, and shown alongside as "original". */
   languages: readonly string[];
   questions: Question[];
   curriculum: Curriculum;
@@ -104,30 +120,40 @@ export function indexCatalog(catalog: Catalog) {
       id,
       question: t.question,
       options: t.options,
+      // Pick every right option (checkboxes), not just one.
+      ...(Array.isArray(q.answer) && { multiple: true }),
       ...(q.image && { image: q.image }),
       ...(q.options.some((o) => o.image) && {
         option_images: Object.fromEntries(q.options.map((o) => [o.id, o.image])),
       }),
       // The real exam is in its own language: always show the original wording too.
-      ...(lang !== examLang && { german: { question: o.question, options: o.options } }),
+      ...(lang !== examLang && { original: { question: o.question, options: o.options } }),
     };
   }
 
-  /** Explanation for a given answer, in the learner's language. */
-  function explanation(id: string, given: Letter, lang: string) {
+  /** Explanation for a given answer, in the learner's language. Answer fields are lists when the question's is. */
+  function explanation(id: string, given: Answer, lang: string) {
     const q = questions.get(id)!;
     const t = texts[lang].questions[id] ?? {};
     const o = original.questions[id];
     const pick = <K extends keyof TextQuestion>(k: K) => (t[k] ?? o[k]) as TextQuestion[K];
-    const correct = given === q.answer;
+    const optionText = (options: Record<OptionId, string>) =>
+      Array.isArray(q.answer) ? q.answer.map((a) => options[a]) : options[q.answer];
+    const correct = isRight(given, q.answer);
+    // Why the options the learner picked wrongly are wrong.
+    const about = answerList(given)
+      .filter((g) => !answerList(q.answer).includes(g))
+      .map((g) => pick("distractors")?.[g])
+      .filter(Boolean)
+      .join(" ");
     return {
       correct,
       your_answer: given,
       correct_answer: q.answer,
-      correct_answer_text: (t.options ?? o.options)[q.answer],
-      ...(lang !== examLang && { correct_answer_german: o.options[q.answer] }),
+      correct_answer_text: optionText(t.options ?? o.options),
+      ...(lang !== examLang && { correct_answer_original: optionText(o.options) }),
       why: pick("why"),
-      ...(!correct && pick("distractors")?.[given] && { about_your_answer: pick("distractors")![given] }),
+      ...(!correct && about && { about_your_answer: about }),
       ...(pick("note") && { note: pick("note") }),
     };
   }

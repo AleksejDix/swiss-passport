@@ -30,6 +30,15 @@ export interface Done {
 const NO_CODE_YET =
   "This learner has no learner code yet. start_lesson, start_reviews and start_mock_exam create one with their first step.";
 
+// API v1 and the tutor's instructions call the wording of the real exam "german"; the engine calls it "original".
+const V1_NAMES: Record<string, string> = { original: "german", correct_answer_original: "correct_answer_german" };
+function v1Names(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(v1Names);
+  if (value && typeof value === "object")
+    return Object.fromEntries(Object.entries(value).map(([k, v]) => [V1_NAMES[k] ?? k, v1Names(v)]));
+  return value;
+}
+
 /** A result that belongs to no learner: an error, or what a learner without a code sees. */
 const withoutLearner = (out: Out, who: Learner): Done => ({ out, lang: languageOf(who), created: false, voice: false });
 
@@ -46,9 +55,11 @@ export function createLearning(store: Store, { learners }: { learners: Learners 
     const found = await find(who.learner_code, create);
     if ("error" in found) return withoutLearner(found.error, who);
     const { id, progress: p, created } = found;
+    engine.fitToCatalog(p); // questions removed from the catalog since the last visit
     if (who.language) p.language = who.language;
     const lang = languageOf(p);
     const out = step(p, lang);
+    out.data = v1Names(out.data) as Out["data"];
     if (save) await store.save(id, p);
     return { out, lang, ...(online && { learnerCode: id }), created, voice: Boolean(p.session?.voice) };
   }

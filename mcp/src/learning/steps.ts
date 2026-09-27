@@ -1,6 +1,6 @@
 // What each learning action asks of the engine: pure functions of one learner's progress, without store or transport.
 // Each returns the step the learner sees next (or an error) and may change the progress, which the caller saves.
-import type { Letter, Progress } from "@aleksejdix/learning-engine";
+import type { Answer, Progress } from "@aleksejdix/learning-engine";
 import { engine, type Lang } from "./catalog.js";
 
 /** What an action produces: data, the question whose pictures belong to it, and a status for HTTP (default 200). */
@@ -25,7 +25,7 @@ export interface LessonOptions extends StartOptions {
   newLearnerChooses?: boolean;
 }
 export interface AnswerOptions {
-  answer: Letter;
+  answer: Answer;
   question_id?: string;
 }
 

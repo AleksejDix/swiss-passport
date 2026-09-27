@@ -1,6 +1,6 @@
 // Learning logic: lessons once their prerequisites are done, the units in turn; spaced repetition per concept; mock exam.
 // Every activity is a session that hands out exactly one question at a time.
-import { indexCatalog, type Catalog, type Letter } from "./catalog.js";
+import { indexCatalog, isRight, type Answer, type Catalog } from "./catalog.js";
 import type { Progress, Session } from "./progress.js";
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -60,7 +60,9 @@ export function createEngine(catalog: Catalog) {
   function lastStudied(p: Progress): Map<string, string> {
     const last = new Map<string, string>();
     for (const [qid, a] of Object.entries(p.answered)) {
-      const unit = lessonById.get(conceptById.get(conceptOfQuestion.get(qid)!)!.lesson)!.unit;
+      const cid = conceptOfQuestion.get(qid);
+      if (!cid) continue; // a question the catalog no longer has
+      const unit = lessonById.get(conceptById.get(cid)!.lesson)!.unit;
       if (a.at > (last.get(unit) ?? "")) last.set(unit, a.at);
     }
     return last;
@@ -86,9 +88,28 @@ export function createEngine(catalog: Catalog) {
 
   function dueConcepts(p: Progress, now = new Date()): string[] {
     return Object.entries(p.concepts)
-      .filter(([, s]) => new Date(s.due) <= now)
+      .filter(([id, s]) => conceptById.has(id) && new Date(s.due) <= now)
       .sort(([, a], [, b]) => a.due.localeCompare(b.due))
       .map(([id]) => id);
+  }
+
+  /**
+   * Makes stored progress fit the catalog after its content changed: the unfinished session drops questions the
+   * catalog no longer has, and ends when none are left or its lesson is gone. Call it after loading progress.
+   * Answers and topics of removed questions stay in the progress but are ignored, so they count again if the ids return.
+   */
+  function fitToCatalog(p: Progress) {
+    const s = p.session;
+    if (!s) return;
+    if (s.kind === "lesson" && !lessonById.has(s.lesson!)) {
+      p.session = undefined;
+      return;
+    }
+    if (s.questions.every((q) => questions.has(q))) return;
+    s.pos = s.questions.slice(0, s.pos).filter((q) => questions.has(q)).length;
+    s.questions = s.questions.filter((q) => questions.has(q));
+    s.answers = Object.fromEntries(Object.entries(s.answers).filter(([q]) => questions.has(q)));
+    if (s.pos >= s.questions.length) p.session = undefined;
   }
 
   // ---- Starting sessions --------------------------------------------------------------
@@ -185,8 +206,9 @@ export function createEngine(catalog: Catalog) {
    * Answers the current question of the session and returns feedback plus the next step (or the session summary).
    * In lessons and reviews a wrong answer puts the question back at the end of the round, so every question
    * has to be answered correctly before the round is finished. Only the first attempt counts for the review schedule.
+   * `given` is one option id, or a list of them for questions whose answer is a list.
    */
-  function answer(p: Progress, given: Letter, lang: string, now = new Date()) {
+  function answer(p: Progress, given: Answer, lang: string, now = new Date()) {
     const s = p.session!;
     const qid = s.questions[s.pos];
     const isRetry = s.questions.slice(0, s.pos).includes(qid);
@@ -218,7 +240,7 @@ export function createEngine(catalog: Catalog) {
   }
 
   function summary(p: Progress, s: Session, lang: string) {
-    const firstTry = Object.entries(s.answers).filter(([q, a]) => questions.get(q)!.answer === a).length;
+    const firstTry = Object.entries(s.answers).filter(([q, a]) => isRight(a, questions.get(q)!.answer)).length;
     const next = nextLessonId(p);
     return {
       [s.kind]: "done",
@@ -229,7 +251,7 @@ export function createEngine(catalog: Catalog) {
     };
   }
 
-  function gradeExam(p: Progress, answers: Record<string, Letter>, lang: string, now: Date) {
+  function gradeExam(p: Progress, answers: Record<string, Answer>, lang: string, now: Date) {
     const graded = Object.entries(answers).map(([qid, given]) => ({ qid, ...explanation(qid, given, lang) }));
     const score = graded.filter((g) => g.correct).length;
     p.exams.push({ at: now.toISOString(), score, total: graded.length });
@@ -289,6 +311,7 @@ export function createEngine(catalog: Catalog) {
     lessons: lessonOrder,
     question: (id: string) => questions.get(id),
     nextLessonId,
+    fitToCatalog,
     startLesson,
     startReviews,
     startExam,

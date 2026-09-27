@@ -2,7 +2,7 @@
 
 A learning engine for multiple-choice courses: lessons with prerequisites, spaced repetition per topic and mock exams. It holds no content and has no dependencies: you pass in a catalog, and it hands out one question at a time.
 
-It runs [Swiss Passport](https://swiss-passport.com), a course for the Zurich naturalisation test, and works for any course with four-option questions, for example compliance training.
+It runs [Swiss Passport](https://swiss-passport.com), a course for the Zurich naturalisation test, and works for any multiple-choice course: true or false, three or more options, one right answer or several (security awareness, driving theory, compliance training).
 
 ## Install
 
@@ -26,23 +26,27 @@ import { createEngine, emptyProgress } from "@aleksejdix/learning-engine";
 
 const engine = createEngine(catalog);
 const progress = emptyProgress(); // plain JSON: store it wherever you like
+engine.fitToCatalog(progress); // after loading stored progress: drops questions the catalog no longer has
 
 engine.progress(progress, "en").lesson_choices; // lessons to offer, the recommended one first
 engine.startLesson(progress, "l1", false);
 engine.currentStep(progress.session, "en"); // one question (and the topic's explanation the first time)
 engine.answer(progress, "a", "en"); // feedback and the next step, or the summary at the end
+engine.answer(progress, ["a", "c"], "en"); // a question whose answer is a list: every option the learner picked
 ```
 
 | Function | What it does |
 |---|---|
 | `createEngine(catalog)` | The engine for one catalog. |
+| `fitToCatalog(p)` | Makes stored progress fit a changed catalog: the unfinished session drops removed questions, or ends. Call it after loading. |
 | `progress(p, lang)` | Lessons done, `lesson_choices`, reviews due, readiness per category, recent mock exams. |
 | `startLesson(p, lessonId, voice)` | Starts a lesson. `voice: true` leaves out questions with pictures. |
 | `startReviews(p, voice)` | Starts a review round of the topics that are due. Returns `false` if none are. |
 | `startExam(p, voice)` | Starts a mock exam of `catalog.exam.size` random questions, without feedback until the end. |
 | `currentStep(session, lang)` | The question to answer now. |
-| `answer(p, letter, lang, now?)` | Records the answer; returns `feedback` and `next`, or `finished`. |
+| `answer(p, given, lang, now?)` | Records the answer (an option id, or a list of them); returns `feedback` and `next`, or `finished`. |
 | `lessonStages(curriculum)` | The stage of each lesson: 0 when it requires nothing, else one more than its latest prerequisite. |
+| `validateCatalog(catalog)` | Every problem in a catalog, one sentence each; empty when it is fine. Run it in your course's tests. |
 
 ## How it teaches
 
@@ -58,6 +62,7 @@ engine.answer(progress, "a", "en"); // feedback and the next step, or the summar
   exam: { name, size, pass_mark },       // shown to the learner; size = questions per mock exam
   languages: ["de", "en"],               // the first is the exam language and the fallback for missing texts
   questions: [{ id, category, level, options: [{ id: "a" }, …], answer: "c", image? }],
+                                         // two or more options; answer: ["a", "c"] asks for every right option
   curriculum: {
     units: [{ id, lessons: [lessonId, …] }],
     lessons: [{ id, unit, requires?: [lessonId, …], concepts: [conceptId, …] }],
@@ -67,7 +72,11 @@ engine.answer(progress, "a", "en"); // feedback and the next step, or the summar
 }
 ```
 
-The types (`Catalog`, `Curriculum`, `Texts`, `Progress`, …) are exported. See `test/engine.test.js` for a complete small catalog.
+A question whose `answer` is a list (even of one option) is shown with `multiple: true`: the learner picks every right option, and only exactly those count as right. Its `correct_answer` and `correct_answer_text` in the feedback are lists too.
+
+In any language but the first, a step carries `original` (the question and options in the exam language) and the feedback `correct_answer_original`.
+
+The types (`Catalog`, `Curriculum`, `Texts`, `Progress`, `Answer`, …) are exported. See `test/engine.test.js` for a complete small catalog, and `test/question-types.test.js` for true or false and several right answers.
 
 ## License
 
