@@ -2,6 +2,7 @@
 // Replaces the App class of @modelcontextprotocol/ext-apps, which brought zod and the MCP SDK along: 440 of the
 // card's 450 KB, loaded by the host every time the card is shown. Same calls and messages, only what the card uses.
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- JSON-RPC messages from the host, read field by field
 type Json = Record<string, any>;
 export interface ToolResult {
   isError?: boolean;
@@ -23,6 +24,7 @@ export class App {
   private hostCapabilities: Json = {};
   private hostContext: HostContext = {};
   private nextId = 1;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- each request resolves with its own result shape
   private pending = new Map<number, { resolve(result: any): void; reject(error: Error): void }>();
 
   constructor(private appInfo: { name: string; version: string }) {
@@ -49,6 +51,7 @@ export class App {
     window.parent.postMessage({ jsonrpc: "2.0", ...message }, "*");
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- the caller knows the result shape of its method
   private request(method: string, params: Json): Promise<any> {
     const id = this.nextId++;
     this.post({ id, method, params });

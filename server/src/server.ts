@@ -101,6 +101,7 @@ interface Out {
 }
 
 /** A result as the model sees it next to the card: which step it is, without the texts and options the card shows. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- any tool result of the engine
 function forModel({ explain_first, question, next, ...rest }: Record<string, any>): Record<string, unknown> {
   return {
     ...rest,
