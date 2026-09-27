@@ -1,7 +1,7 @@
 // Quiz card shown inside the chat (MCP Apps view): concept, question and clickable options with pictures.
 // Where the host lets views call tools, a click answers right here (answer tool) and the card updates in place,
 // so the chat does not grow with every question. Otherwise a click sends the letter as a chat message.
-import { App } from "@modelcontextprotocol/ext-apps/app-with-deps";
+import { App } from "./bridge.js";
 
 type Letter = "a" | "b" | "c" | "d";
 interface Question {

@@ -29,9 +29,9 @@ assert(tools.length === 5, `5 tools: ${tools.join(", ")}`);
 
 const toolList = (await client.listTools()).tools;
 assert(toolList.every((t) => t.annotations?.destructiveHint === false && t.annotations?.openWorldHint === false), "all tools declared non-destructive and closed-world");
-assert(toolList.filter((t) => t._meta?.ui?.resourceUri === "ui://swiss-passport/card-v4.html").length === 4, "4 question tools show the quiz card");
+assert(toolList.filter((t) => t._meta?.ui?.resourceUri === "ui://swiss-passport/card-v5.html").length === 4, "4 question tools show the quiz card");
 assert(toolList.find((t) => t.name === "answer")._meta.ui.visibility.includes("app"), "the quiz card may call answer itself");
-const card = await client.readResource({ uri: "ui://swiss-passport/card-v4.html" });
+const card = await client.readResource({ uri: "ui://swiss-passport/card-v5.html" });
 assert(card.contents[0].mimeType === "text/html;profile=mcp-app" && card.contents[0].text.includes("<div id=\"root\">"), "quiz card resource readable");
 assert(card.contents[0]._meta?.ui?.csp && card.contents[0]._meta["openai/widgetDomain"] === "https://swiss-passport.com", "quiz card declares its CSP and domain");
 
