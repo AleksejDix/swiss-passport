@@ -15,15 +15,20 @@ export type Found = { id: string; progress: Progress; created: boolean } | { err
 
 const LOCAL = "local";
 
+/** 404 for a learner code no learner has, and the way to a new code: POST /learners (REST API) or no code (MCP). */
+export function unknownCode(code: string, learners: Learners) {
+  const newCode =
+    learners === "by-code" ? "get a new code with POST /learners" : "leave learner_code empty to start fresh";
+  return errorOut(`Unknown learner code "${code}". Check it, or ${newCode}.`, 404);
+}
+
 /** Finds learners in the store. `create`: a request without a code makes a new learner. */
 export function learnerFinder(store: Store, learners: Learners) {
   async function byCode(code: string): Promise<Found> {
     const id = normalizeCode(code);
     const progress = await store.load(id);
     if (progress) return { id, progress, created: false };
-    return {
-      error: errorOut(`Unknown learner code "${code}". Check it, or leave learner_code empty to start fresh.`, 404),
-    };
+    return { error: unknownCode(code, learners) };
   }
 
   /** A code no learner has yet. */

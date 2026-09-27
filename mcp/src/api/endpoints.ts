@@ -3,8 +3,8 @@ import { z } from "zod";
 import { BLOCK_SECONDS, guarded, type Guard } from "../guard.js";
 import { LANGUAGES } from "../learning/catalog.js";
 import { isLearnerCode, normalizeCode } from "../learning/codes.js";
+import { unknownCode } from "../learning/learners.js";
 import type { Done, Learner, Learning } from "../learning/learning.js";
-import { errorOut } from "../learning/steps.js";
 import { json, readBody, reply, tooMany } from "./json.js";
 
 /** What every endpoint gets besides the request: the learning actions and the client's limits. */
@@ -44,11 +44,14 @@ function post<S extends z.ZodType>(
 }
 
 /** Runs the action for the learner of the body's code; a code that cannot exist is a 404 without asking the store. */
-async function forLearner(body: z.infer<typeof learnerBody>, action: (who: Learner) => Promise<Done>) {
-  const code = body.learner_code === undefined ? undefined : normalizeCode(body.learner_code);
-  if (code !== undefined && !isLearnerCode(code))
-    return { out: errorOut(`Unknown learner code "${body.learner_code}".`, 404) };
-  return action({ learner_code: code, language: body.language });
+async function forLearner(
+  { learner_code, language }: z.infer<typeof learnerBody>,
+  action: (who: Learner) => Promise<Done>,
+) {
+  if (learner_code === undefined) return action({ language });
+  const code = normalizeCode(learner_code);
+  if (!isLearnerCode(code)) return { out: unknownCode(learner_code, "by-code") };
+  return action({ learner_code: code, language });
 }
 
 /** A POST endpoint for the learner named in the body. A wrong or malformed code counts against the client. */

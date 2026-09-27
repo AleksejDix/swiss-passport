@@ -92,6 +92,15 @@ assert((await post("/progress", { learner_code }, "4.4.4.4")).status === 200, "o
 time += 601_000;
 assert((await post("/progress", { learner_code })).status === 200, "after 10 minutes the code works again");
 
+// An unknown or malformed code: the way to a new code over REST is POST /learners, not an empty learner_code.
+for (const code of ["BERG-2222", "not a code"]) {
+  const { error } = await (await post("/progress", { learner_code: code }, "6.6.6.6")).json();
+  assert(
+    error === `Unknown learner code "${code}". Check it, or get a new code with POST /learners.`,
+    `unknown code "${code}" points to POST /learners`,
+  );
+}
+
 // Something breaks: 500 without details, and the log holds no learner code.
 const logged = [];
 const consoleError = console.error;
