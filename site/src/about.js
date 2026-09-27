@@ -5,14 +5,14 @@ import { OPERATOR } from "./legal.js";
 
 // The makers, for the structured data of the about and method pages.
 export const MAKERS = [
-  { "@type": "Person", name: "Aleksej Dix", url: "https://aleksejdix.com", sameAs: ["https://github.com/AleksejDix"] },
+  { "@type": "Person", name: "Aleksej Dix", url: "https://www.linkedin.com/in/aleksejdix/", sameAs: ["https://github.com/AleksejDix"] },
   { "@type": "Person", name: "Lidia Dix" },
 ];
 
 export const ABOUT_LINKS = {
   pdf: LINKS.pdf,
   email: OPERATOR.email,
-  aleksej: "https://aleksejdix.com",
+  aleksej: "https://www.linkedin.com/in/aleksejdix/",
   repo: "https://github.com/AleksejDix/swiss-passport",
   issues: "https://github.com/AleksejDix/swiss-passport/issues",
   license: "https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE",
