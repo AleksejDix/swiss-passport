@@ -1,5 +1,6 @@
 // Share image (1200×630) per language, used as og:image on every page of that language.
 import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
 import { STRINGS } from "../../scripts/i18n.js";
@@ -7,11 +8,13 @@ import { LANG_IDS } from "../../data.js";
 
 // Satori reads static fonts only, so the image uses the static cuts of Inter, the typeface of the site.
 // The font comes in one file per script; each gets its own name so Cyrillic text falls back to it.
+// Resolved like an import, so it works wherever npm put the package (the monorepo installs at the root).
+const require = createRequire(import.meta.url);
 const font = (script, weight) => ({
   name: `Inter ${script}`,
   weight,
   style: "normal",
-  data: readFileSync(`node_modules/@fontsource/inter/files/inter-${script}-${weight}-normal.woff`),
+  data: readFileSync(require.resolve(`@fontsource/inter/files/inter-${script}-${weight}-normal.woff`)),
 });
 const FONTS = [font("latin", 400), font("latin", 700), font("cyrillic", 400), font("cyrillic", 700)];
 

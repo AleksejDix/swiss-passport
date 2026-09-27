@@ -1,7 +1,7 @@
 // The catalog of the Zurich knowledge test: questions, curriculum and texts per language from the repository
 // root, bundled into the server so it needs no files at runtime (also on Cloudflare Workers). The languages
 // and all their texts come from i18n/index.js.
-import type { Catalog, Question } from "./engine/index.js";
+import type { Catalog, Question } from "@aleksejdix/learning-engine";
 import quiz from "../../quiz.json" with { type: "json" };
 import curriculum from "../../curriculum.json" with { type: "json" };
 import { TEXTS, LANGUAGES, byLang } from "../../i18n/index.js";

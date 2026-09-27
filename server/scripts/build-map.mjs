@@ -1,11 +1,12 @@
 // Builds public/map-data.js: SVG paths of the 26 cantons and the large lakes.
 // Geodata: Bundesamt für Statistik (BFS), GEOSTAT, via the swiss-maps package (non-commercial use with attribution).
+import { createRequire } from "node:module";
 import { readFileSync, writeFileSync } from "node:fs";
 import { feature } from "topojson-client";
 import { presimplify, simplify } from "topojson-simplify";
 import { geoMercator, geoPath } from "d3-geo";
 
-const topo = JSON.parse(readFileSync(new URL("../node_modules/swiss-maps/2026/ch-combined.json", import.meta.url)));
+const topo = JSON.parse(readFileSync(createRequire(import.meta.url).resolve("swiss-maps/2026/ch-combined.json")));
 const simple = simplify(presimplify(topo), 1e-4);
 
 // BFS canton numbers 1..26. Half cantons have half a vote (Standesstimme) in the majority of the cantons.

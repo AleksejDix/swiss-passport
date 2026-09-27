@@ -7,6 +7,7 @@
 // - peaks, passes, hills: swisstopo, swissNAMES3D
 // The BAFU and swisstopo data come from api3.geo.admin.ch, the language regions from agvchapp.bfs.admin.ch.
 // Answers are cached in node_modules/.cache/geo, so a second run works offline.
+import { createRequire } from "node:module";
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { feature, merge, neighbors } from "topojson-client";
 import { presimplify, simplify } from "topojson-simplify";
@@ -29,7 +30,7 @@ const json = async (name, url) => JSON.parse(await cached(name, url));
 
 // ---- Sources --------------------------------------------------------------------------------
 
-const topo = JSON.parse(readFileSync(new URL("../node_modules/swiss-maps/2026/ch-combined.json", import.meta.url)));
+const topo = JSON.parse(readFileSync(createRequire(import.meta.url).resolve("swiss-maps/2026/ch-combined.json")));
 
 /** BFS language region of every municipality: 1 German, 2 French, 3 Italian, 4 Romansh. */
 async function languageRegions() {

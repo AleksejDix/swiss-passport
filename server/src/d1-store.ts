@@ -1,5 +1,5 @@
 // Progress store for the Cloudflare Worker: D1 (SQLite), one row per learner code, same table as sqlite-store.ts.
-import type { Progress } from "./engine/index.js";
+import type { Progress } from "@aleksejdix/learning-engine";
 import type { Store } from "./store.js";
 
 /** The part of Cloudflare's D1 binding used here. */

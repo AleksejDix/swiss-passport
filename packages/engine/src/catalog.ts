@@ -17,9 +17,26 @@ export interface Curriculum {
   lessons: { id: string; unit: string; requires?: string[]; concepts: string[] }[];
   concepts: { id: string; lesson: string; questions: string[]; sources: string[] }[];
 }
-interface KeyTerm { term: string; definition: string }
+/** The stage of every lesson: 0 when it requires nothing, else one more than its latest prerequisite. */
+export function lessonStages(curriculum: Curriculum): Map<string, number> {
+  const byId = new Map(curriculum.lessons.map((l) => [l.id, l]));
+  const stages = new Map<string, number>();
+  const stageOf = (id: string): number => {
+    let stage = stages.get(id);
+    if (stage === undefined) {
+      const requires = byId.get(id)!.requires ?? [];
+      stage = requires.length ? 1 + Math.max(...requires.map(stageOf)) : 0;
+      stages.set(id, stage);
+    }
+    return stage;
+  };
+  for (const l of curriculum.lessons) stageOf(l.id);
+  return stages;
+}
+
+export interface KeyTerm { term: string; definition: string }
 export interface TextConcept { title: string; intro: string[]; key_terms: KeyTerm[]; mnemonic?: string }
-interface TextQuestion {
+export interface TextQuestion {
   question: string;
   options: Record<Letter, string>;
   why?: string;

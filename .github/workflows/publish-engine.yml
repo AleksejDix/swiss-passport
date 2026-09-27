@@ -1,0 +1,29 @@
+# Publishes packages/engine to GitHub Packages when a tag engine-v<version> is pushed,
+# e.g. git tag engine-v0.1.0 && git push origin engine-v0.1.0. The tag must match the version in package.json.
+name: Publish learning engine
+
+on:
+  push:
+    tags: ["engine-v*"]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://npm.pkg.github.com
+          scope: "@aleksejdix"
+      - name: Tag matches the package version
+        run: test "${GITHUB_REF_NAME#engine-v}" = "$(node -p "require('./packages/engine/package.json').version")"
+      - run: npm ci --workspace=@aleksejdix/learning-engine
+      - run: npm test --workspace=@aleksejdix/learning-engine
+      - run: npm publish --workspace=@aleksejdix/learning-engine
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -108,11 +108,18 @@ Explanations were written in simple German (B1) using only official sources (the
 <details>
 <summary><strong>Build, test and deploy</strong></summary>
 
-The server lives in `server/` (TypeScript, Node 22+). Every push to `main` deploys swiss-passport.com through Cloudflare Workers Builds.
+The repository is an npm workspace (monorepo) with three packages. Every push to `main` deploys swiss-passport.com through Cloudflare Workers Builds.
+
+| Package | What it is |
+|---|---|
+| [`packages/engine/`](packages/engine/) | `@aleksejdix/learning-engine`: lessons with prerequisites, spaced reviews and mock exams, without content or dependencies. Published on GitHub Packages (tag `engine-v<version>`). |
+| `server/` | The MCP server and the Cloudflare Worker (TypeScript, Node 22+). |
+| `site/` | The website (Astro). |
 
 ```sh
+npm install         # once, in the repository root: installs all three packages
+npm test -w @aleksejdix/learning-engine   # the engine's own tests
 cd server
-npm install
 npm test            # builds and runs the local and HTTP end-to-end tests
 npm run pack        # Claude Desktop extension (.mcpb)
 npm run deploy      # Cloudflare by hand: website + /mcp Worker (progress in D1)
@@ -132,12 +139,12 @@ The learning engine and the content are kept apart:
 
 | Path | What it does |
 |---|---|
-| `src/engine/` | The learning engine: lessons, spaced reviews and mock exam. It holds no content: a catalog is passed in with `createEngine(catalog)`. |
-| `src/catalog.ts` | The Zurich catalog: the content files from the repository root, plus the exam name, the mock exam size and the pass mark. |
-| `src/server.ts` | The MCP tools and the tutoring instructions. |
-| `src/view/` | The quiz card shown in the chat ([MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/)). |
+| `packages/engine/` | The learning engine: lessons, spaced reviews and mock exam. It holds no content: a catalog is passed in with `createEngine(catalog)`. |
+| `server/src/catalog.ts` | The Zurich catalog: the content files from the repository root, plus the exam name, the mock exam size and the pass mark. |
+| `server/src/server.ts` | The MCP tools and the tutoring instructions. |
+| `server/src/view/` | The quiz card shown in the chat ([MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/)). |
 
-Another exam with four-option questions can reuse the engine with its own catalog in the same file format (`quiz.json`, `curriculum.json`, `i18n/<lang>.json`).
+Another course with four-option questions can reuse the engine with its own catalog: see [packages/engine/README.md](packages/engine/README.md).
 
 </details>
 

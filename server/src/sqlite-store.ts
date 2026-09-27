@@ -3,7 +3,7 @@ import { DatabaseSync } from "node:sqlite";
 import { mkdirSync } from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
-import type { Progress } from "./engine/index.js";
+import type { Progress } from "@aleksejdix/learning-engine";
 import type { Store } from "./store.js";
 
 export function sqliteStore(file = process.env.DB_FILE || join(homedir(), ".swiss-passport-quiz", "learners.db")): Store {

@@ -4,7 +4,7 @@
   "description": "MCP server and website for learning the Zurich naturalisation knowledge test",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc --noEmit && esbuild src/index.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/index.js --banner:js=\"import{createRequire}from'module';const require=createRequire(import.meta.url);\" && esbuild src/http.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/http.js --banner:js=\"import{createRequire}from'module';const require=createRequire(import.meta.url);\" && node scripts/copy-data.mjs && node scripts/build-view.mjs",
+    "build": "npm --prefix ../packages/engine run build && tsc --noEmit && esbuild src/index.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/index.js --banner:js=\"import{createRequire}from'module';const require=createRequire(import.meta.url);\" && esbuild src/http.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/http.js --banner:js=\"import{createRequire}from'module';const require=createRequire(import.meta.url);\" && node scripts/copy-data.mjs && node scripts/build-view.mjs",
     "start": "node dist/index.js",
     "pack": "npm run build && mcpb pack . swiss-passport-zh.mcpb",
     "test": "npm run build && node scripts/smoke-test.mjs && node scripts/http-test.mjs",
@@ -14,12 +14,13 @@
     "build:map": "node scripts/build-map.mjs",
     "build:geo": "node scripts/build-geo.mjs",
     "stats": "node scripts/stats.mjs",
-    "site": "npm --prefix ../site install && npm --prefix ../site run build",
+    "site": "npm install --workspace=swiss-passport-site --no-audit --no-fund && npm --prefix ../site run build",
     "dev:worker": "npm run build && npm run site && wrangler d1 migrations apply swiss-passport --local && wrangler dev"
   },
   "license": "PolyForm-Noncommercial-1.0.0",
   "type": "module",
   "dependencies": {
+    "@aleksejdix/learning-engine": "^0.1.0",
     "@modelcontextprotocol/ext-apps": "^2.0.0",
     "@modelcontextprotocol/sdk": "^1.30.1",
     "zod": "^4.6.5"

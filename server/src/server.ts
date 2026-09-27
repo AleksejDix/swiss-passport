@@ -3,7 +3,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import type { Assets } from "./assets.js";
 import { catalog, CARD_LABELS, LANGUAGES, type Lang } from "./catalog.js";
-import { createEngine, emptyProgress, REVIEW_SIZE, type Progress } from "./engine/index.js";
+import { createEngine, emptyProgress, REVIEW_SIZE, type Progress } from "@aleksejdix/learning-engine";
 import { newLearnerCode, normalizeCode, type Store } from "./store.js";
 
 export const VERSION = "0.9.0";

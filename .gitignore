@@ -6,8 +6,9 @@ sources/*.pdf
 sources/*.txt
 sources/*.html
 
-# Dependencies and build output (server/)
+# Dependencies and build output (packages/, server/)
 node_modules/
+packages/*/dist/
 server/dist/
 server/data/
 server/api/

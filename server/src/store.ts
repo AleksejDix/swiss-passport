@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { randomInt } from "node:crypto";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
-import { emptyProgress, type Progress } from "./engine/index.js";
+import { emptyProgress, type Progress } from "@aleksejdix/learning-engine";
 
 /** Loads and saves one learner's progress. `id` identifies the learner (ignored by the local file store). */
 export interface Store {
