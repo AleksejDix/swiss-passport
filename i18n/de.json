@@ -7558,10 +7558,18 @@
       ]
     },
     "sponsors": {
-      "nav": "Sponsoren",
+      "nav": "Unterstützen",
       "title": "Swiss Passport unterstützen",
-      "desc": "Swiss Passport ist kostenlos, ohne Werbung und ohne Konto. Firmen und Organisationen können das Projekt als Sponsor unterstützen.",
+      "desc": "Swiss Passport ist kostenlos, ohne Werbung und ohne Konto. Mit einer Spende oder als Sponsor hilfst du, dass es so bleibt.",
       "sections": [
+        [
+          "Spenden",
+          [
+            "Swiss Passport kostet dich nichts, und das bleibt so. Wer möchte, kann uns einen Kaffee spendieren. Das Geld hilft bei der Domain, den App-Store-Gebühren für die geplanten Handy-Apps und bei Muttersprachigen, die die Übersetzungen prüfen.",
+            "Eine Spende ist freiwillig und ändert nichts an der Nutzung: Alle Lektionen, Fragen und Probeprüfungen bleiben für alle kostenlos.",
+            "<a href=\"{coffee}\">Einen Kaffee spendieren (Buy Me a Coffee)</a>"
+          ]
+        ],
         [
           "Sponsoring",
           [

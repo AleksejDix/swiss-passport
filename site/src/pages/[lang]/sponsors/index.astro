@@ -1,6 +1,6 @@
 ---
 import type { InferGetStaticPropsType } from "astro";
-// Sponsors: how companies and organisations can support the free project. Website only, never in the AI apps.
+// Support: donations (Buy Me a Coffee) and sponsoring for the free project. Website only, never in the AI apps.
 import Base from "../../../layouts/Base.astro";
 import PageHead from "../../../components/ui/PageHead.astro";
 import Section from "../../../components/ui/Section.astro";
@@ -17,7 +17,8 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { lang } = Astro.props;
 const s = texts(lang).site.sponsors;
-const fill = (html: string) => html.replaceAll("{email}", OPERATOR.email);
+const COFFEE = "https://buymeacoffee.com/swisspassport";
+const fill = (html: string) => html.replaceAll("{email}", OPERATOR.email).replaceAll("{coffee}", COFFEE);
 const alternates = Object.fromEntries(LANGUAGES.map((id) => [id, sponsorsPath(id)]));
 ---
 

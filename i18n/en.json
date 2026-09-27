@@ -7558,10 +7558,18 @@
       ]
     },
     "sponsors": {
-      "nav": "Sponsors",
+      "nav": "Support us",
       "title": "Support Swiss Passport",
-      "desc": "Swiss Passport is free, with no ads and no account. Companies and organisations can support the project as sponsors.",
+      "desc": "Swiss Passport is free, with no ads and no account. A donation or a sponsorship helps keep it that way.",
       "sections": [
+        [
+          "Donations",
+          [
+            "Swiss Passport costs you nothing, and it stays that way. If you like, you can buy us a coffee. The money helps pay for the domain, the app store fees for the planned phone apps, and native speakers who check the translations.",
+            "A donation is voluntary and changes nothing about how you use it: all lessons, questions and mock exams stay free for everyone.",
+            "<a href=\"{coffee}\">Buy us a coffee (Buy Me a Coffee)</a>"
+          ]
+        ],
         [
           "Sponsoring",
           [

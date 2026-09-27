@@ -7558,10 +7558,18 @@
       ]
     },
     "sponsors": {
-      "nav": "Patrocinadores",
+      "nav": "Apoyar",
       "title": "Apoyar a Swiss Passport",
-      "desc": "Swiss Passport es gratuito, sin publicidad y sin cuenta. Empresas y organizaciones pueden apoyar el proyecto como patrocinadores.",
+      "desc": "Swiss Passport es gratuito, sin publicidad y sin cuenta. Una donación o un patrocinio ayudan a que siga así.",
       "sections": [
+        [
+          "Donaciones",
+          [
+            "Swiss Passport no te cuesta nada, y seguirá así. Si quieres, puedes invitarnos a un café. El dinero ayuda a pagar el dominio, las tarifas de las tiendas de aplicaciones para las futuras apps móviles y a hablantes nativos que revisan las traducciones.",
+            "Una donación es voluntaria y no cambia nada en el uso: todas las lecciones, preguntas y exámenes de prueba siguen siendo gratuitos para todos.",
+            "<a href=\"{coffee}\">Invítanos a un café (Buy Me a Coffee)</a>"
+          ]
+        ],
         [
           "Patrocinio",
           [

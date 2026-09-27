@@ -7558,10 +7558,18 @@
       ]
     },
     "sponsors": {
-      "nav": "Sponsorët",
+      "nav": "Mbështet",
       "title": "Mbështet Swiss Passport",
-      "desc": "Swiss Passport është falas, pa reklama dhe pa llogari. Firmat dhe organizatat mund ta mbështesin projektin si sponsorë.",
+      "desc": "Swiss Passport është falas, pa reklama dhe pa llogari. Një dhurim ose një sponsorizim ndihmon që të mbetet kështu.",
       "sections": [
+        [
+          "Dhurime",
+          [
+            "Swiss Passport nuk të kushton asgjë dhe kështu do të mbetet. Nëse dëshiron, mund të na qerasësh një kafe. Paratë ndihmojnë për domenin, tarifat e dyqaneve të aplikacioneve për aplikacionet e ardhshme në telefon dhe për folës amtarë që kontrollojnë përkthimet.",
+            "Dhurimi është vullnetar dhe nuk ndryshon asgjë në përdorim: të gjitha mësimet, pyetjet dhe provimet provë mbeten falas për të gjithë.",
+            "<a href=\"{coffee}\">Na qeras një kafe (Buy Me a Coffee)</a>"
+          ]
+        ],
         [
           "Sponsorizimi",
           [
