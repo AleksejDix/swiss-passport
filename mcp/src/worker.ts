@@ -1,8 +1,11 @@
-// Cloudflare Worker. The website is static assets; only /mcp runs here: stateless MCP over HTTP, progress in D1.
+// Cloudflare Worker. The website is static assets; only /mcp (stateless MCP over HTTP) and /api/v1/ (REST API for
+// the website and the apps) run here, both with the same learning actions and progress in D1.
 import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
 import card from "../data/card.html";
 import type { Assets } from "./assets.js";
+import { API_PREFIX, handleApi } from "./api.js";
 import { d1Store, deleteInactive, type D1Database } from "./d1-store.js";
+import { createLearning } from "./learning.js";
 import { createServer } from "./server.js";
 
 interface Env {
@@ -12,8 +15,11 @@ interface Env {
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
+    const { pathname } = new URL(request.url);
+    if (pathname === API_PREFIX || pathname.startsWith(`${API_PREFIX}/`))
+      return handleApi(request, createLearning(d1Store(env.DB), { online: true }));
     // Other paths only get here when no static file matches: let the assets answer (404).
-    if (new URL(request.url).pathname !== "/mcp") return env.ASSETS.fetch(request);
+    if (pathname !== "/mcp") return env.ASSETS.fetch(request);
     const assets: Assets = {
       async image(path) {
         const res = await env.ASSETS.fetch(new URL(`/${path}`, request.url).href);

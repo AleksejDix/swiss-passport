@@ -1,6 +1,7 @@
-// Learn online: a browser client for the same MCP tools that Claude and ChatGPT use.
+// Learn online: a client of the REST API /api/v1 (mcp/src/api.ts), which runs the same learning actions as the
+// MCP tools that Claude and ChatGPT use, so progress is the same everywhere.
 // Progress lives on the server under the learner code, which the browser remembers.
-const API = "/mcp";
+const API = "/api/v1";
 
 // Interface text of every language, from the language files in i18n/ (key learn). The page puts it into
 // data-text, so switching the language needs no reload. Quiz content comes translated from the server.
@@ -46,23 +47,46 @@ function h(tag, attrs = {}, ...children) {
   return el;
 }
 
-let rpcId = 0;
-/** Calls one MCP tool and returns { data, images }. */
-async function call(name, args = {}) {
-  const res = await fetch(API, {
-    method: "POST",
-    headers: { "content-type": "application/json", accept: "application/json, text/event-stream" },
-    body: JSON.stringify({
-      jsonrpc: "2.0",
-      id: ++rpcId,
-      method: "tools/call",
-      params: { name, arguments: { language: lang, ...(code && { learner_code: code }), ...args } },
-    }),
+// The REST endpoint of each learning action: the same actions as the MCP tools of the AI apps (mcp/src/learning.ts).
+const ROUTES = {
+  get_progress: ["GET", "/progress"],
+  start_lesson: ["POST", "/lessons"],
+  start_reviews: ["POST", "/reviews"],
+  start_mock_exam: ["POST", "/exams"],
+  answer: ["POST", "/answers"],
+};
+
+/** One request to the API. Errors such as an unknown code (404) come back as JSON with "error"; only outages throw. */
+async function request(method, path, learnerCode, body) {
+  const res = await fetch(`${API}${path}`, {
+    method,
+    headers: {
+      ...(body && { "content-type": "application/json" }),
+      ...(learnerCode && { "x-learner-code": learnerCode }),
+    },
+    ...(body && { body: JSON.stringify(body) }),
   });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const { result, error } = await res.json();
-  if (error) throw new Error(error.message);
-  const { data, images } = result.structuredContent;
+  if (res.status >= 500 || !res.headers.get("content-type")?.includes("application/json")) {
+    throw new Error(`HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+/** Runs one learning action and returns { data, images }. A new learner gets a code first. */
+async function call(name, { learner_code = code, ...args } = {}) {
+  let json;
+  if (!learner_code) {
+    json = await request("POST", "/learners", null, { language: lang });
+    learner_code = json.learner_code;
+  }
+  if (!(json && name === "get_progress")) {
+    const [method, path] = ROUTES[name];
+    json =
+      method === "GET"
+        ? await request(method, `${path}?language=${lang}`, learner_code)
+        : await request(method, path, learner_code, { language: lang, ...args });
+  }
+  const { images, ...data } = json;
   if (data.learner_code && !data.error) {
     code = data.learner_code;
     store.set("sp-code", code);

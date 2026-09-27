@@ -3,12 +3,12 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import type { Assets } from "./assets.js";
 import { catalog, CARD_LABELS, LANGUAGES, type Lang } from "./catalog.js";
-import { createEngine, emptyProgress, REVIEW_SIZE, type Progress } from "@aleksejdix/learning-engine";
-import { newLearnerCode, normalizeCode, type Store } from "./store.js";
+import { REVIEW_SIZE } from "@aleksejdix/learning-engine";
+import { createLearning, engine, type Done, type Out } from "./learning.js";
+import type { Store } from "./store.js";
 
 export const VERSION = "0.9.0";
 
-const engine = createEngine(catalog);
 const { exam } = catalog;
 
 const INSTRUCTIONS = `
@@ -94,12 +94,6 @@ const VOICE_STEP =
   " Then comes this question with its options A to D, read aloud. The learner's spoken answer is checked and saved by the" +
   " answer tool with their letter; the quiz uses only these questions.";
 
-/** What a tool produces before it is turned into an MCP result: data plus the question whose pictures to attach. */
-interface Out {
-  data: Record<string, unknown>;
-  questionId?: string;
-}
-
 /** A result as the model sees it next to the card: which step it is, without the texts and options the card shows. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- any tool result of the engine
 function forModel({ explain_first, question, next, ...rest }: Record<string, any>): Record<string, unknown> {
@@ -158,11 +152,6 @@ async function toResult(assets: Assets, { data, questionId }: Out, lang?: Lang, 
   };
 }
 
-const stepOut = (p: Progress, lang: Lang): Out => {
-  const step = engine.currentStep(p.session!, lang);
-  return { data: step, questionId: step.question.id };
-};
-
 /**
  * Creates the server. `online` adds the learner code: without login, progress is stored per code.
  * Locally there is one learner and progress lives in a file.
@@ -199,49 +188,27 @@ export function createServer(store: Store, { online, assets }: { online: boolean
     .default(false)
     .describe("true in voice conversations: leaves out questions that need pictures.");
 
+  // Finding the learner, loading and saving progress and what each tool does: learning.ts, shared with the REST API.
+  const learning = createLearning(store, { online });
+
   /**
-   * Loads the learner's progress, runs the tool, saves the progress and returns the MCP result.
+   * Runs a learning action and returns the MCP result.
    * `request` is the tool call's context: ChatGPT sends its own "openai/..." keys in _meta.
    */
-  async function run(
-    request: { _meta?: object },
-    args: { language?: Lang; learner_code?: string },
-    fn: (p: Progress, lang: Lang) => Out,
-  ) {
-    let id = "local";
-    let created = false;
-    let p: Progress | undefined;
-    if (!online) {
-      p = await store.load(id);
-    } else if (args.learner_code) {
-      id = normalizeCode(args.learner_code);
-      p = await store.load(id);
-      if (!p)
-        return toResult(assets, {
-          data: {
-            error: `Unknown learner code "${args.learner_code}". Check it, or leave learner_code empty to start fresh.`,
-          },
-        });
-    } else {
-      do id = newLearnerCode();
-      while (await store.load(id));
-      created = true;
-    }
-    p ??= emptyProgress();
-    if (args.language) p.language = args.language;
-    const lang = (p.language ?? LANGUAGES[0]) as Lang; // only languages of the catalog are ever stored
-    const out = fn(p, lang);
-    if (p.session?.voice && out.questionId) out.data = { voice_instructions: VOICE_STEP, ...out.data };
-    await store.save(id, p);
+  async function run(request: { _meta?: object }, action: () => Promise<Done>) {
+    const { out, lang, learnerCode, created, voice } = await action();
+    // Online without a learner (unknown code): only the error.
+    if (online && !learnerCode) return toResult(assets, out);
+    if (voice && out.questionId) out.data = { voice_instructions: VOICE_STEP, ...out.data };
     if (online)
       out.data = {
-        learner_code: id,
+        learner_code: learnerCode,
         ...(created && { new_learner_code: "Tell the learner to write this code down." }),
         ...out.data,
       };
     // In voice conversations the model reads the step aloud, so it needs all of it.
     const chatgpt = Object.keys(request._meta ?? {}).some((key) => key.startsWith("openai/"));
-    return toResult(assets, out, lang, chatgpt && !p.session?.voice);
+    return toResult(assets, out, lang, chatgpt && !voice);
   }
 
   server.registerTool(
@@ -255,7 +222,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       // Locally it only reads; online it may create a new learner code.
       annotations: { ...changesProgress, readOnlyHint: !online, idempotentHint: !online },
     },
-    (args, request) => run(request, args, (p, lang) => ({ data: engine.progress(p, lang) })),
+    (args, request) => run(request, () => learning.progress(args)),
   );
 
   server.registerTool(
@@ -279,24 +246,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
           ),
       },
     },
-    ({ voice, lesson_id, ...args }, request) =>
-      run(request, args, (p, lang) => {
-        // "Let's continue" in a new chat: ChatGPT called start_lesson and the learner lost their place in the lesson.
-        const open = p.session?.kind === "lesson" && !!p.session.voice === voice ? p.session.lesson : undefined;
-        if (open && (lesson_id ?? open) === open) {
-          // Said explicitly: without it ChatGPT started the same lesson a second time, and two cards showed the same step.
-          const out = stepOut(p, lang);
-          return { ...out, data: { continued_unfinished_lesson: true, ...out.data } };
-        }
-        const id = lesson_id ?? engine.nextLessonId(p);
-        if (!id) return { data: { done: true, message: "All lessons done. Continue with reviews and mock exams." } };
-        if (!engine.lessons.includes(id))
-          return {
-            data: { error: `Unknown lesson ${id}. Lessons are ${engine.lessons[0]} to ${engine.lessons.at(-1)}.` },
-          };
-        engine.startLesson(p, id, voice);
-        return stepOut(p, lang);
-      }),
+    ({ voice, lesson_id, ...args }, request) => run(request, () => learning.startLesson(args, { lesson_id, voice })),
   );
 
   server.registerTool(
@@ -310,12 +260,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
         CARD_NOTE,
       inputSchema: { ...common, voice },
     },
-    ({ voice, ...args }, request) =>
-      run(request, args, (p, lang) =>
-        engine.startReviews(p, voice)
-          ? stepOut(p, lang)
-          : { data: { nothing_due: true, message: "No reviews due. Continue with a lesson." } },
-      ),
+    ({ voice, ...args }, request) => run(request, () => learning.startReviews(args, { voice })),
   );
 
   server.registerTool(
@@ -329,11 +274,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
         CARD_NOTE,
       inputSchema: { ...common, voice },
     },
-    ({ voice, ...args }, request) =>
-      run(request, args, (p, lang) => {
-        engine.startExam(p, voice);
-        return stepOut(p, lang);
-      }),
+    ({ voice, ...args }, request) => run(request, () => learning.startExam(args, { voice })),
   );
 
   server.registerTool(
@@ -354,17 +295,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
     },
     ({ answer, question_id, ...args }, request) =>
       // A click on the card (only the card sends question_id) gets the whole step back in structuredContent, as before.
-      run(question_id ? {} : request, args, (p, lang) => {
-        if (!p.session)
-          return { data: { error: "No active session. Call start_lesson, start_reviews or start_mock_exam." } };
-        // A card still showing an earlier question: answer nothing and bring the card to the current step.
-        if (question_id && question_id !== p.session.questions[p.session.pos]) {
-          const out = stepOut(p, lang);
-          return { ...out, data: { question_already_answered: true, ...out.data } };
-        }
-        const r = engine.answer(p, answer, lang);
-        return { data: r, questionId: "next" in r ? r.next?.question.id : undefined };
-      }),
+      run(question_id ? {} : request, () => learning.answer(args, { answer, question_id })),
   );
 
   return server;

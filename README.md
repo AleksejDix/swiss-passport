@@ -157,7 +157,9 @@ The learning engine and the content are kept apart:
 |---|---|
 | `packages/engine/` | The learning engine: lessons, spaced reviews and mock exam. It holds no content: a catalog is passed in with `createEngine(catalog)`. |
 | `mcp/src/catalog.ts` | The Zurich catalog: the content files from the repository root, plus the exam name, the mock exam size and the pass mark. |
+| `mcp/src/learning.ts` | The learning actions for one learner (learner code, progress, lessons, answers), shared by the MCP tools and the REST API. |
 | `mcp/src/server.ts` | The MCP tools and the tutoring instructions. |
+| `mcp/src/api.ts` | The REST API `/api/v1` for the website and the mobile apps: [mcp/API.md](mcp/API.md). |
 | `mcp/src/view/` | The quiz card shown in the chat ([MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/)). |
 
 Another course with four-option questions can reuse the engine with its own catalog: see [packages/engine/README.md](packages/engine/README.md).

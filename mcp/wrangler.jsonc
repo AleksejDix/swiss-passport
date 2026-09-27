@@ -1,5 +1,5 @@
 // Cloudflare Worker for swiss-passport.com: the website (static files from ../site, built into ./public)
-// plus the MCP endpoint /mcp (src/worker.ts). Deployed by Cloudflare Workers Builds on every push to main
+// plus the MCP endpoint /mcp and the REST API /api/v1/ (src/worker.ts). Deployed by Cloudflare Workers Builds on every push to main
 // (root directory mcp/, build: npm ci && npm run build && npm run site, deploy: npx wrangler deploy).
 {
   "$schema": "node_modules/wrangler/config-schema.json",
@@ -11,7 +11,7 @@
     "directory": "./public",
     "binding": "ASSETS",
     // Everything else is served as static files without running the Worker.
-    "run_worker_first": ["/mcp"],
+    "run_worker_first": ["/mcp", "/api/*"],
     // Unknown addresses get /404.html with status 404.
     "not_found_handling": "404-page"
   },
