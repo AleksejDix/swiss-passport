@@ -4,6 +4,7 @@
   "description": "MCP server and website for learning the Zurich naturalisation knowledge test",
   "main": "dist/index.js",
   "scripts": {
+    "typecheck": "npm --prefix ../packages/engine run build && tsc --noEmit",
     "build": "npm --prefix ../packages/engine run build && tsc --noEmit && esbuild src/index.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/index.js --banner:js=\"import{createRequire}from'module';const require=createRequire(import.meta.url);\" && esbuild src/http.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/http.js --banner:js=\"import{createRequire}from'module';const require=createRequire(import.meta.url);\" && node scripts/copy-data.mjs && node scripts/build-view.mjs",
     "start": "node dist/index.js",
     "pack": "npm run build && mcpb pack . swiss-passport-zh.mcpb",

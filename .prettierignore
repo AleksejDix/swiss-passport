@@ -1,0 +1,27 @@
+# Generated or copied files
+packages/*/dist/
+server/public/
+server/dist/
+server/data/
+server/api/
+server/release/
+server/.wrangler/
+server/scripts/preview/out/
+site/.astro/
+site/public/
+playwright-report/
+test-results/
+e2e/__screenshots__/
+private/
+
+# Content and lock files keep the format of the scripts that write them (JSON.stringify(d, null, 2), no final newline).
+*.json
+!.prettierrc.json
+!**/tsconfig.json
+*.jsonc
+
+# Prose: written by hand, not by a formatter.
+*.md
+
+# The quiz card is checked by the server tests, not by the visual tests: reformat it on its own, with a real check.
+server/src/view/card.html

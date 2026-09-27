@@ -29,3 +29,8 @@ server/.wrangler/
 
 # Private notes and issues: local only, never committed
 /private/
+
+# Quality checks: Playwright reports and the local visual reference (e2e/visual.spec.ts)
+playwright-report/
+test-results/
+e2e/__screenshots__/

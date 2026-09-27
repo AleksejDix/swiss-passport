@@ -127,6 +127,22 @@ npm run dev:worker  # the same Worker locally on http://localhost:8787
 npm run release     # self-hosting package for a Mac (Node + built-in SQLite, see deploy/install.sh)
 ```
 
+Quality checks, from the repository root. GitHub Actions runs `check` and `test:e2e` on every push and pull request ([`.github/workflows/checks.yml`](.github/workflows/checks.yml)).
+
+```sh
+npx playwright install chromium   # once: the browser for the end-to-end tests
+npm run check               # lint (ESLint), format (Prettier), types, content files, engine and server tests
+npm run test:e2e            # the site in a browser against the real Worker: pages, links, /learn, CSP, accessibility
+npm run test:visual:update  # screenshots of the current site as the reference (before changing the look or the code)
+npm run test:visual         # compares the site with the reference, pixel by pixel (phone, tablet, desktop)
+```
+
+| Where | What it checks |
+|---|---|
+| `tests/` | The content files fit together: every language has every text and placeholder, every question belongs to one topic, prerequisites have no cycles. |
+| `e2e/` | Playwright against `wrangler dev` (static pages, `/mcp`, local D1, the production security headers). Every test also fails on a console error or a Content-Security-Policy violation. |
+| `e2e/visual.spec.ts` | Visual regression on about 160 pages at three widths. The reference stays local (`e2e/__screenshots__/`, not committed): fonts render differently on each system. |
+
 | Entry point | Transport | Progress stored in |
 |---|---|---|
 | `src/index.ts` | stdio (Claude Desktop extension) | a local JSON file |
