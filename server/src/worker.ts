@@ -3,10 +3,7 @@ import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/
 import card from "../data/card.html";
 import type { Assets } from "./assets.js";
 import { d1Store, deleteInactive, type D1Database } from "./d1-store.js";
-import { reportChanges } from "./indexnow.js";
 import { createServer } from "./server.js";
-
-const DAILY = "30 3 * * *";
 
 interface Env {
   DB: D1Database;
@@ -29,9 +26,7 @@ export default {
     return transport.handleRequest(request);
   },
 
-  // Two cron triggers (wrangler.jsonc): daily the cleanup, every 10 minutes the IndexNow report.
-  async scheduled(controller: { cron: string }, env: Env) {
-    if (controller.cron === DAILY) await deleteInactive(env.DB);
-    else console.log(`IndexNow: ${await reportChanges(env)} pages reported`);
+  async scheduled(_controller: unknown, env: Env) {
+    await deleteInactive(env.DB);
   },
 };

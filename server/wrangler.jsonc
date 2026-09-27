@@ -24,8 +24,7 @@
     }
   ],
   // Daily: delete progress 12 months after the last activity (see the privacy policy).
-  // Every 10 minutes: report new and changed pages to IndexNow (src/indexnow.ts).
-  "triggers": { "crons": ["30 3 * * *", "*/10 * * * *"] },
+  "triggers": { "crons": ["30 3 * * *"] },
   // Workers Logs: calls of /mcp and their errors in the dashboard, kept 3 days (privacy policy).
   // Request bodies (learner code, answers) are not logged.
   "observability": { "enabled": true },
