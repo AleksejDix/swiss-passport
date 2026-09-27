@@ -212,11 +212,20 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       title: "Start a lesson",
       _meta: cardUi,
       annotations: changesProgress,
-      description: "Starts a lesson and returns its first step: a concept explanation and one question. Pick lesson_id from lesson_choices of get_progress." + CARD_NOTE,
-      inputSchema: { ...common, voice, lesson_id: z.string().optional().describe("e.g. l05, one of lesson_choices from get_progress. Default: the recommended next lesson.") },
+      description:
+        "Starts a lesson and returns its first step: a concept explanation and one question. Pick lesson_id from lesson_choices of get_progress." +
+        " Without lesson_id an unfinished lesson continues where it stopped." + CARD_NOTE,
+      inputSchema: {
+        ...common,
+        voice,
+        lesson_id: z.string().optional().describe("e.g. l05, one of lesson_choices from get_progress. Default: the unfinished lesson, otherwise the recommended next lesson."),
+      },
     },
     ({ voice, lesson_id, ...args }) =>
       run(args, (p, lang) => {
+        // "Let's continue" in a new chat: ChatGPT called start_lesson and the learner lost their place in the lesson.
+        const open = p.session?.kind === "lesson" && !!p.session.voice === voice ? p.session.lesson : undefined;
+        if (open && (lesson_id ?? open) === open) return stepOut(p, lang);
         const id = lesson_id ?? engine.nextLessonId(p);
         if (!id) return { data: { done: true, message: "All lessons done. Continue with reviews and mock exams." } };
         if (!engine.lessons.includes(id)) return { data: { error: `Unknown lesson ${id}. Lessons are ${engine.lessons[0]} to ${engine.lessons.at(-1)}.` } };

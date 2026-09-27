@@ -57,6 +57,10 @@ for (;;) {
   answered++;
   assert(r.feedback.correct === !isFirst && r.feedback.why, `answer ${answered} (${qid}) checked with explanation`);
   if (isFirst) assert(r.feedback.comes_again_later_in_this_round, "wrong answer is announced to come again");
+  if (isFirst) {
+    const { json: again } = await call("start_lesson", {});
+    assert(again.step === r.next.step && again.question.id === r.next.question.id, "start_lesson without lesson_id continues the unfinished lesson");
+  }
   if (!r.next) break;
   step = r.next;
   if (step.explain_first) concepts++;
