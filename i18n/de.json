@@ -7558,7 +7558,7 @@
       ]
     },
     "method": {
-      "nav": "Methode",
+      "nav": "Lernmethode",
       "link": "Warum diese Methode funktioniert",
       "title": "So lernst du für den Einbürgerungstest: die Methode hinter Swiss Passport",
       "desc": "Warum Fragen beantworten und in wachsenden Abständen wiederholen besser wirkt als Lesen, und wie Swiss Passport damit auf den Grundkenntnistest Zürich vorbereitet.",
@@ -7828,7 +7828,33 @@
       }
     },
     "not_found": "Diese Seite gibt es nicht.",
-    "privacy": "Datenschutz"
+    "privacy": "Datenschutz",
+    "curriculum": {
+      "nav": "Lehrplan",
+      "title": "Lehrplan: 37 Lektionen für den Einbürgerungstest Zürich",
+      "desc": "Wie der Kurs aufgebaut ist: 7 Teile, 37 Lektionen, 96 Themen und die 350 offiziellen Fragen. Womit du anfangen kannst und welche Lektion auf welcher aufbaut.",
+      "lede": "Der Kurs führt dich in 37 kurzen Lektionen durch alle 350 offiziellen Fragen. Du musst nicht bei Lektion 1 anfangen: Viele Lektionen stehen für sich, andere bauen aufeinander auf.",
+      "built_title": "Aufbau",
+      "facts": [
+        "Teile",
+        "Lektionen",
+        "Themen",
+        "offizielle Fragen"
+      ],
+      "built_text": [
+        "Jede Lektion behandelt ein bis fünf Themen. Zu jedem Thema gibt es eine kurze Erklärung und die offiziellen Fragen dazu.",
+        "Die Teile 1 bis 6 gelten für die ganze Schweiz, Teil 7 für den Kanton Zürich und seine Gemeinden."
+      ],
+      "order_title": "Reihenfolge",
+      "order_text": [
+        "Mit den Lektionen der Stufe 1 kannst du sofort beginnen. Die anderen bauen auf den Lektionen auf, die bei ihnen stehen: Wer den Föderalismus lernt, sollte schon wissen, was eine Demokratie ist.",
+        "Beim Online-Lernen und in den KI-Apps wählst du selbst, womit du weitermachst. Wir schlagen jeweils eine Lektion aus dem Teil vor, den du am längsten nicht geübt hast. So wechseln die Themen ab, wie später im Test."
+      ],
+      "stage": "Stufe {n}",
+      "lesson_ref": "Lektion {n}",
+      "after": "nach {list}",
+      "map_label": "Die 37 Lektionen nach Teil und Stufe"
+    }
   },
   "learn": {
     "langs": "Sprache",
@@ -7840,7 +7866,6 @@
     "lede": "Kurze Lektionen, Wiederholungen zur richtigen Zeit und Probeprüfungen mit den offiziellen Fragen.",
     "unofficial": "Kostenlos und unabhängig. Kein offizielles Angebot des Kantons Zürich.",
     "lesson": "Lektion",
-    "continueLesson": "Weiter mit der Lektion",
     "reviews": "Wiederholen",
     "due": "{n} fällig",
     "noneDue": "nichts fällig",
@@ -7872,7 +7897,10 @@
     "mistakes": "Deine Fehler",
     "yours": "Deine Antwort",
     "error": "Keine Verbindung zum Server. Versuch es nochmals.",
-    "nextLesson": "Nächste Lektion"
+    "nextLesson": "Nächste Lektion",
+    "startWith": "Womit fängst du an?",
+    "chooseNext": "Wähle die nächste Lektion",
+    "recommended": "empfohlen"
   },
   "card": {
     "right": "Richtig",

@@ -77,6 +77,7 @@
     {
       "id": "l01",
       "unit": "u1",
+      "requires": [],
       "concepts": [
         "state_names",
         "national_symbols",
@@ -86,6 +87,7 @@
     {
       "id": "l02",
       "unit": "u1",
+      "requires": [],
       "concepts": [
         "regions",
         "mountains",
@@ -96,6 +98,9 @@
     {
       "id": "l03",
       "unit": "u1",
+      "requires": [
+        "l02"
+      ],
       "concepts": [
         "neighbours",
         "size",
@@ -106,6 +111,9 @@
     {
       "id": "l04",
       "unit": "u1",
+      "requires": [
+        "l03"
+      ],
       "concepts": [
         "national_languages",
         "language_regions"
@@ -114,6 +122,7 @@
     {
       "id": "l05",
       "unit": "u2",
+      "requires": [],
       "concepts": [
         "democracy",
         "rule_of_law"
@@ -122,6 +131,9 @@
     {
       "id": "l06",
       "unit": "u2",
+      "requires": [
+        "l05"
+      ],
       "concepts": [
         "three_levels",
         "federal_tasks"
@@ -130,6 +142,9 @@
     {
       "id": "l07",
       "unit": "u2",
+      "requires": [
+        "l06"
+      ],
       "concepts": [
         "separation_of_powers",
         "justice_police"
@@ -138,6 +153,9 @@
     {
       "id": "l08",
       "unit": "u2",
+      "requires": [
+        "l07"
+      ],
       "concepts": [
         "parliament_chambers",
         "parliament_tasks"
@@ -146,6 +164,9 @@
     {
       "id": "l09",
       "unit": "u2",
+      "requires": [
+        "l08"
+      ],
       "concepts": [
         "federal_council",
         "administration"
@@ -154,6 +175,9 @@
     {
       "id": "l10",
       "unit": "u3",
+      "requires": [
+        "l06"
+      ],
       "concepts": [
         "voting_rights",
         "swiss_abroad",
@@ -163,6 +187,10 @@
     {
       "id": "l11",
       "unit": "u3",
+      "requires": [
+        "l08",
+        "l10"
+      ],
       "concepts": [
         "referendum",
         "initiative",
@@ -173,6 +201,9 @@
     {
       "id": "l12",
       "unit": "u3",
+      "requires": [
+        "l10"
+      ],
       "concepts": [
         "parties",
         "interest_groups",
@@ -182,6 +213,9 @@
     {
       "id": "l13",
       "unit": "u3",
+      "requires": [
+        "l05"
+      ],
       "concepts": [
         "freedoms",
         "equality"
@@ -190,6 +224,9 @@
     {
       "id": "l14",
       "unit": "u3",
+      "requires": [
+        "l07"
+      ],
       "concepts": [
         "laws_codes",
         "prohibitions"
@@ -198,6 +235,9 @@
     {
       "id": "l15",
       "unit": "u3",
+      "requires": [
+        "l13"
+      ],
       "concepts": [
         "duties",
         "military_service"
@@ -206,6 +246,7 @@
     {
       "id": "l16",
       "unit": "u4",
+      "requires": [],
       "concepts": [
         "three_pillars",
         "ahv_iv"
@@ -214,6 +255,9 @@
     {
       "id": "l17",
       "unit": "u4",
+      "requires": [
+        "l16"
+      ],
       "concepts": [
         "social_insurance",
         "health_insurance"
@@ -222,6 +266,7 @@
     {
       "id": "l18",
       "unit": "u4",
+      "requires": [],
       "concepts": [
         "employment",
         "labour_disputes",
@@ -231,6 +276,9 @@
     {
       "id": "l19",
       "unit": "u4",
+      "requires": [
+        "l06"
+      ],
       "concepts": [
         "taxes",
         "family_support"
@@ -239,6 +287,7 @@
     {
       "id": "l20",
       "unit": "u4",
+      "requires": [],
       "concepts": [
         "marriage",
         "family_law",
@@ -248,6 +297,7 @@
     {
       "id": "l21",
       "unit": "u4",
+      "requires": [],
       "concepts": [
         "school",
         "associations",
@@ -258,6 +308,7 @@
     {
       "id": "l22",
       "unit": "u5",
+      "requires": [],
       "concepts": [
         "early_history",
         "founding_1291",
@@ -267,6 +318,9 @@
     {
       "id": "l23",
       "unit": "u5",
+      "requires": [
+        "l22"
+      ],
       "concepts": [
         "reformation",
         "helvetic_republic",
@@ -276,6 +330,9 @@
     {
       "id": "l24",
       "unit": "u5",
+      "requires": [
+        "l23"
+      ],
       "concepts": [
         "founding_1848",
         "industrialisation"
@@ -284,6 +341,9 @@
     {
       "id": "l25",
       "unit": "u5",
+      "requires": [
+        "l24"
+      ],
       "concepts": [
         "general_strike",
         "ww2",
@@ -295,6 +355,10 @@
     {
       "id": "l26",
       "unit": "u5",
+      "requires": [
+        "l10",
+        "l24"
+      ],
       "concepts": [
         "women_rights"
       ]
@@ -302,6 +366,7 @@
     {
       "id": "l27",
       "unit": "u6",
+      "requires": [],
       "concepts": [
         "traditions",
         "sports"
@@ -310,6 +375,7 @@
     {
       "id": "l28",
       "unit": "u6",
+      "requires": [],
       "concepts": [
         "arts"
       ]
@@ -317,6 +383,7 @@
     {
       "id": "l29",
       "unit": "u6",
+      "requires": [],
       "concepts": [
         "watch_industry",
         "economy",
@@ -326,6 +393,9 @@
     {
       "id": "l30",
       "unit": "u6",
+      "requires": [
+        "l23"
+      ],
       "concepts": [
         "international_orgs",
         "eu_relations"
@@ -334,6 +404,9 @@
     {
       "id": "l31",
       "unit": "u7",
+      "requires": [
+        "l06"
+      ],
       "concepts": [
         "zh_government",
         "zh_parliament",
@@ -343,6 +416,9 @@
     {
       "id": "l32",
       "unit": "u7",
+      "requires": [
+        "l31"
+      ],
       "concepts": [
         "municipal_politics",
         "municipal_tasks"
@@ -351,6 +427,9 @@
     {
       "id": "l33",
       "unit": "u7",
+      "requires": [
+        "l32"
+      ],
       "concepts": [
         "zh_offices",
         "zh_taxes",
@@ -361,6 +440,7 @@
     {
       "id": "l34",
       "unit": "u7",
+      "requires": [],
       "concepts": [
         "zh_location",
         "zh_cities"
@@ -369,6 +449,9 @@
     {
       "id": "l35",
       "unit": "u7",
+      "requires": [
+        "l34"
+      ],
       "concepts": [
         "zh_waters",
         "zh_land"
@@ -377,6 +460,9 @@
     {
       "id": "l36",
       "unit": "u7",
+      "requires": [
+        "l22"
+      ],
       "concepts": [
         "zh_ancient",
         "zh_reformation",
@@ -386,6 +472,7 @@
     {
       "id": "l37",
       "unit": "u7",
+      "requires": [],
       "concepts": [
         "zh_sechselaeuten",
         "zh_events",

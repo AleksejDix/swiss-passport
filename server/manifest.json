@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "swiss-passport-zh",
   "display_name": "Swiss Passport: Zurich Knowledge Test",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "description": "Learn for the naturalisation knowledge test (Grundkenntnistest) of the Canton of Zurich, in 7 languages.",
   "long_description": "Short lessons, spaced reviews and 50-question mock exams based on the 350 official questions of the Canton of Zurich. Explanations are checked against official sources. Languages: German, English, French, Italian, Russian, Ukrainian, Spanish. Progress is saved only on your computer.",
   "author": {

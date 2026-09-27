@@ -7558,7 +7558,7 @@
       ]
     },
     "method": {
-      "nav": "Metodo",
+      "nav": "Metodo di studio",
       "link": "Perché questo metodo funziona",
       "title": "Come studiare per il test di naturalizzazione: il metodo di Swiss Passport",
       "desc": "Perché rispondere alle domande e ripeterle a intervalli crescenti funziona meglio che rileggere, e come Swiss Passport ti prepara così al test di conoscenze di Zurigo.",
@@ -7828,7 +7828,33 @@
       }
     },
     "not_found": "Questa pagina non esiste.",
-    "privacy": "Protezione dei dati"
+    "privacy": "Protezione dei dati",
+    "curriculum": {
+      "nav": "Programma",
+      "title": "Programma: 37 lezioni per il test di naturalizzazione di Zurigo",
+      "desc": "Come è costruito il corso: 7 parti, 37 lezioni, 96 temi e le 350 domande ufficiali. Da dove puoi iniziare e quale lezione si basa su quale.",
+      "lede": "Il corso ti accompagna attraverso tutte le 350 domande ufficiali in 37 lezioni brevi. Non devi iniziare dalla lezione 1: molte lezioni stanno in piedi da sole, altre si basano l'una sull'altra.",
+      "built_title": "Struttura",
+      "facts": [
+        "parti",
+        "lezioni",
+        "temi",
+        "domande ufficiali"
+      ],
+      "built_text": [
+        "Ogni lezione tratta da uno a cinque temi. Ogni tema ha una breve spiegazione e le domande ufficiali che lo riguardano.",
+        "Le parti da 1 a 6 valgono per tutta la Svizzera, la parte 7 per il Cantone di Zurigo e i suoi Comuni."
+      ],
+      "order_title": "Ordine",
+      "order_text": [
+        "Puoi iniziare subito con le lezioni del livello 1. Le altre si basano sulle lezioni indicate accanto: per studiare il federalismo è meglio sapere già che cos'è una democrazia.",
+        "Quando studi online o nelle app di IA, scegli tu come continuare. Ti proponiamo una lezione della parte che non eserciti da più tempo. Così i temi si alternano, come poi nel test."
+      ],
+      "stage": "Livello {n}",
+      "lesson_ref": "la lezione {n}",
+      "after": "dopo {list}",
+      "map_label": "Le 37 lezioni per parte e livello"
+    }
   },
   "learn": {
     "langs": "Lingua",
@@ -7840,7 +7866,6 @@
     "lede": "Lezioni brevi, ripassi al momento giusto ed esami di prova con le domande ufficiali.",
     "unofficial": "Gratuito e indipendente. Non è un servizio ufficiale del Cantone di Zurigo.",
     "lesson": "Lezione",
-    "continueLesson": "Continua la lezione",
     "reviews": "Ripassa",
     "due": "{n} da ripassare",
     "noneDue": "niente da ripassare",
@@ -7872,7 +7897,10 @@
     "mistakes": "I tuoi errori",
     "yours": "La tua risposta",
     "error": "Nessuna connessione al server. Riprova.",
-    "nextLesson": "Prossima lezione"
+    "nextLesson": "Prossima lezione",
+    "startWith": "Da dove vuoi iniziare?",
+    "chooseNext": "Scegli la prossima lezione",
+    "recommended": "consigliata"
   },
   "card": {
     "right": "Giusto",

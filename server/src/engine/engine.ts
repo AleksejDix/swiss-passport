@@ -1,4 +1,4 @@
-// Learning logic: lessons in curriculum order, spaced repetition per concept, mock exam.
+// Learning logic: lessons once their prerequisites are done, the units in turn; spaced repetition per concept; mock exam.
 // Every activity is a session that hands out exactly one question at a time.
 import { indexCatalog, type Catalog, type Letter } from "./catalog.js";
 import type { Progress, Session } from "./progress.js";
@@ -43,8 +43,36 @@ export function createEngine(catalog: Catalog) {
   const isLessonDone = (p: Progress, lessonId: string) =>
     lessonQuestions(lessonId, true).every((q) => p.answered[q]);
 
+  /** Lessons that are not done and whose prerequisites are done. */
+  const isAvailable = (p: Progress, lessonId: string) =>
+    !isLessonDone(p, lessonId) && (lessonById.get(lessonId)!.requires ?? []).every((r) => isLessonDone(p, r));
+
+  /** When the learner last answered a question of each unit (ISO time), from lessons and reviews. */
+  function lastStudied(p: Progress): Map<string, string> {
+    const last = new Map<string, string>();
+    for (const [qid, a] of Object.entries(p.answered)) {
+      const unit = lessonById.get(conceptById.get(conceptOfQuestion.get(qid)!)!.lesson)!.unit;
+      if (a.at > (last.get(unit) ?? "")) last.set(unit, a.at);
+    }
+    return last;
+  }
+
+  /**
+   * The lessons the learner can start now, one per unit: the first available lesson of each unit.
+   * The unit studied longest ago (or never) comes first, so the units take turns instead of always the same start.
+   * The first one is the recommended next lesson.
+   */
+  function lessonChoices(p: Progress): string[] {
+    const last = lastStudied(p);
+    return curriculum.units
+      .map((u) => ({ unit: u.id, lesson: u.lessons.find((l) => isAvailable(p, l)) }))
+      .filter((c): c is { unit: string; lesson: string } => Boolean(c.lesson))
+      .sort((a, b) => (last.get(a.unit) ?? "").localeCompare(last.get(b.unit) ?? ""))
+      .map((c) => c.lesson);
+  }
+
   function nextLessonId(p: Progress): string | undefined {
-    return lessonOrder.find((l) => !isLessonDone(p, l));
+    return lessonChoices(p)[0];
   }
 
   function dueConcepts(p: Progress, now = new Date()): string[] {
@@ -204,6 +232,8 @@ export function createEngine(catalog: Catalog) {
       lessons_done: lessonOrder.filter((l) => isLessonDone(p, l)).length,
       lessons_total: lessonOrder.length,
       next_lesson: next ? { id: next, title: lessonTitle(next, lang) } : null,
+      // Offer these as a choice: one lesson per unit, the recommended one (next_lesson) first.
+      lesson_choices: lessonChoices(p).map((id) => ({ id, title: lessonTitle(id, lang), unit: unitTitle(lessonById.get(id)!.unit, lang) })),
       reviews_due: dueConcepts(p).length,
       unfinished_session: p.session ? { kind: p.session.kind, step: `${p.session.pos + 1}/${p.session.questions.length}` } : null,
       readiness_percent: Math.round((100 * [...questions.keys()].filter(known).length) / questions.size),

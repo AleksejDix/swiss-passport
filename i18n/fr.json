@@ -7558,7 +7558,7 @@
       ]
     },
     "method": {
-      "nav": "Méthode",
+      "nav": "Méthode d'apprentissage",
       "link": "Pourquoi cette méthode fonctionne",
       "title": "Comment apprendre pour le test de naturalisation : la méthode de Swiss Passport",
       "desc": "Pourquoi répondre aux questions et les répéter à intervalles croissants fonctionne mieux que relire, et comment Swiss Passport t'y prépare pour le test de connaissances de Zurich.",
@@ -7828,7 +7828,33 @@
       }
     },
     "not_found": "Cette page n'existe pas.",
-    "privacy": "Protection des données"
+    "privacy": "Protection des données",
+    "curriculum": {
+      "nav": "Programme",
+      "title": "Programme : 37 leçons pour le test de naturalisation de Zurich",
+      "desc": "Comment le cours est construit : 7 parties, 37 leçons, 96 thèmes et les 350 questions officielles. Par où commencer et quelle leçon s'appuie sur quelle autre.",
+      "lede": "Le cours te fait parcourir les 350 questions officielles en 37 courtes leçons. Tu n'es pas obligé de commencer par la leçon 1 : beaucoup de leçons sont indépendantes, d'autres s'appuient les unes sur les autres.",
+      "built_title": "Structure",
+      "facts": [
+        "parties",
+        "leçons",
+        "thèmes",
+        "questions officielles"
+      ],
+      "built_text": [
+        "Chaque leçon traite d'un à cinq thèmes. Chaque thème a une courte explication et les questions officielles qui s'y rapportent.",
+        "Les parties 1 à 6 valent pour toute la Suisse, la partie 7 pour le canton de Zurich et ses communes."
+      ],
+      "order_title": "Ordre",
+      "order_text": [
+        "Tu peux commencer tout de suite par les leçons de l'étape 1. Les autres s'appuient sur les leçons indiquées à côté d'elles : pour apprendre le fédéralisme, il vaut mieux savoir déjà ce qu'est une démocratie.",
+        "Quand tu apprends en ligne ou dans les applis d'IA, tu choisis toi-même la suite. Nous te proposons une leçon de la partie que tu n'as pas travaillée depuis le plus longtemps. Ainsi les thèmes alternent, comme plus tard au test."
+      ],
+      "stage": "Étape {n}",
+      "lesson_ref": "la leçon {n}",
+      "after": "après {list}",
+      "map_label": "Les 37 leçons par partie et par étape"
+    }
   },
   "learn": {
     "langs": "Langue",
@@ -7840,7 +7866,6 @@
     "lede": "Des leçons courtes, des révisions au bon moment et des examens blancs avec les questions officielles.",
     "unofficial": "Gratuit et indépendant. Ce n'est pas un service officiel du canton de Zurich.",
     "lesson": "Leçon",
-    "continueLesson": "Continuer la leçon",
     "reviews": "Réviser",
     "due": "{n} à réviser",
     "noneDue": "rien à réviser",
@@ -7872,7 +7897,10 @@
     "mistakes": "Tes erreurs",
     "yours": "Ta réponse",
     "error": "Pas de connexion au serveur. Réessaie.",
-    "nextLesson": "Leçon suivante"
+    "nextLesson": "Leçon suivante",
+    "startWith": "Par où veux-tu commencer ?",
+    "chooseNext": "Choisis ta prochaine leçon",
+    "recommended": "recommandée"
   },
   "card": {
     "right": "Correct",

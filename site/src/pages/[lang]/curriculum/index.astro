@@ -1,0 +1,83 @@
+---
+// The curriculum: how the course is built and which lesson builds on which (issue #15).
+// Stages come from requires in curriculum.json, the same rule the learning engine uses to offer lessons.
+import Base from "../../../layouts/Base.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import "../../../styles/curriculum.css";
+import { UI } from "../../../ui.js";
+import { METHOD } from "../../../method.js";
+import { CURRICULUM, stageOf, lessonNumber } from "../../../curriculum.js";
+import { TEXT, LANG_IDS, units, lessons, concepts, questions, curriculumPath, methodPath, questionsPath } from "../../../data.js";
+
+export function getStaticPaths() {
+  return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
+}
+
+const { lang } = Astro.props;
+const c = CURRICULUM[lang];
+const ui = UI[lang];
+const t = TEXT[lang];
+const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, curriculumPath(id)]));
+const byId = new Map(lessons.map((l) => [l.id, l]));
+const stages = Math.max(...lessons.map((l) => stageOf(l.id))) + 1;
+const list = new Intl.ListFormat(t.language, { type: "conjunction" });
+const after = (l) =>
+  l.requires?.length ? c.after.replace("{list}", list.format(l.requires.map((r) => c.lesson_ref.replace("{n}", lessonNumber(r))))) : null;
+const figures = [units.length, lessons.length, concepts.length, questions.length];
+---
+<Base lang={lang} title={c.title} description={c.desc} alternates={alternates}>
+<main class="page">
+  <header class="qhead">
+    <Breadcrumbs lang={lang} items={[[c.nav, curriculumPath(lang)]]} />
+    <h1>{c.title}</h1>
+    <p class="lede">{c.lede}</p>
+  </header>
+
+  <section class="row" aria-labelledby="built">
+    <h2 id="built">{c.built_title}</h2>
+    <div>
+      <table class="facts">
+        <tbody>
+          {figures.map((n, i) => <tr><td>{n}</td><th scope="row">{c.facts[i]}</th></tr>)}
+        </tbody>
+      </table>
+      {c.built_text.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+
+  <section class="row" aria-labelledby="order">
+    <h2 id="order">{c.order_title}</h2>
+    <div>{c.order_text.map((p) => <p>{p}</p>)}</div>
+  </section>
+
+  <!-- The map: a row per unit, a column per stage on wide screens; a list per unit elsewhere. -->
+  <section class="cur" aria-label={c.map_label}>
+    <div class="cur-head" aria-hidden="true">
+      {Array.from({ length: stages }, (_, i) => <span style={`--c:${3 + 2 * i}`}>{c.stage.replace("{n}", i + 1)}</span>)}
+    </div>
+    {units.map((u) => (
+      <div class="cur-unit">
+        <h3>{t.units[u.id].title}</h3>
+        <ol>
+          {u.lessons.map((id) => {
+            const l = byId.get(id);
+            const stage = stageOf(id);
+            return (
+              <li style={`--c:${1 + 2 * stage}`}>
+                <a href={`${questionsPath(lang)}#${id}`}><b>{lessonNumber(id)}</b> {t.lessons[id].title}</a>
+                <span class="small cur-stage">{c.stage.replace("{n}", stage + 1)}</span>
+                {after(l) && <span class="small">{after(l)}</span>}
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    ))}
+  </section>
+
+  <nav class="row qnav" aria-label={c.nav}>
+    <p class="cta"><a class="button" href="/learn/">{ui.practise}</a></p>
+    <p><a href={questionsPath(lang)}>{ui.nav_questions}</a> <a href={methodPath(lang)}>{METHOD[lang].nav}</a></p>
+  </nav>
+</main>
+</Base>

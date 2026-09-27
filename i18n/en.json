@@ -7558,7 +7558,7 @@
       ]
     },
     "method": {
-      "nav": "Method",
+      "nav": "Learning method",
       "link": "Why this method works",
       "title": "How to learn for the citizenship test: the method behind Swiss Passport",
       "desc": "Why answering questions and repeating them at growing intervals works better than rereading, and how Swiss Passport uses it to prepare you for the Zurich knowledge test.",
@@ -7828,7 +7828,33 @@
       }
     },
     "not_found": "This page does not exist.",
-    "privacy": "Privacy"
+    "privacy": "Privacy",
+    "curriculum": {
+      "nav": "Curriculum",
+      "title": "Curriculum: 37 lessons for the Zurich citizenship test",
+      "desc": "How the course is built: 7 units, 37 lessons, 96 topics and the 350 official questions. Where you can start and which lesson builds on which.",
+      "lede": "The course takes you through all 350 official questions in 37 short lessons. You do not have to start with lesson 1: many lessons stand on their own, others build on each other.",
+      "built_title": "How it is built",
+      "facts": [
+        "units",
+        "lessons",
+        "topics",
+        "official questions"
+      ],
+      "built_text": [
+        "Each lesson covers one to five topics. Every topic has a short explanation and the official questions that go with it.",
+        "Units 1 to 6 apply to all of Switzerland, unit 7 to the canton of Zurich and its municipalities."
+      ],
+      "order_title": "Order",
+      "order_text": [
+        "You can start the lessons of stage 1 right away. The others build on the lessons listed with them: to learn about federalism, you should already know what a democracy is.",
+        "When you learn online or in the AI apps, you choose what comes next. We suggest a lesson from the unit you have not practised for the longest time. That way the topics alternate, as they will in the test."
+      ],
+      "stage": "Stage {n}",
+      "lesson_ref": "lesson {n}",
+      "after": "after {list}",
+      "map_label": "The 37 lessons by unit and stage"
+    }
   },
   "learn": {
     "langs": "Language",
@@ -7840,7 +7866,6 @@
     "lede": "Short lessons, reviews at the right time and mock exams with the official questions.",
     "unofficial": "Free and independent. Not an official service of the Canton of Zurich.",
     "lesson": "Lesson",
-    "continueLesson": "Continue lesson",
     "reviews": "Review",
     "due": "{n} due",
     "noneDue": "nothing due",
@@ -7872,7 +7897,10 @@
     "mistakes": "Your mistakes",
     "yours": "Your answer",
     "error": "No connection to the server. Try again.",
-    "nextLesson": "Next lesson"
+    "nextLesson": "Next lesson",
+    "startWith": "Where do you want to start?",
+    "chooseNext": "Choose your next lesson",
+    "recommended": "recommended"
   },
   "card": {
     "right": "Correct",

@@ -36,7 +36,8 @@ assert(card.contents[0].mimeType === "text/html;profile=mcp-app" && card.content
 assert(card.contents[0]._meta?.ui?.csp && card.contents[0]._meta["openai/widgetDomain"] === "https://swiss-passport.com", "quiz card declares its CSP and domain");
 
 let { json: p } = await call("get_progress", { language: "en" });
-assert(p.lessons_done === 0 && p.next_lesson.id === "l01", "fresh learner starts at l01");
+assert(p.lessons_done === 0 && p.next_lesson.id === "l01", "fresh learner: l01 recommended");
+assert(p.lesson_choices.map((c) => c.id).join() === "l01,l05,l16,l22,l27,l34", "fresh learner: one lesson per open unit to choose from (unit 3 needs unit 2 first)");
 
 let { json: step } = await call("start_lesson", {});
 assert(step.lesson?.position === "1/37" && step.explain_first && step.step === "1/9", "lesson starts with one concept and one question");
@@ -104,7 +105,8 @@ for (let i = 0; i < 50; i++) {
 assert(seen.size === 50 && r.finished.score === 40 && r.finished.mistakes.length === 10, "mock exam: 50 distinct questions, no feedback, graded 40/50");
 
 ({ json: p } = await call("get_progress", {}));
-assert(p.lessons_done === 1 && p.next_lesson.id === "l02" && !p.unfinished_session, "progress saved: next lesson l02");
+assert(p.lessons_done === 1 && p.next_lesson.id === "l05" && !p.unfinished_session, "progress saved: next lesson l05, from another unit");
+assert(p.lesson_choices.at(-1).id === "l02", "the unit just studied comes last");
 
 // Voice: picture questions are left out, and the lesson still counts as done.
 const pictureQs = new Set(quiz.questions.filter((q) => q.image || q.options.some((o) => o.image)).map((q) => q.id));

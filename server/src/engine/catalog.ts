@@ -13,7 +13,8 @@ export interface Question {
 }
 export interface Curriculum {
   units: { id: string; lessons: string[] }[];
-  lessons: { id: string; unit: string; concepts: string[] }[];
+  /** requires: lessons to finish first. Lessons without it can be started right away. */
+  lessons: { id: string; unit: string; requires?: string[]; concepts: string[] }[];
   concepts: { id: string; lesson: string; questions: string[]; sources: string[] }[];
 }
 interface KeyTerm { term: string; definition: string }

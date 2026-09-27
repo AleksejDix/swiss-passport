@@ -13,7 +13,8 @@ import { GUIDE } from "../guide.js";
 import { ABOUT } from "../about.js";
 import { METHOD } from "../method.js";
 import { CONNECT } from "../connect.js";
-import { TEXT, LANG_IDS, homePath, questionsPath, guidePath, aboutPath, methodPath, connectPath } from "../data.js";
+import { CURRICULUM } from "../curriculum.js";
+import { TEXT, LANG_IDS, homePath, questionsPath, guidePath, aboutPath, methodPath, connectPath, curriculumPath } from "../data.js";
 import { byLang } from "../../../i18n/index.js";
 
 const { lang, title, description, alternates, jsonLd, xDefault, remember = true } = Astro.props;
@@ -71,6 +72,7 @@ const PRIVACY_LABEL = byLang((t) => t.site.privacy);
     <a href="/learn/">{s.nav_learn}</a>
     <a href={connectPath(lang)}>{CONNECT[lang].nav}</a>
     <a href={questionsPath(lang)}>{s.nav_questions}</a>
+    <a href={curriculumPath(lang)}>{CURRICULUM[lang].nav}</a>
     <a href={guidePath(lang)}>{GUIDE[lang].nav}</a>
     <a href={methodPath(lang)}>{METHOD[lang].nav}</a>
   </nav>

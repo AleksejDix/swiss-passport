@@ -55,6 +55,9 @@
 /* Overview: the next thing to do, as three buttons */
 .actions { display: grid; gap: 0.75rem; }
 p + .actions { margin-top: calc(2 * var(--line)); }
+/* Overview: the lessons to choose from, then reviews and the mock exam */
+.actions + .actions { margin-top: var(--line); }
+.actions-title { font-size: var(--s); line-height: var(--s-lh); }
 .action {
   display: flex; justify-content: space-between; align-items: baseline; gap: var(--gutter); width: 100%;
   font: inherit; letter-spacing: inherit; text-align: left; padding: calc(0.75rem - 1px) 1rem; cursor: pointer;

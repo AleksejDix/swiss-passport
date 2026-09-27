@@ -118,15 +118,21 @@ async function home() {
   const exams = p.last_exams.map((e) => `${e.score}/${e.total}`).join(", ");
   show(...frame(
     h("div", { class: "intro" }, h("h1", {}, s.title), h("p", { class: "overview-lede" }, s.lede), h("p", { class: "note" }, s.unofficial)),
+    // Up to three lessons from different units to choose from, the recommended one first; then reviews and the mock exam.
+    [h("div", { class: "actions" },
+      h("h2", { class: "actions-title" }, p.lessons_done ? s.chooseNext : s.startWith),
+      p.lesson_choices.length
+        ? p.lesson_choices.slice(0, 3).map((l, i) =>
+          h("button", { class: `action${i ? "" : " primary"}`, onclick: () => start("start_lesson", { lesson_id: l.id }) },
+            h("span", {}, `${s.lesson} ${Number(l.id.slice(1))}: ${l.title}`),
+            h("span", {}, i ? l.unit : s.recommended)))
+        : h("button", { class: "action primary", disabled: true }, h("span", {}, s.allDone), h("span", {}))),
     h("div", { class: "actions" },
-      h("button", { class: "action primary", onclick: () => start("start_lesson"), disabled: !p.next_lesson },
-        h("span", {}, p.next_lesson ? `${s.lesson} ${Number(p.next_lesson.id.slice(1))}: ${p.next_lesson.title}` : s.allDone),
-        h("span", {}, p.next_lesson ? s.continueLesson : "")),
       h("button", { class: "action", onclick: () => start("start_reviews"), disabled: !p.reviews_due },
         h("span", {}, s.reviews), h("span", {}, p.reviews_due ? s.due.replace("{n}", p.reviews_due) : s.noneDue)),
       h("button", { class: "action", onclick: () => start("start_mock_exam") },
         h("span", {}, s.exam), h("span", {}, s.examSub)),
-    ),
+    )],
     [h("section", { class: "stats" },
       h("table", { class: "facts" },
         h("tr", {}, h("td", {}, `${p.lessons_done}/${p.lessons_total}`), h("th", { scope: "row" }, s.lessonsDone)),
@@ -171,10 +177,10 @@ let kind = "lesson";
 let view = {};
 let stepTitle;
 
-async function start(tool) {
+async function start(tool, args = {}) {
   kind = { start_lesson: "lesson", start_reviews: "review", start_mock_exam: "exam" }[tool];
   try {
-    const { data, images } = await call(tool);
+    const { data, images } = await call(tool, args);
     if (!data.question) await home();
     else renderStep(data, images);
     return data;
@@ -391,15 +397,21 @@ const AGENT_TOOLS = [
     },
   },
   ...[
-    ["start_lesson", "Start a lesson", "Opens the next lesson on the page and returns its first question. A step with explain_first introduces a new topic: explain it briefly before the question."],
+    ["start_lesson", "Start a lesson", "Opens a lesson on the page and returns its first question. Offer the learner the lesson_choices from get_progress and pass the chosen lesson_id; without it the recommended lesson opens. A step with explain_first introduces a new topic: explain it briefly before the question."],
     ["start_reviews", "Start reviews", "Opens the reviews that are due on the page and returns the first question."],
     ["start_mock_exam", "Start a mock exam", "Starts a mock exam on the page: 50 random official questions without feedback until the end, like the real test. Returns the first question."],
   ].map(([name, title, description]) => ({
     name,
     title,
     description,
-    async execute() {
-      const data = await start(name);
+    ...(name === "start_lesson" && {
+      inputSchema: {
+        type: "object",
+        properties: { lesson_id: { type: "string", description: "A lesson from lesson_choices of get_progress, e.g. l05." } },
+      },
+    }),
+    async execute({ lesson_id } = {}) {
+      const data = await start(name, lesson_id ? { lesson_id } : {});
       if (!data) return { error: t().error };
       return data.question ? stepForAgent(data) : { message: data.message };
     },

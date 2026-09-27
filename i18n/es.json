@@ -7558,7 +7558,7 @@
       ]
     },
     "method": {
-      "nav": "Método",
+      "nav": "Método de estudio",
       "link": "Por qué funciona este método",
       "title": "Cómo estudiar para el examen de naturalización: el método de Swiss Passport",
       "desc": "Por qué responder preguntas y repasarlas a intervalos cada vez más largos funciona mejor que leer, y cómo lo usa Swiss Passport para preparar el examen de conocimientos básicos de Zúrich.",
@@ -7828,7 +7828,33 @@
       }
     },
     "not_found": "Esta página no existe.",
-    "privacy": "Protección de datos"
+    "privacy": "Protección de datos",
+    "curriculum": {
+      "nav": "Plan de estudios",
+      "title": "Plan de estudios: 37 lecciones para el examen de naturalización de Zúrich",
+      "desc": "Cómo está construido el curso: 7 partes, 37 lecciones, 96 temas y las 350 preguntas oficiales. Por dónde puedes empezar y qué lección se basa en cuál.",
+      "lede": "El curso te lleva por las 350 preguntas oficiales en 37 lecciones cortas. No tienes que empezar por la lección 1: muchas lecciones son independientes y otras se basan unas en otras.",
+      "built_title": "Estructura",
+      "facts": [
+        "partes",
+        "lecciones",
+        "temas",
+        "preguntas oficiales"
+      ],
+      "built_text": [
+        "Cada lección trata de uno a cinco temas. Cada tema tiene una explicación breve y las preguntas oficiales que le corresponden.",
+        "Las partes 1 a 6 valen para toda Suiza; la parte 7, para el cantón de Zúrich y sus municipios."
+      ],
+      "order_title": "Orden",
+      "order_text": [
+        "Puedes empezar enseguida con las lecciones de la etapa 1. Las demás se basan en las lecciones indicadas junto a ellas: para aprender el federalismo conviene saber ya qué es una democracia.",
+        "Cuando estudias en línea o en las apps de IA, eliges tú cómo seguir. Te sugerimos una lección de la parte que hace más tiempo que no practicas. Así los temas se alternan, como luego en el examen."
+      ],
+      "stage": "Etapa {n}",
+      "lesson_ref": "la lección {n}",
+      "after": "después de {list}",
+      "map_label": "Las 37 lecciones por parte y etapa"
+    }
   },
   "learn": {
     "langs": "Idioma",
@@ -7840,7 +7866,6 @@
     "lede": "Lecciones cortas, repasos en el momento justo y exámenes de prueba con las preguntas oficiales.",
     "unofficial": "Gratuito e independiente. No es un servicio oficial del cantón de Zúrich.",
     "lesson": "Lección",
-    "continueLesson": "Continuar la lección",
     "reviews": "Repasar",
     "due": "{n} por repasar",
     "noneDue": "nada por repasar",
@@ -7872,7 +7897,10 @@
     "mistakes": "Tus errores",
     "yours": "Tu respuesta",
     "error": "No hay conexión con el servidor. Inténtalo de nuevo.",
-    "nextLesson": "Siguiente lección"
+    "nextLesson": "Siguiente lección",
+    "startWith": "¿Por dónde quieres empezar?",
+    "chooseNext": "Elige tu próxima lección",
+    "recommended": "recomendada"
   },
   "card": {
     "right": "Correcto",

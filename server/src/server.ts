@@ -6,7 +6,7 @@ import { catalog, CARD_LABELS, LANGUAGES, type Lang } from "./catalog.js";
 import { createEngine, emptyProgress, REVIEW_SIZE, type Progress } from "./engine/index.js";
 import { newLearnerCode, normalizeCode, type Store } from "./store.js";
 
-export const VERSION = "0.8.1";
+export const VERSION = "0.9.0";
 
 const engine = createEngine(catalog);
 const { exam } = catalog;
@@ -18,7 +18,8 @@ The tools hold the official questions and verified explanations and hand them ou
 Rules:
 - Language: ask which language the learner wants (${LANGUAGES.join(", ")}) and pass it as "language".
   Speak in that language. The real exam is in German: always also show the German wording ("german") of the question.
-- Start of a session: call get_progress. If reviews are due, call start_reviews first, otherwise start_lesson.
+- Start of a session: call get_progress. If reviews are due, call start_reviews first. Otherwise offer the learner
+  two or three lessons from "lesson_choices" (the first one is recommended) and call start_lesson with the chosen lesson_id.
   If there is an unfinished session, offer to continue it (the start tools restart it).
 - Each tool result contains exactly one step. Show ONLY that step:
   - If it has "explain_first": explain that concept briefly and clearly, using only its intro, key_terms and mnemonic.
@@ -203,8 +204,8 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       title: "Start a lesson",
       _meta: cardUi,
       annotations: changesProgress,
-      description: "Starts the next lesson (or lesson_id) and returns its first step: a concept explanation and one question." + CARD_NOTE,
-      inputSchema: { ...common, voice, lesson_id: z.string().optional().describe("e.g. l05. Default: next unfinished lesson.") },
+      description: "Starts a lesson and returns its first step: a concept explanation and one question. Pick lesson_id from lesson_choices of get_progress." + CARD_NOTE,
+      inputSchema: { ...common, voice, lesson_id: z.string().optional().describe("e.g. l05, one of lesson_choices from get_progress. Default: the recommended next lesson.") },
     },
     ({ voice, lesson_id, ...args }) =>
       run(args, (p, lang) => {
