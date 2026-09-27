@@ -9,8 +9,9 @@ import it from "./it.json" with { type: "json" };
 import ru from "./ru.json" with { type: "json" };
 import uk from "./uk.json" with { type: "json" };
 import es from "./es.json" with { type: "json" };
+import sq from "./sq.json" with { type: "json" };
 
-export const TEXTS = { de, en, fr, it, ru, uk, es };
+export const TEXTS = { de, en, fr, it, ru, uk, es, sq };
 
 /** The language codes in order: ["de", "en", ...]. */
 export const LANGUAGES = Object.keys(TEXTS);
