@@ -2,7 +2,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import type { Assets } from "./assets.js";
-import { catalog, LANGUAGES, type Lang } from "./catalog.js";
+import { catalog, CARD_LABELS, LANGUAGES, type Lang } from "./catalog.js";
 import { createEngine, emptyProgress, REVIEW_SIZE, type Progress } from "./engine/index.js";
 import { newLearnerCode, normalizeCode, type Store } from "./store.js";
 
@@ -123,6 +123,7 @@ async function toResult(assets: Assets, { data, questionId }: Out, lang?: Lang) 
     ],
     structuredContent: {
       lang,
+      labels: CARD_LABELS[lang ?? LANGUAGES[0]],
       data,
       images: Object.fromEntries(pictures.map((p) => [p.key, `data:${p.mimeType};base64,${p.data}`])),
     },

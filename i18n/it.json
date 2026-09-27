@@ -1,5 +1,7 @@
 {
   "language": "it-CH",
+  "name": "Italiano",
+  "script": "Latn",
   "title": "Test di conoscenze di base Cantone di Zurigo",
   "categories": {
     "democracy": "Democrazia e federalismo",
@@ -7358,5 +7360,525 @@
         }
       ]
     }
+  },
+  "site": {
+    "home": {
+      "title": "Swiss Passport: prepararsi al test di naturalizzazione del Cantone di Zurigo",
+      "description": "Imparare le 350 domande ufficiali del test di conoscenze del Cantone di Zurigo, nel browser, con Claude o ChatGPT, in {language_count} lingue.",
+      "nav_learn": "Impara online",
+      "nav_source": "Codice sorgente",
+      "h1": "Prepararsi al test di naturalizzazione a Zurigo.",
+      "lede": "Con ChatGPT o Claude, scrivendo o a voce, anche in viaggio. Impari le 350 domande ufficiali del Cantone, una alla volta, nella tua lingua, e ogni risposta viene verificata.",
+      "unofficial": "Gratuito e indipendente. Non è un servizio ufficiale del Cantone di Zurigo.",
+      "cta": "Impara con ChatGPT o Claude",
+      "cta_browser": "Oppure impara qui nel browser",
+      "hero_votes": "voti cantonali",
+      "hero_rule": "Ne servono 12 su 23. I 6 ex semicantoni contano la metà.",
+      "hero_right": "Giusto.",
+      "hero_wrong": "Non proprio. La risposta giusta è",
+      "hero_again": "Riprova",
+      "map_credit": "Carta: Ufficio federale di statistica (UST), GEOSTAT.",
+      "how": "Come funziona",
+      "step1": "Aggiungi Swiss Passport a Claude, ChatGPT o un'altra app di IA. Ci vuole un minuto, senza account.",
+      "step2": "Di' in quale lingua vuoi imparare: {languages_or}.",
+      "step3": "Fai una breve lezione al giorno. Quando un tema torna, il tutor te lo chiede per primo.",
+      "method": "Metodo",
+      "m1t": "Una domanda alla volta",
+      "m1d": "Una breve spiegazione, poi subito una domanda. La domanda successiva appare solo dopo la tua risposta.",
+      "m2t": "Ripetere fino alla risposta giusta",
+      "m2d": "Una domanda sbagliata torna alla fine della lezione, finché non rispondi correttamente.",
+      "m3t": "Trappole spiegate",
+      "m3d": "Ogni risposta spiega perché è giusta e perché la risposta sbagliata più allettante è sbagliata.",
+      "m4t": "Con il tedesco",
+      "m4d": "Impari nella tua lingua e vedi sempre il testo tedesco del test vero.",
+      "m5t": "Esame di prova",
+      "m5d": "50 domande a caso, senza aiuto, come il test d'esercitazione ufficiale del Cantone.",
+      "m6t": "Verificato dal server, non dall'IA",
+      "m6d": "Domande, risposte corrette e spiegazioni vengono dal server di Swiss Passport. L'IA fa le domande e parla con te, ma non decide mai se una risposta è giusta.",
+      "reviews": "Ripasso",
+      "reviews_p": "Ogni tema torna dopo 1, 3, 7, 14 e 30 giorni. Un errore lo riporta indietro di un livello: ripassi ciò che dimentichi e salti ciò che sai.",
+      "reviews_caption": "Giorni dopo la lezione",
+      "contents": "Contenuto",
+      "f1": "domande ufficiali del Cantone di Zurigo",
+      "f2": "lezioni in 7 parti, dalle basi al tuo Comune",
+      "f3": "temi, ognuno spiegato in modo semplice",
+      "f4": "lingue, sempre con l'originale tedesco",
+      "f5": "domande per esame di prova",
+      "contents_note": "Le spiegazioni sono state scritte per questo progetto e verificate con fonti ufficiali: gli opuscoli del Cantone e della Città di Zurigo, admin.ch, ch.ch e zh.ch.",
+      "start": "Inizia",
+      "s_browser": "Nel browser",
+      "s_browser_p": "<a href=\"/learn/\">Impara online</a>, senza installare nulla. I tuoi progressi sono salvati con un codice che funziona anche nelle app di IA.",
+      "s_connector": "In un'app di IA",
+      "s_connector_p": "Swiss Passport è un server MCP. Aggiungi questo indirizzo nella tua app di IA, senza account né login:",
+      "copy": "Copia",
+      "copied": "Copiato",
+      "s_progress": "I tuoi progressi",
+      "s_progress_p": "Al primo uso ricevi un codice come BERG-7K2Q. Annotalo e dillo al tutor in una nuova chat per continuare. Nessun account, nessun dato personale.",
+      "foot": "Non è un servizio ufficiale del Cantone di Zurigo. Le domande sono pubblicate dal Gemeindeamt del Cantone; spiegazioni e traduzioni fanno parte di questo progetto.",
+      "foot_license": "Licenza: libera per uso privato e senza scopo di lucro"
+    },
+    "ui": {
+      "home": "Home",
+      "breadcrumb": "Percorso",
+      "topic_questions": "Domande d'esame su questo tema",
+      "key_terms": "Parole chiave",
+      "mnemonic": "Per ricordare",
+      "prev_topic": "Tema precedente",
+      "next_topic": "Tema successivo",
+      "nav_questions": "Tutte le domande",
+      "nav_main": "Menu principale",
+      "nav_langs": "Lingua",
+      "questions_title": "Le 350 domande del test di naturalizzazione di Zurigo, con risposte",
+      "questions_desc": "Le 350 domande ufficiali del test di conoscenze del Cantone di Zurigo, ordinate per tema, ognuna con la risposta corretta e una spiegazione.",
+      "questions_lede": "Le domande ufficiali del Grundkenntnistest, ordinate per tema. Ognuna con la risposta corretta, una spiegazione e l'originale tedesco.",
+      "question_n": "Domanda {n} di 350",
+      "title_suffix": "Test di naturalizzazione Zurigo",
+      "answer": "Risposta corretta",
+      "why": "Perché",
+      "mistakes": "Errori frequenti",
+      "german": "Nel test in tedesco",
+      "topic": "Tema",
+      "sources": "Fonti",
+      "checked": "Ultima verifica: {date}",
+      "prev": "Domanda precedente",
+      "next": "Domanda successiva",
+      "practise": "Esercitati con tutte le 350 domande",
+      "credit": "Domanda {n} della <a href=\"{pdf}\">lista ufficiale del Cantone di Zurigo</a> (Gemeindeamt, maggio 2025). Traduzione e spiegazione: Swiss Passport.",
+      "report": "Hai trovato un errore? Scrivici",
+      "report_subject": "Errore nella domanda {n}"
+    },
+    "guide": {
+      "nav": "Il test",
+      "title": "Grundkenntnistest Zurigo: come funziona il test di naturalizzazione",
+      "desc": "Chi deve fare il test di conoscenze del Cantone di Zurigo, quali domande ci sono, dove si svolge e quanto costa. Solo fonti ufficiali.",
+      "lede": "Ciò che il Cantone e la Città di Zurigo dicono ufficialmente sul test, con le fonti.",
+      "faq": [
+        {
+          "q": "Che cos'è il Grundkenntnistest?",
+          "a": [
+            "Per la naturalizzazione ordinaria nel Cantone di Zurigo servono conoscenze sulla Svizzera, sul Cantone di Zurigo e sui comuni zurighesi. Le dimostri in un test con domande di geografia, politica e storia.",
+            "La base legale è il § 16 dell'<a href=\"{kbuev}\">ordinanza cantonale sulla cittadinanza (KBüV)</a>: il comune verifica le conoscenze in un colloquio di naturalizzazione con un questionario standardizzato oppure con un test."
+          ]
+        },
+        {
+          "q": "Devo fare il test?",
+          "a": [
+            "Non devi fare il test se vale uno di questi punti:",
+            "<ul><li>Hai meno di 12 anni.</li><li>Frequenti attualmente la scuola dell'obbligo o una formazione di livello secondario II (apprendistato, liceo) in Svizzera.</li><li>Hai frequentato la scuola dell'obbligo in Svizzera per 5 anni, di cui almeno 3 al livello secondario I.</li><li>Hai concluso una formazione di livello secondario II in Svizzera.</li></ul>",
+            "Il <a href=\"{zh}\">self-check del Cantone</a> te lo dice per la tua situazione. Nella Città di Zurigo, per chi è nella procedura di naturalizzazione agevolata le conoscenze vengono verificate nel colloquio di naturalizzazione."
+          ]
+        },
+        {
+          "q": "Quali domande ci sono?",
+          "a": [
+            "Il Cantone pubblica la <a href=\"{pdf}\">lista di tutte le 350 domande</a> (PDF, tedesco, maggio 2025). Ogni domanda ha 4 risposte, una sola è corretta.",
+            "Il test di esercitazione ufficiale del Cantone pone 50 domande e dopo ogni risposta mostra se era giusta. Non è confermato ufficialmente che il vero test abbia lo stesso formato."
+          ]
+        },
+        {
+          "q": "Dove e quando si svolge il test?",
+          "a": [
+            "Il tuo comune ti dice quando e dove puoi fare il test. Per iscriverti chiedi al tuo comune. A seconda del comune, fai il test prima o dopo aver inoltrato la domanda.",
+            "Nella <a href=\"{city}\">Città di Zurigo</a> il test si svolge allo Stadthaus, solo dopo aver inoltrato la domanda."
+          ]
+        },
+        {
+          "q": "Quanto costa il test?",
+          "a": [
+            "Le tasse variano secondo il comune e l'ente che organizza il test. Informati presso il tuo comune. Nella Città di Zurigo il test è gratuito."
+          ]
+        },
+        {
+          "q": "Quanti punti servono per superarlo? Quanto dura il test?",
+          "a": [
+            "Nessuno dei due dati è pubblicato ufficialmente, perciò qui non diamo numeri. Il Gemeindeamt del Cantone risponde alle domande: grundkenntnistest@ji.zh.ch, +41 43 259 83 81 (lun-gio 13:30-17:00, ven 13:30-16:00)."
+          ]
+        },
+        {
+          "q": "Come mi preparo?",
+          "a": [
+            "Il Cantone offre il <a href=\"{zh}\">test di esercitazione</a>, l'opuscolo sulla naturalizzazione e la lista di tutte le domande.",
+            "Qui trovi <a href=\"{questions}\">tutte le 350 domande con risposta e spiegazione</a>, ordinate per tema, in {language_count} lingue e sempre con il testo tedesco. Con <a href=\"{learn}\">Impara online</a> ti eserciti in brevi lezioni con ripetizioni ed esami di prova.",
+            "Perché questo modo di studiare funziona lo spiega <a href=\"{method}\">la pagina sul metodo</a>."
+          ]
+        }
+      ],
+      "sources": "Fonti",
+      "disclaimer": "Non è un servizio ufficiale. Fanno fede le informazioni del Cantone e del tuo comune."
+    },
+    "about": {
+      "nav": "Chi siamo",
+      "title": "Informazioni su Swiss Passport",
+      "desc": "Chi c'è dietro Swiss Passport, da dove vengono le domande e le spiegazioni e come vengono verificate.",
+      "sections": [
+        [
+          "Chi",
+          [
+            "Swiss Passport è un progetto gratuito e non commerciale di <a href=\"{aleksej}\">Aleksej Dix</a> e <a href=\"{lidia}\">Lidia Dix</a>. Viviamo nel Cantone di Zurigo e ci prepariamo noi stessi alla naturalizzazione: abbiamo creato lo strumento che ci mancava. Il codice e i contenuti sono aperti su <a href=\"{repo}\">GitHub</a>.",
+            "Da più di dieci anni Aleksej co-organizza la community tech <a href=\"{webzurich}\">WebZurich</a> e aiuta a organizzare conferenze a Zurigo. Ogni anno Aleksej raccoglie computer e li regala a famiglie che ne hanno bisogno per studiare, soprattutto per i bambini. Anche Lidia co-organizza WebZurich e aiuta a organizzare incontri per donne appena arrivate a Zurigo: serate a teatro, escursioni e workshop su come funziona la Svizzera."
+          ]
+        ],
+        [
+          "Da dove vengono i contenuti",
+          [
+            "Le 350 domande e le risposte corrette provengono dalla <a href=\"{pdf}\">lista ufficiale del Cantone di Zurigo</a> (Gemeindeamt, Abteilung Einbürgerungen, maggio 2025).",
+            "Le spiegazioni, i temi e le traduzioni sono stati scritti per questo progetto e verificati con fonti ufficiali: gli opuscoli del Cantone e della Città di Zurigo, zh.ch, stadt-zuerich.ch, admin.ch, fedlex.admin.ch e ch.ch. Ogni domanda e ogni tema indica le sue fonti. <a href=\"{sources}\">Elenco di tutte le fonti</a>."
+          ]
+        ],
+        [
+          "Aggiornamento",
+          [
+            "Lista delle domande: maggio 2025. Informazioni della pagina <a href=\"{guide}\">Il test</a>: verificate il 25 settembre 2026."
+          ]
+        ],
+        [
+          "Non è un servizio ufficiale",
+          [
+            "Swiss Passport non è un servizio del Cantone di Zurigo né di un comune. Fanno fede le informazioni del Cantone e del tuo comune."
+          ]
+        ],
+        [
+          "Hai trovato un errore?",
+          [
+            "Scrivi a <a href=\"mailto:{email}\">{email}</a> o segnalalo su <a href=\"{issues}\">GitHub</a>. Ogni correzione aiuta tutti quelli che studiano per il test."
+          ]
+        ],
+        [
+          "Protezione dei dati",
+          [
+            "Nessun account, nessun cookie. I progressi sono salvati con un codice di apprendimento, senza nome né e-mail."
+          ]
+        ],
+        [
+          "Licenza",
+          [
+            "Codice: <a href=\"{license}\">PolyForm Noncommercial</a>. Spiegazioni e traduzioni: <a href=\"{content_license}\">CC BY-NC-SA 4.0</a>. Libero per uso personale e senza scopo di lucro."
+          ]
+        ]
+      ]
+    },
+    "method": {
+      "nav": "Metodo",
+      "link": "Perché questo metodo funziona",
+      "title": "Come studiare per il test di naturalizzazione: il metodo di Swiss Passport",
+      "desc": "Perché rispondere alle domande e ripeterle a intervalli crescenti funziona meglio che rileggere, e come Swiss Passport ti prepara così al test di conoscenze di Zurigo.",
+      "lede": "La maggior parte delle persone si prepara rileggendo le domande più e più volte. Sembra utile, ma è uno dei modi meno efficaci di imparare. Swiss Passport usa tecniche che la ricerca sulla memoria studia da decenni.",
+      "sections": [
+        [
+          "Rispondere invece di rileggere",
+          [
+            "Ogni volta che richiami una risposta dalla memoria, la rafforzi. In uno studio noto, gli studenti che si erano esercitati a richiamare un testo ne ricordavano di più una settimana dopo rispetto a chi lo aveva riletto, anche se subito dopo lo studio la rilettura dava risultati migliori (Roediger & Karpicke 2006).",
+            "Per questo Swiss Passport mostra una breve spiegazione e poi chiede subito. Rispondi tu a ogni domanda prima di vedere la soluzione."
+          ]
+        ],
+        [
+          "Ripetere poco prima di dimenticare",
+          [
+            "Ciò che impari svanisce in fretta se non lo usi di nuovo. Ripetizioni distribuite su giorni e settimane conservano le conoscenze molto più a lungo della stessa quantità di esercizio fatta in una volta. Più a lungo devi ricordare qualcosa, più lunghi possono essere gli intervalli (Cepeda et al. 2006).",
+            "Swiss Passport ripropone ogni tema dopo 1, 3, 7, 14 e 30 giorni. Se rispondi giusto, l'intervallo successivo si allunga. Se sbagli, il tema torna indietro di un livello e ritorna il giorno dopo. Così ti eserciti su ciò che dimentichi e salti ciò che sai."
+          ]
+        ],
+        [
+          "Imparare da ogni risposta",
+          [
+            "Dopo ogni risposta vedi perché è giusta e, se hai sbagliato, perché la risposta sbagliata allettante è sbagliata. Conta soprattutto con le domande a scelta multipla: senza riscontro, a volte più tardi si ritiene vera una risposta sbagliata; con il riscontro, questo effetto si riduce (Butler & Roediger 2008).",
+            "Una domanda sbagliata torna alla fine della lezione finché non rispondi correttamente."
+          ]
+        ],
+        [
+          "Mescolare i temi prima del test",
+          [
+            "Nel test vero le domande arrivano in ordine sparso. Le ripetizioni mescolano temi di lezioni diverse, e ogni esame di prova pone 50 domande a caso fra tutte le 350, senza aiuto, come il test di esercitazione del Cantone. Esercitarsi in modo misto sembra più difficile, ma negli studi ha portato a risultati migliori nei test successivi rispetto all'esercitarsi un tema alla volta (Rohrer & Taylor 2007).",
+            "Il tuo livello di preparazione mostra la quota di domande il cui tema hai già risposto correttamente in più giorni."
+          ]
+        ],
+        [
+          "Capire nella tua lingua, riconoscere il tedesco",
+          [
+            "Impari nella lingua che capisci meglio, per capire il contenuto invece di imparare parole a memoria. Ogni domanda mostra anche il testo tedesco del test vero, così lo riconosci il giorno del test."
+          ]
+        ],
+        [
+          "Perché è importante per il tuo test",
+          [
+            "Le domande ufficiali sono 350, e il tuo comune ti dice quando fai il test. Studiare tutto la sera prima può aiutare il giorno dopo, ma ciò che si impara così svanisce presto.",
+            "Un'ampia rassegna sulle tecniche di studio valuta l'esercitazione con test e la pratica distribuita come le due più utili, e la rilettura e la sottolineatura come poco utili (Dunlosky et al. 2013).",
+            "In breve: un po' ogni giorno è meglio che tanto in una volta. Fai una breve lezione al giorno, e prima le ripetizioni in scadenza."
+          ]
+        ]
+      ]
+    },
+    "method_viz": {
+      "curveTitle": "Quanto ricordi ancora",
+      "cram": "Tutto in una sera (6 volte)",
+      "spaced": "Distribuito: dopo 1, 3, 7, 14 e 30 giorni",
+      "cramShort": "Una sera",
+      "spacedShort": "Distribuito",
+      "day": "Giorno",
+      "days": "Giorni",
+      "review": "Ripetizione",
+      "all": "tutto",
+      "none": "niente",
+      "levels": [
+        "quasi dimenticato",
+        "incerto",
+        "bene",
+        "molto bene"
+      ],
+      "table": "Come tabella",
+      "curveNote": "Schema, non dati misurati: come procedono di solito l'oblio e le ripetizioni. Le due linee rappresentano lo stesso numero di ripetizioni.",
+      "tryIt": "Prova: scegli la risposta che ti sembra giusta.",
+      "blocked": "Un tema alla volta",
+      "mixed": "Misto, come nel test",
+      "mixNote": "12 domande da 3 temi.",
+      "showIn": "Mostra la domanda in",
+      "order": "Ordine delle domande"
+    },
+    "connect": {
+      "nav": "Imparare con l'IA",
+      "title": "Swiss Passport nella tua app di IA",
+      "desc": "Come aggiungere Swiss Passport a Claude, ChatGPT, Grok, Mistral Vibe o Perplexity. Poi impari in chat, una domanda alla volta.",
+      "link": "Passo per passo per Claude, ChatGPT, Grok, Mistral Vibe e Perplexity",
+      "address": "Indirizzo",
+      "apps": [
+        {
+          "id": "claude",
+          "name": "Claude",
+          "note": "Gratis e negli abbonamenti a pagamento. Aggiungilo sul web o sul computer, poi funziona anche nell'app per il telefono e con la voce. Con la scheda del quiz cliccabile.",
+          "steps": [
+            "Customize → Connectors → + → Add custom connector.",
+            "Nome: Swiss Passport. Incolla l'indirizzo, poi Add e Connect.",
+            "In una chat: + → Connectors → attiva Swiss Passport e di' che vuoi imparare."
+          ]
+        },
+        {
+          "id": "chatgpt",
+          "name": "ChatGPT",
+          "note": "Plus, Pro, Business, Enterprise ed Edu, solo sul web. Con la scheda del quiz cliccabile.",
+          "steps": [
+            "Plugins nella barra laterale → Add → Create MCP App. Manca il pulsante Add? Prima attiva il Developer mode nelle impostazioni.",
+            "Nome: Swiss Passport. Incolla l'indirizzo, autenticazione: No Authentication, poi Create.",
+            "In una nuova chat scrivi @Swiss Passport e di' che vuoi imparare.",
+            "Dopo un aggiornamento qualcosa sembra vecchio? Impostazioni → Plugins → Swiss Passport → Refresh tools."
+          ]
+        },
+        {
+          "id": "grok",
+          "name": "Grok",
+          "note": "Su grok.com. Grok fa le domande come testo.",
+          "steps": [
+            "grok.com/connectors → New Connector → Custom.",
+            "Incolla l'indirizzo e salva.",
+            "In una chat di': «Usa Swiss Passport, voglio prepararmi al test di naturalizzazione.»"
+          ]
+        },
+        {
+          "id": "mistral",
+          "name": "Mistral Vibe (Le Chat)",
+          "note": "Gratis e negli abbonamenti a pagamento, sul web. Le domande arrivano come testo.",
+          "steps": [
+            "Connectors → Add Connector → Custom MCP Connector.",
+            "Nome: SwissPassport, senza spazio. Incolla l'indirizzo, poi Connect.",
+            "In una chat: + → Tools → attiva SwissPassport."
+          ]
+        },
+        {
+          "id": "perplexity",
+          "name": "Perplexity",
+          "note": "Pro e Max, sul web. Le domande arrivano come testo.",
+          "steps": [
+            "Impostazioni → Connectors → + Custom connector → Remote.",
+            "Nome: Swiss Passport. Incolla l'indirizzo, autenticazione: None, trasporto: Streamable HTTP. Accetta l'avviso, poi Add.",
+            "Attiva il connettore e fai la domanda in un nuovo thread."
+          ]
+        }
+      ],
+      "other": "Altre app",
+      "other_p": "Ogni app che può aggiungere un server MCP remoto funziona allo stesso modo: l'indirizzo qui sopra, senza autenticazione. Gemini e Microsoft Copilot in Svizzera non lo permettono ancora.",
+      "logos": "I loghi sono marchi dei rispettivi proprietari. Swiss Passport non è legato a nessuna di queste aziende."
+    },
+    "viz": {
+      "chat": {
+        "title": "Com'è una lezione",
+        "you": "Tu",
+        "tutor": "Tutor",
+        "pick": "Vorrei studiare in italiano."
+      },
+      "federal_council": {
+        "title": "Il Consiglio federale"
+      },
+      "check": {
+        "caption": "Verifica rapida in 4 domande",
+        "qs": [
+          "Hai meno di 12 anni?",
+          "Frequenti attualmente la scuola dell'obbligo o una formazione di livello secondario II (apprendistato, liceo) in Svizzera?",
+          "Hai frequentato la scuola dell'obbligo in Svizzera per 5 anni, di cui almeno 3 al livello secondario I?",
+          "Hai concluso una formazione di livello secondario II in Svizzera?"
+        ],
+        "yes": "Sì",
+        "no": "No",
+        "noTest": "nessun test",
+        "test": "test necessario",
+        "allNo": "Quattro volte no:",
+        "resultNo": "Probabilmente non devi fare il test.",
+        "resultYes": "Probabilmente devi fare il test.",
+        "again": "Ricomincia",
+        "note": "Non vincolante. Fanno fede il self-check del Cantone e il tuo comune.",
+        "link": "Self-check del Cantone"
+      },
+      "order": {
+        "caption": "Test e domanda: due sequenze",
+        "before": "Test prima della domanda",
+        "after": "Test dopo la domanda (per esempio la Città di Zurigo)",
+        "when": "Il comune dice quando e dove",
+        "test": "Test",
+        "apply": "Inoltrare la domanda",
+        "note": "Il tuo comune ti dice quale sequenza vale."
+      },
+      "timeline": {
+        "title": "Cronologia della storia svizzera",
+        "bc": "{year} a.C.",
+        "c19": "XIX sec."
+      },
+      "levels": {
+        "title": "Tre livelli dello Stato"
+      },
+      "map": {
+        "map": "Carta",
+        "credit": "Geodati: UST, UFAM, swisstopo",
+        "km": "km",
+        "de": "Germania",
+        "at": "Austria",
+        "li": "Liechtenstein",
+        "it": "Italia",
+        "fr": "Francia",
+        "zurich": "Zurigo",
+        "geneva": "Ginevra",
+        "basel": "Basilea",
+        "lausanne": "Losanna",
+        "bern": "Berna",
+        "winterthur": "Winterthur",
+        "uster": "Uster",
+        "kloten": "Kloten",
+        "airport": "aeroporto",
+        "VS": "Vallese",
+        "GR": "Grigioni",
+        "UR": "Uri",
+        "TI": "Ticino",
+        "ZH": "Zurigo",
+        "SH": "Sciaffusa",
+        "TG": "Turgovia",
+        "SG": "San Gallo",
+        "SZ": "Svitto",
+        "ZG": "Zugo",
+        "AG": "Argovia",
+        "rhine": "Reno",
+        "rhone": "Rodano",
+        "limmat": "Limmat",
+        "sihl": "Sihl",
+        "toss": "Töss",
+        "northSea": "Mare del Nord",
+        "mediterranean": "Mediterraneo",
+        "lakeZurich": "lago di Zurigo",
+        "lakeGreifen": "lago di Greifen",
+        "lakePfaeffikon": "lago di Pfäffikon",
+        "uetliberg": "Uetliberg",
+        "albis": "Albis",
+        "pfannenstiel": "Pfannenstiel",
+        "schnebelhorn": "Schnebelhorn",
+        "gotthard": "San Gottardo",
+        "simplon": "Sempione",
+        "bernhard": "Gran San Bernardo",
+        "dufour": "Punta Dufour",
+        "jura": "Giura",
+        "plateau": "Altopiano",
+        "alps": "Alpi",
+        "german": "tedesco",
+        "french": "francese",
+        "italian": "italiano",
+        "romansh": "romancio"
+      },
+      "overview": {
+        "title": "Tutte le 350 domande a colpo d'occhio",
+        "lesson": "Lezione",
+        "q": {
+          "one": "domanda",
+          "other": "domande"
+        },
+        "hint": "Un punto per domanda, raggruppato per lezione. Scegli una lezione per vederne le domande."
+      },
+      "parliament": {
+        "title": "L'Assemblea federale",
+        "cantons": "Cantoni: 2 seggi ciascuno",
+        "halves": "Ex semicantoni: 1 seggio ciascuno"
+      },
+      "powers": {
+        "title": "Separazione dei poteri",
+        "make": "fa le leggi",
+        "execute": "applica le leggi",
+        "judge": "giudica secondo la legge",
+        "federal": "Confederazione",
+        "canton": "Cantone di Zurigo",
+        "courts": "Tribunali",
+        "control": "I tre poteri si controllano a vicenda.",
+        "members": {
+          "one": "membro",
+          "other": "membri"
+        }
+      }
+    },
+    "not_found": "Questa pagina non esiste.",
+    "privacy": "Protezione dei dati"
+  },
+  "learn": {
+    "langs": "Lingua",
+    "whatNext": "E adesso",
+    "whatNextText": "I temi di questo giro tornano domani per il ripasso. Ogni giorno fai prima i ripassi previsti, poi una nuova lezione.",
+    "showExplanation": "Mostra la spiegazione",
+    "answerFirst": "Rispondi prima alla domanda. La spiegazione appare dopo.",
+    "title": "Impara online",
+    "lede": "Lezioni brevi, ripassi al momento giusto ed esami di prova con le domande ufficiali.",
+    "unofficial": "Gratuito e indipendente. Non è un servizio ufficiale del Cantone di Zurigo.",
+    "lesson": "Lezione",
+    "continueLesson": "Continua la lezione",
+    "reviews": "Ripassa",
+    "due": "{n} da ripassare",
+    "noneDue": "niente da ripassare",
+    "exam": "Esame di prova",
+    "examSub": "50 domande, senza aiuto",
+    "allDone": "Tutte le lezioni fatte",
+    "lessonsDone": "lezioni fatte",
+    "ready": "pronto per l'esame, per tema",
+    "examsDone": "Esami di prova",
+    "yourCode": "Il tuo codice",
+    "codeHelp": "Con questo codice continui su qualsiasi dispositivo, anche in Claude o ChatGPT.",
+    "haveCode": "Hai già un codice?",
+    "useCode": "Usa",
+    "unknownCode": "Questo codice non esiste. Controllalo.",
+    "next": "Avanti",
+    "right": "Giusto.",
+    "wrong": "Non proprio. La risposta giusta è",
+    "retry": "Prima avevi sbagliato questa domanda. Riprova.",
+    "comesAgain": "Questa domanda torna alla fine della lezione.",
+    "examNote": "Esame di prova: nessun riscontro fino alla fine.",
+    "overview": "Torna alla panoramica",
+    "source": "Fonte",
+    "keys": "Tasti da A a D per scegliere, Invio per continuare.",
+    "doneLesson": "Lezione finita",
+    "doneReview": "Ripasso finito",
+    "firstTry": "giuste al primo tentativo",
+    "examResult": "Risultato dell'esame di prova",
+    "passMark": "La soglia ufficiale per superare l'esame non è pubblicata.",
+    "mistakes": "I tuoi errori",
+    "yours": "La tua risposta",
+    "error": "Nessuna connessione al server. Riprova.",
+    "nextLesson": "Prossima lezione"
+  },
+  "card": {
+    "right": "Giusto",
+    "wrongIs": "Risposta giusta:",
+    "again": "Questa domanda tornerà più avanti in questo giro.",
+    "next": "Avanti",
+    "done": "Finito! E adesso?"
   }
 }

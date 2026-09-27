@@ -2,6 +2,7 @@
 // (areas and lines only, the same in every language) and the marks and labels that the page lays over it
 // in the reader's language. Geometry: src/viz/geo-data.js (server/scripts/build-geo.mjs).
 import { CH, ZH } from "./geo-data.js";
+import { byLang } from "../../../i18n/index.js";
 
 export const MAP_OF_TOPIC = {
   regions: "ch-regions",
@@ -20,98 +21,7 @@ export const MAP_NAMES = [...new Set(Object.values(MAP_OF_TOPIC))];
 export const geometry = (name) => (name.startsWith("zh") ? ZH : CH);
 
 // Names as the explanations of each language write them.
-export const MAP_TEXT = {
-  de: {
-    map: "Karte", credit: "Geodaten: BFS, BAFU, swisstopo", km: "km",
-    de: "Deutschland", at: "Österreich", li: "Liechtenstein", it: "Italien", fr: "Frankreich",
-    zurich: "Zürich", geneva: "Genf", basel: "Basel", lausanne: "Lausanne", bern: "Bern",
-    winterthur: "Winterthur", uster: "Uster", kloten: "Kloten", airport: "Flughafen",
-    VS: "Wallis", GR: "Graubünden", UR: "Uri", TI: "Tessin", ZH: "Zürich",
-    SH: "Schaffhausen", TG: "Thurgau", SG: "St. Gallen", SZ: "Schwyz", ZG: "Zug", AG: "Aargau",
-    rhine: "Rhein", rhone: "Rhone", limmat: "Limmat", sihl: "Sihl", toss: "Töss",
-    northSea: "Nordsee", mediterranean: "Mittelmeer",
-    lakeZurich: "Zürichsee", lakeGreifen: "Greifensee", lakePfaeffikon: "Pfäffikersee",
-    uetliberg: "Uetliberg", albis: "Albis", pfannenstiel: "Pfannenstiel", schnebelhorn: "Schnebelhorn",
-    gotthard: "Gotthard", simplon: "Simplon", bernhard: "Grosser Sankt Bernhard", dufour: "Dufourspitze",
-    jura: "Jura", plateau: "Mittelland", alps: "Alpen",
-    german: "Deutsch", french: "Französisch", italian: "Italienisch", romansh: "Rätoromanisch",
-  },
-  en: {
-    map: "Map", credit: "Map data: BFS, BAFU, swisstopo", km: "km",
-    de: "Germany", at: "Austria", li: "Liechtenstein", it: "Italy", fr: "France",
-    zurich: "Zurich", geneva: "Geneva", basel: "Basel", lausanne: "Lausanne", bern: "Bern",
-    winterthur: "Winterthur", uster: "Uster", kloten: "Kloten", airport: "airport",
-    VS: "Valais", GR: "Graubünden", UR: "Uri", TI: "Ticino", ZH: "Zurich",
-    SH: "Schaffhausen", TG: "Thurgau", SG: "St. Gallen", SZ: "Schwyz", ZG: "Zug", AG: "Aargau",
-    rhine: "Rhine", rhone: "Rhone", limmat: "Limmat", sihl: "Sihl", toss: "Töss",
-    northSea: "North Sea", mediterranean: "Mediterranean",
-    lakeZurich: "Lake Zurich", lakeGreifen: "Lake Greifen", lakePfaeffikon: "Lake Pfäffikon",
-    uetliberg: "Uetliberg", albis: "Albis", pfannenstiel: "Pfannenstiel", schnebelhorn: "Schnebelhorn",
-    gotthard: "Gotthard", simplon: "Simplon", bernhard: "Great St Bernard", dufour: "Dufourspitze",
-    jura: "Jura", plateau: "Plateau", alps: "Alps",
-    german: "German", french: "French", italian: "Italian", romansh: "Romansh",
-  },
-  fr: {
-    map: "Carte", credit: "Géodonnées : OFS, OFEV, swisstopo", km: "km",
-    de: "Allemagne", at: "Autriche", li: "Liechtenstein", it: "Italie", fr: "France",
-    zurich: "Zurich", geneva: "Genève", basel: "Bâle", lausanne: "Lausanne", bern: "Berne",
-    winterthur: "Winterthour", uster: "Uster", kloten: "Kloten", airport: "aéroport",
-    VS: "Valais", GR: "Grisons", UR: "Uri", TI: "Tessin", ZH: "Zurich",
-    SH: "Schaffhouse", TG: "Thurgovie", SG: "Saint-Gall", SZ: "Schwytz", ZG: "Zoug", AG: "Argovie",
-    rhine: "Rhin", rhone: "Rhône", limmat: "Limmat", sihl: "Sihl", toss: "Töss",
-    northSea: "mer du Nord", mediterranean: "Méditerranée",
-    lakeZurich: "lac de Zurich", lakeGreifen: "lac de Greifen", lakePfaeffikon: "lac de Pfäffikon",
-    uetliberg: "Uetliberg", albis: "Albis", pfannenstiel: "Pfannenstiel", schnebelhorn: "Schnebelhorn",
-    gotthard: "Gothard", simplon: "Simplon", bernhard: "Grand-Saint-Bernard", dufour: "pointe Dufour",
-    jura: "Jura", plateau: "Plateau", alps: "Alpes",
-    german: "allemand", french: "français", italian: "italien", romansh: "romanche",
-  },
-  it: {
-    map: "Carta", credit: "Geodati: UST, UFAM, swisstopo", km: "km",
-    de: "Germania", at: "Austria", li: "Liechtenstein", it: "Italia", fr: "Francia",
-    zurich: "Zurigo", geneva: "Ginevra", basel: "Basilea", lausanne: "Losanna", bern: "Berna",
-    winterthur: "Winterthur", uster: "Uster", kloten: "Kloten", airport: "aeroporto",
-    VS: "Vallese", GR: "Grigioni", UR: "Uri", TI: "Ticino", ZH: "Zurigo",
-    SH: "Sciaffusa", TG: "Turgovia", SG: "San Gallo", SZ: "Svitto", ZG: "Zugo", AG: "Argovia",
-    rhine: "Reno", rhone: "Rodano", limmat: "Limmat", sihl: "Sihl", toss: "Töss",
-    northSea: "Mare del Nord", mediterranean: "Mediterraneo",
-    lakeZurich: "lago di Zurigo", lakeGreifen: "lago di Greifen", lakePfaeffikon: "lago di Pfäffikon",
-    uetliberg: "Uetliberg", albis: "Albis", pfannenstiel: "Pfannenstiel", schnebelhorn: "Schnebelhorn",
-    gotthard: "San Gottardo", simplon: "Sempione", bernhard: "Gran San Bernardo", dufour: "Punta Dufour",
-    jura: "Giura", plateau: "Altopiano", alps: "Alpi",
-    german: "tedesco", french: "francese", italian: "italiano", romansh: "romancio",
-  },
-  ru: {
-    map: "Карта", credit: "Геоданные: BFS, BAFU, swisstopo", km: "км",
-    de: "Германия", at: "Австрия", li: "Лихтенштейн", it: "Италия", fr: "Франция",
-    zurich: "Цюрих", geneva: "Женева", basel: "Базель", lausanne: "Лозанна", bern: "Берн",
-    winterthur: "Винтертур", uster: "Устер", kloten: "Клотен", airport: "аэропорт",
-    VS: "Вале", GR: "Граубюнден", UR: "Ури", TI: "Тичино", ZH: "Цюрих",
-    SH: "Шаффхаузен", TG: "Тургау", SG: "Санкт-Галлен", SZ: "Швиц", ZG: "Цуг", AG: "Аргау",
-    rhine: "Рейн", rhone: "Рона", limmat: "Лиммат", sihl: "Зиль", toss: "Тёсс",
-    northSea: "Северное море", mediterranean: "Средиземное море",
-    lakeZurich: "Цюрихское озеро", lakeGreifen: "Грайфензе", lakePfaeffikon: "Пфеффикерзе",
-    uetliberg: "Ютлиберг", albis: "Альбис", pfannenstiel: "Пфанненштиль", schnebelhorn: "Шнебельхорн",
-    gotthard: "Готард", simplon: "Симплон", bernhard: "Большой Сен-Бернар", dufour: "пик Дюфур",
-    jura: "Юра", plateau: "Швейцарское плато", alps: "Альпы",
-    german: "немецкий", french: "французский", italian: "итальянский", romansh: "ретороманский",
-  },
-  uk: {
-    map: "Мапа", credit: "Геодані: BFS, BAFU, swisstopo", km: "км",
-    de: "Німеччина", at: "Австрія", li: "Ліхтенштейн", it: "Італія", fr: "Франція",
-    zurich: "Цюрих", geneva: "Женева", basel: "Базель", lausanne: "Лозанна", bern: "Берн",
-    winterthur: "Вінтертур", uster: "Устер", kloten: "Клотен", airport: "аеропорт",
-    VS: "Вале", GR: "Граубюнден", UR: "Урі", TI: "Тічино", ZH: "Цюрих",
-    SH: "Шаффгаузен", TG: "Тургау", SG: "Санкт-Галлен", SZ: "Швіц", ZG: "Цуг", AG: "Аргау",
-    rhine: "Рейн", rhone: "Рона", limmat: "Ліммат", sihl: "Зіль", toss: "Тесс",
-    northSea: "Північне море", mediterranean: "Середземне море",
-    lakeZurich: "Цюрихське озеро", lakeGreifen: "Грайфенське озеро", lakePfaeffikon: "Пфеффікерське озеро",
-    uetliberg: "Ютліберг", albis: "Альбіс", pfannenstiel: "Пфанненштіль", schnebelhorn: "Шнебельгорн",
-    gotthard: "Готард", simplon: "Сімплон", bernhard: "Великий Сен-Бернар", dufour: "пік Дюфур",
-    jura: "Юра", plateau: "Швейцарське плато", alps: "Альпи",
-    german: "німецька", french: "французька", italian: "італійська", romansh: "ретороманська",
-  },
-};
+export const MAP_TEXT = byLang((t) => t.site.viz.map);
 
 /** Map units of a longitude and latitude (the Mercator projection of the build script). */
 function project(geo, [lon, lat]) {

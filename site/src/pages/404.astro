@@ -1,20 +1,14 @@
 ---
 // The page for addresses that do not exist (Cloudflare serves it with status 404). No language is known,
-// so it says so in all six and links to each language's questions and home page.
+// so it says so in every language and links to each language's questions and home page.
 import "@fontsource-variable/inter/opsz.css";
 import "../styles/styles.css";
 import { LANGS } from "../scripts/i18n.js";
 import { UI } from "../ui.js";
 import { homePath, questionsPath } from "../data.js";
+import { byLang } from "../../../i18n/index.js";
 
-const MISSING = {
-  de: "Diese Seite gibt es nicht.",
-  en: "This page does not exist.",
-  fr: "Cette page n'existe pas.",
-  it: "Questa pagina non esiste.",
-  ru: "Такой страницы нет.",
-  uk: "Такої сторінки немає.",
-};
+const MISSING = byLang((t) => t.site.not_found);
 ---
 <!doctype html>
 <html lang="mul">

@@ -11,7 +11,8 @@ import { LANGS, STRINGS } from "../scripts/i18n.js";
 import { homePath } from "../data.js";
 
 const title = "Swiss Passport: Einbürgerungstest Zürich · Zurich citizenship test";
-const description = "Lernen für den Einbürgerungstest im Kanton Zürich, in sechs Sprachen. Learn for the Zurich citizenship test in six languages.";
+const n = Object.keys(LANGS).length;
+const description = `Lernen für den Einbürgerungstest im Kanton Zürich, in ${n} Sprachen. Learn for the Zurich citizenship test in ${n} languages.`;
 const url = (path) => new URL(path, SITE).href;
 ---
 <!doctype html>

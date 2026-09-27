@@ -1,5 +1,7 @@
 {
   "language": "de-CH",
+  "name": "Deutsch",
+  "script": "Latn",
   "title": "Grundkenntnistest Kanton Zürich",
   "categories": {
     "democracy": "Demokratie und Föderalismus",
@@ -7358,5 +7360,525 @@
         }
       ]
     }
+  },
+  "site": {
+    "home": {
+      "title": "Swiss Passport: Lernen für den Einbürgerungstest im Kanton Zürich",
+      "description": "Die 350 offiziellen Fragen des Grundkenntnistests im Kanton Zürich lernen, im Browser, mit Claude oder ChatGPT, in {language_count} Sprachen.",
+      "nav_learn": "Online lernen",
+      "nav_source": "Quellcode",
+      "h1": "Lernen für den Einbürgerungstest in Zürich.",
+      "lede": "Mit ChatGPT oder Claude, getippt oder gesprochen, auch unterwegs. Du lernst die 350 offiziellen Fragen des Kantons, eine nach der anderen, in deiner Sprache, und jede Antwort wird geprüft.",
+      "unofficial": "Kostenlos und unabhängig. Kein offizielles Angebot des Kantons Zürich.",
+      "cta": "Mit ChatGPT oder Claude lernen",
+      "cta_browser": "Oder direkt hier im Browser lernen",
+      "hero_votes": "Standesstimmen",
+      "hero_rule": "Nötig: 12 von 23. Die 6 früheren Halbkantone zählen halb.",
+      "hero_right": "Richtig.",
+      "hero_wrong": "Nicht ganz. Richtig ist",
+      "hero_again": "Nochmals",
+      "map_credit": "Karte: Bundesamt für Statistik (BFS), GEOSTAT.",
+      "how": "So geht's",
+      "step1": "Füge Swiss Passport zu Claude, ChatGPT oder einer anderen KI-App hinzu. Das dauert eine Minute, ein Konto braucht es nicht.",
+      "step2": "Sag, in welcher Sprache du lernen willst: {languages_or}.",
+      "step3": "Mach jeden Tag eine kurze Lektion. Ist ein Thema wieder fällig, fragt dich der Tutor zuerst danach.",
+      "method": "Methode",
+      "m1t": "Eine Frage nach der anderen",
+      "m1d": "Eine kurze Erklärung, dann sofort eine Frage. Die nächste Frage kommt erst nach deiner Antwort.",
+      "m2t": "Wiederholen bis richtig",
+      "m2d": "Eine falsch beantwortete Frage kommt am Ende der Lektion wieder, bis du sie richtig beantwortest.",
+      "m3t": "Fallen erklärt",
+      "m3d": "Jede Antwort erklärt, warum sie richtig ist und warum die verlockende falsche Antwort falsch ist.",
+      "m4t": "Mit Deutsch",
+      "m4d": "Du lernst in deiner Sprache und siehst immer den deutschen Wortlaut aus dem echten Test.",
+      "m5t": "Probeprüfung",
+      "m5d": "50 zufällige Fragen ohne Hilfe, wie im offiziellen Übungstest des Kantons.",
+      "m6t": "Geprüft vom Server, nicht von der KI",
+      "m6d": "Fragen, richtige Antworten und Erklärungen kommen vom Swiss-Passport-Server. Die KI stellt die Fragen und spricht mit dir, entscheidet aber nie, ob eine Antwort richtig ist.",
+      "reviews": "Wiederholen",
+      "reviews_p": "Jedes Thema kommt nach 1, 3, 7, 14 und 30 Tagen wieder. Ein Fehler setzt es eine Stufe zurück. So übst du, was du vergisst, und überspringst, was du kannst.",
+      "reviews_caption": "Tage nach der Lektion",
+      "contents": "Inhalt",
+      "f1": "offizielle Fragen des Kantons Zürich",
+      "f2": "Lektionen in 7 Teilen, von den Grundlagen bis zu deiner Gemeinde",
+      "f3": "Themen, jedes in einfacher Sprache erklärt",
+      "f4": "Sprachen, immer mit dem deutschen Original",
+      "f5": "Fragen pro Probeprüfung",
+      "contents_note": "Die Erklärungen wurden für dieses Projekt geschrieben und mit offiziellen Quellen geprüft: den Lernbroschüren von Kanton und Stadt Zürich, admin.ch, ch.ch und zh.ch.",
+      "start": "Start",
+      "s_browser": "Im Browser",
+      "s_browser_p": "<a href=\"/learn/\">Online lernen</a>, ohne Installation. Dein Fortschritt wird unter einem Lerncode gespeichert, der auch in den KI-Apps funktioniert.",
+      "s_connector": "In einer KI-App",
+      "s_connector_p": "Swiss Passport ist ein MCP-Server. Füge diese Adresse in deiner KI-App hinzu, ohne Konto und ohne Anmeldung:",
+      "copy": "Kopieren",
+      "copied": "Kopiert",
+      "s_progress": "Dein Fortschritt",
+      "s_progress_p": "Beim ersten Mal bekommst du einen Lerncode wie BERG-7K2Q. Schreib ihn auf und nenn ihn dem Tutor in einem neuen Chat, um weiterzumachen. Kein Konto, keine persönlichen Daten.",
+      "foot": "Kein offizielles Angebot des Kantons Zürich. Die Fragen veröffentlicht das Gemeindeamt des Kantons; Erklärungen und Übersetzungen gehören zu diesem Projekt.",
+      "foot_license": "Lizenz: frei für private und gemeinnützige Nutzung"
+    },
+    "ui": {
+      "home": "Start",
+      "breadcrumb": "Pfad",
+      "topic_questions": "Fragen zu diesem Thema",
+      "key_terms": "Wichtige Begriffe",
+      "mnemonic": "Eselsbrücke",
+      "prev_topic": "Vorheriges Thema",
+      "next_topic": "Nächstes Thema",
+      "nav_questions": "Alle Fragen",
+      "nav_main": "Hauptmenü",
+      "nav_langs": "Sprache",
+      "questions_title": "Alle 350 Fragen des Einbürgerungstests Zürich, mit Antworten",
+      "questions_desc": "Die 350 offiziellen Fragen des Grundkenntnistests im Kanton Zürich, nach Thema geordnet, jede mit richtiger Antwort und Erklärung.",
+      "questions_lede": "Die offiziellen Fragen des Grundkenntnistests, nach Thema geordnet. Jede mit der richtigen Antwort und einer Erklärung.",
+      "question_n": "Frage {n} von 350",
+      "title_suffix": "Einbürgerungstest Zürich",
+      "answer": "Richtige Antwort",
+      "why": "Warum",
+      "mistakes": "Häufige Fehler",
+      "german": "Im Test auf Deutsch",
+      "topic": "Thema",
+      "sources": "Quellen",
+      "checked": "Zuletzt geprüft: {date}",
+      "prev": "Vorherige Frage",
+      "next": "Nächste Frage",
+      "practise": "Alle 350 Fragen üben",
+      "credit": "Frage {n} der <a href=\"{pdf}\">offiziellen Fragenliste des Kantons Zürich</a> (Gemeindeamt, Stand Mai 2025). Erklärung: Swiss Passport.",
+      "report": "Fehler gefunden? Schreib uns",
+      "report_subject": "Fehler in Frage {n}"
+    },
+    "guide": {
+      "nav": "Zum Test",
+      "title": "Grundkenntnistest Zürich: so funktioniert der Einbürgerungstest",
+      "desc": "Wer den Grundkenntnistest im Kanton Zürich machen muss, welche Fragen kommen, wo er stattfindet und was er kostet. Nur Angaben aus offiziellen Quellen.",
+      "lede": "Was der Kanton und die Stadt Zürich offiziell zum Test sagen, mit Quellen.",
+      "faq": [
+        {
+          "q": "Was ist der Grundkenntnistest?",
+          "a": [
+            "Für eine ordentliche Einbürgerung im Kanton Zürich braucht es Kenntnisse über die Schweiz, den Kanton Zürich und das Zürcher Gemeindewesen. Diese weist du in einem Test nach. Im Test gibt es Fragen über Geographie, Politik und Geschichte.",
+            "Rechtsgrundlage ist § 16 der <a href=\"{kbuev}\">Kantonalen Bürgerrechtsverordnung (KBüV)</a>: Die Gemeinde prüft die Grundkenntnisse in einem Einbürgerungsgespräch mit einem standardisierten Fragebogen oder durch einen Test."
+          ]
+        },
+        {
+          "q": "Muss ich den Test machen?",
+          "a": [
+            "Du musst keinen Test machen, wenn einer dieser Punkte zutrifft:",
+            "<ul><li>Du bist jünger als 12 Jahre.</li><li>Du besuchst aktuell die obligatorische Schule oder eine Ausbildung auf Sekundarstufe II (Lehre, Gymnasium) in der Schweiz.</li><li>Du hast 5 Jahre die obligatorische Schule in der Schweiz besucht, davon mindestens 3 Jahre auf Sekundarstufe I.</li><li>Du hast eine Ausbildung auf Sekundarstufe II in der Schweiz abgeschlossen.</li></ul>",
+            "Der <a href=\"{zh}\">Self-Check des Kantons</a> zeigt es dir für deine Situation. In der Stadt Zürich werden bei der erleichterten Einbürgerung die Grundkenntnisse im Einbürgerungsgespräch geprüft."
+          ]
+        },
+        {
+          "q": "Welche Fragen kommen im Test?",
+          "a": [
+            "Der Kanton veröffentlicht die <a href=\"{pdf}\">Liste mit allen 350 Fragen</a> (PDF, Deutsch, Stand Mai 2025). Jede Frage hat 4 Antworten, genau eine ist richtig.",
+            "Der offizielle Übungstest des Kantons stellt 50 Fragen und zeigt nach jeder Antwort, ob sie richtig war. Ob der echte Test gleich aufgebaut ist, ist nicht offiziell bestätigt."
+          ]
+        },
+        {
+          "q": "Wo und wann findet der Test statt?",
+          "a": [
+            "Die Gemeinde sagt dir, wann und wo du den Test machen kannst. Für die Anmeldung fragst du deine Gemeinde. Je nach Gemeinde machst du den Test vor oder nach dem Einreichen des Gesuchs.",
+            "In der <a href=\"{city}\">Stadt Zürich</a> findet der Test im Stadthaus statt, erst nachdem du das Gesuch eingereicht hast."
+          ]
+        },
+        {
+          "q": "Was kostet der Test?",
+          "a": [
+            "Die Gebühren unterscheiden sich je nach Gemeinde und Testanbieter. Frag bei deiner Gemeinde nach. In der Stadt Zürich ist der Test kostenlos."
+          ]
+        },
+        {
+          "q": "Wie viele Punkte braucht es zum Bestehen? Wie lange dauert der Test?",
+          "a": [
+            "Beides ist nicht offiziell veröffentlicht, deshalb nennen wir hier keine Zahlen. Auskunft gibt das Gemeindeamt des Kantons: grundkenntnistest@ji.zh.ch, +41 43 259 83 81 (Mo bis Do 13:30 bis 17:00, Fr 13:30 bis 16:00)."
+          ]
+        },
+        {
+          "q": "Wie bereite ich mich vor?",
+          "a": [
+            "Der Kanton bietet den <a href=\"{zh}\">Übungstest</a>, die Einbürgerungsbroschüre und die Liste aller Fragen an.",
+            "Hier findest du <a href=\"{questions}\">alle 350 Fragen mit Antwort und Erklärung</a>, nach Thema geordnet, in {language_count} Sprachen und immer mit dem deutschen Wortlaut. Mit <a href=\"{learn}\">Online lernen</a> übst du in kurzen Lektionen mit Wiederholungen und Probeprüfungen.",
+            "Warum diese Art zu lernen wirkt, erklärt <a href=\"{method}\">die Seite zur Methode</a>."
+          ]
+        }
+      ],
+      "sources": "Quellen",
+      "disclaimer": "Kein offizielles Angebot. Massgebend sind die Angaben von Kanton und Gemeinde."
+    },
+    "about": {
+      "nav": "Über das Projekt",
+      "title": "Über Swiss Passport",
+      "desc": "Wer hinter Swiss Passport steht, woher die Fragen und Erklärungen kommen und wie sie geprüft werden.",
+      "sections": [
+        [
+          "Wer",
+          [
+            "Swiss Passport ist ein kostenloses, nicht kommerzielles Projekt von <a href=\"{aleksej}\">Aleksej Dix</a> und <a href=\"{lidia}\">Lidia Dix</a>. Wir leben im Kanton Zürich und bereiten uns selbst auf die Einbürgerung vor. Dabei haben wir das Werkzeug gebaut, das uns gefehlt hat. Code und Inhalte sind offen auf <a href=\"{repo}\">GitHub</a>.",
+            "Aleksej organisiert seit über zehn Jahren die Tech-Community <a href=\"{webzurich}\">WebZurich</a> mit und hilft bei Konferenzen in Zürich. Jedes Jahr sammelt Aleksej Computer und schenkt sie Familien, die sie zum Lernen brauchen, vor allem für die Kinder. Lidia organisiert WebZurich mit und hilft bei Anlässen für Frauen, die neu in Zürich sind: Theaterbesuche, Ausflüge und Workshops dazu, wie die Schweiz funktioniert."
+          ]
+        ],
+        [
+          "Woher die Inhalte kommen",
+          [
+            "Die 350 Fragen und die richtigen Antworten stammen aus der <a href=\"{pdf}\">offiziellen Fragenliste des Kantons Zürich</a> (Gemeindeamt, Abteilung Einbürgerungen, Stand Mai 2025).",
+            "Erklärungen, Themen und Übersetzungen wurden für dieses Projekt geschrieben und mit offiziellen Quellen geprüft: den Lernbroschüren von Kanton und Stadt Zürich, zh.ch, stadt-zuerich.ch, admin.ch, fedlex.admin.ch und ch.ch. Jede Frage und jedes Thema nennt seine Quellen. <a href=\"{sources}\">Liste aller Quellen</a>."
+          ]
+        ],
+        [
+          "Stand",
+          [
+            "Fragenliste: Mai 2025. Angaben zum Test auf der Seite <a href=\"{guide}\">Zum Test</a>: geprüft am 25. September 2026."
+          ]
+        ],
+        [
+          "Kein offizielles Angebot",
+          [
+            "Swiss Passport ist kein Angebot des Kantons Zürich oder einer Gemeinde. Massgebend sind die Angaben von Kanton und Gemeinde."
+          ]
+        ],
+        [
+          "Fehler gefunden?",
+          [
+            "Bitte schreib an <a href=\"mailto:{email}\">{email}</a> oder melde ihn auf <a href=\"{issues}\">GitHub</a>. Jede Korrektur hilft allen, die für den Test lernen."
+          ]
+        ],
+        [
+          "Datenschutz",
+          [
+            "Kein Konto, keine Cookies. Der Lernfortschritt wird unter einem Lerncode gespeichert, ohne Namen oder E-Mail."
+          ]
+        ],
+        [
+          "Lizenz",
+          [
+            "Code: <a href=\"{license}\">PolyForm Noncommercial</a>. Erklärungen und Übersetzungen: <a href=\"{content_license}\">CC BY-NC-SA 4.0</a>. Frei für private und gemeinnützige Nutzung."
+          ]
+        ]
+      ]
+    },
+    "method": {
+      "nav": "Methode",
+      "link": "Warum diese Methode funktioniert",
+      "title": "So lernst du für den Einbürgerungstest: die Methode hinter Swiss Passport",
+      "desc": "Warum Fragen beantworten und in wachsenden Abständen wiederholen besser wirkt als Lesen, und wie Swiss Passport damit auf den Grundkenntnistest Zürich vorbereitet.",
+      "lede": "Die meisten lernen, indem sie die Fragen immer wieder durchlesen. Das fühlt sich gut an, gehört aber zu den am wenigsten wirksamen Methoden. Swiss Passport nutzt Techniken, die die Gedächtnisforschung seit Jahrzehnten prüft.",
+      "sections": [
+        [
+          "Antworten statt nochmals lesen",
+          [
+            "Jedes Mal, wenn du eine Antwort aus dem Gedächtnis abrufst, festigst du sie. In einer bekannten Studie erinnerten sich Studierende, die das Abrufen übten, eine Woche später an mehr als jene, die den Text nochmals lasen, obwohl das Nochmals-Lesen direkt nach dem Lernen besser abschnitt (Roediger & Karpicke 2006).",
+            "Darum zeigt Swiss Passport eine kurze Erklärung und fragt dann sofort. Du beantwortest jede Frage selbst, bevor du die Lösung siehst."
+          ]
+        ],
+        [
+          "Wiederholen, kurz bevor du vergisst",
+          [
+            "Was du lernst, verblasst schnell, wenn du es nicht wieder brauchst. Wiederholungen, verteilt über Tage und Wochen, halten Wissen viel länger als gleich viel Übung auf einmal. Je länger du etwas behalten musst, desto grösser dürfen die Abstände sein (Cepeda et al. 2006).",
+            "Swiss Passport bringt jedes Thema nach 1, 3, 7, 14 und 30 Tagen wieder. Antwortest du richtig, wird der nächste Abstand länger. Machst du einen Fehler, geht das Thema eine Stufe zurück und kommt am nächsten Tag wieder. So übst du, was du vergisst, und überspringst, was du kannst."
+          ]
+        ],
+        [
+          "Aus jeder Antwort lernen",
+          [
+            "Nach jeder Antwort siehst du, warum sie richtig ist, und wenn du falsch lagst, warum die verlockende falsche Antwort falsch ist. Gerade bei Multiple-Choice-Fragen zählt das: Ohne Rückmeldung halten Lernende eine falsche Antwort später manchmal für richtig, mit Rückmeldung wird dieser Effekt kleiner (Butler & Roediger 2008).",
+            "Eine falsch beantwortete Frage kommt am Ende der Lektion wieder, bis du sie richtig beantwortest."
+          ]
+        ],
+        [
+          "Vor dem Test gemischt üben",
+          [
+            "Im echten Test kommen die Fragen durcheinander. Die Wiederholungen mischen Themen aus verschiedenen Lektionen, und jede Probeprüfung stellt 50 zufällige Fragen aus allen 350, ohne Hilfe, wie der Übungstest des Kantons. Gemischtes Üben fühlt sich schwerer an, führte in Studien aber zu besseren Resultaten in späteren Tests als Üben Thema für Thema (Rohrer & Taylor 2007).",
+            "Deine Bereitschaft zeigt, bei welchem Anteil der Fragen du das Thema schon an mehreren Tagen richtig beantwortet hast."
+          ]
+        ],
+        [
+          "In deiner Sprache verstehen, auf Deutsch wiedererkennen",
+          [
+            "Du lernst in der Sprache, die du am besten verstehst, damit du den Inhalt verstehst und nicht nur Wörter auswendig lernst. Zu jeder Frage siehst du immer auch den deutschen Wortlaut aus dem echten Test, damit du ihn dort wiedererkennst."
+          ]
+        ],
+        [
+          "Warum das für deinen Test wichtig ist",
+          [
+            "Es gibt 350 offizielle Fragen, und die Gemeinde sagt dir, wann du den Test machst. Büffeln am Vorabend hilft vielleicht für den nächsten Tag, aber so Gelerntes verblasst schnell.",
+            "Eine grosse Übersichtsarbeit bewertet Üben mit Tests und verteiltes Üben als die zwei nützlichsten Lerntechniken, Nochmals-Lesen und Markieren dagegen als wenig nützlich (Dunlosky et al. 2013).",
+            "Kurz gesagt: Jeden Tag ein wenig ist besser als viel auf einmal. Mach jeden Tag eine kurze Lektion und zuerst die fälligen Wiederholungen."
+          ]
+        ]
+      ]
+    },
+    "method_viz": {
+      "curveTitle": "Wie viel du noch weisst",
+      "cram": "Alles an einem Abend (6-mal)",
+      "spaced": "Verteilt: nach 1, 3, 7, 14 und 30 Tagen",
+      "cramShort": "An einem Abend",
+      "spacedShort": "Verteilt",
+      "day": "Tag",
+      "days": "Tage",
+      "review": "Wiederholung",
+      "all": "alles",
+      "none": "nichts",
+      "levels": [
+        "fast vergessen",
+        "unsicher",
+        "gut",
+        "sehr gut"
+      ],
+      "table": "Als Tabelle",
+      "curveNote": "Schema, keine Messwerte: So verlaufen Vergessen und Wiederholen typischerweise. Beide Linien stehen für gleich viele Wiederholungen.",
+      "tryIt": "Probier es aus: Wähl die Antwort, die dir richtig scheint.",
+      "blocked": "Thema für Thema",
+      "mixed": "Gemischt, wie im Test",
+      "mixNote": "12 Fragen aus 3 Themen.",
+      "showIn": "Frage anzeigen auf",
+      "order": "Reihenfolge der Fragen"
+    },
+    "connect": {
+      "nav": "Mit KI lernen",
+      "title": "Swiss Passport in deiner KI-App",
+      "desc": "So fügst du Swiss Passport zu Claude, ChatGPT, Grok, Mistral Vibe oder Perplexity hinzu. Danach lernst du im Chat, eine Frage nach der anderen.",
+      "link": "Schritt für Schritt für Claude, ChatGPT, Grok, Mistral Vibe und Perplexity",
+      "address": "Adresse",
+      "apps": [
+        {
+          "id": "claude",
+          "name": "Claude",
+          "note": "Gratis und in den bezahlten Abos. Im Web oder am Computer hinzufügen, dann geht es auch in der Handy-App und mit Sprache. Mit der Quizkarte zum Anklicken.",
+          "steps": [
+            "Customize → Connectors → + → Add custom connector.",
+            "Name: Swiss Passport. Adresse einfügen, dann Add und Connect.",
+            "Im Chat: + → Connectors → Swiss Passport einschalten und sagen, dass du lernen willst."
+          ]
+        },
+        {
+          "id": "chatgpt",
+          "name": "ChatGPT",
+          "note": "Plus, Pro, Business, Enterprise und Edu, nur im Web. Mit der Quizkarte zum Anklicken.",
+          "steps": [
+            "Plugins in der Seitenleiste → Add → Create MCP App. Kein Add-Knopf? Zuerst in den Einstellungen den Developer mode einschalten.",
+            "Name: Swiss Passport. Adresse einfügen, Authentifizierung: No Authentication, dann Create.",
+            "In einem neuen Chat @Swiss Passport tippen und sagen, dass du lernen willst.",
+            "Wirkt nach einem Update etwas veraltet? Einstellungen → Plugins → Swiss Passport → Refresh tools."
+          ]
+        },
+        {
+          "id": "grok",
+          "name": "Grok",
+          "note": "Auf grok.com. Grok stellt die Fragen als Text.",
+          "steps": [
+            "grok.com/connectors → New Connector → Custom.",
+            "Adresse einfügen und speichern.",
+            "Im Chat sagen: «Nutze Swiss Passport, ich will für den Einbürgerungstest lernen.»"
+          ]
+        },
+        {
+          "id": "mistral",
+          "name": "Mistral Vibe (Le Chat)",
+          "note": "Gratis und in den bezahlten Abos, im Web. Die Fragen kommen als Text.",
+          "steps": [
+            "Connectors → Add Connector → Custom MCP Connector.",
+            "Name: SwissPassport, ohne Leerzeichen. Adresse einfügen, dann Connect.",
+            "Im Chat: + → Tools → SwissPassport einschalten."
+          ]
+        },
+        {
+          "id": "perplexity",
+          "name": "Perplexity",
+          "note": "Pro und Max, im Web. Die Fragen kommen als Text.",
+          "steps": [
+            "Einstellungen → Connectors → + Custom connector → Remote.",
+            "Name: Swiss Passport. Adresse einfügen, Authentifizierung: None, Transport: Streamable HTTP. Hinweis bestätigen, dann Add.",
+            "Den Connector einschalten und in einem neuen Thread fragen."
+          ]
+        }
+      ],
+      "other": "Andere Apps",
+      "other_p": "Jede App, die einen entfernten MCP-Server hinzufügen kann, funktioniert gleich: Adresse oben, keine Authentifizierung. Gemini und Microsoft Copilot können das in der Schweiz noch nicht.",
+      "logos": "Die Logos sind Marken ihrer Inhaber. Swiss Passport ist mit keinem dieser Anbieter verbunden."
+    },
+    "viz": {
+      "chat": {
+        "title": "So sieht eine Lektion aus",
+        "you": "Du",
+        "tutor": "Tutor",
+        "pick": "Ich möchte auf Deutsch lernen."
+      },
+      "federal_council": {
+        "title": "Der Bundesrat"
+      },
+      "check": {
+        "caption": "Schnell-Check in 4 Fragen",
+        "qs": [
+          "Bist du jünger als 12 Jahre?",
+          "Besuchst du zurzeit die obligatorische Schule oder eine Ausbildung auf Sekundarstufe II (Lehre, Gymnasium) in der Schweiz?",
+          "Hast du 5 Jahre die obligatorische Schule in der Schweiz besucht, davon mindestens 3 Jahre auf Sekundarstufe I?",
+          "Hast du eine Ausbildung auf Sekundarstufe II in der Schweiz abgeschlossen?"
+        ],
+        "yes": "Ja",
+        "no": "Nein",
+        "noTest": "kein Test nötig",
+        "test": "Test nötig",
+        "allNo": "Viermal Nein:",
+        "resultNo": "Du musst den Test voraussichtlich nicht machen.",
+        "resultYes": "Du musst den Test voraussichtlich machen.",
+        "again": "Nochmals",
+        "note": "Unverbindlich. Verbindlich sind der Self-Check des Kantons und die Auskunft deiner Gemeinde.",
+        "link": "Self-Check des Kantons"
+      },
+      "order": {
+        "caption": "Test und Gesuch: zwei Reihenfolgen",
+        "before": "Test vor dem Gesuch",
+        "after": "Test nach dem Gesuch (zum Beispiel Stadt Zürich)",
+        "when": "Gemeinde sagt, wann und wo",
+        "test": "Test",
+        "apply": "Gesuch einreichen",
+        "note": "Welche Reihenfolge gilt, sagt dir deine Gemeinde."
+      },
+      "timeline": {
+        "title": "Zeitleiste der Schweizer Geschichte",
+        "bc": "{year} v. Chr.",
+        "c19": "19. Jh."
+      },
+      "levels": {
+        "title": "Drei Staatsebenen"
+      },
+      "map": {
+        "map": "Karte",
+        "credit": "Geodaten: BFS, BAFU, swisstopo",
+        "km": "km",
+        "de": "Deutschland",
+        "at": "Österreich",
+        "li": "Liechtenstein",
+        "it": "Italien",
+        "fr": "Frankreich",
+        "zurich": "Zürich",
+        "geneva": "Genf",
+        "basel": "Basel",
+        "lausanne": "Lausanne",
+        "bern": "Bern",
+        "winterthur": "Winterthur",
+        "uster": "Uster",
+        "kloten": "Kloten",
+        "airport": "Flughafen",
+        "VS": "Wallis",
+        "GR": "Graubünden",
+        "UR": "Uri",
+        "TI": "Tessin",
+        "ZH": "Zürich",
+        "SH": "Schaffhausen",
+        "TG": "Thurgau",
+        "SG": "St. Gallen",
+        "SZ": "Schwyz",
+        "ZG": "Zug",
+        "AG": "Aargau",
+        "rhine": "Rhein",
+        "rhone": "Rhone",
+        "limmat": "Limmat",
+        "sihl": "Sihl",
+        "toss": "Töss",
+        "northSea": "Nordsee",
+        "mediterranean": "Mittelmeer",
+        "lakeZurich": "Zürichsee",
+        "lakeGreifen": "Greifensee",
+        "lakePfaeffikon": "Pfäffikersee",
+        "uetliberg": "Uetliberg",
+        "albis": "Albis",
+        "pfannenstiel": "Pfannenstiel",
+        "schnebelhorn": "Schnebelhorn",
+        "gotthard": "Gotthard",
+        "simplon": "Simplon",
+        "bernhard": "Grosser Sankt Bernhard",
+        "dufour": "Dufourspitze",
+        "jura": "Jura",
+        "plateau": "Mittelland",
+        "alps": "Alpen",
+        "german": "Deutsch",
+        "french": "Französisch",
+        "italian": "Italienisch",
+        "romansh": "Rätoromanisch"
+      },
+      "overview": {
+        "title": "Alle 350 Fragen auf einen Blick",
+        "lesson": "Lektion",
+        "q": {
+          "one": "Frage",
+          "other": "Fragen"
+        },
+        "hint": "Ein Punkt pro Frage, geordnet nach Lektionen. Wähl eine Lektion, um ihre Fragen zu sehen."
+      },
+      "parliament": {
+        "title": "Die Bundesversammlung",
+        "cantons": "Kantone: je 2 Sitze",
+        "halves": "Frühere Halbkantone: je 1 Sitz"
+      },
+      "powers": {
+        "title": "Gewaltenteilung",
+        "make": "macht die Gesetze",
+        "execute": "führt die Gesetze aus",
+        "judge": "urteilt nach dem Gesetz",
+        "federal": "Bund",
+        "canton": "Kanton Zürich",
+        "courts": "Gerichte",
+        "control": "Die drei Gewalten kontrollieren sich gegenseitig.",
+        "members": {
+          "one": "Mitglied",
+          "other": "Mitglieder"
+        }
+      }
+    },
+    "not_found": "Diese Seite gibt es nicht.",
+    "privacy": "Datenschutz"
+  },
+  "learn": {
+    "langs": "Sprache",
+    "whatNext": "Wie geht es weiter",
+    "whatNextText": "Die Themen dieser Runde kommen morgen zur Wiederholung. Mach jeden Tag zuerst die fälligen Wiederholungen, dann eine neue Lektion.",
+    "showExplanation": "Erklärung zeigen",
+    "answerFirst": "Beantworte zuerst die Frage. Die Erklärung erscheint danach.",
+    "title": "Online lernen",
+    "lede": "Kurze Lektionen, Wiederholungen zur richtigen Zeit und Probeprüfungen mit den offiziellen Fragen.",
+    "unofficial": "Kostenlos und unabhängig. Kein offizielles Angebot des Kantons Zürich.",
+    "lesson": "Lektion",
+    "continueLesson": "Weiter mit der Lektion",
+    "reviews": "Wiederholen",
+    "due": "{n} fällig",
+    "noneDue": "nichts fällig",
+    "exam": "Probeprüfung",
+    "examSub": "50 Fragen, ohne Hilfe",
+    "allDone": "Alle Lektionen erledigt",
+    "lessonsDone": "Lektionen erledigt",
+    "ready": "bereit für die Prüfung, nach Thema",
+    "examsDone": "Probeprüfungen",
+    "yourCode": "Dein Lerncode",
+    "codeHelp": "Mit diesem Code lernst du auf jedem Gerät weiter, auch in Claude oder ChatGPT.",
+    "haveCode": "Du hast schon einen Code?",
+    "useCode": "Verwenden",
+    "unknownCode": "Diesen Code gibt es nicht. Prüfe ihn.",
+    "next": "Weiter",
+    "right": "Richtig.",
+    "wrong": "Nicht ganz. Richtig ist",
+    "retry": "Diese Frage kam vorhin falsch. Versuch es nochmals.",
+    "comesAgain": "Diese Frage kommt am Ende der Lektion nochmals.",
+    "examNote": "Probeprüfung: keine Rückmeldung bis zum Schluss.",
+    "overview": "Zur Übersicht",
+    "source": "Quelle",
+    "keys": "Tasten A bis D wählen, Enter geht weiter.",
+    "doneLesson": "Lektion erledigt",
+    "doneReview": "Wiederholung erledigt",
+    "firstTry": "beim ersten Versuch richtig",
+    "examResult": "Ergebnis der Probeprüfung",
+    "passMark": "Die offizielle Bestehensgrenze ist nicht veröffentlicht.",
+    "mistakes": "Deine Fehler",
+    "yours": "Deine Antwort",
+    "error": "Keine Verbindung zum Server. Versuch es nochmals.",
+    "nextLesson": "Nächste Lektion"
+  },
+  "card": {
+    "right": "Richtig",
+    "wrongIs": "Richtig ist",
+    "again": "Diese Frage kommt in dieser Runde noch einmal.",
+    "next": "Weiter",
+    "done": "Fertig! Wie geht es weiter?"
   }
 }

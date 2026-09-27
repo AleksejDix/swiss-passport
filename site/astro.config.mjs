@@ -3,10 +3,11 @@ import sitemap from "@astrojs/sitemap";
 import securityHeaders from "./security-headers.mjs";
 import { lastmodFor } from "./lastmod.mjs";
 import { SITE } from "./src/site.js";
+import { LANGUAGES } from "../i18n/index.js";
 
 // Static site. The build goes into server/public, which the Cloudflare Worker serves next to /mcp.
 // When each page's content last changed (git history), for <lastmod> in the sitemap.
-const lastmod = lastmodFor(["de", "en", "fr", "it", "ru", "uk"]);
+const lastmod = lastmodFor(LANGUAGES);
 
 export default defineConfig({
   site: SITE,

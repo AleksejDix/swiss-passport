@@ -26,21 +26,14 @@ interface Feedback {
   note?: string;
   comes_again_later_in_this_round?: boolean;
 }
+interface Labels { right: string; wrongIs: string; again: string; next: string; done: string }
 interface Card {
   lang?: string;
+  /** The card's labels in the learner's language, from the server (i18n/<code>.json, key card). */
+  labels: Labels;
   data: { learner_code?: string } & (Step | { feedback: Feedback; next?: Step; finished?: Record<string, unknown> } | Record<string, unknown>);
   images: Partial<Record<"question" | Letter, string>>;
 }
-
-// Card labels in the learner's language. `done` is sent to the chat as the learner's message at the end of a round.
-const LABELS: Record<string, { right: string; wrongIs: string; again: string; next: string; done: string }> = {
-  de: { right: "Richtig", wrongIs: "Richtig ist", again: "Diese Frage kommt in dieser Runde noch einmal.", next: "Weiter", done: "Fertig! Wie geht es weiter?" },
-  en: { right: "Correct", wrongIs: "Correct answer:", again: "This question comes again later in this round.", next: "Next", done: "Done! What's next?" },
-  fr: { right: "Correct", wrongIs: "Bonne réponse :", again: "Cette question reviendra plus tard dans cette série.", next: "Suivant", done: "Terminé ! Et maintenant ?" },
-  it: { right: "Giusto", wrongIs: "Risposta giusta:", again: "Questa domanda tornerà più avanti in questo giro.", next: "Avanti", done: "Finito! E adesso?" },
-  ru: { right: "Верно", wrongIs: "Правильный ответ:", again: "Этот вопрос ещё вернётся в этом раунде.", next: "Дальше", done: "Готово! Что дальше?" },
-  uk: { right: "Правильно", wrongIs: "Правильна відповідь:", again: "Це питання ще повернеться в цьому раунді.", next: "Далі", done: "Готово! Що далі?" },
-};
 
 const root = document.getElementById("root")!;
 const app = new App({ name: "swiss-passport-card", version: "1.0.0" });
@@ -53,8 +46,7 @@ const el = (tag: string, cls = "", text = "") => {
   return e;
 };
 
-function render({ lang, data, images }: Card) {
-  const label = LABELS[lang ?? "de"] ?? LABELS.de;
+function render({ lang, labels: label, data, images }: Card) {
   learnerCode = data.learner_code ?? learnerCode;
   root.replaceChildren();
   const feedback = "feedback" in data ? (data.feedback as Feedback) : undefined;
@@ -151,7 +143,7 @@ async function choose(letter: Letter, q: Question, lang?: string) {
       if (!r.isError && card?.data) {
         render(card);
         await tellModel(letter, q, card);
-        if ("finished" in card.data) await app.sendMessage({ role: "user", content: [{ type: "text", text: (LABELS[lang ?? "de"] ?? LABELS.de).done }] });
+        if ("finished" in card.data) await app.sendMessage({ role: "user", content: [{ type: "text", text: card.labels.done }] });
         return;
       }
     } catch {

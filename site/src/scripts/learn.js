@@ -1,124 +1,26 @@
 // Learn online: a browser client for the same MCP tools that Claude and ChatGPT use.
 // Progress lives on the server under the learner code, which the browser remembers.
-import { LANGS, currentLang, saveLang } from "./i18n.js";
-
 const API = "/mcp";
 
-// Interface text. Quiz content comes translated from the server.
-const T = {
-  de: {
-    langs: "Sprache",
-    whatNext: "Wie geht es weiter", whatNextText: "Die Themen dieser Runde kommen morgen zur Wiederholung. Mach jeden Tag zuerst die fälligen Wiederholungen, dann eine neue Lektion.",
-    showExplanation: "Erklärung zeigen", answerFirst: "Beantworte zuerst die Frage. Die Erklärung erscheint danach.",
-    title: "Online lernen", lede: "Kurze Lektionen, Wiederholungen zur richtigen Zeit und Probeprüfungen mit den offiziellen Fragen.", unofficial: "Kostenlos und unabhängig. Kein offizielles Angebot des Kantons Zürich.",
-    lesson: "Lektion", continueLesson: "Weiter mit der Lektion", reviews: "Wiederholen", due: (n) => `${n} fällig`, noneDue: "nichts fällig",
-    exam: "Probeprüfung", examSub: "50 Fragen, ohne Hilfe", allDone: "Alle Lektionen erledigt",
-    lessonsDone: "Lektionen erledigt", ready: "bereit für die Prüfung, nach Thema", examsDone: "Probeprüfungen",
-    yourCode: "Dein Lerncode", codeHelp: "Mit diesem Code lernst du auf jedem Gerät weiter, auch in Claude oder ChatGPT.",
-    haveCode: "Du hast schon einen Code?", useCode: "Verwenden", unknownCode: "Diesen Code gibt es nicht. Prüfe ihn.",
-    next: "Weiter", right: "Richtig.", wrong: "Nicht ganz. Richtig ist", retry: "Diese Frage kam vorhin falsch. Versuch es nochmals.",
-    comesAgain: "Diese Frage kommt am Ende der Lektion nochmals.", examNote: "Probeprüfung: keine Rückmeldung bis zum Schluss.",
-    overview: "Zur Übersicht", source: "Quelle", keys: "Tasten A bis D wählen, Enter geht weiter.",
-    doneLesson: "Lektion erledigt", doneReview: "Wiederholung erledigt", firstTry: "beim ersten Versuch richtig",
-    examResult: "Ergebnis der Probeprüfung", passMark: "Die offizielle Bestehensgrenze ist nicht veröffentlicht.", mistakes: "Deine Fehler",
-    yours: "Deine Antwort", error: "Keine Verbindung zum Server. Versuch es nochmals.", nextLesson: "Nächste Lektion",
-  },
-  en: {
-    langs: "Language",
-    whatNext: "What's next", whatNextText: "The topics of this round come back for review tomorrow. Each day, do the due reviews first, then a new lesson.",
-    showExplanation: "Show explanation", answerFirst: "Answer the question first. The explanation appears afterwards.",
-    title: "Learn online", lede: "Short lessons, reviews at the right time and mock exams with the official questions.", unofficial: "Free and independent. Not an official service of the Canton of Zurich.",
-    lesson: "Lesson", continueLesson: "Continue lesson", reviews: "Review", due: (n) => `${n} due`, noneDue: "nothing due",
-    exam: "Mock exam", examSub: "50 questions, no help", allDone: "All lessons done",
-    lessonsDone: "lessons done", ready: "ready for the exam, by topic", examsDone: "Mock exams",
-    yourCode: "Your learner code", codeHelp: "Use this code to continue on any device, also in Claude or ChatGPT.",
-    haveCode: "Already have a code?", useCode: "Use", unknownCode: "This code does not exist. Check it.",
-    next: "Next", right: "Correct.", wrong: "Not quite. The answer is", retry: "You got this one wrong earlier. Try again.",
-    comesAgain: "This question comes back at the end of the lesson.", examNote: "Mock exam: no feedback until the end.",
-    overview: "Back to overview", source: "Source", keys: "Keys A to D choose, Enter continues.",
-    doneLesson: "Lesson done", doneReview: "Review done", firstTry: "correct at the first try",
-    examResult: "Mock exam result", passMark: "The official pass mark is not published.", mistakes: "Your mistakes",
-    yours: "Your answer", error: "No connection to the server. Try again.", nextLesson: "Next lesson",
-  },
-  fr: {
-    langs: "Langue",
-    whatNext: "Et ensuite", whatNextText: "Les thèmes de cette série reviendront demain pour une révision. Chaque jour, fais d'abord les révisions prévues, puis une nouvelle leçon.",
-    showExplanation: "Afficher l'explication", answerFirst: "Réponds d'abord à la question. L'explication apparaît ensuite.",
-    title: "Apprendre en ligne", lede: "Des leçons courtes, des révisions au bon moment et des examens blancs avec les questions officielles.", unofficial: "Gratuit et indépendant. Ce n'est pas un service officiel du canton de Zurich.",
-    lesson: "Leçon", continueLesson: "Continuer la leçon", reviews: "Réviser", due: (n) => `${n} à réviser`, noneDue: "rien à réviser",
-    exam: "Examen blanc", examSub: "50 questions, sans aide", allDone: "Toutes les leçons sont faites",
-    lessonsDone: "leçons faites", ready: "prêt pour l'examen, par thème", examsDone: "Examens blancs",
-    yourCode: "Ton code d'apprentissage", codeHelp: "Avec ce code, tu continues sur n'importe quel appareil, aussi dans Claude ou ChatGPT.",
-    haveCode: "Tu as déjà un code ?", useCode: "Utiliser", unknownCode: "Ce code n'existe pas. Vérifie-le.",
-    next: "Suivant", right: "Correct.", wrong: "Pas tout à fait. La bonne réponse est", retry: "Tu t'étais trompé ici. Essaie encore.",
-    comesAgain: "Cette question reviendra à la fin de la leçon.", examNote: "Examen blanc : pas de retour avant la fin.",
-    overview: "Retour à l'aperçu", source: "Source", keys: "Touches A à D pour choisir, Entrée pour continuer.",
-    doneLesson: "Leçon terminée", doneReview: "Révision terminée", firstTry: "justes du premier coup",
-    examResult: "Résultat de l'examen blanc", passMark: "Le seuil officiel de réussite n'est pas publié.", mistakes: "Tes erreurs",
-    yours: "Ta réponse", error: "Pas de connexion au serveur. Réessaie.", nextLesson: "Leçon suivante",
-  },
-  it: {
-    langs: "Lingua",
-    whatNext: "E adesso", whatNextText: "I temi di questo giro tornano domani per il ripasso. Ogni giorno fai prima i ripassi previsti, poi una nuova lezione.",
-    showExplanation: "Mostra la spiegazione", answerFirst: "Rispondi prima alla domanda. La spiegazione appare dopo.",
-    title: "Impara online", lede: "Lezioni brevi, ripassi al momento giusto ed esami di prova con le domande ufficiali.", unofficial: "Gratuito e indipendente. Non è un servizio ufficiale del Cantone di Zurigo.",
-    lesson: "Lezione", continueLesson: "Continua la lezione", reviews: "Ripassa", due: (n) => `${n} da ripassare`, noneDue: "niente da ripassare",
-    exam: "Esame di prova", examSub: "50 domande, senza aiuto", allDone: "Tutte le lezioni fatte",
-    lessonsDone: "lezioni fatte", ready: "pronto per l'esame, per tema", examsDone: "Esami di prova",
-    yourCode: "Il tuo codice", codeHelp: "Con questo codice continui su qualsiasi dispositivo, anche in Claude o ChatGPT.",
-    haveCode: "Hai già un codice?", useCode: "Usa", unknownCode: "Questo codice non esiste. Controllalo.",
-    next: "Avanti", right: "Giusto.", wrong: "Non proprio. La risposta giusta è", retry: "Prima avevi sbagliato questa domanda. Riprova.",
-    comesAgain: "Questa domanda torna alla fine della lezione.", examNote: "Esame di prova: nessun riscontro fino alla fine.",
-    overview: "Torna alla panoramica", source: "Fonte", keys: "Tasti da A a D per scegliere, Invio per continuare.",
-    doneLesson: "Lezione finita", doneReview: "Ripasso finito", firstTry: "giuste al primo tentativo",
-    examResult: "Risultato dell'esame di prova", passMark: "La soglia ufficiale per superare l'esame non è pubblicata.", mistakes: "I tuoi errori",
-    yours: "La tua risposta", error: "Nessuna connessione al server. Riprova.", nextLesson: "Prossima lezione",
-  },
-  ru: {
-    langs: "Язык",
-    whatNext: "Что дальше", whatNextText: "Темы этого урока вернутся на повторение завтра. Каждый день сначала повторяй то, что пора повторить, потом проходи новый урок.",
-    showExplanation: "Показать объяснение", answerFirst: "Сначала ответь на вопрос. Объяснение появится после ответа.",
-    title: "Учиться онлайн", lede: "Короткие уроки, повторение в нужный момент и пробные экзамены с официальными вопросами.", unofficial: "Бесплатно и независимо. Это не официальный сервис кантона Цюрих.",
-    lesson: "Урок", continueLesson: "Продолжить урок", reviews: "Повторить", due: (n) => `к повторению: ${n}`, noneDue: "повторять нечего",
-    exam: "Пробный экзамен", examSub: "50 вопросов, без подсказок", allDone: "Все уроки пройдены",
-    lessonsDone: "уроков пройдено", ready: "готовность к экзамену по темам", examsDone: "Пробные экзамены",
-    yourCode: "Твой код ученика", codeHelp: "С этим кодом можно продолжить на любом устройстве, а также в Claude или ChatGPT.",
-    haveCode: "Уже есть код?", useCode: "Ввести", unknownCode: "Такого кода нет. Проверь его.",
-    next: "Дальше", right: "Верно.", wrong: "Не совсем. Правильный ответ:", retry: "Раньше здесь была ошибка. Попробуй ещё раз.",
-    comesAgain: "Этот вопрос вернётся в конце урока.", examNote: "Пробный экзамен: без подсказок до конца.",
-    overview: "К обзору", source: "Источник", keys: "Клавиши A–D выбирают ответ, Enter продолжает.",
-    doneLesson: "Урок пройден", doneReview: "Повторение закончено", firstTry: "верно с первой попытки",
-    examResult: "Результат пробного экзамена", passMark: "Официальный проходной балл не опубликован.", mistakes: "Твои ошибки",
-    yours: "Твой ответ", error: "Нет связи с сервером. Попробуй ещё раз.", nextLesson: "Следующий урок",
-  },
-  uk: {
-    langs: "Мова",
-    whatNext: "Що далі", whatNextText: "Теми цього уроку повернуться на повторення завтра. Щодня спершу повторюй те, що час повторити, потім проходь новий урок.",
-    showExplanation: "Показати пояснення", answerFirst: "Спершу дай відповідь на запитання. Пояснення з'явиться після відповіді.",
-    title: "Навчатися онлайн", lede: "Короткі уроки, повторення у правильний час і пробні іспити з офіційними запитаннями.", unofficial: "Безкоштовно й незалежно. Це не офіційний сервіс кантону Цюрих.",
-    lesson: "Урок", continueLesson: "Продовжити урок", reviews: "Повторити", due: (n) => `до повторення: ${n}`, noneDue: "нічого повторювати",
-    exam: "Пробний іспит", examSub: "50 запитань, без підказок", allDone: "Усі уроки пройдено",
-    lessonsDone: "уроків пройдено", ready: "готовність до іспиту за темами", examsDone: "Пробні іспити",
-    yourCode: "Твій код учня", codeHelp: "З цим кодом можна продовжити на будь-якому пристрої, а також у Claude чи ChatGPT.",
-    haveCode: "Уже маєш код?", useCode: "Увести", unknownCode: "Такого коду немає. Перевір його.",
-    next: "Далі", right: "Правильно.", wrong: "Не зовсім. Правильна відповідь:", retry: "Раніше тут була помилка. Спробуй ще раз.",
-    comesAgain: "Це запитання повернеться наприкінці уроку.", examNote: "Пробний іспит: без підказок до кінця.",
-    overview: "До огляду", source: "Джерело", keys: "Клавіші A–D обирають відповідь, Enter продовжує.",
-    doneLesson: "Урок пройдено", doneReview: "Повторення завершено", firstTry: "правильно з першої спроби",
-    examResult: "Результат пробного іспиту", passMark: "Офіційний прохідний бал не опубліковано.", mistakes: "Твої помилки",
-    yours: "Твоя відповідь", error: "Немає зв'язку із сервером. Спробуй ще раз.", nextLesson: "Наступний урок",
-  },
-};
+// Interface text of every language, from the language files in i18n/ (key learn). The page puts it into
+// data-text, so switching the language needs no reload. Quiz content comes translated from the server.
+const app = document.querySelector("[data-app]");
+const T = JSON.parse(app.dataset.text);
+const LANGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, t.name]));
 
 const store = {
   get: (k) => { try { return localStorage.getItem(k); } catch { return null; } },
   set: (k, v) => { try { localStorage.setItem(k, v); } catch { /* private mode: code shown on screen */ } },
 };
+/** The learner's language: saved choice, else the browser's language, else English. */
+function currentLang() {
+  const saved = store.get("sp-lang");
+  if (saved in LANGS) return saved;
+  return navigator.languages.map((l) => l.slice(0, 2)).find((l) => l in LANGS) ?? "en";
+}
 let lang = currentLang();
 let code = store.get("sp-code");
 const t = () => T[lang];
-
-const app = document.querySelector("[data-app]");
 
 /** Small element builder: h("p", { class: "x" }, "text", child). */
 function h(tag, attrs = {}, ...children) {
@@ -193,7 +95,7 @@ function renderLangs() {
 }
 function setLang(id) {
   lang = id;
-  saveLang(id);
+  store.set("sp-lang", id);
   renderLangs();
   return home();
 }
@@ -221,7 +123,7 @@ async function home() {
         h("span", {}, p.next_lesson ? `${s.lesson} ${Number(p.next_lesson.id.slice(1))}: ${p.next_lesson.title}` : s.allDone),
         h("span", {}, p.next_lesson ? s.continueLesson : "")),
       h("button", { class: "action", onclick: () => start("start_reviews"), disabled: !p.reviews_due },
-        h("span", {}, s.reviews), h("span", {}, p.reviews_due ? s.due(p.reviews_due) : s.noneDue)),
+        h("span", {}, s.reviews), h("span", {}, p.reviews_due ? s.due.replace("{n}", p.reviews_due) : s.noneDue)),
       h("button", { class: "action", onclick: () => start("start_mock_exam") },
         h("span", {}, s.exam), h("span", {}, s.examSub)),
     ),
@@ -417,7 +319,7 @@ function renderSummary(f) {
       h("p", {}, s.firstTry),
       h("div", { class: "actions" },
         f.next_lesson && h("button", { class: "action primary", onclick: () => start("start_lesson") }, h("span", {}, s.nextLesson), h("span", {}, f.next_lesson)),
-        f.reviews_due > 0 && h("button", { class: "action", onclick: () => start("start_reviews") }, h("span", {}, s.reviews), h("span", {}, s.due(f.reviews_due))),
+        f.reviews_due > 0 && h("button", { class: "action", onclick: () => start("start_reviews") }, h("span", {}, s.reviews), h("span", {}, s.due.replace("{n}", f.reviews_due))),
         h("button", { class: "action", onclick: home }, h("span", {}, s.overview), h("span", {}))),
     ],
     [h("h2", { class: "info-title" }, s.whatNext), h("p", {}, s.whatNextText)],
@@ -537,7 +439,7 @@ const AGENT_TOOLS = [
     description: "Switches the page to the learner's language and shows the overview. The German wording of the real test stays visible next to it.",
     inputSchema: {
       type: "object",
-      properties: { language: { type: "string", enum: Object.keys(LANGS), description: "de, en, fr, it, ru or uk" } },
+      properties: { language: { type: "string", enum: Object.keys(LANGS), description: Object.keys(LANGS).join(", ") } },
       required: ["language"],
     },
     async execute({ language } = {}) {

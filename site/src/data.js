@@ -1,15 +1,11 @@
 // Quiz content for the static pages: read at build time from the JSON files in the repository root.
 import quiz from "../../quiz.json";
 import curriculum from "../../curriculum.json";
-import de from "../../i18n/de.json";
-import en from "../../i18n/en.json";
-import fr from "../../i18n/fr.json";
-import it from "../../i18n/it.json";
-import ru from "../../i18n/ru.json";
-import uk from "../../i18n/uk.json";
+import { TEXTS, LANGUAGES } from "../../i18n/index.js";
 
-export const TEXT = { de, en, fr, it, ru, uk };
-export const LANG_IDS = Object.keys(TEXT);
+// All texts per language, and the language codes (German first). Languages are added in i18n/index.js only.
+export const TEXT = TEXTS;
+export const LANG_IDS = LANGUAGES;
 export const { units, lessons, concepts } = curriculum;
 
 // When the explanations were last checked against the official sources, shown as "Last checked" on question and
@@ -49,7 +45,7 @@ export const questions = lessons
   .map((q) => {
     const n = Number(q.id.slice(1));
     const concept = conceptOf.get(q.id);
-    return { ...q, n, slug: `${n}-${slugify(de.questions[q.id].question)}`, concept, lesson: concept.lesson };
+    return { ...q, n, slug: `${n}-${slugify(TEXT.de.questions[q.id].question)}`, concept, lesson: concept.lesson };
   });
 
 /** All topics in curriculum order, each with its lesson, unit and questions. */

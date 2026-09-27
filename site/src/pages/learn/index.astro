@@ -8,6 +8,10 @@ import "../../styles/styles.css";
 import "../../styles/learn.css";
 import { SITE } from "../../site.js";
 import { LANGS } from "../../scripts/i18n.js";
+import { byLang } from "../../../../i18n/index.js";
+
+// The interface texts of every language (i18n/<code>.json, key learn), for learn.js to switch without reloading.
+const TEXT = byLang((t) => ({ name: t.name, ...t.learn }));
 
 // Chrome origin trial: turns on WebMCP (the page tools in learn.js) for https://swiss-passport.com
 // in Chrome 149 to 156. Expires 17 November 2026; renew at https://developer.chrome.com/origintrials/.
@@ -20,7 +24,7 @@ const WEBMCP_TRIAL = "Ah7vqevf8D3IVPeMj+zJrDK0DW9H1YhsqvNHCXPYqtBuaMnmHmLWf3KCrF
 <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learn online: Swiss Passport</title>
-<meta name="description" content="Practise the 350 official questions of the Zurich naturalisation knowledge test in your browser, in six languages.">
+<meta name="description" content={`Practise the 350 official questions of the Zurich naturalisation knowledge test in your browser, in ${Object.keys(LANGS).length} languages.`}>
 <link rel="canonical" href={new URL("/learn/", SITE).href}>
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -42,7 +46,7 @@ const WEBMCP_TRIAL = "Ah7vqevf8D3IVPeMj+zJrDK0DW9H1YhsqvNHCXPYqtBuaMnmHmLWf3KCrF
     {Object.entries(LANGS).map(([id, name]) => <button type="button" lang={id} aria-pressed="false">{name}</button>)}
   </nav>
 </header>
-<main class="page app" data-app>
+<main class="page app" data-app data-text={JSON.stringify(TEXT)}>
   <p class="small">Loading…</p>
 </main>
 <noscript><p class="page">This page needs JavaScript.</p></noscript>
