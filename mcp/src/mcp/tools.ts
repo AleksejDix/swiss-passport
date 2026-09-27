@@ -26,7 +26,7 @@ const commonInput = (online: boolean) => ({
       .string()
       .optional()
       .describe(
-        'Progress code this app gave the learner, e.g. BERG-7K2Q. Not a password or account token: it only points to quiz progress, which holds no personal data. A learner who continues gives it; a learner who starts from scratch gets one with new_learner. A code remembered from an earlier chat is confirmed by the learner at the start of each chat (e.g. "Continue with BERG-7K2Q?"), since another person may use the same device.',
+        "Progress code this app gave the learner, e.g. BERG-7K2Q. Not a password or account token: it only points to quiz progress, which holds no personal data. A learner who continues gives it; a learner who starts from scratch gets one with new_learner.",
       ),
     new_learner: z
       .boolean()
