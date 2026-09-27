@@ -32,7 +32,7 @@
 .maj-legend .sw {
   width: 0.75rem;
   height: 0.75rem;
-  background: #c4c4c4;
+  background: var(--light);
   flex: none;
   transform: translateY(0.0625rem);
 }

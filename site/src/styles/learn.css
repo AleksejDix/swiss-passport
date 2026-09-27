@@ -85,7 +85,10 @@
   grid-column: 1 / -1;
   height: 3px;
   margin-top: 0.75rem;
-  background: linear-gradient(var(--ink), var(--ink)) left bottom / 100% 1px no-repeat;
+  background-image: linear-gradient(var(--ink), var(--ink));
+  background-position: left bottom;
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
 }
 .bar i {
   display: block;
@@ -270,6 +273,7 @@ p + .actions {
   padding: 0.6875rem 0.75rem;
   background: var(--paper);
   color: var(--ink);
+  /* stylelint-disable-next-line declaration-property-value-allowed-list -- a learner code is written in capitals (SEE-DAXP), not a label */
   text-transform: uppercase;
 }
 .code input:focus-visible {

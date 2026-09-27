@@ -35,12 +35,10 @@
 .parl-cs {
   order: 3;
   margin-top: var(--line);
+  width: calc(var(--cs) / var(--nc) * 100%);
 }
 .parl-cs-label {
   order: 4;
-}
-.parl-cs {
-  width: calc(var(--cs) / var(--nc) * 100%);
 }
 /* Wider screens: the chambers side by side on one baseline, column widths in proportion, labels below. */
 @media (min-width: 40rem) {

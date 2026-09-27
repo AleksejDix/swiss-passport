@@ -10,6 +10,9 @@
   --grey: #6b6b6b; /* secondary text, 5.3:1 on white */
   --rule: #d6d6d6; /* hairlines between the items of a list */
   --field: #e8e8e8; /* cantons that have not voted yet */
+  --light: #c4c4c4; /* map areas that the map is about */
+  --dark: #8f8f8f; /* a second group of map areas */
+  --font: "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   --cols: 4;
   --gutter: 1rem;
@@ -32,7 +35,7 @@
   --xl-track: -0.025em;
   --xxl-track: -0.03em;
 
-  font-family: "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--font);
   line-height: var(--s-lh);
   color: var(--ink);
   background: var(--paper);

@@ -96,8 +96,6 @@
 .fc-chancellery span {
   grid-column: 2;
   margin-top: 0.1875rem;
-}
-.fc-chancellery span {
   font-size: var(--xs);
   line-height: var(--xs-lh);
   color: var(--grey);
