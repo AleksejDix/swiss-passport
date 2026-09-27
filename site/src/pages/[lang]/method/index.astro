@@ -12,7 +12,6 @@ import ForgettingCurve from "../../../components/method/ForgettingCurve.astro";
 import TryQuestion from "../../../components/method/TryQuestion.astro";
 import MixedPractice from "../../../components/method/MixedPractice.astro";
 import LanguageSwitch from "../../../components/method/LanguageSwitch.astro";
-import "../../../styles/viz.css";
 import { UI } from "../../../ui.ts";
 import { METHOD, SOURCES } from "../../../method.ts";
 import { MAKERS } from "../../../about.ts";
@@ -68,7 +67,3 @@ const jsonLd = {
     <PageNav label={m.link} action={ui.practise} links={[{ href: questionsPath(lang), label: ui.nav_questions }]} />
   </main>
 </Base>
-
-<script>
-  import "../../../scripts/method-viz.js";
-</script>

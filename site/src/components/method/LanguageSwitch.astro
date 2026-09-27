@@ -1,6 +1,8 @@
 ---
 // One exam question with a language switch; the German wording of the real test stays visible.
 // All six translations are in the page; scripts/method-viz.js swaps them.
+import Figure from "./Figure.astro";
+import Toggle from "./Toggle.astro";
 import AnswerList from "../ui/AnswerList.astro";
 import AnswerRow from "../ui/AnswerRow.astro";
 import Prompt from "../ui/Prompt.astro";
@@ -25,14 +27,13 @@ const t = texts[lang];
 const de = texts.de;
 ---
 
-<figure class="viz langs" data-langswitch data-texts={JSON.stringify(texts)}>
-  <div class="viz-toggle" role="group" aria-label={v.showIn}>
-    {Object.entries(LANGS).map(([l, name]) => (
-      <button type="button" lang={l} data-lang-choice={l} aria-pressed={l === lang ? "true" : "false"}>
-        {name}
-      </button>
-    ))}
-  </div>
+<Figure class="langs" data-langswitch data-texts={JSON.stringify(texts)}>
+  <Toggle
+    label={v.showIn}
+    name="lang-choice"
+    pressed={lang}
+    choices={Object.entries(LANGS).map(([l, name]) => ({ value: l, label: name, lang: l }))}
+  />
   <Prompt question={t.q} lang={lang} german={de.q} germanHidden={lang === "de"} switchable />
   <AnswerList class="options">
     {letters.map((l) => (
@@ -46,7 +47,7 @@ const de = texts.de;
       </AnswerRow>
     ))}
   </AnswerList>
-</figure>
+</Figure>
 
 <style>
   .options {

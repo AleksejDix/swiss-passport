@@ -1,0 +1,57 @@
+---
+// A figure of the method page: its place in the row, and the roles its parts use (title, legend, note).
+// Red is the method (spaced repetition), grey what it is compared with. Marks are thin, rules are hairlines.
+// scripts/method-viz.js makes the figures interactive; without it they read as finished charts.
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"figure">;
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<figure class:list={["viz", className]} {...attrs}>
+  <slot />
+</figure>
+
+<script>
+  import "../../scripts/method-viz.js";
+</script>
+
+<style>
+  :global(.row) .viz {
+    grid-column: 1 / -1;
+    margin-top: calc(1.5 * var(--line));
+  }
+  @media (min-width: 40rem) {
+    :global(.row) .viz {
+      grid-column: 1 / span 6;
+    }
+  }
+  /* The roles keep the weight of a plain class, so each figure can adjust them. */
+  :where(.viz) :global(.viz-title) {
+    font-weight: 700;
+  }
+  :where(.viz) :global(.viz-note) {
+    font-size: var(--xs);
+    line-height: var(--xs-lh);
+    color: var(--grey);
+    margin-top: 0.75rem;
+  }
+  :where(.viz) :global(.viz-legend) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+    margin-top: 0.375rem;
+    font-size: var(--xs);
+    line-height: var(--xs-lh);
+  }
+  :where(.viz) :global(.viz-legend li) {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  /* Some list styles set display, which would override the hidden attribute. */
+  .viz :global([hidden]) {
+    display: none !important;
+  }
+</style>

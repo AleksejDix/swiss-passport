@@ -1,0 +1,59 @@
+---
+// A choice between views of a figure, set like the language bar: grey text, the chosen one black and bold.
+// Each button carries data-<name>="<value>"; scripts/method-viz.js switches aria-pressed.
+interface Choice {
+  value: string;
+  label: string;
+  lang?: string;
+}
+
+interface Props {
+  label: string;
+  /** The data attribute of the buttons: "order" gives data-order. */
+  name: string;
+  choices: Choice[];
+  /** The value that starts pressed. */
+  pressed: string;
+}
+
+const { label, name, choices, pressed } = Astro.props;
+---
+
+<div class="viz-toggle" role="group" aria-label={label}>
+  {choices.map((c) => (
+    <button
+      type="button"
+      lang={c.lang}
+      aria-pressed={c.value === pressed ? "true" : "false"}
+      {...{ [`data-${name}`]: c.value }}
+    >
+      {c.label}
+    </button>
+  ))}
+</div>
+
+<style>
+  .viz-toggle {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1rem;
+    font-size: var(--xs);
+    line-height: var(--xs-lh);
+  }
+  .viz-toggle button {
+    font: inherit;
+    letter-spacing: inherit;
+    color: var(--grey);
+    background: none;
+    border: 0;
+    padding: 0.375rem 0;
+    cursor: pointer;
+  }
+  .viz-toggle button:hover {
+    color: var(--ink);
+  }
+  .viz-toggle [aria-pressed="true"] {
+    color: var(--ink);
+    font-weight: 700;
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 // A real exam question to try: after an answer, why it is right, and why a tempting wrong answer is wrong.
 // Same look as the question on the homepage; scripts/method-viz.js reacts to the choice.
+import Figure from "./Figure.astro";
 import AnswerRow from "../ui/AnswerRow.astro";
 import Prompt from "../ui/Prompt.astro";
 import { VIZ } from "../../method.ts";
@@ -31,7 +32,7 @@ const data = {
 };
 ---
 
-<figure class="viz try" data-try data-question={JSON.stringify(data)}>
+<Figure class="try" data-try data-question={JSON.stringify(data)}>
   <p class="small">{v.tryIt}</p>
   <Prompt question={t.question} lang={lang} german={lang !== "de" ? de.question : undefined} />
   <div class="choices">
@@ -43,7 +44,7 @@ const data = {
     ))}
   </div>
   <div class="feedback" data-feedback aria-live="polite"></div>
-</figure>
+</Figure>
 
 <style>
   .choices {

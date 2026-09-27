@@ -1,6 +1,8 @@
 ---
 // Twelve questions from three topics, first in blocks, then mixed like in the test.
 // Topics differ by shape (circle, square, triangle), not by colour. scripts/method-viz.js reorders them.
+import Figure from "./Figure.astro";
+import Toggle from "./Toggle.astro";
 import { VIZ } from "../../method.ts";
 import { TEXT } from "../../data.ts";
 
@@ -21,15 +23,16 @@ const items = Array.from({ length: 12 }, (_, i) => TOPICS[Math.floor(i / 4)]);
 const name = (topic: { id: string }) => TEXT[lang].categories[topic.id];
 ---
 
-<figure class="viz mix" data-mix data-mixed={JSON.stringify(MIXED)}>
-  <div class="viz-toggle" role="group" aria-label={v.order}>
-    <button type="button" data-order="blocked" aria-pressed="true">
-      {v.blocked}
-    </button>
-    <button type="button" data-order="mixed" aria-pressed="false">
-      {v.mixed}
-    </button>
-  </div>
+<Figure class="mix" data-mix data-mixed={JSON.stringify(MIXED)}>
+  <Toggle
+    label={v.order}
+    name="order"
+    pressed="blocked"
+    choices={[
+      { value: "blocked", label: v.blocked },
+      { value: "mixed", label: v.mixed },
+    ]}
+  />
   <ol class="mix-row" data-row>
     {items.map((topic, i) => (
       <li data-item={i} class={`shape shape-${topic.shape}`} title={name(topic)}>
@@ -46,4 +49,37 @@ const name = (topic: { id: string }) => TEXT[lang].categories[topic.id];
     ))}
   </ul>
   <p class="viz-note">{v.mixNote}</p>
-</figure>
+</Figure>
+
+<style>
+  /* Topics by shape, not by colour. */
+  .mix-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.375rem;
+    margin-top: var(--line);
+  }
+  .mix-row li {
+    flex: 1 1 0;
+    max-width: 2.25rem;
+    aspect-ratio: 1;
+  }
+  .shape {
+    display: inline-block;
+    background: var(--ink);
+  }
+  .viz-legend .shape {
+    width: 0.75rem;
+    height: 0.75rem;
+    flex: none;
+  }
+  .shape-circle {
+    border-radius: 50%;
+  }
+  .shape-triangle {
+    clip-path: polygon(50% 4%, 100% 96%, 0 96%);
+  }
+  .mix .viz-legend {
+    margin-top: 0.75rem;
+  }
+</style>
