@@ -5,6 +5,7 @@ import type { Assets } from "./assets.js";
 import { catalog, CARD_LABELS, LANGUAGES, type Lang } from "./catalog.js";
 import { REVIEW_SIZE } from "@aleksejdix/learning-engine";
 import { createLearning, engine, type Done, type Out } from "./learning.js";
+import { BLOCK_SECONDS, type Guard } from "./guard.js";
 import type { Store } from "./store.js";
 
 export const VERSION = "0.9.0";
@@ -157,7 +158,16 @@ async function toResult(assets: Assets, { data, questionId }: Out, lang?: Lang, 
  * Creates the server. `online` adds the learner code: without login, progress is stored per code.
  * Locally there is one learner and progress lives in a file.
  */
-export function createServer(store: Store, { online, assets }: { online: boolean; assets: Assets }) {
+/** Told instead of any result while a client waits after too many wrong learner codes (guard.ts). */
+const BLOCKED = `Too many wrong learner codes from this connection: requests with a learner code are paused for ${BLOCK_SECONDS / 60} minutes.`;
+
+/**
+ * `guard` and `client` (the caller's IP address): limits on wrong learner codes, as in the REST API. Missing locally.
+ */
+export function createServer(
+  store: Store,
+  { online, assets, guard, client = "local" }: { online: boolean; assets: Assets; guard?: Guard; client?: string },
+) {
   const server = new McpServer(
     { name: "swiss-passport-zh", title: "Swiss Passport", version: VERSION, websiteUrl: WEBSITE, icons: ICONS },
     { instructions: online ? INSTRUCTIONS + ONLINE_INSTRUCTIONS : INSTRUCTIONS },
@@ -199,8 +209,13 @@ export function createServer(store: Store, { online, assets }: { online: boolean
    * Runs a learning action and returns the MCP result.
    * `request` is the tool call's context: ChatGPT sends its own "openai/..." keys in _meta.
    */
-  async function run(request: { _meta?: object }, action: () => Promise<Done>) {
-    const { out, lang, learnerCode, created, voice } = await action();
+  async function run(request: { _meta?: object }, who: { learner_code?: string }, action: () => Promise<Done>) {
+    // Guessing learner codes: a client with too many wrong codes waits, a wrong code counts against it.
+    const withCode = online && Boolean(guard) && who.learner_code !== undefined;
+    if (withCode && (await guard!.blocked(client))) return toResult(assets, { data: { error: BLOCKED } });
+    const done = await action();
+    if (withCode && done.out.status === 404) await guard!.wrongCode(client);
+    const { out, lang, learnerCode, created, voice } = done;
     // Online without a learner (unknown code): only the error.
     if (online && !learnerCode) return toResult(assets, out);
     if (voice && out.questionId) out.data = { voice_instructions: VOICE_STEP, ...out.data };
@@ -227,7 +242,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       // write while it could create a code.
       annotations: { ...changesProgress, readOnlyHint: true, idempotentHint: true },
     },
-    (args, request) => run(request, () => learning.readProgress(args)),
+    (args, request) => run(request, args, () => learning.readProgress(args)),
   );
 
   server.registerTool(
@@ -251,7 +266,8 @@ export function createServer(store: Store, { online, assets }: { online: boolean
           ),
       },
     },
-    ({ voice, lesson_id, ...args }, request) => run(request, () => learning.startLesson(args, { lesson_id, voice })),
+    ({ voice, lesson_id, ...args }, request) =>
+      run(request, args, () => learning.startLesson(args, { lesson_id, voice })),
   );
 
   server.registerTool(
@@ -265,7 +281,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
         CARD_NOTE,
       inputSchema: { ...common, voice },
     },
-    ({ voice, ...args }, request) => run(request, () => learning.startReviews(args, { voice })),
+    ({ voice, ...args }, request) => run(request, args, () => learning.startReviews(args, { voice })),
   );
 
   server.registerTool(
@@ -279,7 +295,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
         CARD_NOTE,
       inputSchema: { ...common, voice },
     },
-    ({ voice, ...args }, request) => run(request, () => learning.startExam(args, { voice })),
+    ({ voice, ...args }, request) => run(request, args, () => learning.startExam(args, { voice })),
   );
 
   server.registerTool(
@@ -300,7 +316,7 @@ export function createServer(store: Store, { online, assets }: { online: boolean
     },
     ({ answer, question_id, ...args }, request) =>
       // A click on the card (only the card sends question_id) gets the whole step back in structuredContent, as before.
-      run(question_id ? {} : request, () => learning.answer(args, { answer, question_id })),
+      run(question_id ? {} : request, args, () => learning.answer(args, { answer, question_id })),
   );
 
   return server;

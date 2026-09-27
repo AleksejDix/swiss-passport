@@ -21,12 +21,11 @@ interface Env {
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const { pathname } = new URL(request.url);
+    // Limits per client IP for both the API and MCP (guard.ts).
+    const guard = env.RATE_LIMITS === "off" ? undefined : cloudflareGuard(env.NEW_LEARNERS, env.WRONG_CODES);
+    const client = request.headers.get("cf-connecting-ip") ?? "local";
     if (pathname === API_PREFIX || pathname.startsWith(`${API_PREFIX}/`))
-      return handleApi(
-        request,
-        createLearning(d1Store(env.DB), { online: true }),
-        env.RATE_LIMITS === "off" ? undefined : cloudflareGuard(env.NEW_LEARNERS, env.WRONG_CODES),
-      );
+      return handleApi(request, createLearning(d1Store(env.DB), { online: true }), guard);
     // Other paths only get here when no static file matches: let the assets answer (404).
     if (pathname !== "/mcp") return env.ASSETS.fetch(request);
     const assets: Assets = {
@@ -40,7 +39,7 @@ export default {
       sessionIdGenerator: undefined,
       enableJsonResponse: true,
     });
-    await createServer(d1Store(env.DB), { online: true, assets }).connect(transport);
+    await createServer(d1Store(env.DB), { online: true, assets, guard, client }).connect(transport);
     return transport.handleRequest(request);
   },
 

@@ -3,12 +3,15 @@
 import { createServer as createHttpServer } from "node:http";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { fileAssets } from "./assets.js";
+import { memoryGuard } from "./guard.js";
 import { sqliteStore } from "./sqlite-store.js";
 import { createServer, VERSION } from "./server.js";
 
 const PORT = Number(process.env.PORT) || 8787;
 const store = sqliteStore();
 const assets = fileAssets();
+// Limits on wrong learner codes per client, kept in this process (guard.ts).
+const guard = memoryGuard();
 
 const readBody = async (req: import("node:http").IncomingMessage) => {
   const chunks: Buffer[] = [];
@@ -29,7 +32,8 @@ createHttpServer(async (req, res) => {
     // Stateless: a fresh server per request; everything the learner needs is in SQLite.
     const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });
     res.on("close", () => transport.close());
-    await createServer(store, { online: true, assets }).connect(transport);
+    const client = req.socket.remoteAddress ?? "local";
+    await createServer(store, { online: true, assets, guard, client }).connect(transport);
     await transport.handleRequest(req, res, req.method === "POST" ? await readBody(req) : undefined);
   } catch (err) {
     console.error(err);

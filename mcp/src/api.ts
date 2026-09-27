@@ -9,23 +9,13 @@
 import { z } from "zod";
 import { LANGUAGES } from "./catalog.js";
 import { engine, type Done, type Learner, type Learning } from "./learning.js";
-import { BLOCK_SECONDS } from "./guard.js";
+import { BLOCK_SECONDS, type Guard } from "./guard.js";
 import { normalizeCode } from "./store.js";
 
 export const API_PREFIX = "/api/v1";
 const MAX_BODY = 8 * 1024;
 // newLearnerCode (store.ts): a word, a hyphen and four characters without 0, 1, I and O.
 const CODE = /^[A-Z]{3,8}-[2-9A-HJ-NP-Z]{4}$/;
-
-/** Limits per client (IP address). Missing in local development and tests. */
-export interface Guard {
-  /** false: this client made too many new learners in the last minute. */
-  newLearner(ip: string): Promise<boolean>;
-  /** true: this client sent too many wrong learner codes and has to wait. */
-  blocked(ip: string): Promise<boolean>;
-  /** Counts a wrong learner code. */
-  wrongCode(ip: string): Promise<void>;
-}
 
 const language = z.enum(LANGUAGES).optional();
 const voice = z.boolean().optional();

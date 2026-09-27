@@ -103,6 +103,13 @@ assert(card.contents[0].mimeType === "text/html;profile=mcp-app", "quiz card ava
 const home = await fetch(`http://localhost:${PORT}/`);
 assert(home.ok && (await home.text()).includes("/mcp"), "home page explains the connector URL");
 
+// Last, because it blocks this client: guessing codes (guard.ts). One wrong code came above; 20 more pass the limit.
+for (let i = 0; i < 20; i++) await call(c, "get_progress", { learner_code: `NOPE-${2222 + i}` });
+r = await call(c, "get_progress", { learner_code: code });
+assert(r.error?.includes("paused for 10 minutes"), "after 21 wrong codes a minute, even a right code waits");
+r = await call(c, "start_lesson", {});
+assert(r.learner_code && !r.error, "a new learner without a code can still start");
+
 await c.close();
 stop();
 console.log("all checks passed");
