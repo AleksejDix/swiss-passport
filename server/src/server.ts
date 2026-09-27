@@ -85,7 +85,8 @@ const cardUi = { ui: { resourceUri: CARD_URI } };
 // and asked the learner to allow every call.
 const CARD_NOTE =
   " In apps with the quiz card, the card shows this step (concept, question, options, pictures), checks the learner's clicks" +
-  " and shows the feedback, so a short chat reply is enough. In a voice conversation the step is read aloud." +
+  " and shows the feedback: the learner already sees all of it there, and the same text in the chat shows it twice." +
+  " Every call shows a new card. In a voice conversation the step is read aloud." +
   " Answers typed or spoken in the chat are checked and saved by the answer tool with the learner's letter.";
 // In every step of a voice session: ChatGPT's voice mode ignored the card note, asked its own questions and saved nothing.
 const VOICE_STEP =
