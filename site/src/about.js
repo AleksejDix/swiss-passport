@@ -1,18 +1,19 @@
 // The about page: who is behind the site, where the content comes from, and how it is checked.
-// Links: {repo} {issues} {license} {content_license} {sources} {guide} {pdf} {email} {aleksej}
+// Links: {repo} {issues} {license} {content_license} {sources} {guide} {pdf} {email} {aleksej} {lidia}
 import { LINKS } from "./guide.js";
 import { OPERATOR } from "./legal.js";
 
 // The makers, for the structured data of the about and method pages.
 export const MAKERS = [
   { "@type": "Person", name: "Aleksej Dix", url: "https://www.linkedin.com/in/aleksejdix/", sameAs: ["https://github.com/AleksejDix"] },
-  { "@type": "Person", name: "Lidia Dix" },
+  { "@type": "Person", name: "Lidia Dix", url: "https://www.linkedin.com/in/lidiadix/" },
 ];
 
 export const ABOUT_LINKS = {
   pdf: LINKS.pdf,
   email: OPERATOR.email,
-  aleksej: "https://www.linkedin.com/in/aleksejdix/",
+  aleksej: MAKERS[0].url,
+  lidia: MAKERS[1].url,
   repo: "https://github.com/AleksejDix/swiss-passport",
   issues: "https://github.com/AleksejDix/swiss-passport/issues",
   license: "https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE",
@@ -26,7 +27,7 @@ export const ABOUT = {
     title: "Über Swiss Passport",
     desc: "Wer hinter Swiss Passport steht, woher die Fragen und Erklärungen kommen und wie sie geprüft werden.",
     sections: [
-      ["Wer", ['Swiss Passport ist ein kostenloses, nicht kommerzielles Projekt von <a href="{aleksej}">Aleksej Dix</a> und Lidia Dix. Wir leben im Kanton Zürich und bereiten uns selbst auf die Einbürgerung vor. Dabei haben wir das Werkzeug gebaut, das uns gefehlt hat. Code und Inhalte sind offen auf <a href="{repo}">GitHub</a>.']],
+      ["Wer", ['Swiss Passport ist ein kostenloses, nicht kommerzielles Projekt von <a href="{aleksej}">Aleksej Dix</a> und <a href="{lidia}">Lidia Dix</a>. Wir leben im Kanton Zürich und bereiten uns selbst auf die Einbürgerung vor. Dabei haben wir das Werkzeug gebaut, das uns gefehlt hat. Code und Inhalte sind offen auf <a href="{repo}">GitHub</a>.']],
       ["Woher die Inhalte kommen", [
         'Die 350 Fragen und die richtigen Antworten stammen aus der <a href="{pdf}">offiziellen Fragenliste des Kantons Zürich</a> (Gemeindeamt, Abteilung Einbürgerungen, Stand Mai 2025).',
         'Erklärungen, Themen und Übersetzungen wurden für dieses Projekt geschrieben und mit offiziellen Quellen geprüft: den Lernbroschüren von Kanton und Stadt Zürich, zh.ch, stadt-zuerich.ch, admin.ch, fedlex.admin.ch und ch.ch. Jede Frage und jedes Thema nennt seine Quellen. <a href="{sources}">Liste aller Quellen</a>.',
@@ -43,7 +44,7 @@ export const ABOUT = {
     title: "About Swiss Passport",
     desc: "Who is behind Swiss Passport, where the questions and explanations come from and how they are checked.",
     sections: [
-      ["Who", ['Swiss Passport is a free, non-commercial project by <a href="{aleksej}">Aleksej Dix</a> and Lidia Dix. We live in the Canton of Zurich and are preparing for our own naturalisation, so we built the tool we were missing. The code and the content are open on <a href="{repo}">GitHub</a>.']],
+      ["Who", ['Swiss Passport is a free, non-commercial project by <a href="{aleksej}">Aleksej Dix</a> and <a href="{lidia}">Lidia Dix</a>. We live in the Canton of Zurich and are preparing for our own naturalisation, so we built the tool we were missing. The code and the content are open on <a href="{repo}">GitHub</a>.']],
       ["Where the content comes from", [
         'The 350 questions and their correct answers come from the <a href="{pdf}">official question list of the Canton of Zurich</a> (Gemeindeamt, Abteilung Einbürgerungen, May 2025).',
         'The explanations, topics and translations were written for this project and checked against official sources: the learning brochures of the Canton and the City of Zurich, zh.ch, stadt-zuerich.ch, admin.ch, fedlex.admin.ch and ch.ch. Every question and topic names its sources. <a href="{sources}">List of all sources</a>.',
@@ -60,7 +61,7 @@ export const ABOUT = {
     title: "À propos de Swiss Passport",
     desc: "Qui est derrière Swiss Passport, d'où viennent les questions et les explications et comment elles sont vérifiées.",
     sections: [
-      ["Qui", ['Swiss Passport est un projet gratuit et non commercial d\'<a href="{aleksej}">Aleksej Dix</a> et Lidia Dix. Nous vivons dans le canton de Zurich et préparons nous-mêmes notre naturalisation : nous avons créé l\'outil qui nous manquait. Le code et le contenu sont ouverts sur <a href="{repo}">GitHub</a>.']],
+      ["Qui", ['Swiss Passport est un projet gratuit et non commercial d\'<a href="{aleksej}">Aleksej Dix</a> et <a href="{lidia}">Lidia Dix</a>. Nous vivons dans le canton de Zurich et préparons nous-mêmes notre naturalisation : nous avons créé l\'outil qui nous manquait. Le code et le contenu sont ouverts sur <a href="{repo}">GitHub</a>.']],
       ["D'où vient le contenu", [
         'Les 350 questions et leurs bonnes réponses viennent de la <a href="{pdf}">liste officielle du canton de Zurich</a> (Gemeindeamt, Abteilung Einbürgerungen, mai 2025).',
         'Les explications, les thèmes et les traductions ont été écrits pour ce projet et vérifiés avec des sources officielles : les brochures du canton et de la ville de Zurich, zh.ch, stadt-zuerich.ch, admin.ch, fedlex.admin.ch et ch.ch. Chaque question et chaque thème indique ses sources. <a href="{sources}">Liste de toutes les sources</a>.',
@@ -77,7 +78,7 @@ export const ABOUT = {
     title: "Informazioni su Swiss Passport",
     desc: "Chi c'è dietro Swiss Passport, da dove vengono le domande e le spiegazioni e come vengono verificate.",
     sections: [
-      ["Chi", ['Swiss Passport è un progetto gratuito e non commerciale di <a href="{aleksej}">Aleksej Dix</a> e Lidia Dix. Viviamo nel Cantone di Zurigo e ci prepariamo noi stessi alla naturalizzazione: abbiamo creato lo strumento che ci mancava. Il codice e i contenuti sono aperti su <a href="{repo}">GitHub</a>.']],
+      ["Chi", ['Swiss Passport è un progetto gratuito e non commerciale di <a href="{aleksej}">Aleksej Dix</a> e <a href="{lidia}">Lidia Dix</a>. Viviamo nel Cantone di Zurigo e ci prepariamo noi stessi alla naturalizzazione: abbiamo creato lo strumento che ci mancava. Il codice e i contenuti sono aperti su <a href="{repo}">GitHub</a>.']],
       ["Da dove vengono i contenuti", [
         'Le 350 domande e le risposte corrette provengono dalla <a href="{pdf}">lista ufficiale del Cantone di Zurigo</a> (Gemeindeamt, Abteilung Einbürgerungen, maggio 2025).',
         'Le spiegazioni, i temi e le traduzioni sono stati scritti per questo progetto e verificati con fonti ufficiali: gli opuscoli del Cantone e della Città di Zurigo, zh.ch, stadt-zuerich.ch, admin.ch, fedlex.admin.ch e ch.ch. Ogni domanda e ogni tema indica le sue fonti. <a href="{sources}">Elenco di tutte le fonti</a>.',
@@ -94,7 +95,7 @@ export const ABOUT = {
     title: "О проекте Swiss Passport",
     desc: "Кто стоит за Swiss Passport, откуда вопросы и объяснения и как они проверяются.",
     sections: [
-      ["Кто", ['Бесплатный некоммерческий проект Swiss Passport сделали <a href="{aleksej}">Aleksej Dix</a> и Lidia Dix. Мы живём в кантоне Цюрих и сами готовимся к натурализации, поэтому создали инструмент, которого нам не хватало. Код и материалы открыты на <a href="{repo}">GitHub</a>.']],
+      ["Кто", ['Бесплатный некоммерческий проект Swiss Passport сделали <a href="{aleksej}">Aleksej Dix</a> и <a href="{lidia}">Lidia Dix</a>. Мы живём в кантоне Цюрих и сами готовимся к натурализации, поэтому создали инструмент, которого нам не хватало. Код и материалы открыты на <a href="{repo}">GitHub</a>.']],
       ["Откуда материалы", [
         '350 вопросов и правильные ответы взяты из <a href="{pdf}">официального списка кантона Цюрих</a> (Gemeindeamt, Abteilung Einbürgerungen, май 2025).',
         'Объяснения, темы и переводы написаны для этого проекта и проверены по официальным источникам: учебным брошюрам кантона и города Цюрих, zh.ch, stadt-zuerich.ch, admin.ch, fedlex.admin.ch и ch.ch. У каждого вопроса и каждой темы указаны источники. <a href="{sources}">Список всех источников</a>.',
@@ -111,7 +112,7 @@ export const ABOUT = {
     title: "Про проєкт Swiss Passport",
     desc: "Хто стоїть за Swiss Passport, звідки запитання й пояснення та як їх перевіряють.",
     sections: [
-      ["Хто", ['Безкоштовний некомерційний проєкт Swiss Passport створили <a href="{aleksej}">Aleksej Dix</a> і Lidia Dix. Ми живемо в кантоні Цюрих і самі готуємося до натуралізації, тож зробили інструмент, якого нам бракувало. Код і матеріали відкриті на <a href="{repo}">GitHub</a>.']],
+      ["Хто", ['Безкоштовний некомерційний проєкт Swiss Passport створили <a href="{aleksej}">Aleksej Dix</a> і <a href="{lidia}">Lidia Dix</a>. Ми живемо в кантоні Цюрих і самі готуємося до натуралізації, тож зробили інструмент, якого нам бракувало. Код і матеріали відкриті на <a href="{repo}">GitHub</a>.']],
       ["Звідки матеріали", [
         '350 запитань і правильні відповіді взято з <a href="{pdf}">офіційного списку кантону Цюрих</a> (Gemeindeamt, Abteilung Einbürgerungen, травень 2025).',
         'Пояснення, теми й переклади написано для цього проєкту й перевірено за офіційними джерелами: навчальними брошурами кантону й міста Цюрих, zh.ch, stadt-zuerich.ch, admin.ch, fedlex.admin.ch і ch.ch. У кожного запитання й кожної теми вказано джерела. <a href="{sources}">Список усіх джерел</a>.',

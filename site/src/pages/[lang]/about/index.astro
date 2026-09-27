@@ -4,6 +4,8 @@ import Base from "../../../layouts/Base.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import { ABOUT, ABOUT_LINKS, MAKERS } from "../../../about.js";
 import { SITE } from "../../../site.js";
+import aleksejPhoto from "../../../assets/makers/aleksej-dix.jpg";
+import lidiaPhoto from "../../../assets/makers/lidia-dix.jpg";
 import { LANG_IDS, aboutPath, guidePath } from "../../../data.js";
 
 export function getStaticPaths() {
@@ -15,6 +17,9 @@ const a = ABOUT[lang];
 const links = { ...ABOUT_LINKS, guide: guidePath(lang) };
 const fill = (html) => html.replace(/\{(\w+)\}/g, (_, k) => links[k]);
 const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, aboutPath(id)]));
+// The makers with their LinkedIn photos, shown under "Who".
+const PHOTOS = { "Aleksej Dix": aleksejPhoto, "Lidia Dix": lidiaPhoto };
+const makers = MAKERS.map((m) => ({ ...m, image: new URL(PHOTOS[m.name].src, SITE).href }));
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
@@ -25,7 +30,7 @@ const jsonLd = {
     "@type": "WebSite",
     name: "Swiss Passport",
     url: SITE,
-    author: MAKERS,
+    author: makers,
     license: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
   },
 };
@@ -40,7 +45,19 @@ const jsonLd = {
   {a.sections.map(([heading, paragraphs], i) => (
     <section class="row" aria-labelledby={`a${i}`}>
       <h2 id={`a${i}`}>{heading}</h2>
-      <div class="prose">{paragraphs.map((html) => <p set:html={fill(html)} />)}</div>
+      <div class="prose">
+        {paragraphs.map((html) => <p set:html={fill(html)} />)}
+        {i === 0 && (
+          <div class="makers">
+            {makers.map((m) => (
+              <figure>
+                <img src={PHOTOS[m.name].src} width={PHOTOS[m.name].width} height={PHOTOS[m.name].height} alt="">
+                <figcaption><a href={m.url}>{m.name}</a></figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   ))}
 </main>
