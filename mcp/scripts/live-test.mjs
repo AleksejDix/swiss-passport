@@ -23,7 +23,15 @@ const connect = async () => {
   await c.connect(new StreamableHTTPClientTransport(new URL(`${base}/mcp`)));
   return c;
 };
-const call = async (c, name, args = {}) => JSON.parse((await c.callTool({ name, arguments: args })).content[0].text);
+const call = async (c, name, args = {}) => {
+  const r = JSON.parse((await c.callTool({ name, arguments: args })).content[0].text);
+  // Wrong learner codes (guard.ts) pause every request with a code from this IP for 10 minutes, testing included.
+  if (r.error?.includes("paused")) {
+    console.error(`BLOCKED: this IP sent too many wrong learner codes. Wait 10 minutes, then run again.\n${r.error}`);
+    process.exit(2);
+  }
+  return r;
+};
 
 let c = await connect();
 const fresh = await call(c, "get_progress", { language: "en" });
