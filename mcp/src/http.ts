@@ -4,8 +4,9 @@ import { createServer as createHttpServer } from "node:http";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { fileAssets } from "./assets.js";
 import { memoryGuard } from "./guard.js";
-import { sqliteStore } from "./sqlite-store.js";
-import { createServer, VERSION } from "./server.js";
+import { VERSION } from "./mcp/app.js";
+import { createServer } from "./mcp/server.js";
+import { sqliteStore } from "./store/sqlite-store.js";
 
 const PORT = Number(process.env.PORT) || 8787;
 const store = sqliteStore();

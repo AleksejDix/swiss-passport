@@ -1,4 +1,4 @@
-// Learn online: a client of the REST API /api/v1 (mcp/src/api.ts), which runs the same learning actions as the
+// Learn online: a client of the REST API /api/v1 (mcp/src/api/), which runs the same learning actions as the
 // MCP tools that Claude and ChatGPT use, so progress is the same everywhere.
 // Progress lives on the server under the learner code, which the browser remembers.
 const API = "/api/v1";
@@ -47,7 +47,7 @@ function h(tag, attrs = {}, ...children) {
   return el;
 }
 
-// The REST endpoint of each learning action: the same actions as the MCP tools of the AI apps (mcp/src/learning.ts).
+// The REST endpoint of each learning action: the same actions as the MCP tools of the AI apps (mcp/src/learning/).
 const ROUTES = {
   get_progress: "/progress",
   start_lesson: "/lessons",

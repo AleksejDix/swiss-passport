@@ -1,4 +1,4 @@
--- Learner progress per learner code (see src/d1-store.ts). updated_at: ISO time of the last save.
+-- Learner progress per learner code (see src/store/sql-store.ts). updated_at: ISO time of the last save.
 CREATE TABLE IF NOT EXISTS learners (
   code TEXT PRIMARY KEY,
   progress TEXT NOT NULL,

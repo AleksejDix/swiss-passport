@@ -1,5 +1,5 @@
 // The method page: how Swiss Passport teaches and why. Every claim about the app matches packages/engine/src/engine.ts
-// (intervals 1, 3, 7, 14, 30 days; a mistake moves a topic back one step) and mcp/src/catalog.ts (50-question mock exams).
+// (intervals 1, 3, 7, 14, 30 days; a mistake moves a topic back one step) and mcp/src/learning/catalog.ts (50-question mock exams).
 // Research claims cite SOURCES below; keep them as careful as the studies themselves.
 import { byLang } from "../../i18n/index.js";
 

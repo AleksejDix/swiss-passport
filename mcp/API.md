@@ -1,6 +1,6 @@
 # Swiss Passport REST API (v1)
 
-The API behind [swiss-passport.com/learn](https://swiss-passport.com/learn/) and the mobile apps. It runs the same learning actions as the MCP tools used by ChatGPT and Claude (`src/learning.ts`), so a learner's progress is the same everywhere.
+The API behind [swiss-passport.com/learn](https://swiss-passport.com/learn/) and the mobile apps. It runs the same learning actions as the MCP tools used by ChatGPT and Claude (`src/learning/`), so a learner's progress is the same everywhere.
 
 - **Base URL:** `https://swiss-passport.com/api/v1`
 - **Format:** every request except `GET /api/v1` is a `POST` with a JSON body (`content-type: application/json`, at most 8 KB). Responses are JSON and never cached.

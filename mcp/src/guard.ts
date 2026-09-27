@@ -16,6 +16,22 @@ export interface Guard {
   wrongCode(ip: string): Promise<void>;
 }
 
+/**
+ * Runs a request that names a learner. Undefined while the client is blocked after too many wrong learner codes;
+ * an unknown code (status 404) counts against the client. Without a guard (local, development) it just runs.
+ */
+export async function guarded<T extends { out: { status?: number } }>(
+  guard: Guard | undefined,
+  client: string,
+  request: () => Promise<T>,
+): Promise<T | undefined> {
+  if (!guard) return request();
+  if (await guard.blocked(client)) return undefined;
+  const result = await request();
+  if (result.out.status === 404) await guard.wrongCode(client);
+  return result;
+}
+
 /** The part of Cloudflare's rate limiting binding used here. */
 export interface RateLimit {
   limit(options: { key: string }): Promise<{ success: boolean }>;
