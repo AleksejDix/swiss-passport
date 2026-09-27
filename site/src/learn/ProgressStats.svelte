@@ -25,3 +25,9 @@
   />
   <QuestionMap {...t.map} results={p.question_results ?? {}} />
 </section>
+
+<style>
+  .stats :global(.qmap) {
+    margin-top: var(--line);
+  }
+</style>
