@@ -5,9 +5,9 @@ import Seo from "../components/layout/Seo.astro";
 import Masthead from "../components/layout/Masthead.astro";
 import Brand from "../components/layout/Brand.astro";
 import MainNav from "../components/layout/MainNav.astro";
-import LanguageNav from "../components/layout/LanguageNav.astro";
+import LanguageNav from "../components/layout/LanguageNav.svelte";
 import Footer from "../components/layout/Footer.astro";
-import { STRINGS } from "../scripts/i18n.ts";
+import { LANGS, STRINGS } from "../scripts/i18n.ts";
 import { UI } from "../ui.ts";
 import { ABOUT } from "../about.ts";
 import { TEXT, homePath, aboutPath } from "../data.ts";
@@ -60,9 +60,18 @@ const REPO = "https://github.com/AleksejDix/swiss-passport";
   <Masthead>
     <Brand href={homePath(lang)} />
     <MainNav lang={lang} />
-    <LanguageNav lang={lang} label={s.nav_langs} links={alternates} />
+    <LanguageNav names={LANGS} lang={lang} label={s.nav_langs} links={alternates} />
   </Masthead>
-
+  <script is:inline>
+    // A language chosen in the masthead is remembered, so / and /learn open in it next time.
+    for (const a of document.querySelectorAll("[data-lang]")) {
+      a.addEventListener("click", () => {
+        try {
+          localStorage.setItem("sp-lang", a.dataset.lang);
+        } catch {}
+      });
+    }
+  </script>
   <slot />
 
   <Footer

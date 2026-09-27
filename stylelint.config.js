@@ -6,7 +6,7 @@ const TOKENS_ONLY = ["/color$/", "fill", "stroke", "background", "font-size", "f
 export default {
   extends: ["stylelint-config-recommended"],
   plugins: ["stylelint-declaration-strict-value"],
-  overrides: [{ files: ["**/*.astro"], customSyntax: "postcss-html" }],
+  overrides: [{ files: ["**/*.astro", "**/*.svelte"], customSyntax: "postcss-html" }],
   ignoreFiles: ["**/node_modules/**", "mcp/public/**", "**/dist/**", "**/.astro/**", ".claude/**"],
   rules: {
     "scale-unlimited/declaration-strict-value": [

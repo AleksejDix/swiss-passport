@@ -2,6 +2,7 @@
 import js from "@eslint/js";
 import ts from "typescript-eslint";
 import astro from "eslint-plugin-astro";
+import svelte from "eslint-plugin-svelte";
 import globals from "globals";
 
 export default ts.config(
@@ -27,10 +28,16 @@ export default ts.config(
   js.configs.recommended,
   ts.configs.recommended,
   astro.configs.recommended,
+  svelte.configs.recommended,
+  // TypeScript inside Svelte components and in .svelte.ts modules (runes).
+  {
+    files: ["**/*.svelte", "**/*.svelte.ts"],
+    languageOptions: { parserOptions: { parser: ts.parser, extraFileExtensions: [".svelte"] } },
+  },
   { languageOptions: { globals: globals.node } },
   // Code that runs in the browser: the site's scripts, the quiz card and the e2e page helpers.
   {
-    files: ["site/src/scripts/**", "site/src/**/*.astro", "mcp/src/view/**"],
+    files: ["site/src/scripts/**", "site/src/**/*.astro", "site/src/learn/**", "mcp/src/view/**"],
     languageOptions: { globals: globals.browser },
   },
   {

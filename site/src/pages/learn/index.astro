@@ -1,19 +1,21 @@
 ---
-// Learn online: the browser client for the MCP tools. One URL for all languages; learn.js picks the language.
+// Learn online: the Svelte app of learn/ on the REST API. One URL for all languages; the app picks the language
+// (saved choice, else the browser's) and switches it without a reload.
 import Document from "../../layouts/Document.astro";
 import Masthead from "../../components/layout/Masthead.astro";
 import Brand from "../../components/layout/Brand.astro";
-import LanguageNav from "../../components/layout/LanguageNav.astro";
 import Footer from "../../components/layout/Footer.astro";
-import "../../styles/learn.css";
+import LearnApp from "../../learn/LearnApp.svelte";
+import LearnLanguages from "../../learn/LearnLanguages.svelte";
 import { SITE } from "../../site.ts";
 import { LANGS } from "../../scripts/i18n.ts";
 import { byLang } from "../../../../i18n/index.js";
 
-// The interface texts of every language (i18n/<code>.json, key learn), for learn.js to switch without reloading.
+// The interface texts of every language (i18n/<code>.json, key learn), so the app switches without reloading.
 const TEXT = byLang((t) => ({ name: t.name, ...t.learn }));
+const LABELS = byLang((t) => t.learn.langs);
 
-// Chrome origin trial: turns on WebMCP (the page tools in learn.js) for https://swiss-passport.com
+// Chrome origin trial: turns on WebMCP (the page tools in learn/webmcp.ts) for https://swiss-passport.com
 // in Chrome 149 to 156. Expires 17 November 2026; renew at https://developer.chrome.com/origintrials/.
 const WEBMCP_TRIAL =
   "Ah7vqevf8D3IVPeMj+zJrDK0DW9H1YhsqvNHCXPYqtBuaMnmHmLWf3KCrF/2VwL0uVxX270c/pmvrYpkOtYMWwwAAABSeyJvcmlnaW4iOiJodHRwczovL3N3aXNzLXBhc3Nwb3J0LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwfQ==";
@@ -32,11 +34,15 @@ const WEBMCP_TRIAL =
 
   <Masthead>
     <Brand href="/" label="Swiss Passport, home" />
-    <!-- Rendered here so the header has its final height before learn.js marks the chosen language. -->
-    <LanguageNav label="Language" buttons />
+    <!-- Rendered on the server, so the masthead has its final height before the app marks the chosen language. -->
+    <LearnLanguages client:load names={LANGS} labels={LABELS} />
   </Masthead>
-  <main class="page app" data-app data-text={JSON.stringify(TEXT)}>
-    <p class="small">Loading…</p>
+  <main class="page app">
+    <LearnApp client:only="svelte" texts={TEXT}>
+      <p class="small" slot="fallback">
+        Loading…
+      </p>
+    </LearnApp>
   </main>
   <noscript>
     <p class="page">This page needs JavaScript.</p>
@@ -47,7 +53,13 @@ const WEBMCP_TRIAL =
       { href: "/datenschutz/", label: "Datenschutz", lang: "de" },
     ]}
   />
-  <script>
-    import "../../scripts/learn.js";
-  </script>
 </Document>
+
+<style>
+  /* A full screen while the app loads: the footer starts below the fold, so nothing visible moves. */
+  .app {
+    padding-bottom: calc(3 * var(--line));
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+</style>
