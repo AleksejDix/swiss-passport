@@ -48,7 +48,7 @@ assert(!step.voice_instructions, "no voice instructions in a text session");
 // ChatGPT (it sends "openai/..." keys in _meta): the card's texts go to the card only, the model gets which step it is.
 const viaChatGPT = await client.callTool({ name: "start_lesson", arguments: {}, _meta: { "openai/userAgent": "smoke-test" } });
 const brief = JSON.parse(viaChatGPT.content[0].text);
-assert(brief.shown_on_card && brief.question.question && !brief.question.options && !brief.explain_first && viaChatGPT.structuredContent.shown_on_card, "ChatGPT: the model gets the step without the card's texts");
+assert(brief.shown_on_card && typeof brief.question === "string" && !JSON.stringify(brief).includes('"options"') && !JSON.stringify(brief).includes('"id"') && !brief.explain_first && viaChatGPT.structuredContent.shown_on_card, "ChatGPT: the model gets the step without the card's texts");
 assert(viaChatGPT._meta?.card?.data?.question?.options?.a && viaChatGPT._meta.card.data.explain_first && viaChatGPT._meta.card.labels, "ChatGPT: the card gets the whole step in _meta");
 const click = await client.callTool({ name: "answer", arguments: { answer: "a", question_id: "q000" }, _meta: { "openai/userAgent": "smoke-test" } });
 assert(click.structuredContent?.data?.question?.options && !click._meta, "ChatGPT: a click on the card gets the whole step in structuredContent");

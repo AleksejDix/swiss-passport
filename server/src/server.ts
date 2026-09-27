@@ -104,7 +104,8 @@ interface Out {
 function forModel({ explain_first, question, next, ...rest }: Record<string, any>): Record<string, unknown> {
   return {
     ...rest,
-    ...(question && { question: { id: question.id, question: question.question }, shown_on_card: true }),
+    // No question id: ChatGPT passed it on as question_id, the card's sign for a click, and got the whole step back.
+    ...(question && { question: question.question, shown_on_card: true }),
     ...(next && { next: forModel(next) }),
   };
 }
