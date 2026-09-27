@@ -7836,7 +7836,7 @@
         },
         "hint": "One dot per question, grouped by lesson. Choose a lesson to see its questions.",
         "right": "Right",
-        "wrong": "Wrong",
+        "wrong": "Wrong, comes back",
         "open": "Not answered yet"
       },
       "parliament": {

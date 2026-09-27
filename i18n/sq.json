@@ -7836,7 +7836,7 @@
         },
         "hint": "Një pikë për çdo pyetje, sipas mësimeve. Zgjidh një mësim për të parë pyetjet e tij.",
         "right": "Saktë",
-        "wrong": "Gabim",
+        "wrong": "Gabim, do të kthehet",
         "open": "Pa përgjigje ende"
       },
       "parliament": {

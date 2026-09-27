@@ -7836,7 +7836,7 @@
         },
         "hint": "Un punto por pregunta, ordenados por lección. Elige una lección para ver sus preguntas.",
         "right": "Correcta",
-        "wrong": "Incorrecta",
+        "wrong": "Incorrecta, volverá",
         "open": "Sin responder"
       },
       "parliament": {

@@ -7836,7 +7836,7 @@
         },
         "hint": "Un punto per domanda, raggruppato per lezione. Scegli una lezione per vederne le domande.",
         "right": "Giusta",
-        "wrong": "Sbagliata",
+        "wrong": "Sbagliata, tornerà",
         "open": "Ancora da fare"
       },
       "parliament": {
