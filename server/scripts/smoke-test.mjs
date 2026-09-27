@@ -111,7 +111,7 @@ assert(p.lesson_choices.at(-1).id === "l02", "the unit just studied comes last")
 // Voice: picture questions are left out, and the lesson still counts as done.
 const pictureQs = new Set(quiz.questions.filter((q) => q.image || q.options.some((o) => o.image)).map((q) => q.id));
 ({ json: step } = await call("start_lesson", { lesson_id: "l34", voice: true }));
-assert(step.voice_instructions?.includes("call answer"), "voice step tells the model to send answers with answer");
+assert(step.voice_instructions?.includes("answer tool"), "voice step tells the model to send answers with answer");
 let voiceQs = [step.question.id];
 for (;;) {
   ({ json: r } = await call("answer", { answer: key[step.question.id] }));
