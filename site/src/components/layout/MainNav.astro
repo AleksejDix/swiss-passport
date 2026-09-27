@@ -1,0 +1,53 @@
+---
+// The pages of the site, in the masthead: one column on tablets, beside the name on wide screens.
+import { UI } from "../../ui.ts";
+import { STRINGS } from "../../scripts/i18n.ts";
+import { GUIDE } from "../../guide.ts";
+import { METHOD } from "../../method.ts";
+import { CONNECT } from "../../connect.ts";
+import { CURRICULUM } from "../../curriculum.ts";
+import { questionsPath, guidePath, methodPath, connectPath, curriculumPath } from "../../data.ts";
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const ui = UI[lang];
+const pages = [
+  ["/learn/", STRINGS[lang].nav_learn],
+  [connectPath(lang), CONNECT[lang].nav],
+  [questionsPath(lang), ui.nav_questions],
+  [curriculumPath(lang), CURRICULUM[lang].nav],
+  [guidePath(lang), GUIDE[lang].nav],
+  [methodPath(lang), METHOD[lang].nav],
+];
+---
+
+<nav class="nav" aria-label={ui.nav_main}>
+  {pages.map(([href, name]) => (
+    <a href={href}>{name}</a>
+  ))}
+</nav>
+
+<style>
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1rem;
+  }
+  .nav a {
+    text-decoration: none;
+  }
+  @media (min-width: 40rem) {
+    .nav {
+      grid-column: 1 / span 4;
+      flex-direction: column;
+    }
+  }
+  @media (min-width: 64rem) {
+    .nav {
+      grid-column: 4 / span 3;
+    }
+  }
+</style>

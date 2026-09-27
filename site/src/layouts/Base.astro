@@ -1,30 +1,17 @@
 ---
-// Every page except /learn: head with canonical and language alternates, masthead, footer.
-// The font is served from this site, not from Google.
-import "@fontsource-variable/inter/opsz.css";
-// Preloaded so the first paint already uses Inter and text does not reflow when the font arrives.
-import interLatin from "@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2?url";
-import interCyrillic from "@fontsource-variable/inter/files/inter-cyrillic-opsz-normal.woff2?url";
+// Every page in a reader's language, except /learn: the document, what search engines read, masthead and footer.
+import Document from "./Document.astro";
+import Seo from "../components/layout/Seo.astro";
+import Masthead from "../components/layout/Masthead.astro";
+import Brand from "../components/layout/Brand.astro";
+import MainNav from "../components/layout/MainNav.astro";
+import LanguageNav from "../components/layout/LanguageNav.astro";
+import Footer from "../components/layout/Footer.astro";
 import "../styles/styles.css";
-import { SITE } from "../site.ts";
-import { LANGS, STRINGS } from "../scripts/i18n.ts";
+import { STRINGS } from "../scripts/i18n.ts";
 import { UI } from "../ui.ts";
-import { GUIDE } from "../guide.ts";
 import { ABOUT } from "../about.ts";
-import { METHOD } from "../method.ts";
-import { CONNECT } from "../connect.ts";
-import { CURRICULUM } from "../curriculum.ts";
-import {
-  TEXT,
-  LANG_IDS,
-  homePath,
-  questionsPath,
-  guidePath,
-  aboutPath,
-  methodPath,
-  connectPath,
-  curriculumPath,
-} from "../data.ts";
+import { TEXT, homePath, aboutPath } from "../data.ts";
 import { byLang } from "../../../i18n/index.js";
 
 interface Props {
@@ -43,42 +30,23 @@ interface Props {
 
 const { lang, title, description, alternates, jsonLd, xDefault, remember = true } = Astro.props;
 const s = { ...STRINGS[lang], ...UI[lang] };
-const url = (path: string) => new URL(path, SITE).href;
 // The legal pages are in German; the footer names them in the reader's language.
-// Russian and Ukrainian text needs the Cyrillic file too, or titles rewrap when it arrives.
-const CYRILLIC = new Set(LANG_IDS.filter((l) => TEXT[l].script === "Cyrl"));
 const PRIVACY_LABEL = byLang((t) => t.site.privacy);
+const REPO = "https://github.com/AleksejDix/swiss-passport";
 ---
 
-<!doctype html>
-<html lang={lang}>
-  <head>
-    <meta charset="utf-8" />
-    <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin />
-    {CYRILLIC.has(lang) && <link rel="preload" href={interCyrillic} as="font" type="font/woff2" crossorigin />}
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={url(alternates[lang])} />
-    {Object.entries(alternates).map(([id, path]) => (
-      <link rel="alternate" hreflang={id} href={url(path)} />
-    ))}
-    {xDefault && <link rel="alternate" hreflang="x-default" href={url(xDefault)} />}
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Swiss Passport" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={url(alternates[lang])} />
-    <meta property="og:locale" content={lang} />
-    <meta property="og:image" content={url(`/og/${lang}.png`)} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="/favicon.ico" sizes="48x48" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+<Document lang={lang} title={title} description={description} cyrillic={TEXT[lang].script === "Cyrl"}>
+  <Fragment slot="head">
+    <Seo
+      title={title}
+      description={description}
+      path={alternates[lang]}
+      alternates={alternates}
+      xDefault={xDefault}
+      locale={lang}
+      image={`/og/${lang}.png`}
+      jsonLd={jsonLd}
+    />
     {remember && <script is:inline define:vars={{ lang }}>
       // Remember the language of the page, so / and /learn open in it next time.
       try {
@@ -88,64 +56,24 @@ const PRIVACY_LABEL = byLang((t) => t.site.privacy);
       }
     </script>}
     <slot name="head" />
-  </head>
-  <body>
-    <header class="page masthead">
-      <a class="brand" href={homePath(lang)} aria-label="Swiss Passport">
-        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
-          <rect width="32" height="32" fill="var(--red)" />
-          <rect class="arm arm-h" x="6" y="13" width="20" height="6" fill="#fff" />
-          <rect class="arm arm-v" x="13" y="6" width="6" height="20" fill="#fff" />
-        </svg>
-        <span>Swiss Passport</span>
-      </a>
-      <nav class="nav" aria-label={s.nav_main}>
-        <a href="/learn/">{s.nav_learn}</a>
-        <a href={connectPath(lang)}>{CONNECT[lang].nav}</a>
-        <a href={questionsPath(lang)}>{s.nav_questions}</a>
-        <a href={curriculumPath(lang)}>{CURRICULUM[lang].nav}</a>
-        <a href={guidePath(lang)}>{GUIDE[lang].nav}</a>
-        <a href={methodPath(lang)}>{METHOD[lang].nav}</a>
-      </nav>
-      <nav class="langs-nav" aria-label={s.nav_langs}>
-        {Object.entries(LANGS).map(([id, name]) => (
-          <a
-            href={alternates[id] ?? homePath(id)}
-            hreflang={id}
-            lang={id}
-            aria-current={id === lang ? "page" : undefined}
-            data-lang={id}
-          >
-            {name}
-          </a>
-        ))}
-      </nav>
-    </header>
+  </Fragment>
 
-    <slot />
+  <Masthead>
+    <Brand href={homePath(lang)} />
+    <MainNav lang={lang} />
+    <LanguageNav lang={lang} label={s.nav_langs} links={alternates} />
+  </Masthead>
 
-    <footer class="page">
-      <div class="footer">
-        <p>{s.foot}</p>
-        <p>
-          <a href={aboutPath(lang)}>{ABOUT[lang].nav}</a>{" "}
-          <a href="/impressum/" lang="de">
-            Impressum
-          </a>{" "}
-          <a href="/datenschutz/">{PRIVACY_LABEL[lang]}</a>{" "}
-          <a href="https://github.com/AleksejDix/swiss-passport">{s.nav_source}</a>{" "}
-          <a href="https://github.com/AleksejDix/swiss-passport/blob/main/LICENSE">{s.foot_license}</a>
-        </p>
-      </div>
-    </footer>
-    <script is:inline>
-      for (const a of document.querySelectorAll("[data-lang]")) {
-        a.addEventListener("click", () => {
-          try {
-            localStorage.setItem("sp-lang", a.dataset.lang);
-          } catch {}
-        });
-      }
-    </script>
-  </body>
-</html>
+  <slot />
+
+  <Footer
+    text={s.foot}
+    links={[
+      { href: aboutPath(lang), label: ABOUT[lang].nav },
+      { href: "/impressum/", label: "Impressum", lang: "de" },
+      { href: "/datenschutz/", label: PRIVACY_LABEL[lang] },
+      { href: REPO, label: s.nav_source },
+      { href: `${REPO}/blob/main/LICENSE`, label: s.foot_license },
+    ]}
+  />
+</Document>

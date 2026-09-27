@@ -13,6 +13,8 @@ export default defineConfig({
   site: SITE,
   outDir: "../mcp/public",
   trailingSlash: "always",
+  // Component styles are scoped with :where(), so they keep the specificity of the selectors as written.
+  scopedStyleStrategy: "where",
   // Language versions are declared per page with <link rel="alternate" hreflang>; / is the language picker.
   // securityHeaders writes _headers (Content-Security-Policy and more) for Cloudflare after the build.
   integrations: [

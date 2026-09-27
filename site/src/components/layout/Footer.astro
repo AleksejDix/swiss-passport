@@ -1,0 +1,78 @@
+---
+// The footer: an optional line of text and the links. On tablets and wide screens the links stand in the
+// first columns, one per line, and the text beside them.
+interface Link {
+  href: string;
+  label: string;
+  /** The language of the linked page, when it differs from this page. */
+  lang?: string;
+}
+
+interface Props {
+  text?: string;
+  links: Link[];
+}
+
+const { text, links } = Astro.props;
+---
+
+<footer class="page">
+  <div class="footer">
+    {text && <p>{text}</p>}
+    <p>
+      {links.map((l, i) => (
+        <>
+          {i > 0 && " "}
+          <a href={l.href} lang={l.lang}>
+            {l.label}
+          </a>
+        </>
+      ))}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    display: grid;
+    grid-template-columns: var(--grid);
+    column-gap: var(--gutter);
+    row-gap: 0.75rem;
+    border-top: 1px solid var(--ink);
+    padding-block: calc(var(--line) - 1px) calc(3 * var(--line));
+    font-size: var(--xs);
+    line-height: var(--xs-lh);
+    letter-spacing: 0;
+    color: var(--grey);
+  }
+  .footer > p {
+    grid-column: 1 / -1;
+  }
+  .footer > p:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem 1.25rem;
+  }
+  @media (min-width: 40rem) {
+    .footer > p {
+      grid-column: 4 / span 5;
+    }
+    .footer > p:last-child {
+      grid-column: 1 / span 3;
+      grid-row: 1 / span 3;
+      display: block;
+    }
+    .footer > p:last-child a {
+      display: block;
+      width: fit-content;
+    }
+    .footer > p:last-child a + a {
+      margin-top: 0.375rem;
+    }
+  }
+  @media (min-width: 64rem) {
+    .footer > p {
+      grid-column: 4 / span 6;
+    }
+  }
+</style>

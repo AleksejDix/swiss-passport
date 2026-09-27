@@ -1,0 +1,67 @@
+---
+// The name with the Swiss cross (the official construction: arms 1/6 longer than wide). A link home, or on the
+// language picker the page heading. On the homepage scripts/main.js draws the cross in (.arm-h, .arm-v).
+interface Props {
+  /** Where the name leads; without it, the name is the page heading (h1). */
+  href?: string;
+  /** The link's accessible name. */
+  label?: string;
+}
+
+const { href, label = "Swiss Passport" } = Astro.props;
+const Tag = href ? "a" : "h1";
+---
+
+<Tag class="brand" href={href} aria-label={href ? label : undefined}>
+  <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+    <rect width="32" height="32" fill="var(--red)"></rect>
+    <rect class="arm arm-h" x="6" y="13" width="20" height="6" fill="#fff"></rect>
+    <rect class="arm arm-v" x="13" y="6" width="6" height="20" fill="#fff"></rect>
+  </svg>
+  <span>Swiss Passport</span>
+</Tag>
+
+<style>
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    width: fit-content;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .brand:hover {
+    color: inherit;
+  }
+  /* On the language picker the name is the page heading; it keeps the size of the masthead. */
+  h1.brand {
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    margin: 0;
+  }
+  .mark {
+    width: var(--line);
+    height: var(--line);
+    flex: none;
+  }
+  @media (min-width: 40rem) {
+    .brand {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (min-width: 64rem) {
+    .brand {
+      grid-column: 1 / span 3;
+    }
+  }
+  /* Motion: the arms start hidden only when the homepage script runs the sequence. */
+  :global(.js-motion) .arm-h {
+    transform: scaleX(0);
+    transform-origin: center;
+  }
+  :global(.js-motion) .arm-v {
+    transform: scaleY(0);
+    transform-origin: center;
+  }
+</style>

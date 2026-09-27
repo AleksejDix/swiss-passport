@@ -37,7 +37,7 @@
   .cur-head,
   .cur-unit {
     display: grid;
-    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    grid-template-columns: var(--grid);
     column-gap: var(--gutter);
   }
   .cur-head {

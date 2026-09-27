@@ -1,0 +1,95 @@
+---
+// The languages, in the masthead: in three rows on tablets and wide screens, the current one in bold.
+// Links to this page in each language, and the choice is remembered for / and /learn. On /learn the
+// languages are buttons (buttons, data-langs): learn.js switches the language without a reload and
+// renders the buttons again, so their style reaches the elements it creates.
+import { LANGS } from "../../scripts/i18n.ts";
+
+interface Props {
+  /** The page's language, marked as current. */
+  lang?: string;
+  label: string;
+  /** Link mode: this page in each language; languages without it lead to their homepage. */
+  links?: Record<string, string>;
+  /** Button mode for /learn. */
+  buttons?: boolean;
+}
+
+const { lang, label, links = {}, buttons = false } = Astro.props;
+---
+
+<nav class="langs-nav" aria-label={label} data-langs={buttons ? "" : undefined}>
+  {Object.entries(LANGS).map(([id, name]) =>
+    buttons ? (
+      <button type="button" lang={id} aria-pressed="false">
+        {name}
+      </button>
+    ) : (
+      <a
+        href={links[id] ?? `/${id}/`}
+        hreflang={id}
+        lang={id}
+        aria-current={id === lang ? "page" : undefined}
+        data-lang={id}
+      >
+        {name}
+      </a>
+    ),
+  )}
+</nav>
+{!buttons && <script is:inline>
+  for (const a of document.querySelectorAll("[data-lang]")) {
+    a.addEventListener("click", () => {
+      try {
+        localStorage.setItem("sp-lang", a.dataset.lang);
+      } catch {}
+    });
+  }
+</script>}
+
+<style>
+  .langs-nav {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1rem;
+  }
+  .langs-nav > :global(*) {
+    font: inherit;
+    letter-spacing: inherit;
+    color: var(--grey);
+    text-decoration: none;
+    text-align: left;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    justify-self: start;
+  }
+  .langs-nav > :global(*:hover) {
+    color: var(--ink);
+  }
+  .langs-nav > :global([aria-current]),
+  .langs-nav > :global([aria-pressed="true"]) {
+    color: var(--ink);
+    font-weight: 700;
+  }
+  @media (min-width: 40rem) {
+    .langs-nav {
+      grid-column: 5 / span 4;
+      display: grid;
+      grid-template-rows: repeat(3, auto);
+      grid-auto-flow: column;
+      justify-content: start;
+      column-gap: var(--gutter);
+    }
+  }
+  @media (min-width: 64rem) {
+    .langs-nav {
+      grid-column: 10 / span 3;
+      grid-template-columns: subgrid;
+    }
+    .langs-nav > :global(:nth-child(n + 4)) {
+      grid-column: span 2;
+    }
+  }
+</style>

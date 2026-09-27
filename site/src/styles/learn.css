@@ -9,7 +9,7 @@
 /* Overview and results: title and lead, as on every other page */
 .intro {
   display: grid;
-  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  grid-template-columns: var(--grid);
   column-gap: var(--gutter);
   padding-bottom: calc(3 * var(--line));
 }
@@ -38,7 +38,7 @@
 /* A step: where you are in the round. The rule under it fills with red as the round goes on. */
 .intro-step {
   display: grid;
-  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  grid-template-columns: var(--grid);
   column-gap: var(--gutter);
 }
 .step-head {
@@ -111,7 +111,7 @@
 /* Every screen: what you act on on the right, information on the left (phones: action first). */
 .cols {
   display: grid;
-  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  grid-template-columns: var(--grid);
   column-gap: var(--gutter);
   row-gap: calc(2 * var(--line));
   border-top: 1px solid var(--ink);

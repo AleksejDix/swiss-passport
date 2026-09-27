@@ -1,0 +1,44 @@
+---
+// The HTML document around every page: language, title, fonts, icons and the global styles (tokens and base).
+// Everything visible is built from components; their styles are scoped to them.
+// The font is served from this site, not from Google.
+import "@fontsource-variable/inter/opsz.css";
+// Preloaded so the first paint already uses Inter and text does not reflow when the font arrives.
+import interLatin from "@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2?url";
+import interCyrillic from "@fontsource-variable/inter/files/inter-cyrillic-opsz-normal.woff2?url";
+import "../styles/tokens.css";
+import "../styles/base.css";
+
+interface Props {
+  lang: string;
+  title: string;
+  description?: string;
+  /** Also preload the Cyrillic font file (Russian and Ukrainian text), so titles do not rewrap when it arrives. */
+  cyrillic?: boolean;
+  /** Keep the page out of search results. */
+  noindex?: boolean;
+  bodyClass?: string;
+}
+
+const { lang, title, description, cyrillic = false, noindex = false, bodyClass } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin />
+    {cyrillic && <link rel="preload" href={interCyrillic} as="font" type="font/woff2" crossorigin />}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <slot name="head" />
+  </head>
+  <body class={bodyClass}>
+    <slot />
+  </body>
+</html>

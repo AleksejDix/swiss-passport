@@ -7,7 +7,7 @@ export default {
   extends: ["stylelint-config-recommended"],
   plugins: ["stylelint-declaration-strict-value"],
   overrides: [{ files: ["**/*.astro"], customSyntax: "postcss-html" }],
-  ignoreFiles: ["**/node_modules/**", "mcp/public/**", "server/public/**", "**/dist/**", "**/.astro/**", ".claude/**"],
+  ignoreFiles: ["**/node_modules/**", "mcp/public/**", "**/dist/**", "**/.astro/**", ".claude/**"],
   rules: {
     "scale-unlimited/declaration-strict-value": [
       TOKENS_ONLY,

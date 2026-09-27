@@ -1,9 +1,10 @@
 ---
 // Learn online: the browser client for the MCP tools. One URL for all languages; learn.js picks the language.
-// The font is served from this site, not from Google.
-import "@fontsource-variable/inter/opsz.css";
-// Preloaded so the first paint already uses Inter and text does not reflow when the font arrives.
-import interLatin from "@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2?url";
+import Document from "../../layouts/Document.astro";
+import Masthead from "../../components/layout/Masthead.astro";
+import Brand from "../../components/layout/Brand.astro";
+import LanguageNav from "../../components/layout/LanguageNav.astro";
+import Footer from "../../components/layout/Footer.astro";
 import "../../styles/styles.css";
 import "../../styles/learn.css";
 import { SITE } from "../../site.ts";
@@ -19,57 +20,35 @@ const WEBMCP_TRIAL =
   "Ah7vqevf8D3IVPeMj+zJrDK0DW9H1YhsqvNHCXPYqtBuaMnmHmLWf3KCrF/2VwL0uVxX270c/pmvrYpkOtYMWwwAAABSeyJvcmlnaW4iOiJodHRwczovL3N3aXNzLXBhc3Nwb3J0LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwfQ==";
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Learn online: Swiss Passport</title>
-    <meta
-      name="description"
-      content={`Practise the 350 official questions of the Zurich naturalisation knowledge test in your browser, in ${Object.keys(LANGS).length} languages.`}
-    />
+<Document
+  lang="en"
+  title="Learn online: Swiss Passport"
+  description={`Practise the 350 official questions of the Zurich naturalisation knowledge test in your browser, in ${Object.keys(LANGS).length} languages.`}
+  bodyClass="learn"
+>
+  <Fragment slot="head">
     <link rel="canonical" href={new URL("/learn/", SITE).href} />
-    <link rel="icon" href="/favicon.ico" sizes="48x48" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta http-equiv="origin-trial" content={WEBMCP_TRIAL} />
-  </head>
-  <body class="learn">
-    <header class="page masthead">
-      <a class="brand" href="/" aria-label="Swiss Passport, home">
-        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
-          <rect width="32" height="32" fill="var(--red)" />
-          <rect x="6" y="13" width="20" height="6" fill="#fff" />
-          <rect x="13" y="6" width="6" height="20" fill="#fff" />
-        </svg>
-        <span>Swiss Passport</span>
-      </a>
-      <!-- Rendered here so the header has its final height before learn.js marks the chosen language. -->
-      <nav class="langs-nav" aria-label="Language" data-langs>
-        {Object.entries(LANGS).map(([id, name]) => (
-          <button type="button" lang={id} aria-pressed="false">
-            {name}
-          </button>
-        ))}
-      </nav>
-    </header>
-    <main class="page app" data-app data-text={JSON.stringify(TEXT)}>
-      <p class="small">Loading…</p>
-    </main>
-    <noscript>
-      <p class="page">This page needs JavaScript.</p>
-    </noscript>
-    <footer class="page">
-      <div class="footer">
-        <p lang="de">
-          <a href="/impressum/">Impressum</a> <a href="/datenschutz/">Datenschutz</a>
-        </p>
-      </div>
-    </footer>
-    <script>
-      import "../../scripts/learn.js";
-    </script>
-  </body>
-</html>
+  </Fragment>
+
+  <Masthead>
+    <Brand href="/" label="Swiss Passport, home" />
+    <!-- Rendered here so the header has its final height before learn.js marks the chosen language. -->
+    <LanguageNav label="Language" buttons />
+  </Masthead>
+  <main class="page app" data-app data-text={JSON.stringify(TEXT)}>
+    <p class="small">Loading…</p>
+  </main>
+  <noscript>
+    <p class="page">This page needs JavaScript.</p>
+  </noscript>
+  <Footer
+    links={[
+      { href: "/impressum/", label: "Impressum", lang: "de" },
+      { href: "/datenschutz/", label: "Datenschutz", lang: "de" },
+    ]}
+  />
+  <script>
+    import "../../scripts/learn.js";
+  </script>
+</Document>

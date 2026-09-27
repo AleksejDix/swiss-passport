@@ -1,46 +1,22 @@
 ---
 // Language picker at /. No language is the default: the learner picks one, and the choice is remembered.
-import "@fontsource-variable/inter/opsz.css";
-// Preloaded so the first paint already uses Inter and text does not reflow when the font arrives.
-import interLatin from "@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2?url";
-// The picker also shows Русский and Українська in large type.
-import interCyrillic from "@fontsource-variable/inter/files/inter-cyrillic-opsz-normal.woff2?url";
-import "../styles/styles.css";
-import { SITE } from "../site.ts";
+import Document from "../layouts/Document.astro";
+import Seo from "../components/layout/Seo.astro";
+import Masthead from "../components/layout/Masthead.astro";
+import Brand from "../components/layout/Brand.astro";
+import Footer from "../components/layout/Footer.astro";
 import { LANGS, STRINGS } from "../scripts/i18n.ts";
 import { homePath } from "../data.ts";
 
 const title = "Swiss Passport: Einbürgerungstest Zürich · Zurich citizenship test";
 const n = Object.keys(LANGS).length;
 const description = `Lernen für den Einbürgerungstest im Kanton Zürich, in ${n} Sprachen. Learn for the Zurich citizenship test in ${n} languages.`;
-const url = (path: string) => new URL(path, SITE).href;
+const alternates = Object.fromEntries(Object.keys(LANGS).map((id) => [id, homePath(id)]));
 ---
 
-<!doctype html>
-<html lang="mul">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={interCyrillic} as="font" type="font/woff2" crossorigin />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={url("/")} />
-    {Object.keys(LANGS).map((id) => (
-      <link rel="alternate" hreflang={id} href={url(homePath(id))} />
-    ))}
-    <link rel="alternate" hreflang="x-default" href={url("/")} />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Swiss Passport" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={url("/")} />
-    <meta property="og:image" content={url("/og/de.png")} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+<Document lang="mul" title={title} description={description} cyrillic>
+  <Fragment slot="head">
+    <Seo title={title} description={description} path="/" alternates={alternates} xDefault="/" image="/og/de.png" />
     <script is:inline define:vars={{ langs: Object.keys(LANGS) }}>
       // Someone who already picked a language goes straight to it.
       try {
@@ -50,51 +26,91 @@ const url = (path: string) => new URL(path, SITE).href;
         /* storage unavailable */
       }
     </script>
-  </head>
-  <body>
-    <header class="page masthead">
-      <h1 class="brand">
-        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
-          <rect width="32" height="32" fill="var(--red)" />
-          <rect x="6" y="13" width="20" height="6" fill="#fff" />
-          <rect x="13" y="6" width="6" height="20" fill="#fff" />
-        </svg>
-        <span>Swiss Passport</span>
-      </h1>
-    </header>
+  </Fragment>
 
-    <main class="page">
-      <nav class="picker" aria-label="Language / Sprache">
-        {Object.entries(LANGS).map(([id, name]) => (
-          <a href={homePath(id)} hreflang={id} lang={id} data-lang={id}>
-            <span class="picker-name">{name}</span>
-            <span class="picker-line">{STRINGS[id].h1}</span>
-          </a>
-        ))}
-      </nav>
-    </main>
+  <Masthead>
+    <Brand />
+  </Masthead>
 
-    <footer class="page">
-      <div class="footer">
-        <p>
-          <a href="/impressum/" lang="de">
-            Impressum
-          </a>{" "}
-          <a href="/datenschutz/" lang="de">
-            Datenschutz
-          </a>{" "}
-          <a href="https://github.com/AleksejDix/swiss-passport">GitHub</a>
-        </p>
-      </div>
-    </footer>
-    <script is:inline>
-      for (const a of document.querySelectorAll("[data-lang]")) {
-        a.addEventListener("click", () => {
-          try {
-            localStorage.setItem("sp-lang", a.dataset.lang);
-          } catch {}
-        });
-      }
-    </script>
-  </body>
-</html>
+  <main class="page">
+    <nav class="picker" aria-label="Language / Sprache">
+      {Object.entries(LANGS).map(([id, name]) => (
+        <a href={homePath(id)} hreflang={id} lang={id} data-lang={id}>
+          <span class="picker-name">{name}</span>
+          <span class="picker-line">{STRINGS[id].h1}</span>
+        </a>
+      ))}
+    </nav>
+  </main>
+
+  <Footer
+    links={[
+      { href: "/impressum/", label: "Impressum", lang: "de" },
+      { href: "/datenschutz/", label: "Datenschutz", lang: "de" },
+      { href: "https://github.com/AleksejDix/swiss-passport", label: "GitHub" },
+    ]}
+  />
+  <script is:inline>
+    for (const a of document.querySelectorAll("[data-lang]")) {
+      a.addEventListener("click", () => {
+        try {
+          localStorage.setItem("sp-lang", a.dataset.lang);
+        } catch {}
+      });
+    }
+  </script>
+</Document>
+
+<style>
+  /* Six languages, set as large as the page allows. */
+  .picker {
+    display: grid;
+    padding-bottom: calc(3 * var(--line));
+  }
+  .picker a {
+    display: grid;
+    grid-template-columns: var(--grid);
+    column-gap: var(--gutter);
+    row-gap: 0.375rem;
+    align-items: last baseline;
+    padding-block: 0.75rem calc(var(--line) - 1px);
+    border-top: 1px solid var(--ink);
+    text-decoration: none;
+  }
+  .picker a:last-child {
+    border-bottom: 1px solid var(--ink);
+  }
+  .picker a > * {
+    grid-column: 1 / -1;
+  }
+  .picker-name {
+    font-size: var(--xxl);
+    line-height: 0.94;
+    font-weight: 700;
+    letter-spacing: var(--xxl-track);
+    margin-inline-start: -0.054em;
+  }
+  .picker-line {
+    color: var(--grey);
+  }
+  .picker a:hover {
+    color: var(--red);
+  }
+  .picker a:hover .picker-line {
+    color: var(--ink);
+  }
+  @media (min-width: 64rem) {
+    .picker a > .picker-name {
+      grid-column: 1 / span 6;
+    }
+    .picker a > .picker-line {
+      grid-column: 7 / span 5;
+    }
+  }
+  /* Display leading snaps to the 6px unit. */
+  @supports (line-height: round(1em, 1px)) {
+    .picker-name {
+      line-height: round(0.94em, 0.375rem);
+    }
+  }
+</style>

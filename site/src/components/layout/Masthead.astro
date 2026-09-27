@@ -1,0 +1,23 @@
+---
+// The masthead of every page, set like a letterhead: the name, the pages and the languages, each in its own
+// columns of the grid. The parts (Brand, MainNav, LanguageNav) place themselves; on phones they stack.
+---
+
+<header class="page masthead">
+  <slot />
+</header>
+
+<style>
+  .masthead {
+    display: grid;
+    grid-template-columns: var(--grid);
+    column-gap: var(--gutter);
+    row-gap: 0.75rem;
+    align-items: start;
+    padding-block: var(--line) calc(3 * var(--line));
+  }
+  /* No specificity: the parts' own column rules always win. */
+  :where(.masthead) > :global(*) {
+    grid-column: 1 / -1;
+  }
+</style>
