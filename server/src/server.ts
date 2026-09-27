@@ -225,7 +225,11 @@ export function createServer(store: Store, { online, assets }: { online: boolean
       run(args, (p, lang) => {
         // "Let's continue" in a new chat: ChatGPT called start_lesson and the learner lost their place in the lesson.
         const open = p.session?.kind === "lesson" && !!p.session.voice === voice ? p.session.lesson : undefined;
-        if (open && (lesson_id ?? open) === open) return stepOut(p, lang);
+        if (open && (lesson_id ?? open) === open) {
+          // Said explicitly: without it ChatGPT started the same lesson a second time, and two cards showed the same step.
+          const out = stepOut(p, lang);
+          return { ...out, data: { continued_unfinished_lesson: true, ...out.data } };
+        }
         const id = lesson_id ?? engine.nextLessonId(p);
         if (!id) return { data: { done: true, message: "All lessons done. Continue with reviews and mock exams." } };
         if (!engine.lessons.includes(id)) return { data: { error: `Unknown lesson ${id}. Lessons are ${engine.lessons[0]} to ${engine.lessons.at(-1)}.` } };
