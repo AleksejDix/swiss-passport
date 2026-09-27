@@ -1,8 +1,7 @@
 // The REST API /api/v1 (mcp/API.md): the same learning actions as the MCP tools of the AI apps, so progress is the
 // same everywhere. Every request is a POST with JSON; the learner code travels in the body, never in the address.
-import type { Letter } from "@aleksejdix/learning-engine";
-
-export type { Letter };
+/** The four options of a question in API v1 (mcp/API.md: answer "a"…"d"). */
+export type Letter = "a" | "b" | "c" | "d";
 export const LETTERS: Letter[] = ["a", "b", "c", "d"];
 
 /** Pictures of a step: the question and its options, as paths from the site root. */
