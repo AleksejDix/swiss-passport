@@ -133,3 +133,42 @@ test("validateCatalog checks points and the review schedule", () => {
     "review.days must list at least one delay, each more than 0 days",
   ]);
 });
+
+test("readiness counts each review level as a share, and 100% only once the topic is known", () => {
+  const engine = createEngine(course());
+  const p = emptyProgress();
+  const ready = () => engine.progress(p, "en").readiness_percent;
+  assert.equal(ready(), 0);
+  engine.startLesson(p, "l1", false);
+  engine.answer(p, "a", "en");
+  engine.answer(p, "a", "en");
+  assert.equal(ready(), 33, "after the lesson: level 1 of 3");
+  review(engine, p, "a");
+  assert.equal(ready(), 67, "after the first review: level 2 of 3");
+  review(engine, p, "a");
+  assert.equal(ready(), 100, "known from level 3");
+  assert.deepEqual(engine.progress(p, "en").readiness_by_category, [{ category: "C", percent: 100 }]);
+});
+
+test("readiness shows at least 1% for any progress", () => {
+  const questions = Array.from({ length: 200 }, () => ({}));
+  const c = course({}, questions);
+  c.curriculum = {
+    units: [{ id: "u1", lessons: ["l1", "l2"] }],
+    lessons: [
+      { id: "l1", unit: "u1", concepts: ["t1"] },
+      { id: "l2", unit: "u1", concepts: ["t2"] },
+    ],
+    concepts: [
+      { id: "t1", lesson: "l1", questions: ["q1"], sources: [] },
+      { id: "t2", lesson: "l2", questions: questions.slice(1).map((_, i) => `q${i + 2}`), sources: [] },
+    ],
+  };
+  c.texts.en.lessons.l2 = { title: "Lesson two" };
+  c.texts.en.concepts.t2 = { title: "Topic two", intro: [], key_terms: [] };
+  const engine = createEngine(c);
+  const p = emptyProgress();
+  engine.startLesson(p, "l1", false);
+  engine.answer(p, "a", "en");
+  assert.equal(engine.progress(p, "en").readiness_percent, 1, "1/3 of 1 question in 200 rounds to 0, shown as 1");
+});

@@ -18,6 +18,10 @@ function shuffle<T>(items: T[]): T[] {
 }
 
 /** The learning engine for one catalog. */
+/** A share as a whole percent: at least 1 as soon as there is any progress, and 100 only when it is complete. */
+const percent = (part: number, whole: number) =>
+  part <= 0 ? 0 : part >= whole ? 100 : Math.min(99, Math.max(1, Math.round((100 * part) / whole)));
+
 export function createEngine(catalog: Catalog) {
   const {
     conceptById,
@@ -36,7 +40,7 @@ export function createEngine(catalog: Catalog) {
 
   const review = { ...DEFAULT_REVIEW, ...catalog.review };
   const MAX_LEVEL = review.days.length;
-  // A concept counts as "known" from this level on (used for the readiness score).
+  // A concept counts as fully "known" from this level on; each level below counts as a share (readiness score).
   const KNOWN_LEVEL = Math.min(3, MAX_LEVEL);
   /** How long a topic waits at a level: level 1 (and a new topic) waits the first delay. */
   const delay = (level: number) => review.days[Math.max(level, 1) - 1] * DAY;
@@ -324,15 +328,17 @@ export function createEngine(catalog: Catalog) {
   // ---- Overview -----------------------------------------------------------------------
 
   function progress(p: Progress, lang: string) {
+    // How far a question's topic is on the way to "known": a share for each level reached, all of it from
+    // KNOWN_LEVEL on or when finished. Readiness grows with every lesson and review; 100% still needs the reviews.
     const known = (qid: string) => {
       const s = p.concepts[conceptOfQuestion.get(qid)!];
-      return Boolean(s && (s.done || s.level >= KNOWN_LEVEL));
+      return !s ? 0 : s.done ? 1 : Math.min(s.level, KNOWN_LEVEL) / KNOWN_LEVEL;
     };
     const byCategory = new Map<string, { known: number; total: number }>();
     for (const q of questions.values()) {
       const c = byCategory.get(q.category) ?? { known: 0, total: 0 };
       c.total++;
-      if (known(q.id)) c.known++;
+      c.known += known(q.id);
       byCategory.set(q.category, c);
     }
     const next = nextLessonId(p);
@@ -356,10 +362,13 @@ export function createEngine(catalog: Catalog) {
       unfinished_session: p.session
         ? { kind: p.session.kind, step: `${p.session.pos + 1}/${p.session.questions.length}` }
         : null,
-      readiness_percent: Math.round((100 * [...questions.keys()].filter(known).length) / questions.size),
+      readiness_percent: percent(
+        [...questions.keys()].reduce((sum, qid) => sum + known(qid), 0),
+        questions.size,
+      ),
       readiness_by_category: [...byCategory].map(([id, c]) => ({
         category: categoryTitle(id, lang),
-        percent: Math.round((100 * c.known) / c.total),
+        percent: percent(c.known, c.total),
       })),
       last_exams: p.exams.slice(-3),
       units: curriculum.units.map((u) => ({

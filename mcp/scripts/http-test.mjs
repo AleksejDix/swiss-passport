@@ -86,7 +86,7 @@ await start(); // restart: progress must come from SQLite
 c = await connect();
 r = await call(c, "get_progress", { learner_code: code });
 assert(
-  r.unfinished_session?.step === "4/9" && r.readiness_percent === 0,
+  r.unfinished_session?.step === "4/9" && r.readiness_percent > 0 && r.readiness_percent < 100,
   "after restart: same learner continues at step 4/9",
 );
 r = await call(c, "answer", { learner_code: code, answer: key[step.question.id] });

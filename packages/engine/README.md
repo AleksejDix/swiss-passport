@@ -39,7 +39,7 @@ engine.answer(progress, ["a", "c"], "en"); // a question whose answer is a list:
 |---|---|
 | `createEngine(catalog)` | The engine for one catalog. |
 | `fitToCatalog(p)` | Makes stored progress fit a changed catalog: the unfinished session drops removed questions, or ends. Call it after loading. |
-| `progress(p, lang)` | Lessons done, `lesson_choices`, `open_lessons`, reviews due, readiness per category, recent mock exams. |
+| `progress(p, lang)` | Lessons done, `lesson_choices`, `open_lessons`, reviews due, readiness per category (each review level of a topic counts as a share, 100% once every topic is known), recent mock exams. |
 | `startLesson(p, lessonId, voice)` | Starts a lesson. `voice: true` leaves out questions with pictures. |
 | `startReviews(p, voice)` | Starts a review round of the topics that are due. Returns `false` if none are. |
 | `startExam(p, voice)` | Starts a mock exam of `catalog.exam.size` random questions, without feedback until the end. |
