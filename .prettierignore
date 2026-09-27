@@ -28,3 +28,6 @@ private/
 
 # The quiz card is checked by the server tests, not by the visual tests: reformat it on its own, with a real check.
 mcp/src/view/card.html
+
+# Slide decks: index.html is exported by Marp from slides.md, not written by hand.
+slides/**/index.html
