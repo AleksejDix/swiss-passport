@@ -50,7 +50,9 @@ const isNew = (p: Progress) => Object.keys(p.answered).length === 0;
 const lessonChoices = (p: Progress, lang: Lang): Out => ({
   data: {
     choose_a_lesson: true,
-    message: "The learner picks where to start. start_lesson with one of these lesson_id values starts that lesson.",
+    message:
+      "The learner picks where to start, on the card or in the chat; no lesson is recommended over another. Learners know the" +
+      " lessons by their titles. start_lesson with the picked lesson_id starts it.",
     lesson_choices: engine.progress(p, lang).lesson_choices,
   },
 });

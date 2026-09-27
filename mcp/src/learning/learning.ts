@@ -28,7 +28,8 @@ export interface Done {
 
 /** For a learner without a code: where the code comes from. A fact, not an order (see CARD_NOTE in mcp/texts.ts). */
 const NO_CODE_YET =
-  "This learner has no learner code yet. start_lesson, start_reviews and start_mock_exam create one with their first step.";
+  "This learner has no learner code yet. start_lesson, start_reviews and start_mock_exam create one with their first step." +
+  " For a new learner, start_lesson without lesson_id shows lesson_choices on the card, where the learner picks where to start.";
 
 // API v1 and the tutor's instructions call the wording of the real exam "german"; the engine calls it "original".
 const V1_NAMES: Record<string, string> = { original: "german", correct_answer_original: "correct_answer_german" };
