@@ -35,8 +35,11 @@ const call = async (c, name, args = {}) => {
 
 let c = await connect();
 const fresh = await call(c, "get_progress", { language: "en" });
-assert(!fresh.learner_code && fresh.lessons_done === 0, "get_progress creates no learner code");
-const choices = await call(c, "start_lesson", { language: "en" });
+assert(
+  !fresh.learner_code && fresh.new_or_continuing,
+  "without a code, the learner is asked: from scratch or continue?",
+);
+const choices = await call(c, "start_lesson", { language: "en", new_learner: true });
 const code = choices.learner_code;
 assert(
   code && choices.lesson_choices?.length > 1,
@@ -50,7 +53,7 @@ await c.close();
 c = await connect(); // new connection, possibly another function instance: progress must come from the database
 const p = await call(c, "get_progress", { learner_code: code });
 assert(p.unfinished_session?.step === "2/9", "progress stored in the database and loaded again");
-const card = await c.readResource({ uri: "ui://swiss-passport/card-v8.html" });
+const card = await c.readResource({ uri: "ui://swiss-passport/card-v9.html" });
 assert(card.contents[0].text.length > 1000, "quiz card served");
 await c.close();
 console.log("live checks passed");

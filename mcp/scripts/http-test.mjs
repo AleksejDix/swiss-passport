@@ -51,13 +51,18 @@ assert(
 
 const progressTool = (await c.listTools()).tools.find((t) => t.name === "get_progress");
 assert(progressTool.annotations?.readOnlyHint === true, "get_progress is declared read-only online too");
+// Every chat first asks whether the learner starts from scratch or continues with their code.
 let r = await call(c, "get_progress", { language: "en" });
+assert(!r.learner_code && r.new_or_continuing, "without a code, get_progress asks: from scratch or continue?");
+r = await call(c, "start_lesson", { language: "en" });
+assert(!r.learner_code && r.new_or_continuing && !r.lesson_choices, "start_lesson too, and makes no code");
+r = await call(c, "get_progress", { language: "en", new_learner: true });
 assert(
   !r.learner_code && r.no_learner_code_yet && r.lessons_done === 0,
   "get_progress creates no code for a new learner",
 );
 
-const first = await call(c, "start_lesson", { language: "en" });
+const first = await call(c, "start_lesson", { language: "en", new_learner: true });
 const code = first.learner_code;
 assert(
   /^[A-Z]+-[2-9A-Z]{4}$/.test(code) && first.new_learner_code,
@@ -89,7 +94,7 @@ assert(r.feedback?.correct === true, "answering continues where the learner left
 
 r = await call(c, "get_progress", { learner_code: "NOPE-0000" });
 assert(r.error?.includes("Unknown learner code"), "unknown code is rejected");
-const other = await call(c, "start_lesson", {});
+const other = await call(c, "start_lesson", { new_learner: true });
 assert(
   other.learner_code && other.learner_code !== code && other.lesson_choices,
   "a second learner gets their own code",
@@ -99,7 +104,7 @@ await call(c, "get_progress", { learner_code: code, language: "de" });
 const after = await call(c, "get_progress", { learner_code: code });
 assert(JSON.stringify(after) === JSON.stringify(before), "get_progress changes nothing, not even the language");
 
-const card = await c.readResource({ uri: "ui://swiss-passport/card-v8.html" });
+const card = await c.readResource({ uri: "ui://swiss-passport/card-v9.html" });
 assert(card.contents[0].mimeType === "text/html;profile=mcp-app", "quiz card available online");
 
 const home = await fetch(`http://localhost:${PORT}/`);
@@ -109,7 +114,7 @@ assert(home.ok && (await home.text()).includes("/mcp"), "home page explains the 
 for (let i = 0; i < 20; i++) await call(c, "get_progress", { learner_code: `NOPE-${2222 + i}` });
 r = await call(c, "get_progress", { learner_code: code });
 assert(r.error?.includes("paused for 10 minutes"), "after 21 wrong codes a minute, even a right code waits");
-r = await call(c, "start_lesson", {});
+r = await call(c, "start_lesson", { new_learner: true });
 assert(r.learner_code && !r.error, "a new learner without a code can still start");
 
 await c.close();

@@ -47,10 +47,11 @@ Voice conversations (the learner speaks and listens):
 const ONLINE_INSTRUCTIONS = `
 
 Learner code (online version, no login):
-- Progress is saved under a personal learner code, e.g. "BERG-7K2Q". At the start, ask whether the learner has one.
-- Pass it as "learner_code" in EVERY tool call. If the learner has none, leave it empty: the first start_lesson,
-  start_reviews or start_mock_exam returns a new "learner_code" (get_progress only reads and creates none).
-  Tell the learner to write it down: they need it to continue on another day.
+- Progress is saved under a personal learner code, e.g. "BERG-7K2Q". At the start of every chat, ask whether the
+  learner starts from scratch or continues; to continue, ask for their learner code.
+- Pass it as "learner_code" in EVERY tool call. A learner who starts from scratch has none: pass new_learner: true,
+  and the first start_lesson, start_reviews or start_mock_exam returns a new "learner_code" (get_progress only reads
+  and creates none). Tell the learner to write it down: they need it to continue on another day.
 - If you can remember things between conversations, remember the learner's code.`;
 
 /** The server instructions: online they also explain the learner code. */
@@ -72,6 +73,17 @@ export const VOICE_STEP =
 
 /** Told instead of any result while a client waits after too many wrong learner codes (guard.ts). */
 export const BLOCKED = `Too many wrong learner codes from this connection: requests with a learner code are paused for ${BLOCK_SECONDS / 60} minutes.`;
+
+/**
+ * Online, instead of any result for a request without a learner code, until the learner said they start from scratch.
+ * The card shows both answers as buttons.
+ */
+export const NEW_OR_CONTINUING = {
+  new_or_continuing: true,
+  message:
+    "Every chat starts with the learner saying whether they start from scratch or continue. Continuing needs their" +
+    " learner code (e.g. BERG-7K2Q) as learner_code; starting from scratch needs new_learner: true.",
+};
 
 /** Next to a new learner code in the first step. */
 export const NEW_CODE = "Tell the learner to write this code down.";

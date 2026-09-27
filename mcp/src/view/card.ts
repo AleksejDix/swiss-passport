@@ -1,7 +1,8 @@
 // Quiz card shown inside the chat (MCP Apps view): concept, question and clickable options with pictures.
 // Where the host lets views call tools, a click answers right here (answer tool) and the card updates in place,
 // so the chat does not grow with every question. Otherwise a click sends the letter as a chat message.
-// A new learner first gets the lessons to choose from: a click sends the lesson's title as a chat message.
+// Online, a chat first asks whether the learner starts from scratch or continues with their code, and a new learner
+// then gets the lessons to choose from: a click on either sends its text as a chat message.
 import { App, type ToolResult } from "./bridge.js";
 
 type Letter = "a" | "b" | "c" | "d";
@@ -22,10 +23,10 @@ interface Step {
   step: string;
   question: Question;
 }
-interface LessonChoice {
-  id: string;
+/** A button that sends its title to the chat: a lesson (with its unit), or how the learner starts. */
+interface Choice {
   title: string;
-  unit: string;
+  unit?: string;
 }
 interface Feedback {
   correct?: boolean;
@@ -43,6 +44,8 @@ interface Labels {
   again: string;
   next: string;
   done: string;
+  startNew: string;
+  continueWithCode: string;
 }
 interface Card {
   lang?: string;
@@ -108,16 +111,18 @@ function render({ labels: label, data, images }: Card) {
     return;
   }
   if (step) showStep(step, images);
-  else if ("lesson_choices" in data) showChoices(data.lesson_choices as LessonChoice[]);
+  else if ("lesson_choices" in data) showChoices(data.lesson_choices as Choice[]);
+  else if ("new_or_continuing" in data) showChoices([{ title: label.startNew }, { title: label.continueWithCode }]);
 }
 
-/** The lessons to start with. A click sends the title to the chat, and the tutor starts that lesson. */
-function showChoices(choices: LessonChoice[]) {
+/** Buttons for the learner's choice. A click sends the title to the chat, and the tutor goes on from there. */
+function showChoices(choices: Choice[]) {
   const list = el("div", "options");
   for (const choice of choices) {
     const b = el("button", "option") as HTMLButtonElement;
     const text = el("span", "text");
-    text.append(el("span", "choice-title", choice.title), el("span", "choice-unit", choice.unit));
+    text.append(el("span", "choice-title", choice.title));
+    if (choice.unit) text.append(el("span", "choice-unit", choice.unit));
     b.append(text);
     b.onclick = async () => {
       list.querySelectorAll("button").forEach((x) => ((x as HTMLButtonElement).disabled = true));
