@@ -18,6 +18,8 @@ export interface Progress {
   lessons_done: number;
   lessons_total: number;
   lesson_choices: LessonChoice[];
+  /** Every lesson that can be started now, unit by unit. */
+  open_lessons: LessonChoice[];
   reviews_due: number;
   readiness_by_category: { category: string; percent: number }[];
   last_exams: { at: string; score: number; total: number }[];

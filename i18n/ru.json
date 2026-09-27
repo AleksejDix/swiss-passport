@@ -7920,7 +7920,9 @@
     "nextLesson": "Следующий урок",
     "startWith": "С чего хочешь начать?",
     "chooseNext": "Выбери следующий урок",
-    "recommended": "рекомендуем"
+    "recommended": "рекомендуем",
+    "openLessons": "Все уроки, которые можно начать сейчас",
+    "wholeCurriculum": "Весь учебный план"
   },
   "card": {
     "right": "Верно",

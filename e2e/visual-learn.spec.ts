@@ -16,6 +16,13 @@ async function shot(page: Page, name: string) {
   await expect(page).toHaveScreenshot(name, { fullPage: true });
 }
 
+test("/learn overview with every lesson that can be started now", async ({ page }) => {
+  await page.goto("/learn/");
+  await page.getByText(s.openLessons).click();
+  await expect(page.locator("details[open]")).toBeVisible();
+  await shot(page, "learn-open-lessons.png");
+});
+
 test("/learn screens of a lesson", async ({ page }) => {
   test.slow();
   await page.goto("/learn/");

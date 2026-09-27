@@ -2,6 +2,7 @@
 // Every test starts as a new learner (new browser context, new learner code).
 import type { Page } from "@playwright/test";
 import { test, expect, TEXTS, LEARNER_CODE, rightLetter, wrongLetter } from "./fixtures";
+import curriculum from "../curriculum.json" with { type: "json" };
 
 const s = TEXTS.en.learn;
 const learnerCode = (page: Page) => page.getByText(LEARNER_CODE);
@@ -54,6 +55,19 @@ test("a new topic comes with its explanation, closed until the learner opens it"
   await page.getByText(s.showExplanation).click();
   await expect(explanation).toHaveAttribute("open", "");
   await expect(explanation.getByRole("definition").first()).toBeVisible();
+});
+
+test("every lesson that can be started now is offered, and any of them starts", async ({ page }) => {
+  await page.goto("/learn/");
+  await page.getByText(s.openLessons).click();
+  // A new learner may start every lesson that requires nothing first.
+  const open = curriculum.lessons.filter((l) => !l.requires?.length);
+  await expect(page.locator("details[open] li button")).toHaveCount(open.length);
+  // Not one of the recommended three: lesson 20.
+  const title = TEXTS.en.lessons.l20.title;
+  await page.getByRole("button", { name: `20 ${title}` }).click();
+  await expect(page.getByText(`${s.lesson} 20: ${title}`)).toBeVisible();
+  await expect(page.locator("[data-choices] button:enabled")).toHaveCount(4);
 });
 
 test("the language switches without a reload", async ({ page }) => {

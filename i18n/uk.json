@@ -7920,7 +7920,9 @@
     "nextLesson": "Наступний урок",
     "startWith": "З чого хочеш почати?",
     "chooseNext": "Обери наступний урок",
-    "recommended": "радимо"
+    "recommended": "радимо",
+    "openLessons": "Усі уроки, які можна почати зараз",
+    "wholeCurriculum": "Увесь навчальний план"
   },
   "card": {
     "right": "Правильно",

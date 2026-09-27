@@ -100,6 +100,9 @@ export function createEngine(catalog: Catalog) {
     return lessonChoices(p)[0];
   }
 
+  /** Every lesson the learner can start now (not done, prerequisites done): unit by unit, in the order of the curriculum. */
+  const openLessons = (p: Progress) => curriculum.units.flatMap((u) => u.lessons).filter((l) => isAvailable(p, l));
+
   function dueConcepts(p: Progress, now = new Date()): string[] {
     return Object.entries(p.concepts)
       .filter(([id, s]) => conceptById.has(id) && !s.done && new Date(s.due) <= now)
@@ -339,6 +342,12 @@ export function createEngine(catalog: Catalog) {
       next_lesson: next ? { id: next, title: lessonTitle(next, lang) } : null,
       // Offer these as a choice: one lesson per unit, the recommended one (next_lesson) first.
       lesson_choices: lessonChoices(p).map((id) => ({
+        id,
+        title: lessonTitle(id, lang),
+        unit: unitTitle(lessonById.get(id)!.unit, lang),
+      })),
+      // Every lesson that can be started now, in curriculum order: the learner may start anywhere the graph allows.
+      open_lessons: openLessons(p).map((id) => ({
         id,
         title: lessonTitle(id, lang),
         unit: unitTitle(lessonById.get(id)!.unit, lang),

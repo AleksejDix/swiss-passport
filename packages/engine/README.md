@@ -39,7 +39,7 @@ engine.answer(progress, ["a", "c"], "en"); // a question whose answer is a list:
 |---|---|
 | `createEngine(catalog)` | The engine for one catalog. |
 | `fitToCatalog(p)` | Makes stored progress fit a changed catalog: the unfinished session drops removed questions, or ends. Call it after loading. |
-| `progress(p, lang)` | Lessons done, `lesson_choices`, reviews due, readiness per category, recent mock exams. |
+| `progress(p, lang)` | Lessons done, `lesson_choices`, `open_lessons`, reviews due, readiness per category, recent mock exams. |
 | `startLesson(p, lessonId, voice)` | Starts a lesson. `voice: true` leaves out questions with pictures. |
 | `startReviews(p, voice)` | Starts a review round of the topics that are due. Returns `false` if none are. |
 | `startExam(p, voice)` | Starts a mock exam of `catalog.exam.size` random questions, without feedback until the end. |
@@ -51,7 +51,7 @@ engine.answer(progress, ["a", "c"], "en"); // a question whose answer is a list:
 
 ## How it teaches
 
-- **Lessons.** A lesson is open once the lessons in its `requires` are done. `lesson_choices` offers one open lesson per unit, the unit studied longest ago (or never) first, so the units take turns.
+- **Lessons.** A lesson is open once the lessons in its `requires` are done. `lesson_choices` offers one open lesson per unit, the unit studied longest ago (or never) first, so the units take turns. `open_lessons` lists every lesson that can be started now, unit by unit, so a learner can start anywhere the graph allows.
 - **Wrong answers** come back at the end of the same round until they are right. Only the first try counts.
 - **Spaced repetition per topic**, with a different question of the topic each time. By default a topic comes back after 2, 7, 21 and 60 days and is then finished for good; a mistake halves its level. A course sets its own schedule with `review` (Swiss Passport: 1, 3, 7, 14 and 30 days, then monthly; a mistake moves it back one step, due the next day).
 - **Review rounds** hold at most 10 due topics, the longest due first, in mixed order. A wrong review answer names the lesson to revisit (`revisit_lesson`).

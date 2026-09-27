@@ -7916,7 +7916,9 @@
     "nextLesson": "Mësimi tjetër",
     "startWith": "Nga do të fillosh?",
     "chooseNext": "Zgjidh mësimin tjetër",
-    "recommended": "i rekomanduar"
+    "recommended": "i rekomanduar",
+    "openLessons": "Të gjitha mësimet që mund të fillosh tani",
+    "wholeCurriculum": "I gjithë plani mësimor"
   },
   "card": {
     "right": "Saktë",

@@ -35,6 +35,10 @@ Every response for a learner also carries their `learner_code`.
     { "id": "l05", "title": "Democracy and the rule of law", "unit": "How the state works" },
     { "id": "l16", "title": "Pensions", "unit": "Living in Switzerland" }
   ],
+  "open_lessons": [
+    { "id": "l02", "title": "Landscape and climate", "unit": "Switzerland at a glance" },
+    { "id": "l05", "title": "Democracy and the rule of law", "unit": "How the state works" }
+  ],
   "reviews_due": 3,
   "unfinished_session": { "kind": "lesson", "step": "4/9" },
   "readiness_percent": 12,
@@ -44,7 +48,7 @@ Every response for a learner also carries their `learner_code`.
 }
 ```
 
-Offer the learner `lesson_choices` (one open lesson per unit; the first one is recommended) and start the chosen one with `POST /lessons { "learner_code": "BERG-7K2Q", "lesson_id": "l05" }`. Without `lesson_id`, an unfinished lesson continues (`continued_unfinished_lesson: true`), otherwise the recommended lesson starts.
+Offer the learner `lesson_choices` (one open lesson per unit; the first one is recommended) and start the chosen one with `POST /lessons { "learner_code": "BERG-7K2Q", "lesson_id": "l05" }`. `open_lessons` lists every lesson that can be started now (its prerequisites are done), unit by unit, for learners who want to start somewhere else: any of them can be passed as `lesson_id`. Without `lesson_id`, an unfinished lesson continues (`continued_unfinished_lesson: true`), otherwise the recommended lesson starts.
 
 ### A step
 

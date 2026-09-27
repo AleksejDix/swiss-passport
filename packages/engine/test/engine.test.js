@@ -89,6 +89,29 @@ test("after a lesson the other unit comes first, and the next lesson of the unit
   assert.equal(progress.next_lesson.id, "l3");
 });
 
+test("every open lesson can be chosen, also several in one unit, in the order of the curriculum", () => {
+  // A wider course: in unit u1, l4 needs nothing first, so u1 has two lessons open at the start.
+  const wide = structuredClone(catalog);
+  wide.questions.push(q("q7", "privacy"), q("q8", "privacy"));
+  wide.curriculum.units[0].lessons.push("l4");
+  wide.curriculum.lessons.push({ id: "l4", unit: "u1", concepts: ["c4"] });
+  wide.curriculum.concepts.push({ id: "c4", lesson: "l4", questions: ["q7", "q8"], sources: [] });
+  Object.assign(wide.texts.en.lessons, { l4: { title: "Passwords" } });
+  Object.assign(wide.texts.en.concepts, { c4: { title: "c4", intro: ["Intro."], key_terms: [] } });
+  Object.assign(wide.texts.en.questions, { q7: text("Question q7?"), q8: text("Question q8?") });
+  const e = createEngine(wide);
+  const p = emptyProgress();
+  const open = () => e.progress(p, "en").open_lessons.map((l) => `${l.id} ${l.unit}`);
+  assert.deepEqual(open(), ["l1 Data", "l4 Data", "l3 Conduct"]);
+  assert.deepEqual(
+    e.progress(p, "en").lesson_choices.map((c) => c.id),
+    ["l1", "l3"],
+  );
+  e.startLesson(p, "l1", false);
+  while (p.session) e.answer(p, "a", "en");
+  assert.deepEqual(open(), ["l2 Data", "l4 Data", "l3 Conduct"]);
+});
+
 test("a lesson is locked until its prerequisites are done", () => {
   const p = emptyProgress();
   assert.ok(!engine.progress(p, "en").lesson_choices.some((c) => c.id === "l2"));

@@ -7916,7 +7916,9 @@
     "nextLesson": "Nächste Lektion",
     "startWith": "Womit fängst du an?",
     "chooseNext": "Wähle die nächste Lektion",
-    "recommended": "empfohlen"
+    "recommended": "empfohlen",
+    "openLessons": "Alle Lektionen, die du jetzt beginnen kannst",
+    "wholeCurriculum": "Der ganze Lehrplan"
   },
   "card": {
     "right": "Richtig",
