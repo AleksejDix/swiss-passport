@@ -23,6 +23,7 @@ export default ts.config(
       ".claude/",
       "playwright-report/",
       "test-results/",
+      "slides/**/vendor/",
     ],
   },
   js.configs.recommended,
@@ -35,9 +36,9 @@ export default ts.config(
     languageOptions: { parserOptions: { parser: ts.parser, extraFileExtensions: [".svelte"] } },
   },
   { languageOptions: { globals: globals.node } },
-  // Code that runs in the browser: the site's scripts, the quiz card and the e2e page helpers.
+  // Code that runs in the browser: the site's scripts, the quiz card, the e2e page helpers and the slide decks.
   {
-    files: ["site/src/scripts/**", "site/src/**/*.astro", "site/src/learn/**", "mcp/src/view/**"],
+    files: ["site/src/scripts/**", "site/src/**/*.astro", "site/src/learn/**", "mcp/src/view/**", "slides/**"],
     languageOptions: { globals: globals.browser },
   },
   {
