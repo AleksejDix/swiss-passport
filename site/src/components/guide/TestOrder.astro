@@ -2,7 +2,11 @@
 // When is the test? (issue #10) Two orders, because it depends on the municipality (zh.ch); the City of Zurich
 // tests only after the application (stadt-zuerich.ch). The test is the red step.
 import "../../styles/guide-visuals.css";
-import { ORDER_TEXT } from "../../viz/guide-check.js";
+import { ORDER_TEXT } from "../../viz/guide-check.ts";
+
+interface Props {
+  lang: string;
+}
 
 const { lang } = Astro.props;
 const t = ORDER_TEXT[lang];

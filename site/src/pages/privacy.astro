@@ -2,9 +2,9 @@
 // Privacy policy in English, for readers and app directories (ChatGPT, Claude). A translation of datenschutz.astro:
 // change both together. The German version is binding.
 import Base from "../layouts/Base.astro";
-import { OPERATOR, PRIVACY_DATE_EN } from "../legal.js";
+import { OPERATOR, PRIVACY_DATE_EN } from "../legal.ts";
 
-const sections = [
+const sections: [heading: string, paragraphs: string[]][] = [
   ["In short", [
     "No account, no cookies, no advertising and no tracking of individuals. Visits are counted anonymously. We store only what learning needs, without names or email addresses.",
   ]],

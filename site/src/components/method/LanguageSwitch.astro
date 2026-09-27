@@ -1,21 +1,27 @@
 ---
 // One exam question with a language switch; the German wording of the real test stays visible.
 // All six translations are in the page; scripts/method-viz.js swaps them.
-import { VIZ } from "../../method.js";
-import { LANGS } from "../../scripts/i18n.js";
-import { TEXT, questions } from "../../data.js";
+import { VIZ } from "../../method.ts";
+import { LANGS } from "../../scripts/i18n.ts";
+import { TEXT, question } from "../../data.ts";
+
+interface Props {
+  lang: string;
+  /** The question, e.g. q055. */
+  id: string;
+}
 
 const { lang, id } = Astro.props;
 const v = VIZ[lang];
-const q = questions.find((o) => o.id === id);
+const q = question(id);
 const letters = q.options.map((o) => o.id);
-const texts = Object.fromEntries(Object.keys(LANGS).map((l) => [l, TEXT[l].questions[id]]).map(([l, t]) => [l, { q: t.question, o: t.options }]));
+const texts = Object.fromEntries(Object.keys(LANGS).map((l) => [l, { q: TEXT[l].questions[id].question, o: TEXT[l].questions[id].options }]));
 const t = texts[lang];
 const de = texts.de;
 ---
 <figure class="viz langs" data-langswitch data-texts={JSON.stringify(texts)}>
   <div class="viz-toggle" role="group" aria-label={v.showIn}>
-    {Object.entries(LANGS).map(([l, name]) => <button type="button" lang={l} data-lang-choice={l} aria-pressed={String(l === lang)}>{name}</button>)}
+    {Object.entries(LANGS).map(([l, name]) => <button type="button" lang={l} data-lang-choice={l} aria-pressed={l === lang ? "true" : "false"}>{name}</button>)}
   </div>
   <p class="hq" data-q lang={lang}>{t.q}</p>
   <p class="htr" data-q-de lang="de" hidden={lang === "de"}>{de.q}</p>

@@ -1,9 +1,15 @@
 ---
 // The path from the home page to this page (issue #12): visible above the title and, from the same list,
 // as a schema.org BreadcrumbList for search results. `items` are [name, path] after Home; the last is this page.
-import { SITE } from "../site.js";
-import { UI } from "../ui.js";
-import { homePath } from "../data.js";
+import { SITE } from "../site.ts";
+import { UI } from "../ui.ts";
+import { homePath } from "../data.ts";
+
+interface Props {
+  lang: string;
+  /** [name, path] after Home; the last one is this page. */
+  items: [name: string, path: string][];
+}
 
 const { lang, items } = Astro.props;
 const trail = [[UI[lang].home, homePath(lang)], ...items];

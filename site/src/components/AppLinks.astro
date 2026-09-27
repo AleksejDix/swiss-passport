@@ -1,7 +1,13 @@
 ---
 // The AI apps with their logos, each linking to its steps on the connect page.
-import { CONNECT, LOGOS } from "../connect.js";
-import { connectPath } from "../data.js";
+import { CONNECT, LOGOS } from "../connect.ts";
+import { connectPath } from "../data.ts";
+
+interface Props {
+  lang: string;
+  /** On the connect page itself: link to the sections of this page. */
+  here?: boolean;
+}
 
 const { lang, here = false } = Astro.props;
 const base = here ? "" : connectPath(lang);

@@ -9,7 +9,7 @@ export const FEDERAL_COUNCIL_TEXT = byLang((t) => t.site.viz.federal_council);
 const LEAD = /^\s*(?:,\s*|(?:und|and|et|e|и|та)\s+)?(?:(?:das|the|le|la|il|lo)\s+|l')?/iu;
 
 /** [{ name, abbr }] from "… are: A (X), B (Y) and C (Z). …" */
-export function departments(paragraph) {
+export function departments(paragraph: string) {
   const list = paragraph.slice(paragraph.indexOf(":") + 1, paragraph.lastIndexOf(")") + 1);
   return [...list.matchAll(/([^()]+?)\s*\(([^)]+)\)/gu)].map(([, name, inBrackets]) => {
     const clean = name.replace(LEAD, "").trim();

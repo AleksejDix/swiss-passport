@@ -5,7 +5,7 @@ import { byLang } from "../../../i18n/index.js";
 
 export const POWERS_TEXT = byLang((t) => t.site.viz.powers);
 
-export const membersLabel = (lang, n) => {
-  const forms = POWERS_TEXT[lang].members;
+export const membersLabel = (lang: string, n: number) => {
+  const forms: Partial<Record<Intl.LDMLPluralRule, string>> & { other: string } = POWERS_TEXT[lang].members;
   return `${n} ${forms[new Intl.PluralRules(lang).select(n)] ?? forms.other}`;
 };

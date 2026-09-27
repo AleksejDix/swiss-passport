@@ -1,14 +1,16 @@
 ---
+import type { InferGetStaticPropsType } from "astro";
+import type { Letter } from "@aleksejdix/learning-engine";
 // One page per official question and language: the question, the correct answer, why, and the German original.
 import Base from "../../../layouts/Base.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import TopicVisual from "../../../components/topics/TopicVisual.astro";
-import { visualFor } from "../../../viz/topic-visuals.js";
-import { UI } from "../../../ui.js";
-import { TEXT, LANG_IDS, lessons, questions, questionPath, questionsPath, topicPath, checkedMonth } from "../../../data.js";
-import { LINKS } from "../../../guide.js";
-import { OPERATOR } from "../../../legal.js";
-import { SITE } from "../../../site.js";
+import { visualFor } from "../../../viz/topic-visuals.ts";
+import { UI } from "../../../ui.ts";
+import { TEXT, LANG_IDS, lessons, questions, questionPath, questionsPath, topicPath, checkedMonth } from "../../../data.ts";
+import { LINKS } from "../../../guide.ts";
+import { OPERATOR } from "../../../legal.ts";
+import { SITE } from "../../../site.ts";
 
 export function getStaticPaths() {
   return LANG_IDS.flatMap((lang) =>
@@ -19,6 +21,8 @@ export function getStaticPaths() {
   );
 }
 
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
 const { lang, q, prev, next } = Astro.props;
 const ui = UI[lang];
 const t = TEXT[lang];
@@ -28,8 +32,8 @@ const letters = q.options.map((o) => o.id);
 const right = q.answer;
 const concept = t.concepts[q.concept.id];
 const lesson = t.lessons[q.lesson];
-const unit = lessons.find((l) => l.id === q.lesson).unit;
-const img = (path) => `/${path}`;
+const unit = lessons.find((l) => l.id === q.lesson)!.unit;
+const img = (path: string) => `/${path}`;
 
 // Some official questions share their wording; the answer keeps those titles apart.
 const shared = questions.some((o) => o.id !== q.id && t.questions[o.id].question === text.question);
@@ -38,8 +42,8 @@ const title = shared ? `${text.question} ${answerTitle} | ${ui.title_suffix}` : 
 const description = `${ui.answer}: ${right.toUpperCase()}, ${text.options[right]}. ${text.why}`.slice(0, 300);
 const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, questionPath(id, q)]));
 // Links to the question in the official list, and an email about a mistake with the question and page filled in.
-const credit = ui.credit.replace("{n}", q.n).replace("{pdf}", LINKS.pdf);
-const subject = ui.report_subject.replace("{n}", q.n);
+const credit = ui.credit.replace("{n}", String(q.n)).replace("{pdf}", LINKS.pdf);
+const subject = ui.report_subject.replace("{n}", String(q.n));
 const report = `mailto:${OPERATOR.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(new URL(questionPath(lang, q), SITE).href + "\n\n")}`;
 
 // schema.org Quiz with one multiple choice question (Google "Education Q&A").
@@ -68,7 +72,7 @@ const jsonLd = {
 <Base lang={lang} title={title} description={description} alternates={alternates} jsonLd={jsonLd}>
 <main class="page question">
   <header class="qhead">
-    <Breadcrumbs lang={lang} items={[[ui.nav_questions, questionsPath(lang)], [concept.title, topicPath(lang, q.concept)], [ui.question_n.replace("{n}", q.n), questionPath(lang, q)]]} />
+    <Breadcrumbs lang={lang} items={[[ui.nav_questions, questionsPath(lang)], [concept.title, topicPath(lang, q.concept)], [ui.question_n.replace("{n}", String(q.n)), questionPath(lang, q)]]} />
     <h1>{text.question}</h1>
     {lang !== "de" && <p class="qde" lang="de">{de.question}</p>}
     {q.image && <img class="qpicture" src={img(q.image)} alt={text.question} loading="lazy">}
@@ -101,7 +105,7 @@ const jsonLd = {
           <dl class="mistakes">
             {Object.entries(text.distractors).map(([l, why]) => (
               <>
-                <dt>{l.toUpperCase()}: {text.options[l]}</dt>
+                <dt>{l.toUpperCase()}: {text.options[l as Letter]}</dt>
                 <dd>{why}</dd>
               </>
             ))}

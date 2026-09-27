@@ -3,14 +3,20 @@
 // one scale (the municipalities as an exact 100 × 22 dot pattern, so the page stays light). The Confederation
 // carries its tasks; the memory aid of federal_tasks says who does what.
 import "../../styles/levels.css";
-import { TEXT } from "../../data.js";
-import { termName } from "../../viz/terms.js";
-import { LEVELS_TEXT, MUNICIPALITIES as M } from "../../viz/levels.js";
+import { TEXT } from "../../data.ts";
+import { termName } from "../../viz/terms.ts";
+import { LEVELS_TEXT, MUNICIPALITIES as M } from "../../viz/levels.ts";
+
+interface Props {
+  lang: string;
+  /** Show the figure's own title (off where the page heading already names it). */
+  caption?: boolean;
+}
 
 const { lang, caption = true } = Astro.props;
 const c = TEXT[lang].concepts;
-const name = (topic, term) => termName(c, lang, topic, term);
-const half = c.three_levels.key_terms.find((k) => k.term === "Halbkanton").definition;
+const name = (topic: string, term: string) => termName(c, lang, topic, term);
+const half = c.three_levels.key_terms.find((k) => k.term === "Halbkanton")!.definition;
 const halfText = lang === "de" ? half : half.replace(/^[^:,]*[:,]\s*/, "");
 const tasks = ["Aussenpolitik", "Geldpolitik", "Zoll", "Soziale Sicherheit"].map((t) => name("federal_tasks", t));
 const W = 312; // all rows share one width and one scale

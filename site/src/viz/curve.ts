@@ -4,13 +4,15 @@
 // 1, 3, 7, 14 and 30 days (days 1, 4, 11, 25, 55), each one just before recall drops to about 60 %.
 export const DAYS = 60;
 
-export const PLANS = {
+export type Plan = "cram" | "spaced";
+
+export const PLANS: Record<Plan, { reviews: number[]; stability: number[] }> = {
   cram: { reviews: [0], stability: [3] },
   spaced: { reviews: [0, 1, 4, 11, 25, 55], stability: [2, 6, 14, 28, 60, 120] },
 };
 
 /** How much is still remembered on day t (0 to 1). */
-export function recall(plan, t) {
+export function recall(plan: Plan, t: number) {
   const { reviews, stability } = PLANS[plan];
   let i = 0;
   while (i + 1 < reviews.length && reviews[i + 1] <= t) i++;
@@ -18,19 +20,19 @@ export function recall(plan, t) {
 }
 
 /** A word instead of a number, since the curve is a schema: 0 almost forgotten … 3 very good. */
-export const level = (r) => (r >= 0.8 ? 3 : r >= 0.6 ? 2 : r >= 0.3 ? 1 : 0);
+export const level = (r: number) => (r >= 0.8 ? 3 : r >= 0.6 ? 2 : r >= 0.3 ? 1 : 0);
 
 // Chart geometry (SVG user units).
 export const W = 400;
 export const H = 200;
 export const PLOT = { left: 8, right: 392, top: 16, bottom: 188 };
-export const x = (t) => PLOT.left + (t / DAYS) * (PLOT.right - PLOT.left);
-export const y = (r) => PLOT.bottom - r * (PLOT.bottom - PLOT.top);
+export const x = (t: number) => PLOT.left + (t / DAYS) * (PLOT.right - PLOT.left);
+export const y = (r: number) => PLOT.bottom - r * (PLOT.bottom - PLOT.top);
 
 /** SVG path of a plan: smooth decay between repetitions, a vertical step up at each review. */
-export function path(plan) {
+export function path(plan: Plan) {
   const { reviews } = PLANS[plan];
-  const pts = [];
+  const pts: [number, number][] = [];
   for (let k = 0; k < reviews.length; k++) {
     const from = reviews[k];
     const to = k + 1 < reviews.length ? reviews[k + 1] : DAYS;

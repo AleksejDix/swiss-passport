@@ -1,18 +1,21 @@
 ---
+import type { InferGetStaticPropsType } from "astro";
 // Homepage in one language, at /de/, /en/, /fr/ and so on. The language picker is at /.
 import Base from "../../layouts/Base.astro";
 import QuestionMap from "../../components/home/QuestionMap.astro";
 import ChatDemo from "../../components/home/ChatDemo.astro";
-import { STRINGS } from "../../scripts/i18n.js";
+import { STRINGS } from "../../scripts/i18n.ts";
 import AppLinks from "../../components/AppLinks.astro";
-import { LANG_IDS, homePath, methodPath, connectPath } from "../../data.js";
-import { METHOD } from "../../method.js";
-import { CONNECT } from "../../connect.js";
-import { SITE } from "../../site.js";
+import { LANG_IDS, homePath, methodPath, connectPath } from "../../data.ts";
+import { METHOD } from "../../method.ts";
+import { CONNECT } from "../../connect.ts";
+import { SITE } from "../../site.ts";
 
 export function getStaticPaths() {
   return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
 }
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { lang } = Astro.props;
 const s = STRINGS[lang];

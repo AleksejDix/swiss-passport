@@ -1,7 +1,7 @@
 // The about page: who is behind the site, where the content comes from, and how it is checked.
 // Links: {repo} {issues} {license} {content_license} {sources} {guide} {pdf} {email} {aleksej} {lidia} {webzurich}
-import { LINKS } from "./guide.js";
-import { OPERATOR } from "./legal.js";
+import { LINKS } from "./guide.ts";
+import { OPERATOR } from "./legal.ts";
 import { byLang } from "../../i18n/index.js";
 
 // The makers, for the structured data of the about and method pages.

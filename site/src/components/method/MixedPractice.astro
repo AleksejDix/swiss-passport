@@ -1,8 +1,12 @@
 ---
 // Twelve questions from three topics, first in blocks, then mixed like in the test.
 // Topics differ by shape (circle, square, triangle), not by colour. scripts/method-viz.js reorders them.
-import { VIZ } from "../../method.js";
-import { TEXT } from "../../data.js";
+import { VIZ } from "../../method.ts";
+import { TEXT } from "../../data.ts";
+
+interface Props {
+  lang: string;
+}
 
 const { lang } = Astro.props;
 const v = VIZ[lang];
@@ -14,7 +18,7 @@ const TOPICS = [
 // Item i belongs to topic floor(i / 4). Mixed: every topic four times, never twice in a row.
 const MIXED = [0, 4, 8, 1, 9, 5, 2, 6, 10, 3, 7, 11];
 const items = Array.from({ length: 12 }, (_, i) => TOPICS[Math.floor(i / 4)]);
-const name = (topic) => TEXT[lang].categories[topic.id];
+const name = (topic: { id: string }) => TEXT[lang].categories[topic.id];
 ---
 <figure class="viz mix" data-mix data-mixed={JSON.stringify(MIXED)}>
   <div class="viz-toggle" role="group" aria-label={v.order}>

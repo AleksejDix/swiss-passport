@@ -1,16 +1,19 @@
 ---
+import type { InferGetStaticPropsType } from "astro";
 // Adding Swiss Passport to an AI app: the MCP address, then numbered steps per app (texts in connect.js).
 import Base from "../../../layouts/Base.astro";
 import AppLinks from "../../../components/AppLinks.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
-import { CONNECT, LOGOS } from "../../../connect.js";
-import { STRINGS } from "../../../scripts/i18n.js";
-import { SITE } from "../../../site.js";
-import { LANG_IDS, connectPath } from "../../../data.js";
+import { CONNECT, LOGOS } from "../../../connect.ts";
+import { STRINGS } from "../../../scripts/i18n.ts";
+import { SITE } from "../../../site.ts";
+import { LANG_IDS, connectPath } from "../../../data.ts";
 
 export function getStaticPaths() {
   return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
 }
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { lang } = Astro.props;
 const c = CONNECT[lang];

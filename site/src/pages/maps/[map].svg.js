@@ -1,6 +1,6 @@
 // The maps of the geography topics as shared, cacheable SVG files (issues #13, #14): areas and lines only,
 // the labels are HTML in the page language (components/topics/GeoMap.astro).
-import { MAP_NAMES, mapSvg } from "../../viz/maps.js";
+import { MAP_NAMES, mapSvg } from "../../viz/maps.ts";
 
 export const getStaticPaths = () => MAP_NAMES.map((map) => ({ params: { map } }));
 

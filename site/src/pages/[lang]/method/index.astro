@@ -1,4 +1,5 @@
 ---
+import type { InferGetStaticPropsType } from "astro";
 // The learning method: what Swiss Passport does (retrieval, spacing, feedback, mixing) and the research behind it.
 // Sections 2 to 5 each show a visual (src/components/method/) that lets the reader try the idea.
 import Base from "../../../layouts/Base.astro";
@@ -8,21 +9,23 @@ import TryQuestion from "../../../components/method/TryQuestion.astro";
 import MixedPractice from "../../../components/method/MixedPractice.astro";
 import LanguageSwitch from "../../../components/method/LanguageSwitch.astro";
 import "../../../styles/viz.css";
-import { UI } from "../../../ui.js";
-import { METHOD, SOURCES } from "../../../method.js";
-import { MAKERS } from "../../../about.js";
-import { SITE } from "../../../site.js";
-import { LANG_IDS, methodPath, questionsPath } from "../../../data.js";
+import { UI } from "../../../ui.ts";
+import { METHOD, SOURCES } from "../../../method.ts";
+import { MAKERS } from "../../../about.ts";
+import { SITE } from "../../../site.ts";
+import { LANG_IDS, methodPath, questionsPath } from "../../../data.ts";
 
 export function getStaticPaths() {
   return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
 }
 
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
 const { lang } = Astro.props;
 const m = METHOD[lang];
 const ui = UI[lang];
 const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, methodPath(id)]));
-const doi = (id) => `https://doi.org/${id}`;
+const doi = (id: string) => `https://doi.org/${id}`;
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Article",

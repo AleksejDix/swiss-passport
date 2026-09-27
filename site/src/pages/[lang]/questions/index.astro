@@ -1,13 +1,16 @@
 ---
+import type { InferGetStaticPropsType } from "astro";
 // All 350 questions in one language, grouped by unit, lesson and topic, each linking to its own page.
 import Base from "../../../layouts/Base.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
-import { UI } from "../../../ui.js";
-import { TEXT, LANG_IDS, units, topics, questionPath, questionsPath, topicPath } from "../../../data.js";
+import { UI } from "../../../ui.ts";
+import { TEXT, LANG_IDS, units, topics, questionPath, questionsPath, topicPath } from "../../../data.ts";
 
 export function getStaticPaths() {
   return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
 }
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { lang } = Astro.props;
 const ui = UI[lang];

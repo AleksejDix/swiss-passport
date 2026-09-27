@@ -3,13 +3,19 @@
 // under each its key term and definition; the memory aid and supplementary benefits below. All texts are key
 // terms and memory aids of three_pillars and ahv_iv; the title is the topic title.
 import "../../styles/pillars.css";
-import { TEXT } from "../../data.js";
-import { termName, termText } from "../../viz/terms.js";
+import { TEXT } from "../../data.ts";
+import { termName, termText } from "../../viz/terms.ts";
+
+interface Props {
+  lang: string;
+  /** Show the figure's own title (off where the page heading already names it). */
+  caption?: boolean;
+}
 
 const { lang, caption = true } = Astro.props;
 const c = TEXT[lang].concepts;
-const name = (topic, term) => termName(c, lang, topic, term);
-const text = (topic, term) => termText(c, lang, topic, term);
+const name = (topic: string, term: string) => termName(c, lang, topic, term);
+const text = (topic: string, term: string) => termText(c, lang, topic, term);
 const pillars = ["Erste Säule", "Zweite Säule", "Dritte Säule"];
 ---
 <figure class="plr">

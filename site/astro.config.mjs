@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import securityHeaders from "./security-headers.mjs";
 import { lastmodFor } from "./lastmod.mjs";
-import { SITE } from "./src/site.js";
+import { SITE } from "./src/site.ts";
 import { LANGUAGES } from "../i18n/index.js";
 
 // Static site. The build goes into server/public, which the Cloudflare Worker serves next to /mcp.

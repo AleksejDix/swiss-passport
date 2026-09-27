@@ -2,9 +2,9 @@
 // Terms of use in English, for readers and app directories (ChatGPT, Claude). Keep them in line with the
 // privacy policy (retention, learner code) and the Impressum (liability, copyright).
 import Base from "../layouts/Base.astro";
-import { OPERATOR, TERMS_DATE } from "../legal.js";
+import { OPERATOR, TERMS_DATE } from "../legal.ts";
 
-const sections = [
+const sections: [heading: string, paragraphs: string[]][] = [
   ["The service", [
     "Swiss Passport helps you learn for the naturalisation knowledge test (Grundkenntnistest) of the Canton of Zurich: on this website, and as a remote MCP server (https://swiss-passport.com/mcp) that AI apps such as Claude or ChatGPT can use. It is a free, private and non-commercial project of " + OPERATOR.name + ".",
     "Swiss Passport is not a service of the Canton of Zurich, of a municipality or of any AI company. What the canton and your municipality say is what counts.",

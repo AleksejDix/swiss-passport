@@ -1,24 +1,27 @@
 ---
+import type { ImageMetadata, InferGetStaticPropsType } from "astro";
 // About: who is behind the site, where the content comes from, how it is checked, privacy and license.
 import Base from "../../../layouts/Base.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
-import { ABOUT, ABOUT_LINKS, MAKERS } from "../../../about.js";
-import { SITE } from "../../../site.js";
+import { ABOUT, ABOUT_LINKS, MAKERS } from "../../../about.ts";
+import { SITE } from "../../../site.ts";
 import aleksejPhoto from "../../../assets/makers/aleksej-dix.jpg";
 import lidiaPhoto from "../../../assets/makers/lidia-dix.jpg";
-import { LANG_IDS, aboutPath, guidePath } from "../../../data.js";
+import { LANG_IDS, aboutPath, guidePath } from "../../../data.ts";
 
 export function getStaticPaths() {
   return LANG_IDS.map((lang) => ({ params: { lang }, props: { lang } }));
 }
 
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
 const { lang } = Astro.props;
 const a = ABOUT[lang];
 const links = { ...ABOUT_LINKS, guide: guidePath(lang) };
-const fill = (html) => html.replace(/\{(\w+)\}/g, (_, k) => links[k]);
+const fill = (html: string) => html.replace(/\{(\w+)\}/g, (_, k: string) => (links as Record<string, string>)[k]);
 const alternates = Object.fromEntries(LANG_IDS.map((id) => [id, aboutPath(id)]));
 // The makers with their LinkedIn photos, shown under "Who".
-const PHOTOS = { "Aleksej Dix": aleksejPhoto, "Lidia Dix": lidiaPhoto };
+const PHOTOS: Record<string, ImageMetadata> = { "Aleksej Dix": aleksejPhoto, "Lidia Dix": lidiaPhoto };
 const makers = MAKERS.map((m) => ({ ...m, image: new URL(PHOTOS[m.name].src, SITE).href }));
 const jsonLd = {
   "@context": "https://schema.org",

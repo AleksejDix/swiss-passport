@@ -2,18 +2,26 @@
 // Separation of powers (issue #5): legislature, executive and judiciary, each at federal level and in the
 // Canton of Zurich, with what it does; the media as the fourth power outside the state.
 import "../../styles/powers.css";
-import { TEXT } from "../../data.js";
-import { POWERS_TEXT, membersLabel } from "../../viz/powers.js";
-import { termName } from "../../viz/terms.js";
+import { TEXT } from "../../data.ts";
+import { POWERS_TEXT, membersLabel } from "../../viz/powers.ts";
+import { termName } from "../../viz/terms.ts";
+
+interface Props {
+  lang: string;
+  /** Show the figure's own title (off where the page heading already names it). */
+  caption?: boolean;
+}
 
 const { lang, caption = true } = Astro.props;
 const p = POWERS_TEXT[lang];
 const c = TEXT[lang].concepts;
-const name = (topic, term) => termName(c, lang, topic, term);
+const name = (topic: string, term: string) => termName(c, lang, topic, term);
 // The media line: its definition without the name in front ("Fourth power: …"), which is shown in bold.
-const media = c.separation_of_powers.key_terms.find((k) => k.term === "Vierte Gewalt").definition;
+const media = c.separation_of_powers.key_terms.find((k) => k.term === "Vierte Gewalt")!.definition;
 const mediaText = lang === "de" ? media : media.replace(/^[^:,]*[:,]\s*/, "");
-const powers = [
+// A body: its topic and German key term (or no topic and a plain name), and a detail such as the seats.
+type Body = [topic: string | null, term: string, detail: string | null];
+const powers: { term: string; does: string; federal: Body[]; canton: Body[] }[] = [
   { term: "Legislative", does: p.make, federal: [["parliament_chambers", "Bundesversammlung", `${name("parliament_chambers", "Nationalrat")} ${200} + ${name("parliament_chambers", "Ständerat")} ${46}`]], canton: [["zh_parliament", "Kantonsrat", membersLabel(lang, 180)]] },
   { term: "Exekutive", does: p.execute, federal: [["federal_council", "Bundesrat", membersLabel(lang, 7)]], canton: [["zh_government", "Regierungsrat", membersLabel(lang, 7)]] },
   { term: "Judikative", does: p.judge, federal: [["justice_police", "Bundesgericht", "Lausanne"]], canton: [[null, p.courts, null]] },
@@ -28,7 +36,7 @@ const powers = [
         <p class="pow-name">{name("separation_of_powers", pw.term)}</p>
         {lang !== "de" && <p class="pow-de" lang="de">{pw.term}</p>}
         <p class="pow-does">{pw.does}</p>
-        {[[p.federal, pw.federal], [p.canton, pw.canton]].map(([level, bodies]) => (
+        {([[p.federal, pw.federal], [p.canton, pw.canton]] as [string, Body[]][]).map(([level, bodies]) => (
           <div class="pow-body">
             <p class="pow-level">{level}</p>
             {bodies.map(([topic, term, detail]) => (

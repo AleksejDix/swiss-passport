@@ -4,7 +4,7 @@
 import { CH, ZH } from "./geo-data.js";
 import { byLang } from "../../../i18n/index.js";
 
-export const MAP_OF_TOPIC = {
+export const MAP_OF_TOPIC: Record<string, string> = {
   regions: "ch-regions",
   neighbours: "ch-neighbours",
   size: "ch-size",
@@ -18,13 +18,15 @@ export const MAP_OF_TOPIC = {
   zh_waters: "zh-waters",
 };
 export const MAP_NAMES = [...new Set(Object.values(MAP_OF_TOPIC))];
-export const geometry = (name) => (name.startsWith("zh") ? ZH : CH);
+export const geometry = (name: string) => (name.startsWith("zh") ? ZH : CH);
+type Geometry = ReturnType<typeof geometry>;
+type Point = [number, number];
 
 // Names as the explanations of each language write them.
-export const MAP_TEXT = byLang((t) => t.site.viz.map);
+export const MAP_TEXT = byLang((t): Record<string, string> => t.site.viz.map);
 
 /** Map units of a longitude and latitude (the Mercator projection of the build script). */
-function project(geo, [lon, lat]) {
+function project(geo: Geometry, [lon, lat]: Point): Point {
   const { scale, translate } = geo.projection;
   const rad = Math.PI / 180;
   return [translate[0] + scale * lon * rad, translate[1] - scale * Math.log(Math.tan(Math.PI / 4 + (lat * rad) / 2))];
@@ -37,25 +39,25 @@ const DARK = "#8f8f8f";
 const RED = "#da291c";
 
 /** The SVG file of a map: areas and lines only, so one file serves all languages. */
-export function mapSvg(name) {
+export function mapSvg(name: string) {
   const g = geometry(name);
-  const fill = (d, color) => (d ? `<path d="${d}" fill="${color}"/>` : "");
-  const line = (d, color, width) => `<path d="${d}" fill="none" stroke="${color}" stroke-width="${width}" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`;
-  const canton = (abbr) => g.cantons.find((c) => c.abbr === abbr).d;
-  const borders = (color, width) => line(g.cantons.map((c) => c.d).join(""), color, width);
+  const fill = (d: string | undefined, color: string) => (d ? `<path d="${d}" fill="${color}"/>` : "");
+  const line = (d: string, color: string, width: number) => `<path d="${d}" fill="none" stroke="${color}" stroke-width="${width}" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`;
+  const canton = (abbr: string) => g.cantons.find((c) => c.abbr === abbr)!.d;
+  const borders = (color: string, width: number) => line(g.cantons.map((c) => c.d).join(""), color, width);
   const lakes = g.lakes.map((d) => fill(d, "#fff")).join("");
   let body;
   if (g === CH) {
-    const layer = {
+    const layer = ({
       "ch-regions": fill(CH.regions.jura, LIGHT) + fill(CH.regions.alps, DARK),
       "ch-languages": fill(CH.languages.fr, LIGHT) + fill(CH.languages.it, DARK) + fill(CH.languages.rm, RED),
       "ch-size": fill(canton("GR"), RED),
       "ch-mountains": ["VS", "GR", "UR", "TI"].map((a) => fill(canton(a), LIGHT)).join(""),
-    }[name] ?? "";
-    const top = {
+    } as Record<string, string>)[name] ?? "";
+    const top = ({
       "ch-rivers": line(CH.rivers.rhine, "#000", 2) + line(CH.rivers.rhone, "#000", 2),
       "ch-neighbours": line(CH.outline, "#000", 2),
-    }[name] ?? "";
+    } as Record<string, string>)[name] ?? "";
     body = fill(CH.outline, FIELD) + layer + borders("#fff", 1) + lakes + top;
   } else {
     const zh = name === "zh-location" ? RED : LIGHT;
@@ -71,8 +73,10 @@ export function mapSvg(name) {
 // diamond (pass), peak, area (a label on a surface), place (a name without a mark). Positions are
 // [longitude, latitude] or a point of the build script. Label sides: e, w, n, s, c (centred), ne and se (above or
 // below, to the right); "wrap" lets a long name take two lines. The places are chosen so that no names touch at 375 px.
-const P = (key) => ({ point: key });
-const MARKS = {
+/** [kind, position, text key, label side, emphasis, rank in the legend] */
+type Mark = [kind: string, at: Point | { point: string }, key: string, side: string, strong?: boolean, rank?: number];
+const P = (key: string) => ({ point: key });
+const MARKS: Record<string, Mark[]> = {
   "ch-regions": [["area", [6.72, 46.93], "jura", "c"], ["area", [7.55, 47.13], "plateau", "c"], ["area", [8.55, 46.62], "alps", "c"]],
   "ch-neighbours": [
     ["place", [8.08, 47.74], "de", "c"], ["place", [6.25, 47.2], "fr", "c"], ["place", [8.05, 45.92], "it", "c"],
@@ -110,11 +114,11 @@ const MARKS = {
 };
 
 /** The marks of a map in one language, with positions in percent of the map. */
-export function mapMarks(name, lang) {
+export function mapMarks(name: string, lang: string) {
   const g = geometry(name);
   const t = MAP_TEXT[lang];
   return MARKS[name].map(([kind, at, key, side, strong = false, rank]) => {
-    const [x, y] = at.point ? g.points[at.point] : project(g, at);
+    const [x, y] = "point" in at ? (g.points as Record<string, number[]>)[at.point] : project(g, at);
     let text = t[key];
     if (key === "kloten") text = `${t.kloten} (${t.airport})`;
     if (key === "dufour") text = `${t.dufour} 4634 m`;
@@ -126,7 +130,7 @@ export function mapMarks(name, lang) {
 }
 
 // Legends: the shape or fill, and its name. Names of fills and marks are key terms of the topic.
-export const MAP_LEGEND = {
+export const MAP_LEGEND: Record<string, [key: string, text: string, term?: string][]> = {
   "ch-cities": [["square", "cities", "Bundesstadt"]],
   "ch-mountains": [["diamond", "mountains", "Alpenpass"], ["light", "mountains", "Bergkanton"]],
   "ch-languages": [["field", "german"], ["light", "french"], ["dark", "italian"], ["red", "romansh"]],

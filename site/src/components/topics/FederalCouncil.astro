@@ -3,12 +3,18 @@
 // the Confederation for a year; each member heads one of the seven departments; the Federal Chancellery supports
 // them without being a member. Names and abbreviations come from the topic texts (src/viz/federal-council.js).
 import "../../styles/federal-council.css";
-import { TEXT } from "../../data.js";
-import { FEDERAL_COUNCIL_TEXT, departments } from "../../viz/federal-council.js";
+import { TEXT } from "../../data.ts";
+import { FEDERAL_COUNCIL_TEXT, departments } from "../../viz/federal-council.ts";
+
+interface Props {
+  lang: string;
+  /** Show the figure's own title (off where the page heading already names it). */
+  caption?: boolean;
+}
 
 const { lang, caption = true } = Astro.props;
 const c = TEXT[lang].concepts;
-const term = (topic, name) => {
+const term = (topic: string, name: string) => {
   const k = c[topic].key_terms.find((k) => k.term === name);
   if (!k) throw new Error(`key term ${name} missing in ${lang}/${topic}`);
   return k.definition;

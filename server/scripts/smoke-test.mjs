@@ -54,7 +54,7 @@ const click = await client.callTool({ name: "answer", arguments: { answer: "a", 
 assert(click.structuredContent?.data?.question?.options && !click._meta, "ChatGPT: a click on the card gets the whole step in structuredContent");
 
 // Lesson: the first question wrong. It must come back at the end until answered correctly.
-let r, concepts = 1, images = 0, answered = 0;
+let r, concepts = 1, images, answered = 0;
 const firstQ = step.question.id;
 ({ json: r } = await call("answer", { answer: "a", question_id: "q000" }));
 assert(r.question_already_answered && r.question.id === firstQ && r.step === "1/9", "a card showing an old question answers nothing and gets the current step");
@@ -88,7 +88,6 @@ assert(step.nothing_due, "nothing due right after the lesson");
 const prog = JSON.parse(readFileSync(progressFile, "utf8"));
 for (const c of Object.values(prog.concepts)) c.due = new Date(Date.now() - 1000).toISOString();
 writeFileSync(progressFile, JSON.stringify(prog));
-const levelBefore = prog.concepts.state_names.level;
 
 ({ json: step } = await call("start_reviews", {}));
 assert(step.step === "1/3" && !step.explain_first, "next day: 3 concepts to review");

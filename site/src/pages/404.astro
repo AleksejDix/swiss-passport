@@ -3,9 +3,9 @@
 // so it says so in every language and links to each language's questions and home page.
 import "@fontsource-variable/inter/opsz.css";
 import "../styles/styles.css";
-import { LANGS } from "../scripts/i18n.js";
-import { UI } from "../ui.js";
-import { homePath, questionsPath } from "../data.js";
+import { LANGS } from "../scripts/i18n.ts";
+import { UI } from "../ui.ts";
+import { homePath, questionsPath } from "../data.ts";
 import { byLang } from "../../../i18n/index.js";
 
 const MISSING = byLang((t) => t.site.not_found);

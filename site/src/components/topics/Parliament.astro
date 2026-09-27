@@ -3,14 +3,20 @@
 // as semicircles at the same scale; in the Council of States the six seats of the former half-cantons are rings.
 // Labels are the key terms of parliament_chambers; the last line is the memory aid of parliament_tasks.
 import "../../styles/parliament.css";
-import { TEXT } from "../../data.js";
-import { hemicycle } from "../../viz/hemicycle.js";
-import { PARLIAMENT_TEXT } from "../../viz/parliament.js";
+import { TEXT } from "../../data.ts";
+import { hemicycle, type Seat } from "../../viz/hemicycle.ts";
+import { PARLIAMENT_TEXT } from "../../viz/parliament.ts";
+
+interface Props {
+  lang: string;
+  /** Show the figure's own title (off where the page heading already names it). */
+  caption?: boolean;
+}
 
 const { lang, caption = true } = Astro.props;
 const p = PARLIAMENT_TEXT[lang];
 const terms = TEXT[lang].concepts.parliament_chambers.key_terms;
-const def = (term) => terms.find((k) => k.term === term).definition;
+const def = (term: string) => terms.find((k) => k.term === term)!.definition;
 const tasks = TEXT[lang].concepts.parliament_tasks.mnemonic;
 
 const national = hemicycle(200);
@@ -20,7 +26,7 @@ const dot = national.step * OUTER * 0.36;
 const outerStates = dot / (states.step * 0.36); // same seat size in both chambers
 const HALF_CANTON_SEATS = 6; // the last six seats of the Council of States
 
-const chamber = (h, outer, half = 0) => {
+const chamber = (h: ReturnType<typeof hemicycle>, outer: number, half = 0) => {
   const pad = dot + 1.5;
   const view = [-outer - pad, -outer - pad, 2 * (outer + pad), outer + 2 * pad].map((v) => v.toFixed(1)).join(" ");
   const rows = Array.from({ length: h.rows }, (_, row) =>
@@ -30,7 +36,7 @@ const chamber = (h, outer, half = 0) => {
 };
 const nc = chamber(national, OUTER);
 const cs = chamber(states, outerStates, HALF_CANTON_SEATS);
-const seat = (c, s) => ({ cx: (s.x * c.outer).toFixed(1), cy: (s.y * c.outer).toFixed(1), r: dot.toFixed(2), half: s.i >= c.total - c.half });
+const seat = (c: ReturnType<typeof chamber>, s: Seat & { i: number }) => ({ cx: (s.x * c.outer).toFixed(1), cy: (s.y * c.outer).toFixed(1), r: dot.toFixed(2), half: s.i >= c.total - c.half });
 ---
 <figure class="parl" style={`--nc:${nc.width.toFixed(1)};--cs:${cs.width.toFixed(1)};--nc-col:${nc.width.toFixed(1)}fr;--cs-col:${cs.width.toFixed(1)}fr`}>
   {caption && <figcaption class="parl-title">{p.title}</figcaption>}

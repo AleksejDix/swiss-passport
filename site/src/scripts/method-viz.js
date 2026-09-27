@@ -1,7 +1,7 @@
 // Method page: draws the forgetting curve in and reads it out day by day, reacts to the question to try,
 // mixes the topics and switches the language of the example question. Without this script every visual
 // shows its final state; with reduced motion nothing moves, but everything still responds.
-import { DAYS, W, PLOT, PLANS, recall, level, x } from "../viz/curve.js";
+import { DAYS, W, PLOT, PLANS, recall, level, x } from "../viz/curve.ts";
 
 // The script sets the start state of an animation itself, so without it every visual stays fully visible.
 const motion = !matchMedia("(prefers-reduced-motion: reduce)").matches;

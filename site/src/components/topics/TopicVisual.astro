@@ -8,7 +8,14 @@ import Levels from "./Levels.astro";
 import Pillars from "./Pillars.astro";
 import Majority from "./Majority.astro";
 import GeoMap from "./GeoMap.astro";
-import { visualFor } from "../../viz/topic-visuals.js";
+import { visualFor } from "../../viz/topic-visuals.ts";
+
+interface Props {
+  lang: string;
+  /** A topic with a figure (see visualFor). */
+  topic: string;
+  caption?: boolean;
+}
 
 const { lang, topic, caption = true } = Astro.props;
 const kind = visualFor(topic);

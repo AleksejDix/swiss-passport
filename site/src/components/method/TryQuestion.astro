@@ -1,14 +1,20 @@
 ---
 // A real exam question to try: after an answer, why it is right, and why a tempting wrong answer is wrong.
 // Same look as the question on the homepage; scripts/method-viz.js reacts to the choice.
-import { VIZ } from "../../method.js";
-import { STRINGS } from "../../scripts/i18n.js";
-import { TEXT, questions } from "../../data.js";
+import { VIZ } from "../../method.ts";
+import { STRINGS } from "../../scripts/i18n.ts";
+import { TEXT, question } from "../../data.ts";
+
+interface Props {
+  lang: string;
+  /** The question, e.g. q055. */
+  id: string;
+}
 
 const { lang, id } = Astro.props;
 const v = VIZ[lang];
 const s = STRINGS[lang];
-const q = questions.find((o) => o.id === id);
+const q = question(id);
 const t = TEXT[lang].questions[id];
 const de = TEXT.de.questions[id];
 const letters = q.options.map((o) => o.id);

@@ -3,15 +3,19 @@
 // the learner picks a language, the tutor explains, asks a real exam question, checks the answer and says why.
 // scripts/chat-demo.js plays it once when it scrolls into view; without it the whole chat is shown.
 import "../../styles/chat.css";
-import { TEXT, questions } from "../../data.js";
-import { STRINGS } from "../../scripts/i18n.js";
-import { termText } from "../../viz/terms.js";
-import { CHAT_TEXT, CHAT_TOPIC, CHAT_QUESTION } from "../../viz/chat.js";
+import { TEXT, question } from "../../data.ts";
+import { STRINGS } from "../../scripts/i18n.ts";
+import { termText } from "../../viz/terms.ts";
+import { CHAT_TEXT, CHAT_TOPIC, CHAT_QUESTION } from "../../viz/chat.ts";
+
+interface Props {
+  lang: string;
+}
 
 const { lang } = Astro.props;
 const t = CHAT_TEXT[lang];
 const c = TEXT[lang].concepts;
-const q = questions.find((x) => x.id === CHAT_QUESTION);
+const q = question(CHAT_QUESTION);
 const text = TEXT[lang].questions[CHAT_QUESTION];
 const de = TEXT.de.questions[CHAT_QUESTION];
 const letters = q.options.map((o) => o.id);

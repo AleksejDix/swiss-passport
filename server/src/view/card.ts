@@ -48,7 +48,7 @@ const el = (tag: string, cls = "", text = "") => {
   return e;
 };
 
-function render({ lang, labels: label, data, images }: Card) {
+function render({ labels: label, data, images }: Card) {
   learnerCode = data.learner_code ?? learnerCode;
   root.replaceChildren();
   const feedback = "feedback" in data ? (data.feedback as Feedback) : undefined;
@@ -65,7 +65,7 @@ function render({ lang, labels: label, data, images }: Card) {
     // The learner reads the explanation first; the next question comes on "Next".
     if (step) {
       const next = el("button", "next", label.next) as HTMLButtonElement;
-      next.onclick = () => showStep(step, images, lang);
+      next.onclick = () => showStep(step, images);
       root.append(next);
       return;
     }
@@ -75,10 +75,10 @@ function render({ lang, labels: label, data, images }: Card) {
     root.append(el("div", "done", `🎉 ${score}`));
     return;
   }
-  if (step) showStep(step, images, lang);
+  if (step) showStep(step, images);
 }
 
-function showStep(step: Step, images: Card["images"], lang?: string) {
+function showStep(step: Step, images: Card["images"]) {
   root.replaceChildren();
   const [n, total] = step.step.split("/").map(Number);
   const head = el("div", "head");
@@ -126,7 +126,7 @@ function showStep(step: Step, images: Card["images"], lang?: string) {
     b.onclick = async () => {
       opts.querySelectorAll("button").forEach((x) => ((x as HTMLButtonElement).disabled = true));
       b.classList.add("chosen");
-      await choose(letter, q, lang);
+      await choose(letter, q);
     };
     opts.append(b);
   }
@@ -134,7 +134,7 @@ function showStep(step: Step, images: Card["images"], lang?: string) {
 }
 
 /** Answers on the card itself where the host allows it; otherwise the letter goes to the chat. */
-async function choose(letter: Letter, q: Question, lang?: string) {
+async function choose(letter: Letter, q: Question) {
   if (app.getHostCapabilities()?.serverTools) {
     try {
       const r = await app.callServerTool({

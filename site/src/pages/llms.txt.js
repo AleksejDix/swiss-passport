@@ -1,9 +1,9 @@
 // llms.txt: a plain-text map of the site for AI assistants (https://llmstxt.org).
-import { SITE } from "../site.js";
-import { TEXT, LANG_IDS, questions, topics, questionPath, questionsPath, topicPath, guidePath, methodPath, connectPath, curriculumPath } from "../data.js";
-import { GUIDE } from "../guide.js";
-import { METHOD } from "../method.js";
-import { CURRICULUM } from "../curriculum.js";
+import { SITE } from "../site.ts";
+import { TEXT, LANG_IDS, questions, topics, questionPath, questionsPath, topicPath, guidePath, methodPath, connectPath, curriculumPath } from "../data.ts";
+import { GUIDE } from "../guide.ts";
+import { METHOD } from "../method.ts";
+import { CURRICULUM } from "../curriculum.ts";
 
 export function GET() {
   const en = TEXT.en;

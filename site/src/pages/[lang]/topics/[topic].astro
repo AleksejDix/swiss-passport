@@ -1,12 +1,13 @@
 ---
+import type { InferGetStaticPropsType } from "astro";
 // One page per topic and language: the explanation, key terms, a memory aid, and the exam questions on it.
 import Base from "../../../layouts/Base.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import TopicVisual from "../../../components/topics/TopicVisual.astro";
-import { visualFor, visualTitle } from "../../../viz/topic-visuals.js";
-import { UI } from "../../../ui.js";
-import { SITE } from "../../../site.js";
-import { TEXT, LANG_IDS, topics, questionPath, questionsPath, topicPath, checkedMonth } from "../../../data.js";
+import { visualFor, visualTitle } from "../../../viz/topic-visuals.ts";
+import { UI } from "../../../ui.ts";
+import { SITE } from "../../../site.ts";
+import { TEXT, LANG_IDS, topics, questionPath, questionsPath, topicPath, checkedMonth } from "../../../data.ts";
 
 export function getStaticPaths() {
   return LANG_IDS.flatMap((lang) =>
@@ -16,6 +17,8 @@ export function getStaticPaths() {
     })),
   );
 }
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { lang, c, prev, next } = Astro.props;
 const ui = UI[lang];

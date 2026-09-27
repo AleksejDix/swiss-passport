@@ -2,7 +2,15 @@
 // is taken from that topic's explanation in i18n/*.json. The label is the topic title without its year.
 import { byLang } from "../../../i18n/index.js";
 
-export const HISTORY = [
+/** A topic on the timeline: its year (negative before Christ), an end year, or a century instead of a year. */
+export interface HistoryEntry {
+  topic: string;
+  year: number;
+  until?: number;
+  period?: "c19";
+}
+
+export const HISTORY: HistoryEntry[] = [
   { topic: "early_history", year: -58 },
   { topic: "founding_1291", year: 1291 },
   { topic: "marignano", year: 1515 },
@@ -19,20 +27,20 @@ export const HISTORY = [
   { topic: "jura", year: 1979 },
 ];
 
-export const isHistory = (topic) => HISTORY.some((e) => e.topic === topic);
+export const isHistory = (topic: string) => HISTORY.some((e) => e.topic === topic);
 
 export const TIMELINE_TEXT = byLang((t) => t.site.viz.timeline);
 
 /** The year column: "58 BC", "1291", "1939–1945", "19th c.". */
-export function yearLabel(e, lang) {
+export function yearLabel(e: HistoryEntry, lang: string) {
   const t = TIMELINE_TEXT[lang];
   if (e.period) return t[e.period];
-  if (e.year < 0) return t.bc.replace("{year}", -e.year);
+  if (e.year < 0) return t.bc.replace("{year}", String(-e.year));
   return e.until ? `${e.year}–${e.until}` : String(e.year);
 }
 
 /** A topic title without the year it already shows in the year column ("1291, …", "… since 1815", "… 1918 года"). */
-export function withoutYear(title) {
+export function withoutYear(title: string) {
   const t = title
     .replace(/^\d{4}(\s(год|рік))?\s?[,:]\s*/u, "")
     .replace(/(\s(of|de|del|dal|seit|since|depuis|с|з))?,?\s\d{4}(\s(год|года|року|рік))?$/u, "");

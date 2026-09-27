@@ -1,10 +1,10 @@
 ---
 // Support in English, for readers and app directories (ChatGPT, Claude): contact and the common problems.
 import Base from "../layouts/Base.astro";
-import { OPERATOR } from "../legal.js";
-import { connectPath } from "../data.js";
+import { OPERATOR } from "../legal.ts";
+import { connectPath } from "../data.ts";
 
-const sections = [
+const sections: [heading: string, paragraphs: string[]][] = [
   ["Contact", [
     `Email: <a href="mailto:${OPERATOR.email}">${OPERATOR.email}</a>. Swiss Passport is a private project; we answer as soon as we can, usually within a few days.`,
     'Found a mistake in a question, an explanation or a translation? Report it on <a href="https://github.com/AleksejDix/swiss-passport/issues">GitHub</a> or by email, with the question number.',

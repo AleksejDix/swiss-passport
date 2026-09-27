@@ -2,9 +2,16 @@
 // A map for a geography topic (issues #13, #14): the shared SVG file of the map, and over it the marks and
 // names in the reader's language. Marks keep their size on every screen; the map scales.
 import "../../styles/geo-map.css";
-import { TEXT } from "../../data.js";
-import { MAP_OF_TOPIC, MAP_TEXT, MAP_LEGEND, geometry, mapMarks } from "../../viz/maps.js";
-import { termName } from "../../viz/terms.js";
+import { TEXT } from "../../data.ts";
+import { MAP_OF_TOPIC, MAP_TEXT, MAP_LEGEND, geometry, mapMarks } from "../../viz/maps.ts";
+import { termName } from "../../viz/terms.ts";
+
+interface Props {
+  lang: string;
+  /** A geography topic with a map (MAP_OF_TOPIC). */
+  topic: string;
+  caption?: boolean;
+}
 
 const { lang, topic, caption = true } = Astro.props;
 const name = MAP_OF_TOPIC[topic];

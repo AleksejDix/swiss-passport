@@ -1,5 +1,5 @@
 // robots.txt: everything may be crawled, including by AI assistants; points to the sitemap.
-import { SITE } from "../site.js";
+import { SITE } from "../site.ts";
 
 export function GET() {
   const body = ["User-agent: *", "Allow: /", "", `Sitemap: ${new URL("/sitemap-index.xml", SITE).href}`, ""].join("\n");

@@ -3,8 +3,8 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
-import { STRINGS } from "../../scripts/i18n.js";
-import { LANG_IDS } from "../../data.js";
+import { STRINGS } from "../../scripts/i18n.ts";
+import { LANG_IDS } from "../../data.ts";
 
 // Satori reads static fonts only, so the image uses the static cuts of Inter, the typeface of the site.
 // The font comes in one file per script; each gets its own name so Cyrillic text falls back to it.

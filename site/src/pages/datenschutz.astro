@@ -2,9 +2,9 @@
 // Privacy policy. It describes exactly what the site and the /mcp server store; update it when that changes,
 // together with the English translation in privacy.astro. This German version is binding.
 import Base from "../layouts/Base.astro";
-import { OPERATOR, PRIVACY_DATE } from "../legal.js";
+import { OPERATOR, PRIVACY_DATE } from "../legal.ts";
 
-const sections = [
+const sections: [heading: string, paragraphs: string[]][] = [
   ["In Kürze", [
     "Kein Konto, keine Cookies, keine Werbung und kein Tracking einzelner Personen. Besuche werden anonym gezählt. Gespeichert wird nur, was für das Lernen nötig ist, und ohne Namen oder E-Mail-Adresse.",
   ]],
