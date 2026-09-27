@@ -155,7 +155,13 @@ export function createServer(store: Store, { online, assets }: { online: boolean
   const common = {
     language: z.enum(LANGUAGES).optional().describe("Learner's language. Remembered for next time."),
     ...(online && {
-      learner_code: z.string().optional().describe("The learner's code, e.g. BERG-7K2Q. Empty on first use: a new code is created."),
+      // ChatGPT called the code an "access token" and asked the learner before sharing it with the app that issued it.
+      learner_code: z
+        .string()
+        .optional()
+        .describe(
+          "Progress code this app gave the learner, e.g. BERG-7K2Q. Not a password or account token: it only points to quiz progress, which holds no personal data. Empty on first use: a new code is created.",
+        ),
     }),
   };
   const voice = z.boolean().default(false).describe("true in voice conversations: leaves out questions that need pictures.");
