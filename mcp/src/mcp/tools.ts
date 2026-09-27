@@ -63,9 +63,10 @@ export function registerTools(
       _meta: cardUi,
       annotations: changesProgress,
       description:
-        "Starts a lesson and returns its first step: a concept explanation and one question. Pick lesson_id from lesson_choices of get_progress." +
-        " Without lesson_id an unfinished lesson continues where it stopped, and a new learner gets lesson_choices to pick from" +
-        " (nothing starts yet)." +
+        "Starts a lesson and returns its first step: a concept explanation and one question." +
+        " lesson_id is the lesson the learner picked from lesson_choices." +
+        " Without lesson_id an unfinished lesson continues where it stopped, and a new learner (no lessons yet) gets" +
+        " lesson_choices on the card and picks one there: nothing starts until then, and no lesson is recommended over another." +
         CARD_NOTE,
       inputSchema: {
         ...common,
@@ -74,7 +75,7 @@ export function registerTools(
           .string()
           .optional()
           .describe(
-            "e.g. l05, one of lesson_choices from get_progress. Default: the unfinished lesson; for a new learner the choices; otherwise the recommended next lesson.",
+            "The lesson the learner picked from lesson_choices, e.g. l05. Without it: the unfinished lesson; for a new learner the choices on the card; otherwise the recommended next lesson.",
           ),
       },
     },
