@@ -1928,7 +1928,7 @@
       "options": {
         "a": "only in votes on popular initiatives",
         "b": "only in national referendums",
-        "c": "They may not vote at all.",
+        "c": "they may not vote at all",
         "d": "only in the votes at the end of the year"
       },
       "why": "National votes are only for Swiss citizens who are entitled to vote. This applies to all proposals, whether initiative or referendum.",
@@ -2657,7 +2657,7 @@
       "options": {
         "a": "only the man alone",
         "b": "only the parents",
-        "c": "The engaged couple together",
+        "c": "the engaged couple together",
         "d": "only the woman alone"
       },
       "why": "The couple registers together at the civil registry office. Both must declare that they want to marry.",
@@ -3287,7 +3287,7 @@
         "a": "Judaism",
         "b": "Buddhism",
         "c": "Islam",
-        "d": "the Protestant faith"
+        "d": "Protestantism"
       },
       "why": "The reformers separated from the Catholic Church. This is how the Protestant churches came about, in Switzerland the Reformed Church.",
       "distractors": {
@@ -3356,7 +3356,7 @@
       "options": {
         "a": "Amnesty International",
         "b": "Pro Juventute",
-        "c": "the International Committee of the Red Cross (ICRC)",
+        "c": "International Committee of the Red Cross (ICRC)",
         "d": "Swiss Solidarity (Glückskette)"
       },
       "why": "Henry Dunant and other people from Geneva founded the ICRC in 1863 to help wounded soldiers in war.",

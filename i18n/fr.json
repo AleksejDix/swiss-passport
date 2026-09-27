@@ -1928,7 +1928,7 @@
       "options": {
         "a": "seulement lors des votations sur des initiatives populaires",
         "b": "seulement lors des référendums nationaux",
-        "c": "Ils ne peuvent pas voter du tout.",
+        "c": "ils ne peuvent pas voter du tout",
         "d": "seulement lors des votations de fin d'année"
       },
       "why": "Les votations nationales sont réservées aux Suisses ayant le droit de vote. Cela vaut pour tous les objets, qu'il s'agisse d'une initiative ou d'un référendum.",
@@ -2657,7 +2657,7 @@
       "options": {
         "a": "seulement l'homme",
         "b": "seulement les parents",
-        "c": "Le couple de fiancés ensemble",
+        "c": "le couple de fiancés ensemble",
         "d": "seulement la femme"
       },
       "why": "Le couple s'annonce ensemble à l'office de l'état civil. Les deux doivent déclarer leur volonté de se marier.",

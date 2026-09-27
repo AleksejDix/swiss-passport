@@ -1928,7 +1928,7 @@
       "options": {
         "a": "solo alle votazioni su iniziative popolari",
         "b": "solo ai referendum nazionali",
-        "c": "Non possono votare affatto.",
+        "c": "non possono votare affatto",
         "d": "solo alle votazioni di fine anno"
       },
       "why": "Le votazioni nazionali sono solo per gli aventi diritto di voto svizzeri. Questo vale per tutti gli oggetti, sia iniziativa sia referendum.",
@@ -2657,7 +2657,7 @@
       "options": {
         "a": "solo l'uomo da solo",
         "b": "solo i genitori",
-        "c": "La coppia di fidanzati insieme",
+        "c": "la coppia di fidanzati insieme",
         "d": "solo la donna da sola"
       },
       "why": "La coppia si annuncia insieme all'ufficio dello stato civile. Entrambi devono dichiarare la loro volontà di sposarsi.",
