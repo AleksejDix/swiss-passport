@@ -1,3 +1,6 @@
+# Other sessions' git worktrees (excluded from git in .git/info/exclude, which Prettier does not read)
+.claude/
+
 # Generated or copied files
 packages/*/dist/
 server/public/

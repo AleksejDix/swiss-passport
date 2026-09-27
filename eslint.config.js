@@ -18,6 +18,8 @@ export default ts.config(
       "server/.wrangler/",
       "server/scripts/preview/out/",
       "private/",
+      // Other sessions' git worktrees (excluded from git in .git/info/exclude, which ESLint does not read).
+      ".claude/",
       "playwright-report/",
       "test-results/",
     ],
