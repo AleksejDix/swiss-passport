@@ -1,6 +1,6 @@
 # Live demo: a lesson by voice
 
-About 5 minutes, slide 22. Goal: the room hears ChatGPT read a real exam question, the speaker answers once right and once wrong, and the progress is saved.
+About 4 to 5 minutes, slide 24. Goal: the room hears ChatGPT read a real exam question, the speaker answers once right and once wrong, and the progress is saved.
 
 ## Before the talk
 - [ ] ChatGPT on the phone, Swiss Passport added and refreshed (Settings, Plugins, Swiss Passport, Refresh tools); in Claude, «Always allow» chosen.
@@ -21,4 +21,4 @@ About 5 minutes, slide 22. Goal: the room hears ChatGPT read a real exam questio
 ## If something goes wrong
 - It asks its own questions or doesn't call answer: say «Use the Swiss Passport answer tool.» Then point out that this is exactly the bug from the talk.
 - No network or sound: play the backup video.
-- It asks for permission at every step: that is the «Always allow» trap from slide 19; accept and move on.
+- It asks for permission at every step: that is the «Always allow» trap from slide 21; accept and move on.

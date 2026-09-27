@@ -264,10 +264,23 @@ const data = voice &amp;&amp; out.questionId
   <aside class="notes">8:00. First key of every voice step, every time, also after each answer. This is the second version of the text. The first one comes back in a few minutes.</aside>
 </section>
 
-<!-- 15 Making it listen 2: the voice flag -->
+<!-- 15 Making it listen 2: who knows it is voice -->
 <section>
   <p class="kicker">Making it listen, 2 of 4</p>
-  <h2>A voice flag on the start tools</h2>
+  <h2>Who knows the learner is talking?</h2>
+  <div class="signals">
+    <div class="signal fragment"><b>The MCP request</b><code>tools/call: name, arguments, _meta</code><span class="verdict no">no field for it</span></div>
+    <div class="signal fragment"><b>ChatGPT's _meta</b><code>openai/locale, openai/userAgent, openai/userLocation, openai/subject, openai/session, openai/organization</code><span class="verdict no">which app, not voice</span></div>
+    <div class="signal fragment"><b>The model</b><code>it hears the learner</code><span class="verdict yes">it knows</span></div>
+  </div>
+  <p class="lede foot fragment rise">Only the model knows, so the model has to say it.</p>
+  <aside class="notes">8:50. Where could the server learn it? The MCP request: a tool name, arguments and _meta, no field for voice. ChatGPT's _meta: locale, user agent, a coarse location, anonymous ids for the user, the conversation and the organization (OpenAI's Apps SDK reference). It tells us it's ChatGPT, which we use for the card later, but not that anyone is speaking. The only one who knows is the model: it hears the learner. So the model has to say it.</aside>
+</section>
+
+<!-- 16 Making it listen 2: the voice flag -->
+<section>
+  <p class="kicker">Making it listen, 2 of 4</p>
+  <h2>The model says it: a voice flag</h2>
   <pre class="big"><code class="language-ts" data-trim>
 const voice = z.boolean().default(false)
   .describe("true in voice conversations: leaves out questions that need pictures.");
@@ -288,10 +301,27 @@ const voice = z.boolean().default(false)
     <p class="counter-line">Lesson 34: 9 questions <span class="after">→ 7 by voice. The lesson still counts as done.</span></p>
   </div>
   <span class="fragment step" data-target=".modes" data-add="voice"></span>
-  <aside class="notes">9:00. Nobody can answer "which is the coat of arms of Zurich" by ear. The model says it is a voice conversation, the engine leaves those questions out. Picture questions are optional for finishing a lesson, so voice learners can finish every lesson. Click the switch to show it again.</aside>
+  <aside class="notes">9:40. A parameter on the three start tools. ChatGPT never reads the server instructions, so this description is the only place where it learns when to set it: written as a fact, not as an order. Nobody can answer "which is the coat of arms of Zurich" by ear. The model says it is a voice conversation, the engine leaves those questions out. Picture questions are optional for finishing a lesson, so voice learners can finish every lesson. Click the switch to show it again.</aside>
 </section>
 
-<!-- 16 Making it listen 3: design for the ear -->
+<!-- 17 Making it listen 2: kept by the session -->
+<section>
+  <p class="kicker">Making it listen, 2 of 4</p>
+  <h2>Said once, kept by the session</h2>
+  <div class="remember">
+    <div class="call fragment"><code>start_lesson({ voice: true })</code><span class="store"><i>voice: true</i></span><span class="gets">step 1/10<br>+ <b>voice_instructions</b></span></div>
+    <div class="call fragment"><code>answer({ answer: "c" })</code><span class="store carried"><i>voice: true</i></span><span class="gets">step 2/10<br>+ <b>voice_instructions</b></span></div>
+    <div class="call fragment"><code>answer({ answer: "b" })</code><span class="store carried"><i>voice: true</i></span><span class="gets">step 3/10<br>+ <b>voice_instructions</b></span></div>
+  </div>
+  <div class="fragment rise foot">
+    <p class="kicker">And if the model never says it?</p>
+    <p><span class="quote-box">In a voice conversation the step is read aloud. Answers typed or spoken in the chat are checked and saved by the answer tool with the learner's letter.</span></p>
+    <p class="small muted">In the description of every tool that hands out a step.</p>
+  </div>
+  <aside class="notes">10:30. Said once: start_lesson with voice true. The engine stores it in the learner's session, next to the lesson. answer has no voice parameter: every call reads the mode back from the session, so every next step carries the voice rules. The mode belongs to the session: a lesson left unfinished in a text chat starts over by voice, with its own questions. And if the model never says it, the descriptions already state what holds in both modes. The flag adds the extras, the facts carry the minimum.</aside>
+</section>
+
+<!-- 18 Making it listen 3: design for the ear -->
 <section>
   <p class="kicker">Making it listen, 3 of 4</p>
   <h2>Design for the ear</h2>
@@ -318,10 +348,10 @@ const voice = z.boolean().default(false)
   </div>
   <span class="fragment step" data-target=".aloud" data-add="reading" data-fragment-index="0"></span>
   <span class="fragment step" data-target=".aloud" data-add="mapped" data-fragment-index="1"></span>
-  <aside class="notes">9:50. Press R (or the button) and the browser reads it, like the model does. Everything we'd put on a screen has to become something you can hold in your head for five seconds. People answer with the words, not the letter: the model maps it. From the voice section of the server instructions.</aside>
+  <aside class="notes">11:20. Press R (or the button) and the browser reads it, like the model does. Everything we'd put on a screen has to become something you can hold in your head for five seconds. People answer with the words, not the letter: the model maps it. From the voice section of the server instructions.</aside>
 </section>
 
-<!-- 17 Making it listen 4: two audiences -->
+<!-- 19 Making it listen 4: two audiences -->
 <section>
   <p class="kicker">Making it listen, 4 of 4</p>
   <h2>Two audiences, one tool result</h2>
@@ -364,10 +394,10 @@ it reads everything aloud.</pre>
     </div>
   </div>
   <span class="fragment step" data-target=".modes" data-add="voice"></span>
-  <aside class="notes">10:50. ChatGPT shows structuredContent to the model too, and it repeated the whole question under the card. So in text chats the texts go to the card only, in _meta. In voice, the model is the card. Flip the switch back and forth.</aside>
+  <aside class="notes">12:20. ChatGPT shows structuredContent to the model too, and it repeated the whole question under the card. So in text chats the texts go to the card only, in _meta. In voice, the model is the card. Flip the switch back and forth.</aside>
 </section>
 
-<!-- 18 After: the same lesson -->
+<!-- 20 After: the same lesson -->
 <section>
   <h2>After: the same lesson</h2>
   <div class="convo">
@@ -389,10 +419,10 @@ it reads everything aloud.</pre>
       <div class="total fragment msg" data-fragment-index="5">1 answer saved</div>
     </div>
   </div>
-  <aside class="notes">11:50. Same lesson, same model. It explains in two sentences, reads the question with A to D, maps the spoken words to c, and calls answer. The server saves it and schedules the review.</aside>
+  <aside class="notes">13:20. Same lesson, same model. It explains in two sentences, reads the question with A to D, maps the spoken words to c, and calls answer. The server saves it and schedules the review.</aside>
 </section>
 
-<!-- 19 Traps -->
+<!-- 21 Traps -->
 <section>
   <h2>Traps on the way</h2>
   <div class="traps">
@@ -403,10 +433,10 @@ it reads everything aloud.</pre>
     <div class="trap fragment flip"><span class="what">The card was 460 KB</span><span class="fix">9 KB with our own small MCP Apps bridge.</span><span class="sha">1b07ac9</span></div>
     <div class="trap fragment flip"><span class="what">Claude asks at every answer</span><span class="fix">unless the learner chooses «Always allow».</span><span class="sha">05e1a4c</span></div>
   </div>
-  <aside class="notes">12:40. Each one is a commit, all in one weekend. The first one matters most for voice: your instructions are text the model judges.</aside>
+  <aside class="notes">14:10. Each one is a commit, all in one weekend. The first one matters most for voice: your instructions are text the model judges.</aside>
 </section>
 
-<!-- 20 Facts, not orders -->
+<!-- 22 Facts, not orders -->
 <section>
   <h2>Write facts, not orders</h2>
   <p class="kicker">First version of the voice rule</p>
@@ -417,10 +447,10 @@ it reads everything aloud.</pre>
     <p class="kicker">Now</p>
     <p class="facts"><strong>The learner's spoken answer is checked and saved by the answer tool with their letter; the quiz uses only these questions.</strong></p>
   </div>
-  <aside class="notes">14:00. Orders in a tool result look like prompt injection, so ChatGPT asked the learner to approve every call. Facts say the same thing and let the model decide, and it decides well.</aside>
+  <aside class="notes">15:20. Orders in a tool result look like prompt injection, so ChatGPT asked the learner to approve every call. Facts say the same thing and let the model decide, and it decides well.</aside>
 </section>
 
-<!-- 21 Testing -->
+<!-- 23 Testing -->
 <section>
   <h2>Testing a conversation you can't see</h2>
   <div class="terminal">
@@ -435,39 +465,40 @@ it reads everything aloud.</pre>
     <li class="fragment rise"><strong>By hand:</strong> a real voice session in each app after every change to a description</li>
     <li class="fragment rise"><strong>Watch:</strong> sessions that start but never save an answer</li>
   </ul>
-  <aside class="notes">14:50. The smoke test calls the real tools over MCP, in every build. What it can't test is what the model says: that needs a phone and five minutes. And a session that starts but never saves an answer is a model that went off-script.</aside>
+  <aside class="notes">16:10. The smoke test calls the real tools over MCP, in every build. What it can't test is what the model says: that needs a phone and five minutes. And a session that starts but never saves an answer is a model that went off-script.</aside>
 </section>
 
-<!-- 22 Live demo -->
+<!-- 24 Live demo -->
 <section>
   <div class="middle">
     <div class="mic" aria-hidden="true"><span></span></div>
     <h1>Live demo</h1>
     <h3 class="muted">A lesson, by voice.</h3>
   </div>
-  <aside class="notes">15:40 to 20:40. See demo.md. Backup video ready. Answer once with the words, once wrong on purpose.</aside>
+  <aside class="notes">17:00 to 21:30. See demo.md. Backup video ready. Answer once with the words, once wrong on purpose.</aside>
 </section>
 
-<!-- 23 The pattern -->
+<!-- 25 The pattern -->
 <section>
   <h2>The pattern</h2>
   <div class="rules">
     <div class="fragment rise"><b>1</b>The server owns the state and checks every answer</div>
     <div class="fragment rise"><b>2</b>The rules travel in every result, written as facts</div>
-    <div class="fragment rise"><b>3</b>The output is designed for the ear</div>
+    <div class="fragment rise"><b>3</b>The model says it's voice, the session remembers</div>
+    <div class="fragment rise"><b>4</b>The output is designed for the ear</div>
   </div>
-  <aside class="notes">20:40. Three things, in that order.</aside>
+  <aside class="notes">21:30. Four things, in the order of the talk.</aside>
 </section>
 
-<!-- 24 The one sentence -->
+<!-- 26 The one sentence -->
 <section class="signal" data-background-color="#da291c" data-transition="fade">
   <div class="middle">
     <h1>In voice mode, your tool result is your UI.</h1>
   </div>
-  <aside class="notes">21:20. If you remember one thing.</aside>
+  <aside class="notes">22:10. If you remember one thing.</aside>
 </section>
 
-<!-- 25 Thank you -->
+<!-- 27 Thank you -->
 <section>
   <div class="middle">
     <div class="end">
@@ -479,7 +510,7 @@ it reads everything aloud.</pre>
       <img src="qr.svg" alt="QR code for swiss-passport.com">
     </div>
   </div>
-  <aside class="notes">21:40. Questions. About three minutes left.</aside>
+  <aside class="notes">22:30. Questions. About two and a half minutes left.</aside>
 </section>
 
 </div>

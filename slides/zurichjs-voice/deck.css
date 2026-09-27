@@ -1092,6 +1092,171 @@ html.reveal-print .reveal .slides section {
   animation: rise-in 0.45s var(--ease) both;
 }
 
+/* ---- Detecting voice mode: which signal knows ------------------------------------------------------ */
+
+.signals {
+  border-top: 2px solid var(--ink);
+}
+
+.signal {
+  position: relative;
+  display: grid;
+  grid-template-columns: 290px 1fr 340px;
+  gap: 32px;
+  align-items: baseline;
+  padding: 24px 0;
+  border-bottom: 2px solid var(--ink);
+  overflow: hidden;
+}
+
+.signal b {
+  font-size: 32px;
+}
+
+.reveal .signal code {
+  font-size: 21px;
+  line-height: 1.5;
+  color: var(--gray);
+}
+
+.verdict {
+  font-size: 30px;
+  font-weight: 700;
+  opacity: 0;
+}
+
+.verdict.no {
+  color: var(--red);
+}
+
+.verdict.no::before {
+  content: "✗ ";
+}
+
+.verdict.yes::before {
+  content: "✓ ";
+}
+
+/* A row comes in: a red line reads it from left to right, then the verdict shows. */
+.reveal .slides section .signal.visible::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 6px;
+  background: var(--red);
+  animation: scan 0.9s var(--ease) forwards;
+}
+
+.reveal .slides section .signal.visible .verdict {
+  animation: rise-in 0.4s var(--ease) 0.8s both;
+}
+
+@keyframes scan {
+  from {
+    left: 0;
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  to {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+/* ---- Detecting voice mode: said once, kept by the session ------------------------------------------ */
+
+.remember {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.call {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
+.reveal .call code {
+  padding: 14px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 21px;
+}
+
+.store {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 3px solid var(--ink);
+  font-family: var(--mono);
+  font-size: 20px;
+}
+
+.store::before {
+  content: "session";
+  color: var(--gray);
+}
+
+.store i {
+  padding: 4px 10px;
+  background: var(--red);
+  color: var(--paper);
+  font-style: normal;
+}
+
+.gets {
+  padding: 12px 16px;
+  background: var(--soft);
+  font-family: var(--mono);
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.gets b {
+  color: var(--red);
+}
+
+/* The flag drops from the first call into the session, then moves along with every answer. */
+.reveal .slides section .call.visible .store i {
+  animation: drop-in 0.6s var(--ease) 0.3s both;
+}
+
+.reveal .slides section .call.visible .store.carried i {
+  animation-name: carry;
+}
+
+.reveal .slides section .call.visible .gets {
+  animation: rise-in 0.45s var(--ease) 0.8s both;
+}
+
+@keyframes drop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-56px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes carry {
+  from {
+    opacity: 0;
+    transform: translateX(-160px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* ---- Read aloud: A, B, C, D --------------------------------------------------------------------------- */
 
 .ear {
