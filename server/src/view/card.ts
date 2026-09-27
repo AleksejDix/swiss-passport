@@ -37,6 +37,8 @@ interface Card {
 
 const root = document.getElementById("root")!;
 const app = new App({ name: "swiss-passport-card", version: "1.0.0" });
+/** ChatGPT's own card API, next to the standard one. */
+const openai = (window as { openai?: { setWidgetState?(state: unknown): void } }).openai;
 let learnerCode: string | undefined;
 
 const el = (tag: string, cls = "", text = "") => {
@@ -155,7 +157,6 @@ async function choose(letter: Letter, q: Question, lang?: string) {
 
 /** Lets the tutor know what happened on the card, without a chat message. */
 async function tellModel(letter: Letter, q: Question, { data }: Card) {
-  if (!app.getHostCapabilities()?.updateModelContext) return;
   const feedback = "feedback" in data ? (data.feedback as Feedback) : undefined;
   const now = ("question" in data ? data : "next" in data ? data.next : undefined) as Step | undefined;
   const result = feedback?.recorded ? "" : feedback ? (feedback.correct ? " (correct)" : " (wrong)") : "";
@@ -166,6 +167,9 @@ async function tellModel(letter: Letter, q: Question, { data }: Card) {
       : "finished" in data
         ? `The round is finished: ${JSON.stringify(data.finished)}`
         : "");
+  // ChatGPT shows ui/update-model-context as raw JSON above the chat box; its widget state reaches the model unseen.
+  if (openai?.setWidgetState) return openai.setWidgetState({ modelContent: text });
+  if (!app.getHostCapabilities()?.updateModelContext) return;
   await app.updateModelContext({ content: [{ type: "text", text }] }).catch(() => {});
 }
 

@@ -64,7 +64,7 @@ const ICONS = [
 ];
 
 // Hosts cache the card by this URI (ChatGPT): give it a new version when the card changes.
-const CARD_URI = "ui://swiss-passport/card-v3.html";
+const CARD_URI = "ui://swiss-passport/card-v4.html";
 // The card loads nothing from the network: its script is inline and pictures come as data: URIs in the tool result.
 // ChatGPT reads its own keys (widgetDomain is required in its plugin directory). The standard ui.domain is left out:
 // Claude expects a hash of the server URL there, not the site's origin.
