@@ -7,6 +7,7 @@ export interface ToolResult {
   isError?: boolean;
   structuredContent?: unknown;
   content?: unknown[];
+  _meta?: { card?: unknown };
 }
 export interface HostContext {
   theme?: "light" | "dark";

@@ -13,6 +13,9 @@ const key = Object.fromEntries(JSON.parse(readFileSync("data/quiz.json", "utf8")
 const samples = [];
 let r = await call("start_lesson", { language: "ru", lesson_id: "l01" });
 samples.push({ label: "Lesson start (ru): concept + first question", result: r });
+// ChatGPT gets the card's data in _meta (the "openai/..." key marks a ChatGPT call).
+const viaChatGPT = await client.callTool({ name: "start_lesson", arguments: { lesson_id: "l01" }, _meta: { "openai/userAgent": "preview" } });
+samples.push({ label: "ChatGPT: same step, card data in _meta", result: viaChatGPT });
 for (;;) {
   const step = JSON.parse(r.content[0].text);
   const qid = (step.next ?? step).question.id;

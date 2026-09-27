@@ -1,7 +1,7 @@
 // Quiz card shown inside the chat (MCP Apps view): concept, question and clickable options with pictures.
 // Where the host lets views call tools, a click answers right here (answer tool) and the card updates in place,
 // so the chat does not grow with every question. Otherwise a click sends the letter as a chat message.
-import { App } from "./bridge.js";
+import { App, type ToolResult } from "./bridge.js";
 
 type Letter = "a" | "b" | "c" | "d";
 interface Question {
@@ -141,7 +141,7 @@ async function choose(letter: Letter, q: Question, lang?: string) {
         name: "answer",
         arguments: { answer: letter, question_id: q.id, ...(learnerCode && { learner_code: learnerCode }) },
       });
-      const card = r.structuredContent as Card | undefined;
+      const card = cardOf(r);
       if (!r.isError && card?.data) {
         render(card);
         await tellModel(letter, q, card);
@@ -173,8 +173,11 @@ async function tellModel(letter: Letter, q: Question, { data }: Card) {
   await app.updateModelContext({ content: [{ type: "text", text }] }).catch(() => {});
 }
 
+/** The card's data: in _meta where only the card sees it (ChatGPT), otherwise in structuredContent. */
+const cardOf = (result: ToolResult) => (result._meta?.card ?? result.structuredContent) as Card | undefined;
+
 app.ontoolresult = (params) => {
-  const card = params.structuredContent as Card | undefined;
+  const card = cardOf(params);
   if (card?.data) render(card);
 };
 app.onhostcontextchanged = (ctx) => {

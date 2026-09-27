@@ -45,6 +45,12 @@ assert(!("questions" in step) && !JSON.stringify(step).includes('"answer"'), "on
 assert(step.question.german?.question, "German original included");
 assert(!step.voice_instructions, "no voice instructions in a text session");
 
+// ChatGPT (it sends "openai/..." keys in _meta): the card's texts go to the card only, the model gets which step it is.
+const viaChatGPT = await client.callTool({ name: "start_lesson", arguments: {}, _meta: { "openai/userAgent": "smoke-test" } });
+const brief = JSON.parse(viaChatGPT.content[0].text);
+assert(brief.shown_on_card && brief.question.question && !brief.question.options && !brief.explain_first && viaChatGPT.structuredContent.shown_on_card, "ChatGPT: the model gets the step without the card's texts");
+assert(viaChatGPT._meta?.card?.data?.question?.options?.a && viaChatGPT._meta.card.data.explain_first && viaChatGPT._meta.card.labels, "ChatGPT: the card gets the whole step in _meta");
+
 // Lesson: the first question wrong. It must come back at the end until answered correctly.
 let r, concepts = 1, images = 0, answered = 0;
 const firstQ = step.question.id;
