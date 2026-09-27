@@ -4,12 +4,18 @@
 // built, take the reference on the unchanged code:
 //   npm run test:visual:update   (on main, before the change)
 //   npm run test:visual          (after the change: every difference fails, with a diff image in the report)
-import { readdirSync } from "node:fs";
+import type { Page } from "@playwright/test";
 import { test, expect } from "./fixtures";
+import curriculum from "../curriculum.json" with { type: "json" };
 
-const built = new URL("../server/public/", import.meta.url);
-const slug = (lang: string, n: number) =>
-  `/${lang}/questions/${readdirSync(new URL(`${lang}/questions/`, built)).find((d) => d.startsWith(`${n}-`))}/`;
+// Question pages are named after the German question: "/de/questions/55" is looked up in the list of questions.
+const question = (lang: string, n: number) => `/${lang}/questions/${n}`;
+async function resolve(page: Page, path: string) {
+  const [, lang, n] = path.match(/^\/(\w+)\/questions\/(\d+)$/) ?? [];
+  if (!n) return path;
+  await page.goto(`/${lang}/questions/`);
+  return (await page.locator(`main a[href^="/${lang}/questions/${n}-"]`).getAttribute("href"))!;
+}
 
 const PAGES = [
   "/",
@@ -23,18 +29,19 @@ const PAGES = [
     ["", "questions/", "grundkenntnistest/", "method/", "about/", "connect/", "curriculum/"].map((p) => `/${l}/${p}`),
   ),
   // Every topic in German: the figures (parliament, maps, timeline, ...) sit on these pages.
-  ...readdirSync(new URL("de/topics/", built)).map((t) => `/de/topics/${t}/`),
+  ...curriculum.concepts.map((c) => `/de/topics/${c.id.replace(/_/g, "-")}/`),
   ...["parliament-chambers", "double-majority", "federal-council", "zh-location", "founding-1848"].flatMap((t) => [
     `/en/topics/${t}/`,
     `/ru/topics/${t}/`,
   ]),
   // Questions: the first ones, with pictures (55, 110, 229, 279, 289) and with figures (20, 8, 139, 5, 56, 68, 213).
-  ...[1, 2, 3, 55, 110, 229, 279, 289, 20, 8, 139, 5, 56, 68, 213].map((n) => slug("de", n)),
-  ...[1, 55, 229, 20].flatMap((n) => [slug("en", n), slug("ru", n)]),
+  ...[1, 2, 3, 55, 110, 229, 279, 289, 20, 8, 139, 5, 56, 68, 213].map((n) => question("de", n)),
+  ...[1, 55, 229, 20].flatMap((n) => [question("en", n), question("ru", n)]),
 ];
 
-for (const path of PAGES) {
-  test(path, async ({ page }) => {
+for (const entry of PAGES) {
+  test(entry, async ({ page }) => {
+    const path = await resolve(page, entry);
     await page.goto(path);
     if (path === "/learn/") {
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
