@@ -85,7 +85,8 @@
         "b": "Au sein du collège, les membres peuvent dire leur avis. Mais vers l'extérieur, ils doivent défendre la décision commune.",
         "d": "Le Conseil fédéral vote parfois, c'est vrai. Mais le principe de collégialité signifie qu'ensuite tous défendent la décision ensemble.",
         "a": "Que les membres se connaissent bien ou non ne joue aucun rôle. Il s'agit de parler d'une seule voix vers l'extérieur."
-      }
+      },
+      "note": "Dans le texte officiel allemand, il manque le verbe dans l'option d : «Der Bundesrat Entscheidungen mit Abstimmung.» Il faut sans doute lire «Der Bundesrat fällt Entscheidungen mit Abstimmung.» Nous reproduisons le texte tel que le canton l'a publié."
     },
     "q006": {
       "question": "Les citoyennes et citoyens peuvent-ils arrêter une nouvelle loi ?",
@@ -689,7 +690,8 @@
       "distractors": {
         "d": "Le Conseil fédéral propose les lois et les met en œuvre. Mais c'est le Parlement qui doit les adopter.",
         "b": "Les cantons font des lois cantonales. Les lois fédérales sont adoptées par le Parlement fédéral."
-      }
+      },
+      "note": "Le texte officiel allemand écrit «ein Grossteil» ; en allemand correct, ce serait «einen Grossteil». Nous reproduisons le texte tel que le canton l'a publié."
     },
     "q048": {
       "question": "Quand une initiative est-elle acceptée au niveau fédéral ?",

@@ -85,7 +85,8 @@
         "b": "Im Gremium dürfen die Mitglieder ihre Meinung sagen. Gegen aussen müssen sie aber den gemeinsamen Entscheid vertreten.",
         "d": "Der Bundesrat stimmt zwar manchmal ab. Das Kollegialitätsprinzip bedeutet aber, dass danach alle den Entscheid gemeinsam vertreten.",
         "a": "Ob sich die Mitglieder gut kennen, spielt keine Rolle. Es geht um das gemeinsame Auftreten gegen aussen."
-      }
+      },
+      "note": "Im offiziellen Text fehlt in Option d das Verb: «Der Bundesrat Entscheidungen mit Abstimmung.» Gemeint ist wohl «Der Bundesrat fällt Entscheidungen mit Abstimmung.» Wir zeigen den Text so, wie ihn der Kanton veröffentlicht hat."
     },
     "q006": {
       "question": "Können die Stimmbürgerinnen und Stimmbürger ein neues Gesetz stoppen?",
@@ -689,7 +690,8 @@
       "distractors": {
         "d": "Der Bundesrat schlägt Gesetze vor und setzt sie um. Beschliessen muss sie aber das Parlament.",
         "b": "Die Kantone machen kantonale Gesetze. Bundesgesetze beschliesst das Bundesparlament."
-      }
+      },
+      "note": "Im offiziellen Text steht «ein Grossteil». Richtig ist «einen Grossteil». Wir zeigen den Text so, wie ihn der Kanton veröffentlicht hat."
     },
     "q048": {
       "question": "Wann ist eine Initiative auf Bundesebene angenommen?",

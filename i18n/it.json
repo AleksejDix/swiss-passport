@@ -85,7 +85,8 @@
         "b": "All'interno del collegio i membri possono dire la loro opinione. Verso l'esterno però devono sostenere la decisione comune.",
         "d": "È vero che il Consiglio federale a volte vota. Il principio di collegialità significa però che dopo tutti sostengono insieme la decisione.",
         "a": "Non importa se i membri si conoscono bene. Si tratta di presentarsi uniti verso l'esterno."
-      }
+      },
+      "note": "Nel testo ufficiale tedesco, all'opzione d manca il verbo: «Der Bundesrat Entscheidungen mit Abstimmung.» Probabilmente si intende «Der Bundesrat fällt Entscheidungen mit Abstimmung.» Mostriamo il testo così come l'ha pubblicato il Cantone."
     },
     "q006": {
       "question": "Le cittadine e i cittadini aventi diritto di voto possono fermare una nuova legge?",
@@ -689,7 +690,8 @@
       "distractors": {
         "d": "Il Consiglio federale propone le leggi e le mette in pratica. Ad approvarle però deve essere il Parlamento.",
         "b": "I Cantoni fanno leggi cantonali. Le leggi federali le approva il Parlamento federale."
-      }
+      },
+      "note": "Il testo ufficiale tedesco scrive «ein Grossteil»; in tedesco corretto è «einen Grossteil». Mostriamo il testo così come l'ha pubblicato il Cantone."
     },
     "q048": {
       "question": "Quando è accettata un'iniziativa a livello federale?",

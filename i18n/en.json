@@ -85,7 +85,8 @@
         "b": "Within the body, the members may say what they think. In public, however, they must represent the joint decision.",
         "d": "The Federal Council does sometimes vote. But the principle of collegiality means that afterwards all members represent the decision together.",
         "a": "Whether the members know each other well does not matter. It is about appearing united in public."
-      }
+      },
+      "note": "In the official German text, option d is missing its verb: «Der Bundesrat Entscheidungen mit Abstimmung.» It probably means «Der Bundesrat fällt Entscheidungen mit Abstimmung.» We show the text as the canton published it."
     },
     "q006": {
       "question": "Can voters stop a new law?",
@@ -689,7 +690,8 @@
       "distractors": {
         "d": "The Federal Council proposes laws and implements them. But Parliament must pass them.",
         "b": "The cantons make cantonal laws. Federal laws are passed by the Federal Parliament."
-      }
+      },
+      "note": "The official German text says «ein Grossteil»; correct German is «einen Grossteil». We show the text as the canton published it."
     },
     "q048": {
       "question": "When is an initiative at federal level accepted?",
