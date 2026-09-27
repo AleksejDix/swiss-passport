@@ -8,7 +8,7 @@ export interface RateLimit {
   limit(options: { key: string }): Promise<{ success: boolean }>;
 }
 
-const BLOCK_SECONDS = 600;
+export const BLOCK_SECONDS = 600;
 const blockKey = (ip: string) => new Request(`https://guard.invalid/wrong-codes/${encodeURIComponent(ip)}`);
 const cache = () => (caches as unknown as { default: Cache }).default;
 

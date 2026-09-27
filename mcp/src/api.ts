@@ -9,6 +9,7 @@
 import { z } from "zod";
 import { LANGUAGES } from "./catalog.js";
 import { engine, type Done, type Learner, type Learning } from "./learning.js";
+import { BLOCK_SECONDS } from "./guard.js";
 import { normalizeCode } from "./store.js";
 
 export const API_PREFIX = "/api/v1";
@@ -47,7 +48,9 @@ const HEADERS = {
 };
 const json = (body: unknown, status = 200, headers: Record<string, string> = {}) =>
   new Response(JSON.stringify(body), { status, headers: { ...HEADERS, ...headers } });
-const tooMany = () => json({ error: "Too many requests. Try again later." }, 429, { "retry-after": "60" });
+/** 429 with the seconds to wait: a minute for new learners, the whole block after too many wrong codes. */
+const tooMany = (seconds: number) =>
+  json({ error: "Too many requests. Try again later." }, 429, { "retry-after": String(seconds) });
 
 /**
  * Paths of a question's pictures: { question?, a?, b?, c?, d? }. They are static files of the same site, as paths
@@ -137,7 +140,7 @@ async function route(request: Request, learning: Learning, guard?: Guard): Promi
   if (path === "/learners") {
     const b = await body(request, BODIES.learners);
     if (b instanceof Response) return b;
-    if (guard && !(await guard.newLearner(ip))) return tooMany();
+    if (guard && !(await guard.newLearner(ip))) return tooMany(60);
     return reply(await learning.progress({ language: b.language }), 201);
   }
 
@@ -146,7 +149,7 @@ async function route(request: Request, learning: Learning, guard?: Guard): Promi
     b: { learner_code?: string; language?: Learner["language"] },
     action: (who: Learner) => Promise<Done>,
   ) {
-    if (guard && (await guard.blocked(ip))) return tooMany();
+    if (guard && (await guard.blocked(ip))) return tooMany(BLOCK_SECONDS);
     const code = b.learner_code === undefined ? undefined : normalizeCode(b.learner_code);
     const done =
       code !== undefined && !CODE.test(code)
