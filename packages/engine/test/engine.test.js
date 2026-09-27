@@ -94,14 +94,14 @@ test("a lesson is locked until its prerequisites are done", () => {
   assert.ok(!engine.progress(p, "en").lesson_choices.some((c) => c.id === "l2"));
 });
 
-test("a right answer schedules the topic for tomorrow; a wrong one comes back in the same round", () => {
+test("a right answer schedules the topic after the first delay; a wrong one comes back in the same round", () => {
   const p = emptyProgress();
   const now = new Date("2026-01-01T10:00:00Z");
   engine.startLesson(p, "l1", false);
   const first = engine.answer(p, "a", "en", now);
   assert.equal(first.feedback.correct, true);
   assert.equal(first.feedback.review.level, 1);
-  assert.equal(new Date(first.feedback.review.next_review).getTime(), now.getTime() + DAY);
+  assert.equal(new Date(first.feedback.review.next_review).getTime(), now.getTime() + 2 * DAY);
   const second = engine.answer(p, "b", "en", now);
   assert.equal(second.feedback.correct, false);
   assert.equal(second.feedback.comes_again_later_in_this_round, true);

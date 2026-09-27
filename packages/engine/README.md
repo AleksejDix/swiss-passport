@@ -45,6 +45,7 @@ engine.answer(progress, ["a", "c"], "en"); // a question whose answer is a list:
 | `startExam(p, voice)` | Starts a mock exam of `catalog.exam.size` random questions, without feedback until the end. |
 | `currentStep(session, lang)` | The question to answer now. |
 | `answer(p, given, lang, now?)` | Records the answer (an option id, or a list of them); returns `feedback` and `next`, or `finished`. |
+| `adjust(p, questionId, "sooner" \| "later", now?)` | The learner found it hard or too easy: moves the question's topic one level down or up. |
 | `lessonStages(curriculum)` | The stage of each lesson: 0 when it requires nothing, else one more than its latest prerequisite. |
 | `validateCatalog(catalog)` | Every problem in a catalog, one sentence each; empty when it is fine. Run it in your course's tests. |
 
@@ -52,16 +53,20 @@ engine.answer(progress, ["a", "c"], "en"); // a question whose answer is a list:
 
 - **Lessons.** A lesson is open once the lessons in its `requires` are done. `lesson_choices` offers one open lesson per unit, the unit studied longest ago (or never) first, so the units take turns.
 - **Wrong answers** come back at the end of the same round until they are right. Only the first try counts.
-- **Spaced repetition per topic:** a topic comes back after 1, 3, 7, 14 and 30 days; a mistake moves it back one step.
-- **Readiness:** the share of questions whose topic has reached level 3.
+- **Spaced repetition per topic**, with a different question of the topic each time. By default a topic comes back after 2, 7, 21 and 60 days and is then finished for good; a mistake halves its level. A course sets its own schedule with `review` (Swiss Passport: 1, 3, 7, 14 and 30 days, then monthly; a mistake moves it back one step, due the next day).
+- **Review rounds** hold at most 10 due topics, the longest due first, in mixed order. A wrong review answer names the lesson to revisit (`revisit_lesson`).
+- **The learner's own judgement:** after a question, `adjust(p, questionId, "sooner" | "later")` moves its topic one level down or up.
+- **Readiness:** the share of questions whose topic has reached level 3 (or is finished).
+- **Points** (optional): questions with `points` make lesson, review and exam results count `points` and `max_points`.
 
 ## Catalog
 
 ```ts
 {
   exam: { name, size, pass_mark },       // shown to the learner; size = questions per mock exam
+  review?: { days: [2, 7, 21, 60], finish: true, mistake: "halve" },  // the default; mistake: "step" = one level back, due after days[0]
   languages: ["de", "en"],               // the first is the exam language and the fallback for missing texts
-  questions: [{ id, category, level, options: [{ id: "a" }, …], answer: "c", image? }],
+  questions: [{ id, category, level, options: [{ id: "a" }, …], answer: "c", image?, points? }],
                                          // two or more options; answer: ["a", "c"] asks for every right option
   curriculum: {
     units: [{ id, lessons: [lessonId, …] }],

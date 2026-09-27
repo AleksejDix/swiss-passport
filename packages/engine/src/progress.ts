@@ -2,8 +2,9 @@
 import type { Answer } from "./catalog.js";
 
 export interface ConceptState {
-  level: number; // 0 = needs practice, 1..5 = spaced-repetition level
+  level: number; // 0 = needs practice, then one level per review delay of the course
   due: string; // ISO timestamp of the next review
+  done?: boolean; // passed the last review of a course that finishes topics: never due again
 }
 /** The activity in progress: its questions are handed out one at a time. */
 export interface Session {
@@ -19,7 +20,7 @@ export interface Progress {
   session?: Session;
   concepts: Record<string, ConceptState>;
   answered: Record<string, { correct: boolean; at: string }>;
-  exams: { at: string; score: number; total: number }[];
+  exams: { at: string; score: number; total: number; points?: number; max_points?: number }[];
 }
 
 export const emptyProgress = (): Progress => ({ concepts: {}, answered: {}, exams: [] });

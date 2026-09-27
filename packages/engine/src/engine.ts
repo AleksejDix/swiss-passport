@@ -1,14 +1,11 @@
 // Learning logic: lessons once their prerequisites are done, the units in turn; spaced repetition per concept; mock exam.
 // Every activity is a session that hands out exactly one question at a time.
-import { indexCatalog, isRight, type Answer, type Catalog } from "./catalog.js";
-import type { Progress, Session } from "./progress.js";
+import { indexCatalog, isRight, type Answer, type Catalog, type ReviewSchedule } from "./catalog.js";
+import type { ConceptState, Progress, Session } from "./progress.js";
 
 const DAY = 24 * 60 * 60 * 1000;
-// Days until the next review for each level (index = level). Level 0 = due immediately.
-const INTERVAL_DAYS = [0, 1, 3, 7, 14, 30];
-const MAX_LEVEL = INTERVAL_DAYS.length - 1;
-// A concept counts as "known" from this level on (used for the readiness score).
-const KNOWN_LEVEL = 3;
+/** For a course without its own schedule: Execute Program's, where a topic is finished after about three months. */
+export const DEFAULT_REVIEW: Required<ReviewSchedule> = { days: [2, 7, 21, 60], finish: true, mistake: "halve" };
 export const REVIEW_SIZE = 10;
 
 function shuffle<T>(items: T[]): T[] {
@@ -36,6 +33,23 @@ export function createEngine(catalog: Catalog) {
     unitTitle,
     categoryTitle,
   } = indexCatalog(catalog);
+
+  const review = { ...DEFAULT_REVIEW, ...catalog.review };
+  const MAX_LEVEL = review.days.length;
+  // A concept counts as "known" from this level on (used for the readiness score).
+  const KNOWN_LEVEL = Math.min(3, MAX_LEVEL);
+  /** How long a topic waits at a level: level 1 (and a new topic) waits the first delay. */
+  const delay = (level: number) => review.days[Math.max(level, 1) - 1] * DAY;
+  const points = (qid: string) => questions.get(qid)!.points ?? 1;
+  // Point totals appear only in courses that give their questions points.
+  const usesPoints = catalog.questions.some((q) => q.points !== undefined);
+  const pointTotals = (answers: Record<string, Answer>) =>
+    usesPoints && {
+      points: Object.entries(answers)
+        .filter(([q, a]) => isRight(a, questions.get(q)!.answer))
+        .reduce((sum, [q]) => sum + points(q), 0),
+      max_points: Object.keys(answers).reduce((sum, q) => sum + points(q), 0),
+    };
 
   /** Questions that need a picture cannot be asked in voice conversations. */
   const needsPicture = (qid: string) => {
@@ -88,7 +102,7 @@ export function createEngine(catalog: Catalog) {
 
   function dueConcepts(p: Progress, now = new Date()): string[] {
     return Object.entries(p.concepts)
-      .filter(([id, s]) => conceptById.has(id) && new Date(s.due) <= now)
+      .filter(([id, s]) => conceptById.has(id) && !s.done && new Date(s.due) <= now)
       .sort(([, a], [, b]) => a.due.localeCompare(b.due))
       .map(([id]) => id);
   }
@@ -138,7 +152,8 @@ export function createEngine(catalog: Catalog) {
       .filter(Boolean)
       .slice(0, REVIEW_SIZE);
     if (!picked.length) return false;
-    p.session = { kind: "review", questions: picked, pos: 0, answers: {}, voice };
+    // Mixed, so that neighbouring topics of one lesson do not give each other away.
+    p.session = { kind: "review", questions: shuffle(picked), pos: 0, answers: {}, voice };
     return true;
   }
 
@@ -184,22 +199,53 @@ export function createEngine(catalog: Catalog) {
 
   // ---- Answering ----------------------------------------------------------------------
 
+  /** One level up; at the last level a course that finishes topics finishes it. */
+  function levelUp(s: ConceptState) {
+    if (s.level === MAX_LEVEL && review.finish) s.done = true;
+    else s.level = Math.min(MAX_LEVEL, s.level + 1);
+  }
+
+  const reviewState = (s: ConceptState) => ({
+    level: s.level,
+    max_level: MAX_LEVEL,
+    ...(s.done ? { finished: true } : { next_review: s.due }),
+  });
+
   /** Updates the spaced-repetition state of the question's concept. */
   function schedule(p: Progress, qid: string, correct: boolean, now: Date) {
     const cid = conceptOfQuestion.get(qid)!;
     const s = p.concepts[cid] ?? { level: 0, due: now.toISOString() };
     if (correct) {
       // First success moves a new concept to level 1; later successes only count when the review was due.
-      if (s.level === 0 || new Date(s.due) <= now) s.level = Math.min(MAX_LEVEL, s.level + 1);
-      s.due = new Date(now.getTime() + INTERVAL_DAYS[s.level] * DAY).toISOString();
+      if (s.level === 0 || new Date(s.due) <= now) levelUp(s);
     } else {
-      // The question is repeated in the same round until correct; the concept comes back tomorrow.
-      s.level = Math.max(0, s.level - 1);
-      s.due = new Date(now.getTime() + INTERVAL_DAYS[1] * DAY).toISOString();
+      delete s.done;
+      s.level = review.mistake === "step" ? Math.max(0, s.level - 1) : Math.floor(s.level / 2);
     }
+    // After a mistake in "step" courses the topic comes back after the first delay, whatever its level.
+    const wait = !correct && review.mistake === "step" ? delay(0) : delay(s.level);
+    s.due = new Date(now.getTime() + wait).toISOString();
     p.concepts[cid] = s;
     p.answered[qid] = { correct, at: now.toISOString() };
-    return { level: s.level, max_level: MAX_LEVEL, next_review: s.due };
+    return reviewState(s);
+  }
+
+  /**
+   * The learner's own judgement after answering a question: "sooner" when they guessed (its topic moves one level
+   * down), "later" when it was too easy (one level up, or finished after the last). Returns the topic's new review
+   * state, or undefined when the learner has not answered the topic yet.
+   */
+  function adjust(p: Progress, questionId: string, direction: "sooner" | "later", now = new Date()) {
+    const cid = conceptOfQuestion.get(questionId);
+    const s = cid ? p.concepts[cid] : undefined;
+    if (!s) return undefined;
+    if (direction === "later") levelUp(s);
+    else {
+      delete s.done;
+      s.level = Math.max(0, s.level - 1);
+    }
+    s.due = new Date(now.getTime() + delay(s.level)).toISOString();
+    return reviewState(s);
   }
 
   /**
@@ -224,9 +270,13 @@ export function createEngine(catalog: Catalog) {
             const cid = conceptOfQuestion.get(qid)!;
             const review = isRetry ? undefined : schedule(p, qid, e.correct, now);
             if (!e.correct) s.questions.push(qid);
+            const lesson = conceptById.get(cid)!.lesson;
             return {
               ...e,
               ...(!e.correct && { comes_again_later_in_this_round: true }),
+              // A topic forgotten in a review: the lesson that teaches it.
+              ...(!e.correct &&
+                s.kind === "review" && { revisit_lesson: { id: lesson, title: lessonTitle(lesson, lang) } }),
               concept: conceptText(cid, lang).title,
               ...(review && { review }),
               sources: conceptById.get(cid)!.sources,
@@ -246,6 +296,7 @@ export function createEngine(catalog: Catalog) {
       [s.kind]: "done",
       correct_first_try: firstTry,
       total: Object.keys(s.answers).length,
+      ...pointTotals(s.answers),
       reviews_due: dueConcepts(p).length,
       next_lesson: next ? lessonTitle(next, lang) : null,
     };
@@ -254,10 +305,11 @@ export function createEngine(catalog: Catalog) {
   function gradeExam(p: Progress, answers: Record<string, Answer>, lang: string, now: Date) {
     const graded = Object.entries(answers).map(([qid, given]) => ({ qid, ...explanation(qid, given, lang) }));
     const score = graded.filter((g) => g.correct).length;
-    p.exams.push({ at: now.toISOString(), score, total: graded.length });
+    p.exams.push({ at: now.toISOString(), score, total: graded.length, ...pointTotals(answers) });
     return {
       score,
       total: graded.length,
+      ...pointTotals(answers),
       percent: Math.round((100 * score) / graded.length),
       pass_mark: catalog.exam.pass_mark,
       mistakes: graded
@@ -269,7 +321,10 @@ export function createEngine(catalog: Catalog) {
   // ---- Overview -----------------------------------------------------------------------
 
   function progress(p: Progress, lang: string) {
-    const known = (qid: string) => (p.concepts[conceptOfQuestion.get(qid)!]?.level ?? 0) >= KNOWN_LEVEL;
+    const known = (qid: string) => {
+      const s = p.concepts[conceptOfQuestion.get(qid)!];
+      return Boolean(s && (s.done || s.level >= KNOWN_LEVEL));
+    };
     const byCategory = new Map<string, { known: number; total: number }>();
     for (const q of questions.values()) {
       const c = byCategory.get(q.category) ?? { known: 0, total: 0 };
@@ -317,6 +372,7 @@ export function createEngine(catalog: Catalog) {
     startExam,
     currentStep,
     answer,
+    adjust,
     progress,
   };
 }

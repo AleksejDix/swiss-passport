@@ -28,6 +28,7 @@ export function validateCatalog(catalog: Catalog): string[] {
     if (!answers.length) problems.push(`question ${q.id} has no answer`);
     for (const a of twice(answers)) problems.push(`question ${q.id} has the answer ${a} more than once`);
     for (const a of answers) if (!options.includes(a)) problems.push(`question ${q.id}: its answer ${a} is no option`);
+    if (q.points !== undefined && !(q.points > 0)) problems.push(`question ${q.id}: points must be more than 0`);
   }
 
   // Every question is in exactly one topic; units, lessons and topics point at each other.
@@ -66,6 +67,8 @@ export function validateCatalog(catalog: Catalog): string[] {
   for (const l of lessons) visit(l.id, []);
 
   if (!(catalog.exam.size >= 1)) problems.push("exam.size must be at least 1");
+  if (catalog.review && !(catalog.review.days.length && catalog.review.days.every((d) => d > 0)))
+    problems.push("review.days must list at least one delay, each more than 0 days");
   if (!languages.length) problems.push("the catalog has no languages");
 
   // The first language fills in every text another language leaves out, so it needs all of them.

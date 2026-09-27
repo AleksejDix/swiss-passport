@@ -26,6 +26,9 @@ export const catalog: Catalog = {
     size: 50,
     pass_mark: "not officially published by the Canton of Zurich",
   },
+  // The schedule the site describes in every language: after a mistake one step back and again the next day.
+  // Topics keep coming back until the exam instead of finishing.
+  review: { days: [1, 3, 7, 14, 30], finish: false, mistake: "step" },
   languages: LANGUAGES,
   questions: quiz.questions as Question[],
   curriculum,

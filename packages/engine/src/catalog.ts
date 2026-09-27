@@ -21,6 +21,8 @@ export interface Question {
   category: string;
   level: string;
   image?: string;
+  /** What a right answer is worth in lesson, review and exam results (default 1). */
+  points?: number;
   /** Two or more options, e.g. a and b for true or false. */
   options: { id: OptionId; image?: string }[];
   /** One option, or a list (even of one) when the learner picks every right option: shown as checkboxes. */
@@ -77,6 +79,16 @@ export interface Texts {
   questions: Record<string, TextQuestion>;
 }
 
+/** How topics come back for review. */
+export interface ReviewSchedule {
+  /** Days a topic waits at each level: level 1 waits days[0], the last level the last delay. */
+  days: number[];
+  /** true: a right answer at the last level finishes the topic for good. false: it keeps coming back. */
+  finish?: boolean;
+  /** "halve": a mistake halves the level. "step": one level back, and back after the first delay. */
+  mistake?: "halve" | "step";
+}
+
 export interface Catalog {
   exam: {
     /** Named in the tutor's instructions, e.g. "the knowledge test of the Canton of Zurich". */
@@ -86,6 +98,8 @@ export interface Catalog {
     /** Told to the learner with the mock exam result. */
     pass_mark: string;
   };
+  /** Without it: after 2, 7, 21 and 60 days, then finished; a mistake halves the level (DEFAULT_REVIEW). */
+  review?: ReviewSchedule;
   /** The first language is the language of the exam: the fallback for missing texts, and shown alongside as "original". */
   languages: readonly string[];
   questions: Question[];

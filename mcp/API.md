@@ -92,7 +92,7 @@ In lessons and reviews:
 }
 ```
 
-`note` (if present) says what applies today where the official answer is outdated; the test still expects the official answer. A wrong answer comes back later in the same round. After the last question, `finished` replaces `next`: `{ "lesson": "done", "correct_first_try": 7, "total": 9, "reviews_due": 2, "next_lesson": "…" }`.
+`note` (if present) says what applies today where the official answer is outdated; the test still expects the official answer. A wrong answer comes back later in the same round. In reviews, a wrong answer also carries `revisit_lesson: { "id": "l07", "title": "…" }`, the lesson that teaches the topic. After the last question, `finished` replaces `next`: `{ "lesson": "done", "correct_first_try": 7, "total": 9, "reviews_due": 2, "next_lesson": "…" }`.
 
 In a mock exam, `feedback` is only `{ "recorded": true }`; the last answer returns `finished` with `score`, `total`, `percent`, `pass_mark` and the `mistakes`.
 
