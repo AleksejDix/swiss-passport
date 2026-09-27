@@ -7908,6 +7908,8 @@
     "wrongIs": "Richtig ist",
     "again": "Diese Frage kommt in dieser Runde noch einmal.",
     "next": "Weiter",
-    "done": "Fertig! Wie geht es weiter?"
+    "done": "Fertig! Wie geht es weiter?",
+    "startNew": "Neu beginnen",
+    "continueWithCode": "Weitermachen mit meinem Lerncode"
   }
 }

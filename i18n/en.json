@@ -7908,6 +7908,8 @@
     "wrongIs": "Correct answer:",
     "again": "This question comes again later in this round.",
     "next": "Next",
-    "done": "Done! What's next?"
+    "done": "Done! What's next?",
+    "startNew": "Start from scratch",
+    "continueWithCode": "Continue with my learner code"
   }
 }

@@ -14,6 +14,8 @@ export type { Learners, Out };
 export interface Learner {
   language?: Lang;
   learner_code?: string;
+  /** Online without a code: the learner said they start from scratch (MCP). */
+  new_learner?: boolean;
 }
 
 /** An action's result. `learnerCode` is missing when no learner could be found (online) or locally. */
@@ -26,9 +28,10 @@ export interface Done {
   voice: boolean;
 }
 
-/** For a learner without a code: where the code comes from. A fact, not an order (see CARD_NOTE in mcp/texts.ts). */
+/** For a new learner without a code: where the code comes from. A fact, not an order (see CARD_NOTE in mcp/texts.ts). */
 const NO_CODE_YET =
-  "This learner has no learner code yet. start_lesson, start_reviews and start_mock_exam create one with their first step." +
+  "This learner starts from scratch and has no learner code yet. start_lesson, start_reviews and start_mock_exam with" +
+  " new_learner: true create one with their first step." +
   " For a new learner, start_lesson without lesson_id shows lesson_choices on the card, where the learner picks where to start.";
 
 // API v1 and the tutor's instructions call the wording of the real exam "german"; the engine calls it "original".
@@ -51,7 +54,7 @@ export function createLearning(store: Store, { learners }: { learners: Learners 
   async function run(
     who: Learner,
     step: Step,
-    { create = learners === "by-code-or-new", save = true } = {},
+    { create = learners === "by-code-or-new" && Boolean(who.new_learner), save = true } = {},
   ): Promise<Done> {
     const found = await find(who.learner_code, create);
     if ("error" in found) return withoutLearner(found.error, who);

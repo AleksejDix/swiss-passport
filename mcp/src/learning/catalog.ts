@@ -18,6 +18,8 @@ export interface CardLabels {
   again: string;
   next: string;
   done: string;
+  startNew: string;
+  continueWithCode: string;
 }
 
 export const catalog: Catalog = {

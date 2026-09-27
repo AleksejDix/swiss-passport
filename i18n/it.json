@@ -7908,6 +7908,8 @@
     "wrongIs": "Risposta giusta:",
     "again": "Questa domanda tornerà più avanti in questo giro.",
     "next": "Avanti",
-    "done": "Finito! E adesso?"
+    "done": "Finito! E adesso?",
+    "startNew": "Iniziare da zero",
+    "continueWithCode": "Continuare con il mio codice"
   }
 }

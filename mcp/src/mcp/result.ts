@@ -2,10 +2,10 @@
 // result itself with its pictures, for the model and for the quiz card.
 import type { Assets } from "../assets.js";
 import { guarded, type Guard } from "../guard.js";
-import { CARD_LABELS, LANGUAGES, type Lang } from "../learning/catalog.js";
+import { CARD_LABELS, LANGUAGES, languageOf, type Lang } from "../learning/catalog.js";
 import type { Done, Learner, Out } from "../learning/learning.js";
 import { questionPictures } from "../learning/pictures.js";
-import { BLOCKED, NEW_CODE, VOICE_STEP } from "./texts.js";
+import { BLOCKED, NEW_CODE, NEW_OR_CONTINUING, VOICE_STEP } from "./texts.js";
 
 /** The tool call's context: ChatGPT sends its own "openai/..." keys in _meta. */
 export interface ToolRequest {
@@ -93,6 +93,9 @@ export function createRunner({
   client: string;
 }) {
   return async function run(request: ToolRequest, who: Learner, action: () => Promise<Done>) {
+    // Online, every chat first asks whether the learner starts from scratch or continues with their code.
+    if (online && !who.learner_code && !who.new_learner)
+      return toResult(assets, { data: NEW_OR_CONTINUING }, languageOf(who));
     // Guessing learner codes: a client with too many wrong codes waits, a wrong code counts against it.
     const withCode = online && who.learner_code !== undefined;
     const done = await guarded(withCode ? guard : undefined, client, action);

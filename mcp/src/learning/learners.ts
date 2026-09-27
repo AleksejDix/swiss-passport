@@ -6,7 +6,8 @@ import { errorOut, type Out } from "./steps.js";
 
 /**
  * How learners are told apart. "local": one learner (Claude Desktop). "by-code": a learner code in every request,
- * new codes only on request (REST API). "by-code-or-new": a request without a code makes a new learner (MCP online).
+ * new codes only on request (REST API). "by-code-or-new": a request from a learner who starts new (new_learner) makes a
+ * new learner (MCP online).
  */
 export type Learners = "local" | "by-code" | "by-code-or-new";
 
@@ -18,7 +19,7 @@ const LOCAL = "local";
 /** 404 for a learner code no learner has, and the way to a new code: POST /learners (REST API) or no code (MCP). */
 export function unknownCode(code: string, learners: Learners) {
   const newCode =
-    learners === "by-code" ? "get a new code with POST /learners" : "leave learner_code empty to start fresh";
+    learners === "by-code" ? "get a new code with POST /learners" : "start from scratch with new_learner: true";
   return errorOut(`Unknown learner code "${code}". Check it, or ${newCode}.`, 404);
 }
 

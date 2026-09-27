@@ -7908,6 +7908,8 @@
     "wrongIs": "La correcta es",
     "again": "Esta pregunta volverá más tarde en esta ronda.",
     "next": "Continuar",
-    "done": "¡Listo! ¿Y ahora qué?"
+    "done": "¡Listo! ¿Y ahora qué?",
+    "startNew": "Empezar desde cero",
+    "continueWithCode": "Continuar con mi código de estudio"
   }
 }

@@ -7908,6 +7908,8 @@
     "wrongIs": "Bonne réponse :",
     "again": "Cette question reviendra plus tard dans cette série.",
     "next": "Suivant",
-    "done": "Terminé ! Et maintenant ?"
+    "done": "Terminé ! Et maintenant ?",
+    "startNew": "Commencer à zéro",
+    "continueWithCode": "Continuer avec mon code d'apprentissage"
   }
 }

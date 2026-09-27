@@ -26,7 +26,13 @@ const commonInput = (online: boolean) => ({
       .string()
       .optional()
       .describe(
-        "Progress code this app gave the learner, e.g. BERG-7K2Q. Not a password or account token: it only points to quiz progress, which holds no personal data. Empty on first use: the first start_lesson, start_reviews or start_mock_exam creates a new code.",
+        "Progress code this app gave the learner, e.g. BERG-7K2Q. Not a password or account token: it only points to quiz progress, which holds no personal data. A learner who continues gives it; a learner who starts from scratch gets one with new_learner.",
+      ),
+    new_learner: z
+      .boolean()
+      .optional()
+      .describe(
+        "true when the learner said they start from scratch: the first start_lesson, start_reviews or start_mock_exam makes a new learner code. Without learner_code or new_learner, the learner is asked first.",
       ),
   }),
 });

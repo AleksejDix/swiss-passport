@@ -7908,6 +7908,8 @@
     "wrongIs": "E sakta është",
     "again": "Kjo pyetje vjen edhe një herë në këtë raund.",
     "next": "Vazhdo",
-    "done": "Mbarova! Si vazhdojmë?"
+    "done": "Mbarova! Si vazhdojmë?",
+    "startNew": "Fillo nga e para",
+    "continueWithCode": "Vazhdo me kodin tim mësimor"
   }
 }

@@ -41,14 +41,14 @@ assert(
   "all tools declared non-destructive and closed-world",
 );
 assert(
-  toolList.filter((t) => t._meta?.ui?.resourceUri === "ui://swiss-passport/card-v8.html").length === 4,
+  toolList.filter((t) => t._meta?.ui?.resourceUri === "ui://swiss-passport/card-v9.html").length === 4,
   "4 question tools show the quiz card",
 );
 assert(
   toolList.find((t) => t.name === "answer")._meta.ui.visibility.includes("app"),
   "the quiz card may call answer itself",
 );
-const card = await client.readResource({ uri: "ui://swiss-passport/card-v8.html" });
+const card = await client.readResource({ uri: "ui://swiss-passport/card-v9.html" });
 assert(
   card.contents[0].mimeType === "text/html;profile=mcp-app" && card.contents[0].text.includes('<div id="root">'),
   "quiz card resource readable",
