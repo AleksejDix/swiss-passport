@@ -25,3 +25,6 @@ site/.astro/
 
 # Cloudflare Worker (server/): local dev state
 server/.wrangler/
+
+# Private notes and issues: local only, never committed
+/private/
