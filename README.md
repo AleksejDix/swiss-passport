@@ -134,6 +134,7 @@ Quality checks, from the repository root. GitHub Actions runs `check` and `test:
 npx playwright install chromium   # once: the browser for the end-to-end tests
 npm run check               # lint (ESLint, Stylelint), format (Prettier), types, content files, engine and server tests
 npm run test:e2e            # the site in a browser against the real Worker: pages, links, /learn, CSP, accessibility
+E2E_PORT=8791 npm run test:e2e   # another port, when a second checkout (git worktree) tests at the same time
 npm run test:visual:update  # screenshots of the current site as the reference (before changing the look or the code)
 npm run test:visual         # compares the site with the reference, pixel by pixel (phone, tablet, desktop)
 ```

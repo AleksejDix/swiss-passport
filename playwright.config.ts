@@ -5,7 +5,8 @@
 //   npm run test:visual          compares the site with the reference, pixel by pixel
 import { defineConfig, devices } from "@playwright/test";
 
-const PORT = 8787;
+// Each checkout can test on its own port (E2E_PORT), so parallel worktrees never share a server.
+const PORT = Number(process.env.E2E_PORT ?? 8787);
 const visual = (name: string, width: number, height: number) => ({
   name: `visual-${name}`,
   testMatch: "visual.spec.ts",
@@ -29,9 +30,10 @@ export default defineConfig({
   ],
   webServer: {
     // Builds the server and the site, applies the D1 migrations locally and starts the Worker.
-    command: "npm --prefix mcp run dev:worker",
+    command: `npm --prefix mcp run dev:worker -- --port ${PORT}`,
     url: `http://localhost:${PORT}/de/`,
-    reuseExistingServer: !process.env.CI,
+    // Always this checkout's own build: a server left running from another checkout would test other code.
+    reuseExistingServer: false,
     timeout: 240_000,
     env: { WRANGLER_SEND_METRICS: "false" },
   },
