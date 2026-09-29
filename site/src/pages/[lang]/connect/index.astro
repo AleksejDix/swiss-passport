@@ -3,6 +3,7 @@ import type { InferGetStaticPropsType } from "astro";
 // Adding Swiss Passport to an AI app: the MCP address, then numbered steps per app (texts in connect.js).
 import Base from "../../../layouts/Base.astro";
 import AppLinks from "../../../components/ui/AppLinks.astro";
+import Button from "../../../components/ui/Button.astro";
 import CopyUrl from "../../../components/ui/CopyUrl.astro";
 import Logo from "../../../components/ui/Logo.astro";
 import PageHead from "../../../components/ui/PageHead.astro";
@@ -10,6 +11,7 @@ import Section from "../../../components/ui/Section.astro";
 import { SITE } from "../../../site.ts";
 import { connectPath } from "../../../data.ts";
 import { texts, LANGUAGES } from "../../../i18n.ts";
+import { DESKTOP_DOWNLOAD } from "../../../connect.ts";
 
 export function getStaticPaths() {
   return LANGUAGES.map((lang) => ({ params: { lang }, props: { lang } }));
@@ -62,6 +64,14 @@ const jsonLd = {
               <li>{step}</li>
             ))}
           </ol>
+          {app.id === "claude" && (
+            <>
+              <p>{c.desktop_p}</p>
+              <Button class="download" href={DESKTOP_DOWNLOAD}>
+                {c.desktop}
+              </Button>
+            </>
+          )}
         </div>
       </Section>
     ))}
@@ -99,5 +109,13 @@ const jsonLd = {
     color: var(--red);
     font-weight: 700;
     font-variant-numeric: tabular-nums;
+  }
+  /* The download for Claude Desktop, under its sentence; the button keeps its own width. */
+  .howto + p {
+    margin-top: var(--line);
+  }
+  .download {
+    justify-self: start;
+    margin-top: 0.75rem;
   }
 </style>

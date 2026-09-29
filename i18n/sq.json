@@ -7724,6 +7724,8 @@
       ],
       "other": "Aplikacione të tjera",
       "other_p": "Çdo aplikacion që mund të shtojë një server MCP në distancë funksionon njësoj: adresa më sipër, pa autentifikim. Gemini dhe Microsoft Copilot ende nuk e lejojnë këtë në Zvicër.",
+      "desktop": "Shkarko për Claude Desktop",
+      "desktop_p": "Ose pa adresë: shkarko shtesën për Claude Desktop dhe hape. Atëherë gjithçka funksionon në kompjuterin tënd, edhe offline, dhe përparimi mbetet aty.",
       "logos": "Logot janë marka të pronarëve të tyre. Swiss Passport nuk ka lidhje me asnjë nga këta ofrues."
     },
     "viz": {

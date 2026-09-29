@@ -1,7 +1,8 @@
 # Quality checks on every push and pull request. They do not deploy: Cloudflare Workers Builds deploys main on its own.
 #   checks: lint, format, types, content files, engine and server tests
 #   e2e:    the site in a browser against the real Worker (wrangler dev with a local D1 database)
-#   pack:   the Claude Desktop extension (mcp/swiss-passport-zh.mcpb), kept as a build artifact
+#   pack:   the Claude Desktop extension (mcp/swiss-passport-zh.mcpb): a build artifact on every run, and on main
+#           the asset of the GitHub Release desktop-v<manifest version>, which the website links as the latest release
 name: Checks
 
 on:
@@ -54,6 +55,8 @@ jobs:
 
   pack:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -67,3 +70,13 @@ jobs:
           name: swiss-passport-zh.mcpb
           path: mcp/swiss-passport-zh.mcpb
           retention-days: 30
+      - name: Publish as the GitHub Release of the manifest version
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="desktop-v$(node -p "require('./mcp/manifest.json').version")"
+          gh release view "$tag" >/dev/null 2>&1 ||
+            gh release create "$tag" --title "Claude Desktop extension ${tag#desktop-v}" \
+              --notes "Download swiss-passport-zh.mcpb and open it in Claude Desktop. Built from $GITHUB_SHA."
+          gh release upload "$tag" mcp/swiss-passport-zh.mcpb --clobber
