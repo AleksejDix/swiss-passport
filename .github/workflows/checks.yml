@@ -1,6 +1,7 @@
 # Quality checks on every push and pull request. They do not deploy: Cloudflare Workers Builds deploys main on its own.
 #   checks: lint, format, types, content files, engine and server tests
 #   e2e:    the site in a browser against the real Worker (wrangler dev with a local D1 database)
+#   pack:   the Claude Desktop extension (mcp/swiss-passport-zh.mcpb), kept as a build artifact
 name: Checks
 
 on:
@@ -50,3 +51,19 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run pack --workspace=swiss-passport-zh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: swiss-passport-zh.mcpb
+          path: mcp/swiss-passport-zh.mcpb
+          retention-days: 30

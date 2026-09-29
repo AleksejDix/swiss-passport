@@ -61,7 +61,7 @@ On first use you get a learner code like `BERG-7K2Q`. Write it down and give it 
 
 ### Claude Desktop, fully offline
 
-Build the extension (`cd mcp && npm run pack`) and drag `mcp/swiss-passport-zh.mcpb` into Claude Desktop. Progress then stays on your computer in `~/.swiss-passport-quiz/`.
+Download `swiss-passport-zh.mcpb` from the latest [Checks run](https://github.com/AleksejDix/swiss-passport/actions/workflows/checks.yml) on `main`, or build it yourself (`cd mcp && npm run pack`), then drag the file into Claude Desktop. Progress then stays on your computer in `~/.swiss-passport-quiz/`.
 
 ## How it teaches
 
