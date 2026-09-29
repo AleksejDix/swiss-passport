@@ -11,7 +11,7 @@ import Section from "../../../components/ui/Section.astro";
 import { SITE } from "../../../site.ts";
 import { connectPath } from "../../../data.ts";
 import { texts, LANGUAGES } from "../../../i18n.ts";
-import { DESKTOP_DOWNLOAD } from "../../../connect.ts";
+import { DESKTOP_DOWNLOAD, DESKTOP_BUNDLE } from "../../../connect.ts";
 
 export function getStaticPaths() {
   return LANGUAGES.map((lang) => ({ params: { lang }, props: { lang } }));
@@ -70,6 +70,9 @@ const jsonLd = {
               <Button class="download" href={DESKTOP_DOWNLOAD}>
                 {c.desktop}
               </Button>
+              <p class="note">
+                {c.desktop_alt} <a href={DESKTOP_BUNDLE}>swiss-passport-zh.mcpb</a>
+              </p>
             </>
           )}
         </div>
@@ -116,6 +119,9 @@ const jsonLd = {
   }
   .download {
     justify-self: start;
+    margin-top: 0.75rem;
+  }
+  .download + .note {
     margin-top: 0.75rem;
   }
 </style>

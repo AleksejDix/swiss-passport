@@ -7726,6 +7726,7 @@
       "other_p": "Jede App, die einen entfernten MCP-Server hinzufügen kann, funktioniert gleich: Adresse oben, keine Authentifizierung. Gemini und Microsoft Copilot können das in der Schweiz noch nicht.",
       "desktop": "Für Claude Desktop herunterladen",
       "desktop_p": "Oder ohne Adresse: das Plugin für Claude Desktop herunterladen und dort unter Plugins hochladen. Dann läuft alles auf dem eigenen Computer, auch offline, und der Fortschritt bleibt dort.",
+      "desktop_alt": "Zeigt dein Claude Desktop statt Plugins eine Seite Extensions? Dann nimm dort die reine MCP-Erweiterung:",
       "logos": "Die Logos sind Marken ihrer Inhaber. Swiss Passport ist mit keinem dieser Anbieter verbunden."
     },
     "viz": {
