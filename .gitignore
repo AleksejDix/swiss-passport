@@ -14,6 +14,8 @@ mcp/data/
 mcp/api/
 mcp/release/
 mcp/*.mcpb
+mcp/*.zip
+mcp/plugin-build/
 mcp/scripts/preview/out/
 
 # Local env files

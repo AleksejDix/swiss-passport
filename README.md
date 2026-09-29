@@ -61,7 +61,7 @@ On first use you get a learner code like `BERG-7K2Q`. Write it down and give it 
 
 ### Claude Desktop, fully offline
 
-Download the [latest release](https://github.com/AleksejDix/swiss-passport/releases/latest/download/swiss-passport-zh.mcpb) of `swiss-passport-zh.mcpb`, or build it yourself (`cd mcp && npm run pack`), then drag the file into Claude Desktop. Progress then stays on your computer in `~/.swiss-passport-quiz/`.
+Download the [latest release](https://github.com/AleksejDix/swiss-passport/releases/latest/download/swiss-passport-zh.zip) of `swiss-passport-zh.zip`, or build it yourself (`cd mcp && npm run pack`), then upload it in Claude Desktop under Settings → Plugins. The zip wraps the MCP bundle `swiss-passport-zh.mcpb`, which also installs on its own under Extensions. Progress then stays on your computer in `~/.swiss-passport-quiz/`.
 
 ## How it teaches
 
@@ -122,7 +122,7 @@ npm install         # once, in the repository root: installs all three packages
 npm test -w @aleksejdix/learning-engine   # the engine's own tests
 cd mcp
 npm test            # builds and runs the local and HTTP end-to-end tests
-npm run pack        # Claude Desktop extension (.mcpb)
+npm run pack        # Claude Desktop plugin (.zip around the .mcpb bundle)
 npm run deploy      # Cloudflare by hand: website + /mcp Worker (progress in D1)
 npm run dev:worker  # the same Worker locally on http://localhost:8787
 npm run release     # self-hosting package for a Mac (Node + built-in SQLite, see deploy/install.sh)

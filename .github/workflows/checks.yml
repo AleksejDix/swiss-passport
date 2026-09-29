@@ -1,8 +1,8 @@
 # Quality checks on every push and pull request. They do not deploy: Cloudflare Workers Builds deploys main on its own.
 #   checks: lint, format, types, content files, engine and server tests
 #   e2e:    the site in a browser against the real Worker (wrangler dev with a local D1 database)
-#   pack:   the Claude Desktop extension (mcp/swiss-passport-zh.mcpb): a build artifact on every run, and on main
-#           the asset of the GitHub Release desktop-v<manifest version>, which the website links as the latest release
+#   pack:   the Claude Desktop plugin (mcp/swiss-passport-zh.zip, around the .mcpb bundle): build artifacts on every run,
+#           and on main the assets of the GitHub Release desktop-v<manifest version>, which the website links as the latest release
 name: Checks
 
 on:
@@ -67,8 +67,10 @@ jobs:
       - run: npm run pack --workspace=swiss-passport-zh
       - uses: actions/upload-artifact@v4
         with:
-          name: swiss-passport-zh.mcpb
-          path: mcp/swiss-passport-zh.mcpb
+          name: claude-desktop-plugin
+          path: |
+            mcp/swiss-passport-zh.zip
+            mcp/swiss-passport-zh.mcpb
           retention-days: 30
       - name: Publish as the GitHub Release of the manifest version
         if: github.event_name == 'push'
@@ -77,6 +79,6 @@ jobs:
         run: |
           tag="desktop-v$(node -p "require('./mcp/manifest.json').version")"
           gh release view "$tag" >/dev/null 2>&1 ||
-            gh release create "$tag" --title "Claude Desktop extension ${tag#desktop-v}" \
-              --notes "Download swiss-passport-zh.mcpb and open it in Claude Desktop. Built from $GITHUB_SHA."
-          gh release upload "$tag" mcp/swiss-passport-zh.mcpb --clobber
+            gh release create "$tag" --title "Claude Desktop plugin ${tag#desktop-v}" \
+              --notes "swiss-passport-zh.zip: upload it in Claude Desktop under Settings → Plugins. swiss-passport-zh.mcpb: the bare MCP bundle inside it. Built from $GITHUB_SHA."
+          gh release upload "$tag" mcp/swiss-passport-zh.zip mcp/swiss-passport-zh.mcpb --clobber

@@ -4,9 +4,9 @@
 // Menu names stay in English, as the apps show them. Check them again when an app changes its settings.
 // Logos: LobeHub Icons (@lobehub/icons-static-svg 1.95.1, MIT), in currentColor. The marks are trademarks of their owners.
 
-/** The Claude Desktop extension (.mcpb), published as a GitHub Release by the Checks workflow on every push to main. */
+/** The Claude Desktop plugin (a zip around the .mcpb bundle), published as a GitHub Release by the Checks workflow on every push to main. */
 export const DESKTOP_DOWNLOAD =
-  "https://github.com/AleksejDix/swiss-passport/releases/latest/download/swiss-passport-zh.mcpb";
+  "https://github.com/AleksejDix/swiss-passport/releases/latest/download/swiss-passport-zh.zip";
 
 export const LOGOS: Record<string, string> = {
   claude:
