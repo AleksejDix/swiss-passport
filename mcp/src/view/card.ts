@@ -177,7 +177,9 @@ function showStep(step: Step, images: Card["images"]) {
       img.src = images[letter]!;
       b.append(img);
     } else {
-      b.append(el("span", "text", q.options[letter]));
+      const text = el("span", "text", q.options[letter]);
+      if (q.german) text.append(el("span", "german-option", q.german.options[letter]));
+      b.append(text);
     }
     b.onclick = async () => {
       opts.querySelectorAll("button").forEach((x) => ((x as HTMLButtonElement).disabled = true));

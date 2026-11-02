@@ -1,6 +1,7 @@
 <script lang="ts">
   // The four answers of a step. The learner picks one (click, tap, or the keys A to D); after the feedback the right
-  // answer is red and a wrong choice is struck through. Answers can be pictures (flags, maps), two per row.
+  // answer is red and a wrong choice is struck through. Under each answer its German wording, as in the exam. Answers
+  // can be pictures (flags, maps), two per row.
   import AnswerRow from "../components/ui/AnswerRow.svelte";
   import { LETTERS, type Images, type Letter, type Step } from "./api.ts";
 
@@ -34,6 +35,7 @@
         <img src={images[letter]} alt={letter.toUpperCase()} />
       {:else}
         {step.question.options[letter]}
+        {#if step.question.german}<small lang="de">{step.question.german.options[letter]}</small>{/if}
       {/if}
     </AnswerRow>
   {/each}
