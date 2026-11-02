@@ -40,7 +40,14 @@ export async function rightLetter(page: Page) {
   const question = await page.getByRole("heading", { level: 1 }).textContent();
   const options = await page
     .locator("[data-choices] button")
-    .evaluateAll((bs) => bs.map((b) => b.querySelector("span")?.textContent ?? null));
+    // The answer in the learner's language, without its German wording below it (small).
+    .evaluateAll((bs) =>
+      bs.map((b) => {
+        const span = b.querySelector("span")?.cloneNode(true) as HTMLElement | undefined;
+        span?.querySelector("small")?.remove();
+        return span?.textContent?.trim() ?? null;
+      }),
+    );
   const matches = quiz.questions.filter((q) => {
     const t = TEXTS.en.questions[q.id];
     return t.question === question && (options[0] === null || LETTERS.every((l, i) => t.options[l] === options[i]));
